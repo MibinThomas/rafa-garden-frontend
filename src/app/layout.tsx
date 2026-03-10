@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/lib/CartContext";
 import { CartSidebar } from "@/components/CartSidebar";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-geist-sans" });
 
@@ -17,14 +18,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} min-h-screen bg-obsidian text-foreground antialiased font-sans flex flex-col`}
+        className={`${inter.variable} min-h-screen bg-white dark:bg-obsidian text-[#0b2b1a] dark:text-white antialiased font-sans flex flex-col transition-colors duration-300`}
       >
-        <CartProvider>
-          {children}
-          <CartSidebar />
-        </CartProvider>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+          <CartProvider>
+            {children}
+            <CartSidebar />
+          </CartProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

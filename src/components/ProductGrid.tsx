@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/lib/CartContext";
-import { ShoppingBag, Droplets, Utensils } from "lucide-react";
+import { ShoppingCart, Heart, Eye, Share2 } from "lucide-react";
 import Image from "next/image";
 
 interface Product {
@@ -47,82 +47,64 @@ export function ProductGrid() {
     };
 
     return (
-        <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto z-10 relative bg-[#050505]">
-            <div className="mb-20 flex flex-col items-center justify-center text-center">
+        <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto z-10 relative bg-white dark:bg-obsidian transition-colors duration-300">
+            <div className="mb-20 flex flex-col items-start justify-start text-left">
                 <span className="text-[#d4af37] text-sm font-bold tracking-[0.3em] uppercase mb-4 block">Handcrafted in Kerala</span>
-                <h2 className="text-4xl md:text-6xl font-serif text-[#fffdd0] drop-shadow-[0_2px_10px_rgba(212,175,55,0.2)]">
+                <h2 className="text-4xl md:text-6xl font-serif text-[#0b2b1a] dark:text-[#fffdd0] drop-shadow-[0_2px_10px_rgba(212,175,55,0.2)] transition-colors duration-300">
                     Our Products
                 </h2>
-                <div className="w-24 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mt-6"></div>
+                <div className="w-24 h-1 bg-gradient-to-r from-[#d4af37] to-transparent mt-6"></div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16">
                 {PRODUCTS.map((product, i) => (
                     <motion.div
                         key={product.id}
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
-                        whileHover={{ y: -10, transition: { duration: 0.3 } }}
-                        className={`relative flex flex-col overflow-hidden rounded-t-[3rem] rounded-b-2xl p-1 break-inside-avoid backdrop-blur-md bg-[#0b2b1a]/80 border border-[#d4af37]/20 group shadow-[0_10px_30px_rgba(0,0,0,0.8)] hover:shadow-[0_15px_40px_rgba(212,175,55,0.15)] transition-all duration-500`}
+                        className="group flex flex-col relative"
                     >
-                        {/* Inner Container to mimic bottle shape or premium label wrapper */}
-                        <div className="bg-[#050505]/90 rounded-t-[2.9rem] rounded-b-xl p-8 flex flex-col h-full relative z-10 overflow-hidden">
-                            {/* Colorful backdrop ambient glow matching product */}
-                            <div className={`absolute -top-20 -right-20 w-48 h-48 bg-gradient-to-br ${product.color} opacity-[0.15] blur-3xl rounded-full group-hover:opacity-30 transition-opacity duration-700 pointer-events-none`} />
+                        {/* Image Container */}
+                        <div className="relative w-full aspect-[4/5] overflow-hidden bg-gray-100 dark:bg-[#0a0a0a]">
+                            <Image
+                                src={product.image}
+                                alt={product.name}
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
 
-                            {/* Product Image */}
-                            <div className="relative w-full h-56 mb-6 -mt-8 -mx-8 bg-[#030303] overflow-hidden rounded-t-[2.9rem] flex-shrink-0">
-                                <Image
-                                    src={product.image}
-                                    alt={product.name}
-                                    fill
-                                    className="object-cover opacity-80 group-hover:opacity-100 transition-all group-hover:scale-105 duration-700"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/90 to-transparent pointer-events-none" />
-                            </div>
-
-                            {/* Label Header */}
-                            <div className="flex items-center justify-between mb-4 border-b border-white/5 pb-4">
-                                <div className="flex flex-col">
-                                    <span className="text-[10px] font-bold tracking-[0.2em] text-[#d4af37] uppercase">Rafa Garden</span>
-                                    <span className="text-xs text-gray-500 uppercase tracking-wider">{product.type}</span>
-                                </div>
-                                <div className="p-2 bg-gradient-to-tr from-white/5 to-white/10 rounded-full border border-white/10 z-10">
-                                    {product.type === "crush" ? (
-                                        <Droplets size={16} className="text-[#38b000]" />
-                                    ) : (
-                                        <Utensils size={16} className="text-[#F59E0B]" />
-                                    )}
-                                </div>
-                            </div>
-
-                            {/* Product Info */}
-                            <div className="flex-grow flex flex-col justify-start mb-6">
-                                <h3 className="text-2xl font-serif text-[#fffdd0] mb-3 leading-snug group-hover:text-[#d4af37] transition-colors duration-300">
-                                    {product.name}
-                                </h3>
-                                <p className="text-gray-400 text-sm leading-relaxed font-light">
-                                    {product.description}
-                                </p>
-                            </div>
-
-                            {/* Add to Cart / Price footer */}
-                            <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/5 relative z-10">
-                                <span className="text-2xl font-light text-[#fffdd0]">
-                                    <span className="text-[#d4af37] text-lg mr-1">$</span>
-                                    {product.price.toFixed(2)}
-                                </span>
-
-                                <button
-                                    onClick={(e) => handleDragClick(e, product)}
-                                    className="flex items-center justify-center p-3 px-5 gap-2 bg-[#123e25] text-[#d4af37] rounded-full border border-[#d4af37]/30 hover:bg-[#d4af37] hover:text-[#0b2b1a] hover:border-[#d4af37] transition-all active:scale-95 group/btn"
-                                    aria-label={`Add ${product.name} to cart`}
-                                >
-                                    <span className="text-xs font-bold tracking-widest uppercase">Add</span>
-                                    <ShoppingBag size={16} />
+                            {/* Floating Icons Overlaid - White Square Icons */}
+                            <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 z-20">
+                                <button className="w-10 h-10 flex items-center justify-center bg-white dark:bg-[#111] border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 hover:text-[#d4af37] dark:hover:text-[#d4af37] hover:border-[#d4af37] dark:hover:border-[#d4af37] transition-all shadow-sm">
+                                    <Heart size={18} strokeWidth={1.5} />
+                                </button>
+                                <button className="w-10 h-10 flex items-center justify-center bg-white dark:bg-[#111] border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 hover:text-[#d4af37] dark:hover:text-[#d4af37] hover:border-[#d4af37] dark:hover:border-[#d4af37] transition-all shadow-sm">
+                                    <Eye size={18} strokeWidth={1.5} />
+                                </button>
+                                <button className="w-10 h-10 flex items-center justify-center bg-white dark:bg-[#111] border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 hover:text-[#d4af37] dark:hover:text-[#d4af37] hover:border-[#d4af37] dark:hover:border-[#d4af37] transition-all shadow-sm">
+                                    <Share2 size={18} strokeWidth={1.5} />
                                 </button>
                             </div>
+                        </div>
+
+                        {/* Full Width Add to Cart Button */}
+                        <button
+                            onClick={(e) => handleDragClick(e, product)}
+                            className="w-full py-4 flex items-center justify-center gap-2 bg-[#0b2b1a] text-white dark:bg-[#050505] dark:text-[#d4af37] font-semibold hover:bg-[#d4af37] hover:text-[#0b2b1a] dark:hover:bg-[#d4af37] dark:hover:text-[#0b2b1a] transition-colors duration-300 dark:border dark:border-[#d4af37]/20"
+                        >
+                            <ShoppingCart size={20} strokeWidth={1.5} />
+                            <span className="text-sm tracking-wide">Add to Cart</span>
+                        </button>
+
+                        {/* Product Details (Name & Price) */}
+                        <div className="pt-5 flex flex-col items-start text-left">
+                            <h3 className="text-xl text-[#0b2b1a] dark:text-[#fffdd0] transition-colors duration-300 font-sans font-medium mb-2 group-hover:text-[#d4af37] dark:group-hover:text-[#d4af37]">
+                                {product.name}
+                            </h3>
+                            <p className="text-gray-700 dark:text-gray-300 font-sans text-lg">
+                                ${product.price.toFixed(2)}
+                            </p>
                         </div>
                     </motion.div>
                 ))}
