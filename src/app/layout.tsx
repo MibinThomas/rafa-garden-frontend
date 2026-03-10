@@ -4,6 +4,7 @@ import "./globals.css";
 import { CartProvider } from "@/lib/CartContext";
 import { CartSidebar } from "@/components/CartSidebar";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { FloatingContactMenu } from "@/components/FloatingContactMenu";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-geist-sans" });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
           <CartProvider>
             {children}
             <CartSidebar />
+            <FloatingContactMenu />
           </CartProvider>
         </ThemeProvider>
       </body>
