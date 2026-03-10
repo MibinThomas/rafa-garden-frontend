@@ -7,15 +7,15 @@ export function FloatingHero() {
             <SpaceFruitCanvas />
 
             <div className="z-10 text-center flex flex-col items-center pointer-events-auto mix-blend-difference">
-                <h1 className="text-6xl md:text-9xl font-black uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-magenta drop-shadow-[0_0_20px_rgba(255,0,127,0.5)]">
-                    DRGN CRUSH
+                <h1 className="text-6xl md:text-9xl font-black uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[#d4af37] to-[#38b000] drop-shadow-[0_0_20px_rgba(56,176,0,0.5)]">
+                    RAFA GARDEN
                 </h1>
-                <p className="mt-6 text-xl md:text-2xl font-medium tracking-widest text-slate-300">
-                    ZERO GRAVITY REFRESHMENT
+                <p className="mt-6 text-xl md:text-2xl font-serif tracking-widest text-[#fffdd0]">
+                    ESSENCE OF KERALA HERITAGE
                 </p>
 
-                <button className="mt-12 px-8 py-4 bg-magenta text-white font-bold tracking-widest rounded-full hover:bg-magenta-400 hover:scale-105 transition-all shadow-[0_0_30px_rgba(255,0,127,0.4)]">
-                    CRUSH YOUR THIRST
+                <button className="mt-12 px-8 py-4 bg-[#123e25] border border-[#d4af37] text-[#d4af37] font-bold tracking-widest rounded-full hover:bg-[#d4af37] hover:text-[#0b2b1a] hover:scale-105 transition-all shadow-[0_0_30px_rgba(212,175,55,0.2)]">
+                    EXPLORE THE GARDEN
                 </button>
             </div>
 
