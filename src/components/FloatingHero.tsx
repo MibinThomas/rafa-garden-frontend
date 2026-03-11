@@ -1,15 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { SpaceFruitCanvas } from "./SpaceFruitCanvas";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const SLIDES = [
     {
-        title: "THE BLOSSOM",
-        subtitle: "NIGHT-BLOOMING MAGIC",
-        description: "Witness the rare Moonlight Cactus blossom, blooming only under the tropical night sky of Kerala."
+        title: "ROOHAFZA",
+        subtitle: "SOUL REFRESHER",
+        description: "The iconic herbal cooling syrup, crafted from a natural blend of fruits, herbs, and floral extracts for the ultimate summer refreshment."
     },
     {
         title: "THE FRUIT",
@@ -30,19 +29,17 @@ export function FloatingHero() {
     const prevSlide = () => setSlide((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
 
     return (
-        <section className="relative w-full min-h-screen md:h-screen overflow-hidden bg-white dark:bg-obsidian transition-colors duration-300 text-foreground flex items-center justify-center">
+        <section className="relative w-full min-h-screen md:h-screen bg-white dark:bg-obsidian transition-colors duration-300 text-foreground flex items-center justify-center">
 
             {/* Global Container for layout max width constraints */}
             <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row relative h-full">
 
-                {/* 3D Visual - Top Half on Mobile, Right Half on Desktop */}
-                {/* Notice md:h-auto md:top-24 md:bottom-24 to push it perfectly down to the center-bottom, above sliders */}
-                <div className="relative w-full h-[50vh] md:h-auto md:absolute md:top-24 md:bottom-32 md:right-0 md:w-1/2 z-0 flex flex-col items-center justify-center pointer-events-none md:pointer-events-auto">
-                    <SpaceFruitCanvas activeSlide={slide} />
+                {/* 3D Visual Spacer Slot - Top Half on Mobile, Right Half on Desktop & Mobile Slider Controls */}
+                <div id="hero-visual-slot" className="relative w-full h-[50vh] md:h-auto md:absolute md:top-24 md:bottom-32 md:right-0 md:w-1/2 z-0 flex flex-col items-center justify-center pointer-events-none">
 
                     {/* Mobile-only Slider Controls placed directly at the bottom of the visual canvas */}
                     <div className="absolute bottom-2 left-0 right-0 flex items-center justify-center gap-4 md:hidden pointer-events-auto z-20">
-                        <button onClick={prevSlide} className="w-10 h-10 flex items-center justify-center rounded-full bg-white/30 dark:bg-black/40 backdrop-blur-md border border-[#d4af37]/50 text-[#d4af37] active:scale-90 shadow-sm">
+                        <button onClick={prevSlide} className="w-10 h-10 flex items-center justify-center rounded-full bg-white/30 dark:bg-black/40 backdrop-blur-md border border-[#C5A880]/50 text-[#C5A880] active:scale-90 shadow-sm">
                             <ArrowLeft size={18} />
                         </button>
                         <div className="flex gap-2 bg-white/20 dark:bg-black/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 shadow-sm">
@@ -50,12 +47,12 @@ export function FloatingHero() {
                                 <button
                                     key={i}
                                     onClick={() => setSlide(i)}
-                                    className={`transition-all duration-300 rounded-full ${slide === i ? "w-6 h-1.5 bg-[#d4af37] shadow-[0_0_5px_#d4af37]" : "w-1.5 h-1.5 bg-[#0b2b1a]/40 dark:bg-white/30"}`}
+                                    className={`transition-all duration-300 rounded-full ${slide === i ? "w-6 h-1.5 bg-[#C5A880] shadow-[0_0_5px_#C5A880]" : "w-1.5 h-1.5 bg-[#2C4C3B]/40 dark:bg-white/30"}`}
                                     aria-label={`Go to slide ${i + 1}`}
                                 />
                             ))}
                         </div>
-                        <button onClick={nextSlide} className="w-10 h-10 flex items-center justify-center rounded-full bg-white/30 dark:bg-black/40 backdrop-blur-md border border-[#d4af37]/50 text-[#d4af37] active:scale-90 shadow-sm">
+                        <button onClick={nextSlide} className="w-10 h-10 flex items-center justify-center rounded-full bg-white/30 dark:bg-black/40 backdrop-blur-md border border-[#C5A880]/50 text-[#C5A880] active:scale-90 shadow-sm">
                             <ArrowRight size={18} />
                         </button>
                     </div>
@@ -72,11 +69,11 @@ export function FloatingHero() {
                             transition={{ duration: 0.4 }}
                             className="flex flex-col items-center md:items-start w-full"
                         >
-                            <h2 className="text-xs md:text-sm font-bold tracking-[0.3em] uppercase text-[#0b2b1a] dark:text-[#fffdd0] bg-gray-100 dark:bg-black/40 md:bg-white/40 backdrop-blur-md px-4 py-1.5 md:px-6 md:py-2 rounded-full mb-4 md:mb-6 border border-[#d4af37]/50 shadow-sm md:shadow-lg inline-block text-center md:text-left">
+                            <h2 className="text-xs md:text-sm font-bold tracking-[0.3em] uppercase text-[#2C4C3B] dark:text-gray-200 bg-gray-100 dark:bg-black/40 md:bg-white/40 backdrop-blur-md px-4 py-1.5 md:px-6 md:py-2 rounded-full mb-4 md:mb-6 border border-[#C5A880]/50 shadow-sm md:shadow-lg inline-block text-center md:text-left">
                                 {SLIDES[slide].subtitle}
                             </h2>
 
-                            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] font-black uppercase tracking-tighter leading-none text-transparent bg-clip-text bg-gradient-to-r from-[#d4af37] via-[#38b000] to-[#FF007F] drop-shadow-[0_2px_10px_rgba(255,0,127,0.2)] dark:drop-shadow-[0_0_20px_rgba(56,176,0,0.5)] py-2">
+                            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] font-black uppercase tracking-tighter leading-none text-transparent bg-clip-text bg-gradient-to-r from-[#C5A880] via-[#2C4C3B] to-[#C96A82] drop-shadow-[0_2px_10px_rgba(201,106,130,0.2)] dark:drop-shadow-[0_0_20px_rgba(44,76,59,0.5)] py-2">
                                 {SLIDES[slide].title}
                             </h1>
 
@@ -87,7 +84,7 @@ export function FloatingHero() {
                     </AnimatePresence>
 
                     {/* Explore Button */}
-                    <button className="mt-8 md:mt-10 px-8 py-3.5 md:py-4 pointer-events-auto bg-[#123e25] border border-[#d4af37] text-[#d4af37] text-sm md:text-base font-bold tracking-widest rounded-full hover:bg-[#d4af37] hover:text-[#0b2b1a] active:scale-95 md:hover:scale-105 transition-all shadow-[0_4px_30px_rgba(212,175,55,0.4)] dark:shadow-[0_0_30px_rgba(212,175,55,0.2)]">
+                    <button className="mt-8 md:mt-10 px-8 py-3.5 md:py-4 pointer-events-auto bg-[#2C4C3B] border border-[#C5A880] text-[#C5A880] text-sm md:text-base font-bold tracking-widest rounded-full hover:bg-[#C5A880] hover:text-[#0A0A0A] active:scale-95 md:hover:scale-105 transition-all shadow-[0_4px_30px_rgba(197,168,128,0.4)] dark:shadow-[0_0_30px_rgba(197,168,128,0.2)]">
                         EXPLORE THE GARDEN
                     </button>
                 </div>
@@ -95,7 +92,7 @@ export function FloatingHero() {
                 {/* Desktop-only Slider Controls anchored properly within max-width container */}
                 <div className="hidden md:flex absolute inset-y-0 right-0 w-1/2 flex-col justify-end items-center pb-12 z-20 pointer-events-none">
                     <div className="flex items-center gap-6 mt-auto pointer-events-auto">
-                        <button onClick={prevSlide} className="w-12 h-12 flex items-center justify-center rounded-full bg-white/30 dark:bg-black/40 backdrop-blur-md border border-[#d4af37]/50 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#0b2b1a] transition-all shadow-lg active:scale-90">
+                        <button onClick={prevSlide} className="w-12 h-12 flex items-center justify-center rounded-full bg-white/30 dark:bg-black/40 backdrop-blur-md border border-[#C5A880]/50 text-[#C5A880] hover:bg-[#C5A880] hover:text-[#0A0A0A] transition-all shadow-lg active:scale-90">
                             <ArrowLeft size={24} />
                         </button>
 
@@ -104,19 +101,31 @@ export function FloatingHero() {
                                 <button
                                     key={i}
                                     onClick={() => setSlide(i)}
-                                    className={`transition-all duration-300 rounded-full ${slide === i ? "w-8 h-2.5 bg-[#d4af37] shadow-[0_0_10px_#d4af37]" : "w-2.5 h-2.5 bg-[#0b2b1a]/40 dark:bg-white/30 hover:bg-[#d4af37]/60"}`}
+                                    className={`transition-all duration-300 rounded-full ${slide === i ? "w-8 h-2.5 bg-[#C5A880] shadow-[0_0_10px_#C5A880]" : "w-2.5 h-2.5 bg-[#2C4C3B]/40 dark:bg-white/30 hover:bg-[#C5A880]/60"}`}
                                     aria-label={`Go to slide ${i + 1}`}
                                 />
                             ))}
                         </div>
 
-                        <button onClick={nextSlide} className="w-12 h-12 flex items-center justify-center rounded-full bg-white/30 dark:bg-black/40 backdrop-blur-md border border-[#d4af37]/50 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#0b2b1a] transition-all shadow-lg active:scale-90">
+                        <button onClick={nextSlide} className="w-12 h-12 flex items-center justify-center rounded-full bg-white/30 dark:bg-black/40 backdrop-blur-md border border-[#C5A880]/50 text-[#C5A880] hover:bg-[#C5A880] hover:text-[#0A0A0A] transition-all shadow-lg active:scale-90">
                             <ArrowRight size={24} />
                         </button>
                     </div>
                 </div>
 
             </div>
+
+            {/* 3D Canvas Injection Event happens inside app/page.tsx so it overlays both sections */}
+            {/* But we will emit a custom dispatch event to tell the global canvas what slide we are on! */}
+            <GlobalSlideNotifier slide={slide} />
         </section>
     );
+}
+
+// Small helper to inform global 3D Canvas in layout of current active slide
+function GlobalSlideNotifier({ slide }: { slide: number }) {
+    if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent('updateHeroSlide', { detail: slide }));
+    }
+    return null;
 }

@@ -3,16 +3,21 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-obsidian: #050505;
-  --color-kerala-green: #0b2b1a;
-  --color-kerala-gold: #d4af37;
-  --color-magenta: #FF007F;
-  --color-magenta-400: #FF3399;
+  --color-obsidian: #000000;
+  /* Premium dark background */
+  --color-kerala-green: #2C4C3B;
+  /* Sophisticated deep sage */
+  --color-kerala-gold: #C5A880;
+  /* Premium Champagne gold */
+  --color-magenta: #C96A82;
+  /* Muted contemporary magenta/rose */
+  --color-magenta-400: #E08CA1;
 }
 
 body {
   font-family: var(--font-geist-sans), Arial, sans-serif;
   overflow-x: hidden;
+  background-color: var(--color-obsidian);
 }
 
 /* Custom scrollbar for webkit */
@@ -21,14 +26,14 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background);
+  background: var(--color-obsidian);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-kerala-gold);
+  background: var(--color-magenta);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #b38b22;
+  background: var(--color-magenta-400);
 }

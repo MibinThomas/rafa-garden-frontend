@@ -1,16 +1,21 @@
-import { FloatingHero } from "@/components/FloatingHero";
-import { ProductGrid } from "@/components/ProductGrid";
 import { Navbar } from "@/components/Navbar";
+import { ExperienceCanvas } from "@/components/ExperienceCanvas";
+import { ProductGrid } from "@/components/ProductGrid";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-white dark:bg-obsidian transition-colors duration-300 flex flex-col">
+    <main className="relative min-h-screen bg-black transition-colors duration-300 flex flex-col font-sans">
       <Navbar />
-      <FloatingHero />
-      <div className="relative z-10 bg-white/80 dark:bg-obsidian/80 backdrop-blur-md transition-colors duration-300">
+
+      {/* The 400vh Scroll Sequence */}
+      <ExperienceCanvas />
+
+      {/* Products continue below the scrollytelling section */}
+      <div className="relative z-10 bg-black backdrop-blur-md transition-colors duration-300 pt-20">
         <ProductGrid />
       </div>
-      <footer className="w-full py-12 text-center text-gray-500 text-sm tracking-widest bg-white dark:bg-obsidian border-t border-black/5 dark:border-white/5 relative z-10 transition-colors duration-300">
+
+      <footer className="w-full py-12 text-center text-gray-500 text-sm tracking-widest bg-black border-t border-white/10 relative z-10 transition-colors duration-300">
         <p>&copy; {new Date().getFullYear()} RAFA GARDEN. ALL RIGHTS RESERVED.</p>
       </footer>
     </main>

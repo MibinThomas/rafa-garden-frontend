@@ -17,7 +17,7 @@ interface Product {
 }
 
 const PRODUCTS: Product[] = [
-    { id: "1", name: "Dragon Fruit Crush", type: "crush", price: 12.99, color: "from-[#FF007F] to-[#CC0066]", description: "Authentic Kerala-grown dragon fruit, cold-pressed into a refreshing crush.", image: "/products/dragon_fruit_crush.png" },
+    { id: "1", name: "Rafah Roohafza", type: "crush", price: 14.99, color: "from-[#8B0000] to-[#E34234]", description: "The authentic, refreshing herbal syrup with a perfect blend of natural ingredients.", image: "/products/roohafza.png" },
     { id: "2", name: "Mango Passion Jam", type: "jam", price: 8.49, color: "from-[#F59E0B] to-[#D97706]", description: "Hand-picked Alphonso mangoes and wild passion fruit preserve.", image: "/products/mango_passion_jam.png" },
     { id: "3", name: "Spiced Pineapple Crush", type: "crush", price: 10.99, color: "from-[#FCD34D] to-[#B45309]", description: "Farm-fresh pineapple crushed with a hint of Kerala cardamom and clove.", image: "/products/spiced_pineapple_crush.png" },
     { id: "4", name: "Mixed Berry Jam", type: "jam", price: 9.99, color: "from-[#6366F1] to-[#4338CA]", description: "Rich, dark forest berries slowly cooked in traditional brass urulis.", image: "/products/mixed_berry_jam.png" },
@@ -66,12 +66,14 @@ export function ProductGrid() {
                         className="group flex flex-col relative"
                     >
                         {/* Image Container */}
-                        <div className="relative w-full aspect-[4/5] overflow-hidden bg-gray-100 dark:bg-[#0a0a0a]">
+                        <div id={`product-image-${product.id}`} className="relative w-full aspect-[4/5] overflow-hidden bg-transparent rounded-lg">
                             <Image
+                                id={`grid-real-image-${product.id}`}
                                 src={product.image}
                                 alt={product.name}
                                 fill
-                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                className="object-contain p-6 transition-transform duration-700 group-hover:scale-105"
+                                style={{ opacity: product.id === "1" ? 0 : 1 }}
                             />
 
                             {/* Floating Icons Overlaid - White Square Icons */}

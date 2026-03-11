@@ -1,74 +1,168 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Float, Sphere, Sparkles, MeshDistortMaterial } from "@react-three/drei";
-import { useRef } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import * as THREE from "three";
 
-// Slide 0: The Blossom
-// A breathing, glowing night-blooming flower.
-function Blossom() {
+// ==============================================
+// Realistic Scroll-Tracking Rafah Roohafza Bottle
+// ==============================================
+function RoohafzaBottle({ isStatic }: { isStatic: boolean }) {
   const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y = state.clock.elapsedTime * 0.15;
-      groupRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.5) * 0.05;
+    if (!groupRef.current) return;
 
-      // Slow organic breathing scale
-      const scale = 1 + Math.sin(state.clock.elapsedTime * 1.5) * 0.08;
-      groupRef.current.scale.set(scale, scale, scale);
+    if (!isStatic) {
+      // Constant gentle spinning when in hero
+      groupRef.current.rotation.y += 0.015;
+      // Subtle floating that occurs within the container
+      groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 2) * 0.1;
+    } else {
+      // Smoothly snap to front-facing when static in grid
+      groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, 0, 0.1);
+      groupRef.current.position.y = THREE.MathUtils.lerp(groupRef.current.position.y, 0, 0.1);
     }
   });
 
-  return (
-    <group ref={groupRef} position={[0, -0.5, 0]}>
-      {/* Glowing Core */}
-      <Sphere args={[0.8, 64, 64]}>
-        <meshStandardMaterial
-          color="#ffffff"
-          emissive="#d4af37"
-          emissiveIntensity={0.6}
-          roughness={0.1}
-          metalness={0.8}
-        />
-      </Sphere>
+  const bottlePoints = useMemo(() => [
+    new THREE.Vector2(0.001, 0),
+    new THREE.Vector2(0.7, 0),
+    new THREE.Vector2(0.75, 0.1),
+    new THREE.Vector2(0.75, 1.8), // body
+    new THREE.Vector2(0.4, 2.9),  // shoulder/neck
+    new THREE.Vector2(0.32, 3.8),  // neck top
+    new THREE.Vector2(0.32, 4.0),
+    new THREE.Vector2(0.001, 4.0)
+  ], []);
 
-      {/* Organic surrounding petals */}
-      {[...Array(32)].map((_, i) => {
-        const angle = (i / 32) * Math.PI * 2;
-        const radius = 1.0;
-        return (
-          <mesh
-            key={i}
-            position={[
-              Math.cos(angle) * radius,
-              Math.sin(angle * 4) * 0.3 - 0.2,
-              Math.sin(angle) * radius
-            ]}
-            rotation={[
-              Math.PI / 4 + Math.sin(angle) * 0.5,
-              -angle,
-              Math.PI / 6
-            ]}
-          >
-            <coneGeometry args={[0.15, 2.5, 16]} />
-            <meshStandardMaterial
-              color="#fffdd0"
-              roughness={0.3}
-              emissive="#ffffff"
-              emissiveIntensity={0.2}
-            />
-          </mesh>
-        )
-      })}
-      <Sparkles count={150} scale={6} size={4} speed={0.4} opacity={0.8} color="#d4af37" />
+  const liquidPoints = useMemo(() => [
+    new THREE.Vector2(0.001, 0.05),
+    new THREE.Vector2(0.68, 0.05),
+    new THREE.Vector2(0.73, 0.1),
+    new THREE.Vector2(0.73, 1.8),
+    new THREE.Vector2(0.42, 2.7), // liquid height tapering into neck
+    new THREE.Vector2(0.001, 2.7)
+  ], []);
+
+  // Center pivot by pushing down
+  return (
+    <group ref={groupRef}>
+      <group position={[0, -2, 0]}>
+        {/* Glass */}
+        <mesh>
+          <latheGeometry args={[bottlePoints, 64]} />
+          <meshPhysicalMaterial
+            color="#ffffff"
+            transmission={0.9}
+            opacity={1}
+            metalness={0.1}
+            roughness={0.05}
+            ior={1.5}
+            thickness={0.5}
+            transparent
+            clearcoat={1}
+          />
+        </mesh>
+
+        {/* Liquid (Deep Red Ruby) */}
+        <mesh>
+          <latheGeometry args={[liquidPoints, 64]} />
+          <meshStandardMaterial
+            color="#8B0000"
+            roughness={0.2}
+            metalness={0.1}
+          />
+        </mesh>
+
+        {/* Green Cap */}
+        <mesh position={[0, 4.15, 0]}>
+          <cylinderGeometry args={[0.34, 0.34, 0.3, 32]} />
+          <meshStandardMaterial color="#1f4d29" roughness={0.3} metalness={0.1} />
+        </mesh>
+
+        {/* Cap Bottom Ring */}
+        <mesh position={[0, 3.95, 0]}>
+          <cylinderGeometry args={[0.36, 0.36, 0.1, 32]} />
+          <meshStandardMaterial color="#1f4d29" roughness={0.3} />
+        </mesh>
+
+        {/* White Label representing the RoohAfza logo wrapper */}
+        <mesh position={[0, 1.0, 0]}>
+          <cylinderGeometry args={[0.76, 0.76, 1.3, 64]} />
+          <meshStandardMaterial color="#FAF9F6" roughness={0.8} />
+        </mesh>
+
+        <Sparkles count={30} scale={1.2} size={2} speed={0.1} opacity={0.5} color="#ffffff" position={[0, 1.5, 0]} />
+      </group>
     </group>
   );
 }
 
-// Slide 1: Original Dragon Fruit
-// A distorted magenta sphere with green surrounding scales.
+function ScrollTrackingBottle() {
+  const { camera } = useThree();
+  const groupRef = useRef<THREE.Group>(null);
+  const [isStatic, setIsStatic] = useState(false);
+
+  useFrame(() => {
+    if (!groupRef.current) return;
+
+    const heroEl = document.getElementById("hero-visual-slot");
+    const gridEl = document.getElementById("product-image-1");
+
+    if (!heroEl || !gridEl) return;
+
+    const scrollY = window.scrollY;
+    const gridRect = gridEl.getBoundingClientRect();
+    const heroRect = heroEl.getBoundingClientRect();
+
+    const totalDist = (scrollY + gridRect.top) - (scrollY + heroRect.top);
+    let progress = 0;
+    if (totalDist > 0) {
+      progress = Math.max(0, Math.min(scrollY / (totalDist * 0.8), 1));
+    }
+
+    if (progress > 0.95 !== isStatic) {
+      setIsStatic(progress > 0.95);
+    }
+
+    const ease = progress < 0.5 ? 4 * progress * Math.pow(progress, 2) : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+    const xPx = heroRect.left + heroRect.width / 2 + (gridRect.left + gridRect.width / 2 - (heroRect.left + heroRect.width / 2)) * ease;
+    const yPx = heroRect.top + heroRect.height / 2 + (gridRect.top + gridRect.height / 2 - (heroRect.top + heroRect.height / 2)) * ease;
+    const heightPx = heroRect.height + (gridRect.height - heroRect.height) * ease;
+
+    const xNdc = (xPx / window.innerWidth) * 2 - 1;
+    const yNdc = -(yPx / window.innerHeight) * 2 + 1;
+
+    const vec = new THREE.Vector3(xNdc, yNdc, 0.5);
+    vec.unproject(camera);
+    vec.sub(camera.position).normalize();
+    const distance = -camera.position.z / vec.z;
+    const pos = new THREE.Vector3().copy(camera.position).add(vec.multiplyScalar(distance));
+
+    groupRef.current.position.lerp(pos, 0.15);
+
+    const fovRad = ((camera as THREE.PerspectiveCamera).fov * Math.PI) / 180;
+    const visibleHeightAtZ0 = 2 * Math.tan(fovRad / 2) * camera.position.z;
+    const targetScale = (heightPx / window.innerHeight) * visibleHeightAtZ0;
+
+    const normalizer = 4.4; // Height of Lathe geometry is 4.0 + cap ~ 4.4
+    const fillFactor = progress > 0.5 ? 0.95 : 0.8;
+    groupRef.current.scale.setScalar(THREE.MathUtils.lerp(groupRef.current.scale.x, (targetScale / normalizer) * fillFactor, 0.15));
+  });
+
+  return (
+    <group ref={groupRef}>
+      <RoohafzaBottle isStatic={isStatic} />
+    </group>
+  );
+}
+
+// ==============================================
+// Slide 2: Original Organic Dragon Fruit
+// ==============================================
 function DragonFruitOrganic() {
   const groupRef = useRef<THREE.Group>(null);
 
@@ -81,20 +175,18 @@ function DragonFruitOrganic() {
 
   return (
     <group ref={groupRef} position={[0, -0.5, 0]}>
-      {/* Soft, bumpy magenta core */}
       <Sphere args={[1.6, 128, 128]}>
         <MeshDistortMaterial
-          color="#FF007F"
+          color="#C96A82"
           distort={0.25}
           speed={1.5}
           roughness={0.4}
           metalness={0.1}
-          emissive="#CC0066"
-          emissiveIntensity={0.3}
+          emissive="#E08CA1"
+          emissiveIntensity={0.2}
         />
       </Sphere>
 
-      {/* The outer green scales using Fibonacci sphere logic */}
       {[...Array(28)].map((_, i) => {
         const phi = Math.acos(-1 + (2 * i) / 28);
         const theta = Math.sqrt(28 * Math.PI) * phi;
@@ -104,37 +196,27 @@ function DragonFruitOrganic() {
         const z = dist * Math.cos(phi);
 
         return (
-          <mesh
-            key={i}
-            position={[x, y, z]}
-            rotation={[phi, theta, Math.PI / 4]}
-          >
+          <mesh key={i} position={[x, y, z]} rotation={[phi, theta, Math.PI / 4]}>
             <coneGeometry args={[0.25, 1.2, 16]} />
-            <meshStandardMaterial
-              color="#38b000"
-              emissive="#0b2b1a"
-              emissiveIntensity={0.3}
-              roughness={0.7}
-            />
+            <meshStandardMaterial color="#2C4C3B" emissive="#0A0A0A" emissiveIntensity={0.3} roughness={0.7} />
           </mesh>
         )
       })}
-      <Sparkles count={80} scale={8} size={5} speed={0.5} opacity={0.6} color="#FF007F" />
-      <Sparkles count={60} scale={6} size={3} speed={0.8} opacity={0.5} color="#38b000" />
+      <Sparkles count={80} scale={8} size={5} speed={0.5} opacity={0.6} color="#E08CA1" />
+      <Sparkles count={60} scale={6} size={3} speed={0.8} opacity={0.5} color="#2C4C3B" />
     </group>
   );
 }
 
-// Slide 2: Sliced Harvest
-// Exploded view showing the inner crisp white flesh and black seeds.
+// ==============================================
+// Slide 3: Sliced Harvest
+// ==============================================
 function SlicedFruit() {
   const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
     if (groupRef.current) {
       groupRef.current.rotation.y = state.clock.elapsedTime * 0.15;
-
-      // Slow hovering apart
       const separation = Math.sin(state.clock.elapsedTime * 2) * 0.1;
       groupRef.current.children[0].position.x = -1.2 - separation;
       groupRef.current.children[1].position.x = 1.2 + separation;
@@ -143,93 +225,96 @@ function SlicedFruit() {
 
   return (
     <group ref={groupRef} position={[0, -0.5, 0]}>
-      {/* Left Slice */}
       <group position={[-1.2, 0, 0]} rotation={[0, Math.PI / 3, Math.PI / 12]}>
-        {/* Magenta outer skin (half) */}
         <mesh position={[-0.1, 0, 0]}>
           <sphereGeometry args={[1.5, 64, 64, 0, Math.PI]} />
-          <meshStandardMaterial color="#FF007F" side={THREE.DoubleSide} roughness={0.5} />
+          <meshStandardMaterial color="#C96A82" side={THREE.DoubleSide} roughness={0.5} />
         </mesh>
-        {/* Internal white flesh */}
         <mesh rotation={[0, Math.PI / 2, 0]}>
           <circleGeometry args={[1.48, 64]} />
-          <meshStandardMaterial color="#ffffff" roughness={0.8} />
+          <meshStandardMaterial color="#FAF9F6" roughness={0.8} />
         </mesh>
-        {/* Black Seeds */}
-        <Sparkles
-          count={250}
-          scale={2.6}
-          size={2}
-          color="#050505"
-          speed={0}
-          position={[0.01, 0, 0]}
-          rotation={[0, Math.PI / 2, 0]}
-        />
+        <Sparkles count={250} scale={2.6} size={2} color="#050505" speed={0} position={[0.01, 0, 0]} rotation={[0, Math.PI / 2, 0]} />
       </group>
 
-      {/* Right Slice */}
       <group position={[1.2, 0, 0]} rotation={[0, -Math.PI / 3, -Math.PI / 12]}>
         <mesh position={[-0.1, 0, 0]}>
           <sphereGeometry args={[1.5, 64, 64, 0, Math.PI]} />
-          <meshStandardMaterial color="#FF007F" side={THREE.DoubleSide} roughness={0.5} />
+          <meshStandardMaterial color="#C96A82" side={THREE.DoubleSide} roughness={0.5} />
         </mesh>
         <mesh rotation={[0, Math.PI / 2, 0]}>
           <circleGeometry args={[1.48, 64]} />
-          <meshStandardMaterial color="#ffffff" roughness={0.8} />
+          <meshStandardMaterial color="#FAF9F6" roughness={0.8} />
         </mesh>
-        <Sparkles
-          count={250}
-          scale={2.6}
-          size={2}
-          color="#050505"
-          speed={0}
-          position={[0.01, 0, 0]}
-          rotation={[0, Math.PI / 2, 0]}
-        />
+        <Sparkles count={250} scale={2.6} size={2} color="#050505" speed={0} position={[0.01, 0, 0]} rotation={[0, Math.PI / 2, 0]} />
       </group>
     </group>
   );
 }
 
-// Camera matching logic based on the active slide
+// ==============================================
+// Global Interactive Scene Controller
+// ==============================================
 function InteractiveScene({ activeSlide }: { activeSlide: number }) {
   useFrame((state) => {
-    // Adjust zoom distance dynamically
-    const targetZ = activeSlide === 0 ? 9 : activeSlide === 1 ? 8 : 10;
-    state.camera.position.z = THREE.MathUtils.lerp(state.camera.position.z, targetZ, 0.05);
+    if (activeSlide !== 0) {
+      const targetZ = activeSlide === 1 ? 8 : 10;
+      state.camera.position.z = THREE.MathUtils.lerp(state.camera.position.z, targetZ, 0.05);
 
-    // Adjust Y height slightly to frame text better
-    const targetY = activeSlide === 0 ? -1 : activeSlide === 1 ? -0.5 : 0;
-    state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, targetY, 0.05);
+      const targetY = activeSlide === 1 ? -0.5 : 0;
+      state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, targetY, 0.05);
+    } else {
+      // Neutralize camera for precise 1:1 window DOM mapping math on Slide 0
+      state.camera.position.z = THREE.MathUtils.lerp(state.camera.position.z, 10, 0.1);
+      state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, 0, 0.1);
+    }
   });
 
   return (
-    <Float speed={1.5} rotationIntensity={0.8} floatIntensity={1.5}>
-      {/* Conditional mounting of the 3 components. R3F mounts/unmounts fast enough for this slide transition */}
-      {activeSlide === 0 && <Blossom />}
-      {activeSlide === 1 && <DragonFruitOrganic />}
-      {activeSlide === 2 && <SlicedFruit />}
-    </Float>
+    <>
+      {activeSlide === 0 && <ScrollTrackingBottle />}
+
+      {activeSlide !== 0 && (
+        <Float speed={1.5} rotationIntensity={0.8} floatIntensity={1.5}>
+          {activeSlide === 1 && <DragonFruitOrganic />}
+          {activeSlide === 2 && <SlicedFruit />}
+        </Float>
+      )}
+    </>
   );
 }
 
+// ==============================================
+// Global Roots
+// ==============================================
 export function SpaceFruitCanvas({ activeSlide }: { activeSlide: number }) {
+  return null; // Local hero fallback removed
+}
+
+export function GlobalSpaceFruitCanvas() {
+  const [slide, setSlide] = useState(0);
+
+  useEffect(() => {
+    function handleSlideChange(e: any) {
+      setSlide(e.detail);
+    }
+    window.addEventListener('updateHeroSlide', handleSlideChange);
+    return () => window.removeEventListener('updateHeroSlide', handleSlideChange);
+  }, []);
+
+  // No opacity toggle, the canvas stays 100% visible and manages its contents internally with InteractiveScene
   return (
-    <div className="absolute inset-0 z-0 pointer-events-none transition-opacity duration-1000">
+    <div className="fixed inset-0 z-20 pointer-events-none transition-opacity duration-1000">
       <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
         <ambientLight intensity={0.7} />
-        {/* Primary Key Light */}
-        <directionalLight position={[10, 10, 5]} intensity={2.5} color="#d4af37" />
-        {/* Secondary Fill Light */}
-        <directionalLight position={[-10, -10, -5]} intensity={1.5} color="#FF007F" />
-        {/* Soft backlighting */}
-        <pointLight position={[0, 5, -10]} intensity={1} color="#38b000" />
+        <directionalLight position={[10, 10, 5]} intensity={2.5} color="#C5A880" />
+        <directionalLight position={[-10, -10, -5]} intensity={1.5} color="#C96A82" />
+        <pointLight position={[0, 5, -10]} intensity={1} color="#2C4C3B" />
 
         <Environment preset="night" />
-        <InteractiveScene activeSlide={activeSlide} />
+        <InteractiveScene activeSlide={slide} />
 
-        {/* Global ambient particles independent of slides */}
-        <Sparkles count={50} scale={18} size={3} speed={0.2} opacity={0.4} color="#d4af37" />
+        <Sparkles count={50} scale={18} size={3} speed={0.2} opacity={0.4} color="#C5A880" />
       </Canvas>
     </div>
   );
