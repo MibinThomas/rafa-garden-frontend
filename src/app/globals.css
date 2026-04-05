@@ -3,37 +3,43 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-obsidian: #000000;
-  /* Premium dark background */
-  --color-kerala-green: #2C4C3B;
-  /* Sophisticated deep sage */
-  --color-kerala-gold: #C5A880;
-  /* Premium Champagne gold */
-  --color-magenta: #C96A82;
-  /* Muted contemporary magenta/rose */
-  --color-magenta-400: #E08CA1;
+  --color-brand-pink: #c81c6a;
+  --color-brand-magenta: #9a0c52;
+  --color-brand-green: #7fa23f;
+  --color-brand-grey: #bbbdbf;
+  --color-brand-bg: #f1f1f2;
+}
+
+:root {
+  --font-sans: var(--font-outfit), var(--font-inter), ui-sans-serif, system-ui;
+  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
 }
 
 body {
-  font-family: var(--font-geist-sans), Arial, sans-serif;
+  font-family: var(--font-sans);
   overflow-x: hidden;
-  background-color: var(--color-obsidian);
+  background-color: var(--color-brand-bg);
+  color: #1a1a1a;
 }
 
-/* Custom scrollbar for webkit */
+h1, h2, h3, h4, h5, h6, .font-serif {
+  font-family: var(--font-serif);
+}
+
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-obsidian);
+  background: var(--color-brand-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-magenta);
+  background: var(--color-brand-pink);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-magenta-400);
+  background: var(--color-brand-magenta);
 }

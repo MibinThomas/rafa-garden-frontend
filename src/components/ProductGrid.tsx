@@ -47,13 +47,13 @@ export function ProductGrid() {
     };
 
     return (
-        <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto z-10 relative bg-white dark:bg-obsidian transition-colors duration-300">
+        <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto z-10 relative bg-[#f1f1f2] transition-colors duration-300 font-sans">
             <div className="mb-20 flex flex-col items-start justify-start text-left">
-                <span className="text-[#d4af37] text-sm font-bold tracking-[0.3em] uppercase mb-4 block">Handcrafted in Kerala</span>
-                <h2 className="text-4xl md:text-6xl font-serif text-[#0b2b1a] dark:text-[#fffdd0] drop-shadow-[0_2px_10px_rgba(212,175,55,0.2)] transition-colors duration-300">
-                    Our Products
+                <span className="text-brand-pink text-sm font-bold tracking-[0.3em] uppercase mb-4 block">Handcrafted in Nature</span>
+                <h2 className="text-4xl md:text-6xl font-serif text-brand-magenta transition-colors duration-300">
+                    Our Collection
                 </h2>
-                <div className="w-24 h-1 bg-gradient-to-r from-[#d4af37] to-transparent mt-6"></div>
+                <div className="w-24 h-1 bg-brand-pink mt-6"></div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16">
@@ -76,15 +76,15 @@ export function ProductGrid() {
                                 style={{ opacity: product.id === "1" ? 0 : 1 }}
                             />
 
-                            {/* Floating Icons Overlaid - White Square Icons */}
+                            {/* Floating Icons Overlaid - Brand Styled Icons */}
                             <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 z-20">
-                                <button className="w-10 h-10 flex items-center justify-center bg-white dark:bg-[#111] border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 hover:text-[#d4af37] dark:hover:text-[#d4af37] hover:border-[#d4af37] dark:hover:border-[#d4af37] transition-all shadow-sm">
+                                <button className="w-10 h-10 flex items-center justify-center bg-white border border-brand-pink/10 text-brand-pink hover:bg-brand-pink hover:text-white transition-all shadow-sm">
                                     <Heart size={18} strokeWidth={1.5} />
                                 </button>
-                                <button className="w-10 h-10 flex items-center justify-center bg-white dark:bg-[#111] border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 hover:text-[#d4af37] dark:hover:text-[#d4af37] hover:border-[#d4af37] dark:hover:border-[#d4af37] transition-all shadow-sm">
+                                <button className="w-10 h-10 flex items-center justify-center bg-white border border-brand-pink/10 text-brand-pink hover:bg-brand-pink hover:text-white transition-all shadow-sm">
                                     <Eye size={18} strokeWidth={1.5} />
                                 </button>
-                                <button className="w-10 h-10 flex items-center justify-center bg-white dark:bg-[#111] border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 hover:text-[#d4af37] dark:hover:text-[#d4af37] hover:border-[#d4af37] dark:hover:border-[#d4af37] transition-all shadow-sm">
+                                <button className="w-10 h-10 flex items-center justify-center bg-white border border-brand-pink/10 text-brand-pink hover:bg-brand-pink hover:text-white transition-all shadow-sm">
                                     <Share2 size={18} strokeWidth={1.5} />
                                 </button>
                             </div>
@@ -93,18 +93,17 @@ export function ProductGrid() {
                         {/* Full Width Add to Cart Button */}
                         <button
                             onClick={(e) => handleDragClick(e, product)}
-                            className="w-full py-4 flex items-center justify-center gap-2 bg-[#0b2b1a] text-white dark:bg-[#050505] dark:text-[#d4af37] font-semibold hover:bg-[#d4af37] hover:text-[#0b2b1a] dark:hover:bg-[#d4af37] dark:hover:text-[#0b2b1a] transition-colors duration-300 dark:border dark:border-[#d4af37]/20"
+                            className="w-full py-4 flex items-center justify-center gap-2 bg-brand-pink text-white font-bold hover:bg-brand-magenta transition-colors duration-300 shadow-sm"
                         >
                             <ShoppingCart size={20} strokeWidth={1.5} />
-                            <span className="text-sm tracking-wide">Add to Cart</span>
+                            <span className="text-xs uppercase tracking-widest">Add to Cart</span>
                         </button>
 
-                        {/* Product Details (Name & Price) */}
                         <div className="pt-5 flex flex-col items-start text-left">
-                            <h3 className="text-xl text-[#0b2b1a] dark:text-[#fffdd0] transition-colors duration-300 font-sans font-medium mb-2 group-hover:text-[#d4af37] dark:group-hover:text-[#d4af37]">
+                            <h3 className="text-xl text-brand-magenta transition-colors duration-300 font-sans font-bold mb-1 group-hover:text-brand-pink uppercase tracking-tight">
                                 {product.name}
                             </h3>
-                            <p className="text-gray-700 dark:text-gray-300 font-sans text-lg">
+                            <p className="text-brand-grey font-sans text-sm font-medium">
                                 ${product.price.toFixed(2)}
                             </p>
                         </div>

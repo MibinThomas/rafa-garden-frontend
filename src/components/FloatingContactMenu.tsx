@@ -55,13 +55,13 @@ export function FloatingContactMenu() {
                                         duration: 0.2,
                                         delay: (ACTIONS.length - 1 - index) * 0.05
                                     }}
-                                    className="w-12 h-12 rounded-full border-[1.5px] border-[#d4af37] bg-[#050505] text-white flex items-center justify-center shadow-lg hover:scale-110 hover:bg-[#d4af37] hover:text-[#0b2b1a] transition-all group relative"
+                                    className="w-12 h-12 rounded-full border-[1.5px] border-brand-pink/20 bg-white text-brand-pink flex items-center justify-center shadow-md hover:scale-110 hover:bg-brand-pink hover:text-white transition-all group relative"
                                     aria-label={action.label}
                                 >
                                     {action.icon}
 
                                     {/* Tooltip */}
-                                    <span className="absolute right-14 bg-[#050505] text-[#fffdd0] border border-[#d4af37]/30 text-xs px-3 py-1.5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none drop-shadow-md">
+                                    <span className="absolute right-14 bg-white text-brand-magenta border border-brand-pink/10 text-[0.6rem] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-sm">
                                         {action.label}
                                     </span>
                                 </motion.a>
@@ -73,9 +73,9 @@ export function FloatingContactMenu() {
                 {/* Toggle Button */}
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className={`flex items-center justify-center w-14 h-14 rounded-full shadow-2xl transition-all duration-300 transform active:scale-90 hover:scale-105 ${isOpen || isChatOpen
-                            ? "bg-[#050505] border-[1.5px] border-[#d4af37] text-[#d4af37]"
-                            : "bg-[#d4af37] text-[#0b2b1a]"
+                    className={`flex items-center justify-center w-14 h-14 rounded-full shadow-lg transition-all duration-300 transform active:scale-90 hover:scale-105 ${isOpen || isChatOpen
+                            ? "bg-white border-[1.5px] border-brand-pink/20 text-brand-pink"
+                            : "bg-brand-pink text-white"
                         }`}
                     aria-label="Toggle Contact Menu"
                 >
