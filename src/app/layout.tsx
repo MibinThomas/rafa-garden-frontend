@@ -4,7 +4,7 @@ import "./globals.css";
 import { CartProvider } from "@/lib/CartContext";
 import { CartSidebar } from "@/components/CartSidebar";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { FloatingContactMenu } from "@/components/FloatingContactMenu";
+// import { FloatingContactMenu } from "@/components/FloatingContactMenu";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
@@ -29,7 +29,6 @@ export default function RootLayout({
           <CartProvider>
             {children}
             <CartSidebar />
-            <FloatingContactMenu />
           </CartProvider>
         </ThemeProvider>
       </body>

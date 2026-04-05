@@ -46,7 +46,6 @@ export function CategoryHero({ onSelect }: { onSelect: (index: number) => void }
           <motion.div
             key={cat.id}
             onMouseEnter={() => setHoveredIndex(index)}
-            onClick={() => onSelect(index)}
             className="relative h-full transition-all duration-700 ease-in-out flex flex-col cursor-pointer border-r border-black/5 last:border-r-0 overflow-hidden"
             animate={{
               flex: hoveredIndex === index ? 3 : 1,
@@ -85,11 +84,15 @@ export function CategoryHero({ onSelect }: { onSelect: (index: number) => void }
               </div>
 
               {/* Bottom Section: Button */}
-              <div className="mt-2">
+              <div className="mt-2 text-left">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`flex items-center gap-3 px-7 py-3 rounded-full border transition-all duration-500 group
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onSelect(index);
+                  }}
+                  className={`flex items-center gap-3 px-7 py-3 rounded-full border transition-all duration-500 group pointer-events-auto
                     ${hoveredIndex === index 
                       ? "border-white/30 bg-white/10 text-white backdrop-blur-md hover:bg-white hover:text-black" 
                       : "border-black/10 text-black hover:bg-black hover:text-white"}
