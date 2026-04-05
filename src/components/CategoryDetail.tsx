@@ -22,29 +22,21 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
       className="absolute inset-0 z-50 overflow-hidden flex flex-col font-sans"
       style={{ backgroundColor: cat.color }}
     >
-      {/* Header */}
-      <header className="relative z-30 w-full px-8 md:px-16 py-8 flex items-center justify-between text-white">
-        <div className="flex items-center gap-2 cursor-pointer group" onClick={onBack}>
-          <ArrowLeft className="group-hover:-translate-x-1 transition-transform" />
-          <span className="text-2xl font-bold tracking-tighter">Juicy</span>
-        </div>
-
-        <nav className="hidden md:flex items-center gap-12 text-sm font-medium opacity-80">
-          <a href="#" className="hover:opacity-100 transition-opacity">Flavour</a>
-          <a href="#" className="hover:opacity-100 transition-opacity">Drinks</a>
-          <a href="#" className="hover:opacity-100 transition-opacity">Fruit</a>
-          <a href="#" className="hover:opacity-100 transition-opacity">About</a>
-          <a href="#" className="hover:opacity-100 transition-opacity">Contact</a>
-        </nav>
-
-        <div className="flex items-center gap-6">
-          <User size={22} className="cursor-pointer hover:scale-110 transition-transform" />
-          <div className="relative cursor-pointer group">
-            <ShoppingCart size={22} className="group-hover:scale-110 transition-transform" />
-            <span className="absolute -top-2 -right-2 w-4 h-4 bg-white text-black text-[10px] font-bold rounded-full flex items-center justify-center">2</span>
-          </div>
-        </div>
-      </header>
+      {/* Minimalist Floating Back Button */}
+      <motion.div 
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1, duration: 0.8 }}
+        className="absolute top-32 left-8 md:left-16 z-40"
+      >
+        <button 
+          onClick={onBack}
+          className="flex items-center gap-3 px-5 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white hover:bg-white hover:text-black transition-all duration-300 group shadow-xl"
+        >
+          <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+          <span className="text-[0.65rem] font-bold uppercase tracking-[0.2em] translate-y-[0.5px]">Back to Collection</span>
+        </button>
+      </motion.div>
 
       {/* Main Content Area */}
       <div className="relative flex-1 flex items-center justify-center pointer-events-none">

@@ -1,14 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { CategoryHero } from "@/components/CategoryHero";
 import { CategoryDetail } from "@/components/CategoryDetail";
+import { useHeaderColor } from "@/lib/HeaderColorContext";
+
 export default function Home() {
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState<number | null>(null);
+  const { setIsImmersive } = useHeaderColor();
+
+  useEffect(() => {
+    setIsImmersive(selectedCategoryIndex !== null);
+  }, [selectedCategoryIndex, setIsImmersive]);
 
   return (
-    <main className="relative min-h-screen bg-black transition-colors duration-300 flex flex-col font-sans overflow-x-hidden">
+    <main className="relative min-h-screen flex flex-col items-center justify-end md:justify-center font-sans overflow-x-hidden">
       
       <AnimatePresence mode="popLayout">
         {selectedCategoryIndex === null ? (

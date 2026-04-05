@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { useHeaderColor } from "@/lib/HeaderColorContext";
 
 export const CATEGORIES = [
   {
@@ -11,42 +12,57 @@ export const CATEGORIES = [
     title: "Crush",
     subtitle: "Pure Botanical Refreshment",
     image: "/images/hero/crush_bottle.png",
-    color: "#7f8c42", // Olive Green from mockup
+    color: "#7fa23f", // Updated Olive Green
   },
   {
     id: "02",
     title: "Jams",
     subtitle: "Deliciously Thick & Natural",
     image: "/images/hero/jam_jar.png",
-    color: "#8e448b", // Berry Purple from mockup
+    color: "#9a0c52", // Updated Maroon/Dark Berry
   },
   {
     id: "03",
     title: "Fruits",
     subtitle: "Fresh From Our Gardens",
     image: "/images/hero/tropical_fruits.png",
-    color: "#b8860b", // Coffee/Gold from mockup
+    color: "#bbbdbf", // Updated Light Gray/Silver
   },
   {
     id: "04",
     title: "Plants",
     subtitle: "Grow Your Own Heritage",
     image: "/images/hero/nursery_plants.png",
-    color: "#d14d72", // Strawberry Pink from mockup
+    color: "#c81c6a", // Updated Pink/Fuchsia
   },
 ];
 
-export function CategoryHero({ onSelect }: { onSelect: (index: number) => void }) {
+interface CategoryHeroProps {
+  onSelect: (index: number) => void;
+}
+
+export function CategoryHero({ onSelect }: CategoryHeroProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(3); // Default to last one as in mockup
+  const { headerColor, setHeaderColor } = useHeaderColor();
+
+  useEffect(() => {
+    if (hoveredIndex !== null) {
+      setHeaderColor(CATEGORIES[hoveredIndex].color);
+    }
+  }, [hoveredIndex, setHeaderColor]);
 
   return (
-    <section className="relative w-full h-[85vh] md:h-screen bg-[#f1f1f2] p-4 md:p-12 flex items-center justify-center font-sans">
-      <div className="w-full h-full max-w-[1600px] overflow-hidden rounded-[2.5rem] md:rounded-[4rem] bg-white shadow-[0_40px_100px_rgba(0,0,0,0.1)] flex flex-col md:flex-row relative">
+    <section className="relative w-full h-[88vh] md:h-[82vh] px-4 pt-[10px] pb-6 md:px-12 md:pb-12 flex flex-col font-sans overflow-hidden">
+      <motion.div 
+        animate={{ backgroundColor: headerColor }}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        className="w-full flex-1 max-w-[1600px] mx-auto overflow-hidden rounded-[2.5rem] md:rounded-[4rem] shadow-[0_40px_100px_rgba(0,0,0,0.1)] flex flex-col md:flex-row relative"
+      >
         {CATEGORIES.map((cat, index) => (
           <motion.div
             key={cat.id}
             onMouseEnter={() => setHoveredIndex(index)}
-            className="relative h-full transition-all duration-700 ease-in-out flex flex-col cursor-pointer border-r border-black/5 last:border-r-0 overflow-hidden"
+            className="relative h-full flex-1 transition-all duration-700 ease-in-out flex flex-col cursor-pointer border-r border-black/5 last:border-r-0 overflow-hidden"
             animate={{
               flex: hoveredIndex === index ? 3 : 1,
               backgroundColor: hoveredIndex === index ? cat.color : "#ffffff",
@@ -128,7 +144,7 @@ export function CategoryHero({ onSelect }: { onSelect: (index: number) => void }
             </AnimatePresence>
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }
