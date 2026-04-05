@@ -13,7 +13,7 @@ const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 export function RootLayoutWrapper({ children }: { children: React.ReactNode }) {
   const { headerColor, isImmersive } = useHeaderColor();
-  
+
   return (
     <body
       className={`${inter.variable} ${playfair.variable} ${outfit.variable} min-h-screen text-[#0b2b1a] antialiased font-sans flex flex-col transition-colors duration-1000`}

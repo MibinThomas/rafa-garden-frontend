@@ -15,8 +15,8 @@ export default function Home() {
   }, [selectedCategoryIndex, setIsImmersive]);
 
   return (
-    <main className="relative min-h-screen flex flex-col items-center justify-end md:justify-center font-sans overflow-x-hidden">
-      
+    <main className="relative h-screen flex flex-col font-sans overflow-hidden">
+
       <AnimatePresence mode="popLayout">
         {selectedCategoryIndex === null ? (
           <motion.div
@@ -25,20 +25,19 @@ export default function Home() {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: "-20%", opacity: 0 }}
             transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full flex-1"
+            className="w-full flex-1 flex flex-col"
           >
             {/* The 4-Category Hero Redesign */}
             <CategoryHero onSelect={(index) => setSelectedCategoryIndex(index)} />
           </motion.div>
         ) : (
-          <CategoryDetail 
-            key="detail" 
-            categoryIndex={selectedCategoryIndex} 
-            onBack={() => setSelectedCategoryIndex(null)} 
+          <CategoryDetail
+            key="detail"
+            categoryIndex={selectedCategoryIndex as number}
+            onBack={() => setSelectedCategoryIndex(null)}
           />
         )}
       </AnimatePresence>
-
     </main>
   );
 }

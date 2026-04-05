@@ -11,7 +11,7 @@ export const CATEGORIES = [
     id: "01",
     title: "Crush",
     subtitle: "Pure Botanical Refreshment",
-    image: "/images/hero/crush_bottle.png",
+    image: "/images/hero/crush_bottle.webp",
     color: "#7fa23f", // Updated Olive Green
   },
   {
@@ -52,8 +52,8 @@ export function CategoryHero({ onSelect }: CategoryHeroProps) {
   }, [hoveredIndex, setHeaderColor]);
 
   return (
-    <section className="relative w-full h-[88vh] md:h-[82vh] px-4 pt-[10px] pb-6 md:px-12 md:pb-12 flex flex-col font-sans overflow-hidden">
-      <motion.div 
+    <section className="relative w-full flex-1 px-4 pt-[10px] pb-[10px] md:px-12 flex flex-col font-sans overflow-hidden">
+      <motion.div
         animate={{ backgroundColor: headerColor }}
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         className="w-full flex-1 max-w-[1600px] mx-auto overflow-hidden rounded-[2.5rem] md:rounded-[4rem] shadow-[0_40px_100px_rgba(0,0,0,0.1)] flex flex-col md:flex-row relative"
@@ -71,13 +71,13 @@ export function CategoryHero({ onSelect }: CategoryHeroProps) {
           >
             {/* Content Container */}
             <div className={`relative z-20 w-full px-8 md:px-14 flex flex-col h-full py-12 md:py-24 transition-colors duration-500 ${hoveredIndex === index ? "text-white" : "text-black"}`}>
-              
+
               {/* Numbering at the top */}
-              <motion.div 
+              <motion.div
                 className="mb-8 block"
                 initial={false}
                 animate={{
-                    color: hoveredIndex === index ? "rgba(255,255,255,0.4)" : cat.color,
+                  color: hoveredIndex === index ? "rgba(255,255,255,0.4)" : cat.color,
                 }}
               >
                 <span className="text-4xl md:text-5xl font-bold tracking-tighter">{cat.id}</span>
@@ -85,13 +85,13 @@ export function CategoryHero({ onSelect }: CategoryHeroProps) {
 
               {/* Middle Section: Text */}
               <div className="mt-auto mb-10">
-                <motion.h2 
+                <motion.h2
                   className={`text-2xl md:text-4xl font-bold mb-3 tracking-tight leading-tight ${hoveredIndex === index ? "text-white" : "text-black"}`}
                   layout
                 >
                   {cat.title}
                 </motion.h2>
-                <motion.p 
+                <motion.p
                   className={`text-sm md:text-base font-light tracking-wide ${hoveredIndex === index ? "text-white/70" : "text-black/40"}`}
                   layout
                 >
@@ -109,8 +109,8 @@ export function CategoryHero({ onSelect }: CategoryHeroProps) {
                     onSelect(index);
                   }}
                   className={`flex items-center gap-3 px-7 py-3 rounded-full border transition-all duration-500 group pointer-events-auto
-                    ${hoveredIndex === index 
-                      ? "border-white/30 bg-white/10 text-white backdrop-blur-md hover:bg-white hover:text-black" 
+                    ${hoveredIndex === index
+                      ? "border-white/30 bg-white/10 text-white backdrop-blur-md hover:bg-white hover:text-black"
                       : "border-black/10 text-black hover:bg-black hover:text-white"}
                   `}
                 >
