@@ -13,6 +13,7 @@
 :root {
   --font-sans: var(--font-outfit), var(--font-inter), ui-sans-serif, system-ui;
   --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-avant-garde: var(--font-montserrat);
 }
 
 body {

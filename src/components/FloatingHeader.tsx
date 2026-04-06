@@ -25,7 +25,7 @@ export function FloatingHeader() {
               y: { duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] },
               backgroundColor: { duration: 1.2, ease: [0.16, 1, 0.3, 1] }
             }}
-            className="rounded-full px-8 h-16 flex items-center shadow-[0_10px_30px_rgba(0,0,0,0.1)] cursor-pointer group hover:scale-[1.02] transition-transform duration-300"
+            className="rounded-full px-8 h-13 flex items-center shadow-[0_10px_30px_rgba(0,0,0,0.1)] cursor-pointer group hover:scale-[1.02] transition-transform duration-300"
           >
             <div className="relative w-32 h-10">
               <Image
@@ -46,7 +46,7 @@ export function FloatingHeader() {
               y: { duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] },
               backgroundColor: { duration: 1.2, ease: [0.16, 1, 0.3, 1] }
             }}
-            className="rounded-full px-10 h-16 flex items-center gap-14 shadow-[0_10px_30px_rgba(0,0,0,0.1)] pointer-events-auto"
+            className="rounded-full px-10 h-13 flex items-center gap-14 shadow-[0_10px_30px_rgba(0,0,0,0.1)] pointer-events-auto"
           >
             {/* Navigation Links */}
             <div className="flex items-center gap-10">
@@ -85,11 +85,11 @@ export function FloatingHeader() {
       </div>
 
       {/* Mobile Header */}
-      <div className="w-full flex md:hidden items-center justify-between px-6 pt-6 pb-2 pointer-events-auto">
+      <div className="w-full flex md:hidden items-center justify-between px-4 pt-6 pb-2 pointer-events-auto">
         <motion.div 
           animate={{ backgroundColor: headerColor }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="flex-1 flex items-center justify-between rounded-full px-6 py-2.5 shadow-lg gap-4"
+          className="flex-1 flex items-center justify-between rounded-full px-6 py-2 shadow-lg gap-4"
         >
           {/* Logo */}
           <div className="relative w-24 h-8">

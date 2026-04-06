@@ -115,7 +115,7 @@ export function CategoryHero({ onSelect }: CategoryHeroProps) {
               >
                 <div className="mb-4 sm:mb-6 md:mb-8">
                   <motion.h2
-                    className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2 tracking-tight leading-tight"
+                    className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2 tracking-tight leading-tight font-[family-name:var(--font-avant-garde)]"
                   >
                     {cat.title}
                   </motion.h2>
