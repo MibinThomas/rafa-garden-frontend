@@ -48,7 +48,7 @@ export function CategoryHero({ onSelect }: CategoryHeroProps) {
 
   useEffect(() => {
     setIsMounted(true);
-    setHoveredIndex(3); // Default to Plants (index 3) after mount
+    setHoveredIndex(0); // Default to Crush (index 0) after mount
   }, []);
 
   useEffect(() => {
