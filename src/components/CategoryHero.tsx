@@ -25,8 +25,8 @@ export const CATEGORIES = [
     id: "03",
     title: "Fruits",
     subtitle: "Fresh From Our Gardens",
-    image: "/images/hero/fresh fruits.png",
-    color: "#bbbdbf", // Updated Light Gray/Silver
+    image: "/images/hero/fresh_fruits.png",
+    color: "#a3a5a7", // Darkened Light Gray for better highlight contrast
   },
   {
     id: "04",
@@ -64,13 +64,14 @@ export function CategoryHero({ onSelect }: CategoryHeroProps) {
       <motion.div
         animate={{ backgroundColor: "#f1f1f1" }}
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full flex-1 max-w-[1600px] mx-auto overflow-hidden rounded-[2.5rem] md:rounded-[4rem] shadow-[0_40px_100px_rgba(0,0,0,0.1)] flex flex-col md:flex-row relative"
+        className="w-full flex-1 max-w-[1600px] mx-auto overflow-hidden rounded-[2.5rem] md:rounded-[4rem] shadow-[0_40px_100px_rgba(0,0,0,0.1)] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 relative"
       >
         {CATEGORIES.map((cat, index) => (
           <motion.div
             key={cat.id}
             onMouseEnter={() => setHoveredIndex(index)}
-            className="relative h-full flex-1 flex flex-col cursor-pointer border-r border-black/5 last:border-r-0 overflow-hidden group bg-[#f1f1f1]"
+            onClick={() => setHoveredIndex(index)} // Critical for mobile "highlight" on tap
+            className="relative min-h-[22vh] sm:min-h-0 h-full flex flex-col cursor-pointer border-b sm:border-b-0 sm:border-r border-black/5 last:border-0 overflow-hidden group bg-[#f1f1f1]"
           >
             {/* Spring-Animated Background Fill */}
             <motion.div
@@ -87,39 +88,39 @@ export function CategoryHero({ onSelect }: CategoryHeroProps) {
             />
 
             {/* Content Container */}
-            <div className={`relative z-20 w-full px-8 md:px-14 flex flex-col h-full py-12 md:py-20`}>
+            <div className="relative z-30 w-full px-6 sm:px-10 md:px-14 flex flex-col h-full py-6 sm:py-10 md:py-16 mt-auto sm:mt-0">
 
               {/* Numbering - Moves up/fades on hover */}
               <motion.div
-                className="mb-8 block"
+                className="mb-4 sm:mb-6 md:mb-8 block"
                 initial={false}
                 animate={{
                   opacity: hoveredIndex === index ? 0 : 1,
-                  y: hoveredIndex === index ? -20 : 0,
+                  y: hoveredIndex === index ? -15 : 0,
                   color: cat.color,
                 }}
                 transition={{ type: "spring", stiffness: 200, damping: 25 }}
               >
-                <span className="text-4xl md:text-5xl font-bold tracking-tighter">{cat.id}</span>
+                <span className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter opacity-70">{cat.id}</span>
               </motion.div>
 
               {/* Middle/Bottom Section: Text & Button */}
               <motion.div
-                className="mt-auto"
+                className="mt-auto relative z-40"
                 animate={{
-                  y: hoveredIndex === index ? 0 : -100, // Move down on hover
+                  y: hoveredIndex === index ? 0 : -20, // Tighter offset for mobile
                   color: hoveredIndex === index ? "#ffffff" : "#000000",
                 }}
                 transition={{ type: "spring", stiffness: 150, damping: 22 }}
               >
-                <div className="mb-8">
+                <div className="mb-4 sm:mb-6 md:mb-8">
                   <motion.h2
-                    className="text-2xl md:text-3xl font-bold mb-2 tracking-tight leading-tight"
+                    className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2 tracking-tight leading-tight"
                   >
                     {cat.title}
                   </motion.h2>
                   <motion.p
-                    className={`text-sm md:text-base font-light tracking-wide ${hoveredIndex === index ? "opacity-80" : "opacity-40"}`}
+                    className={`text-[0.7rem] sm:text-sm md:text-base font-light tracking-wide ${hoveredIndex === index ? "opacity-80" : "opacity-40"}`}
                   >
                     {cat.subtitle}
                   </motion.p>
@@ -132,14 +133,14 @@ export function CategoryHero({ onSelect }: CategoryHeroProps) {
                     e.stopPropagation();
                     onSelect(index);
                   }}
-                  className={`flex items-center gap-3 px-7 py-3 rounded-full border transition-all duration-300 group pointer-events-auto
+                  className={`flex items-center gap-2 sm:gap-3 px-5 sm:px-7 py-2.5 sm:py-3 rounded-full border transition-all duration-300 group pointer-events-auto
                     ${hoveredIndex === index
                       ? "border-white/30 bg-white/10 text-white backdrop-blur-md hover:bg-white hover:text-black"
                       : "border-black/10 text-black hover:bg-black hover:text-white"}
                   `}
                 >
-                  <span className="text-[0.65rem] font-bold uppercase tracking-[0.2em] translate-y-[1px]">View more</span>
-                  <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
+                  <span className="text-[0.6rem] sm:text-[0.65rem] font-bold uppercase tracking-[0.2em] translate-y-[1px]">View more</span>
+                  <ArrowRight size={14} className="sm:w-4 sm:h-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </motion.button>
               </motion.div>
             </div>
@@ -157,9 +158,9 @@ export function CategoryHero({ onSelect }: CategoryHeroProps) {
                     damping: 20,
                     mass: 0.8,
                   }}
-                  className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none p-12 md:p-16"
+                  className="absolute inset-y-0 right-0 w-[60%] sm:inset-0 sm:w-full flex items-center justify-end sm:justify-center z-10 pointer-events-none pr-4 sm:pr-12 md:p-16"
                 >
-                  <div className="relative w-full h-full max-h-[50%] md:max-h-[60%] -translate-y-12">
+                   <div className="relative w-full h-full max-h-[85%] sm:max-h-[50%] md:max-h-[60%] translate-x-4 sm:translate-x-0 -translate-y-2 sm:-translate-y-12">
                     <Image
                       src={cat.image}
                       alt={cat.title}
