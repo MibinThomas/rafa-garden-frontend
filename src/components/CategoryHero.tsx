@@ -95,7 +95,7 @@ export function CategoryHero({ onSelect }: CategoryHeroProps) {
                 className="mb-4 sm:mb-6 md:mb-8 block"
                 initial={false}
                 animate={{
-                  opacity: hoveredIndex === index ? 0 : 1,
+                  opacity: 1,
                   y: hoveredIndex === index ? -15 : 0,
                   color: cat.color,
                 }}

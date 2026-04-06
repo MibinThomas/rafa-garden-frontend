@@ -27,7 +27,7 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 1, duration: 0.8 }}
-        className="absolute top-32 left-8 md:left-16 z-40"
+        className="absolute top-6 md:top-24 left-8 md:left-16 z-40"
       >
         <button 
           onClick={onBack}
@@ -46,7 +46,7 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 0.15, scale: 1 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="absolute inset-0 flex items-center justify-center text-[25vw] md:text-[35vw] font-black leading-none text-white select-none z-10"
+          className="absolute inset-0 flex items-center justify-center text-[20vw] md:text-[26vw] font-black leading-none text-white select-none z-10"
         >
           {cat.title.toUpperCase()}
         </motion.h1>
@@ -56,7 +56,7 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
           initial={{ y: 100, opacity: 0, scale: 0.5 }}
           animate={{ y: 0, opacity: 1, scale: 1 }}
           transition={{ type: "spring", stiffness: 60, damping: 15, delay: 0.5 }}
-          className="relative z-20 w-full h-[60%] md:h-[80%] flex items-center justify-center"
+          className="relative z-20 w-full h-[45%] md:h-[70%] lg:h-[85%] max-h-[35vh] md:max-h-none flex items-center justify-center"
         >
           <div className="relative w-full h-full">
             <Image
@@ -89,13 +89,13 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
       </div>
 
       {/* Footer Info Area */}
-      <footer className="relative z-30 w-full px-8 md:px-16 py-12 flex items-end justify-between text-white">
+      <footer className="relative z-30 w-full px-8 md:px-16 py-4 md:py-12 flex items-end justify-between text-white">
         <div className="max-w-md">
           <motion.h2 
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.7 }}
-            className="text-3xl md:text-5xl font-light mb-6"
+            className="text-3xl md:text-5xl font-light mb-3 md:mb-6"
           >
             {cat.id === "01" ? "Cheeky lime" : cat.title}
           </motion.h2>
@@ -103,7 +103,7 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.8 }}
-            className="text-sm md:text-base opacity-70 leading-relaxed mb-8 max-w-sm"
+            className="text-sm md:text-base opacity-70 leading-relaxed mb-4 md:mb-8 max-w-sm"
           >
             Discover a world of vibrant flavors with our premium selection. At RAFA GARDEN, we believe in the power of nature's finest ingredients to bring you pure refreshment and wellness.
           </motion.p>
@@ -111,7 +111,7 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.9 }}
-            className="px-8 py-3 bg-white text-black font-bold rounded-full text-xs uppercase tracking-widest hover:bg-black hover:text-white transition-colors shadow-xl"
+            className="px-6 py-2.5 bg-white text-black font-bold rounded-full text-xs uppercase tracking-widest hover:bg-black hover:text-white transition-colors shadow-xl"
           >
             See More
           </motion.button>

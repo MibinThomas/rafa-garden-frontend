@@ -85,7 +85,7 @@ export function FloatingHeader() {
       </div>
 
       {/* Mobile Header */}
-      <div className="w-full flex md:hidden items-center justify-between px-4 pt-6 pb-2 pointer-events-auto">
+      <div className="w-full flex md:hidden items-center justify-between px-4 pt-3 pb-2 pointer-events-auto">
         <motion.div 
           animate={{ backgroundColor: headerColor }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
