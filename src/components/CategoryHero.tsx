@@ -26,14 +26,14 @@ export const CATEGORIES = [
     title: "Fruits",
     subtitle: "Fresh From Our Gardens",
     image: "/images/hero/fresh_fruits.png",
-    color: "#a3a5a7", // Darkened Light Gray for better highlight contrast
+    color: "#b5e55bc8", // New Vibrant Green/Yellow for Fruits
   },
   {
     id: "04",
     title: "Plants",
     subtitle: "Grow Your Own Heritage",
     image: "/images/hero/plants_premium.png",
-    color: "#7fa23f", // Updated Pink/Fuchsia
+    color: "#7fa23fc8", // Matched alpha channel with other categories
   },
 ];
 
@@ -64,7 +64,7 @@ export function CategoryHero({ onSelect }: CategoryHeroProps) {
       <motion.div
         animate={{ backgroundColor: "#f1f1f1" }}
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full flex-1 max-w-[1600px] mx-auto overflow-hidden rounded-[2.5rem] md:rounded-[4rem] shadow-[0_40px_100px_rgba(0,0,0,0.1)] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 relative"
+        className="w-full flex-1 max-w-[1600px] mx-auto overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem] shadow-[0_40px_100px_rgba(0,0,0,0.1)] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 relative"
       >
         {CATEGORIES.map((cat, index) => (
           <motion.div
@@ -160,7 +160,7 @@ export function CategoryHero({ onSelect }: CategoryHeroProps) {
                   }}
                   className="absolute inset-y-0 right-0 w-[60%] sm:inset-0 sm:w-full flex items-center justify-end sm:justify-center z-10 pointer-events-none pr-4 sm:pr-12 md:p-16"
                 >
-                   <div className="relative w-full h-full max-h-[85%] sm:max-h-[50%] md:max-h-[60%] translate-x-4 sm:translate-x-0 -translate-y-2 sm:-translate-y-12">
+                  <div className="relative w-full h-full max-h-[85%] sm:max-h-[50%] md:max-h-[60%] translate-x-4 sm:translate-x-0 -translate-y-2 sm:-translate-y-12">
                     <Image
                       src={cat.image}
                       alt={cat.title}
