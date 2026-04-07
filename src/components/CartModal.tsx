@@ -1,9 +1,10 @@
 "use client";
 
-import { useCart } from "@/lib/CartContext";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
+import { useCart } from "@/lib/CartContext";
 import { X, ShoppingBasket } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 export function CartModal() {
     const { isCartOpen, closeCart, items, removeFromCart, cartTotal } = useCart();
@@ -108,13 +109,15 @@ export function CartModal() {
                                       <span className="text-2xl mr-1 font-serif" style={{ color: activeColor, opacity: 0.8 }}>₹</span>{cartTotal.toFixed(2)}
                                     </span>
                                 </div>
-                                <button 
+                                <Link 
+                                  href="/checkout"
+                                  onClick={closeCart}
                                   className="relative overflow-hidden w-full py-4 text-white font-black tracking-widest rounded-full active:scale-[0.98] transition-all shadow-lg flex items-center justify-center gap-3 uppercase text-sm group"
                                   style={{ backgroundColor: activeColor }}
                                 >
                                     <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                                     Checkout Now
-                                </button>
+                                </Link>
                             </div>
                         )}
                     </motion.div>

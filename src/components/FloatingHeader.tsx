@@ -64,9 +64,9 @@ export function FloatingHeader() {
   
             {/* Utility Icons */}
             <div className="flex items-center gap-6 border-l border-white/20 pl-10">
-              <button className="text-white hover:scale-110 transition-transform">
+              <Link href="/auth" className="text-white hover:scale-110 transition-transform block">
                 <User size={22} strokeWidth={2} />
-              </button>
+              </Link>
               
               <button 
                 onClick={openCart}
@@ -103,9 +103,9 @@ export function FloatingHeader() {
 
           {/* Action Icons */}
           <div className="flex items-center gap-4">
-            <button className="text-white p-1 opacity-90 active:scale-90 transition-transform">
+            <Link href="/auth" className="text-white p-1 opacity-90 active:scale-90 transition-transform block">
               <User size={20} strokeWidth={2.5} />
-            </button>
+            </Link>
             
             <button 
               onClick={openCart}
