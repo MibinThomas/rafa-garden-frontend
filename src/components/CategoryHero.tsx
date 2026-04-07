@@ -6,36 +6,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
 
-export const CATEGORIES = [
-  {
-    id: "01",
-    title: "Crush",
-    subtitle: "Pure Botanical Refreshment",
-    image: "/images/hero/crush_bottle.webp",
-    color: "#c81c6a", // Updated Olive Green
-  },
-  {
-    id: "02",
-    title: "Jams",
-    subtitle: "Deliciously Thick & Natural",
-    image: "/images/hero/jam_premium.png",
-    color: "#9a0c52", // Updated Maroon/Dark Berry
-  },
-  {
-    id: "03",
-    title: "Fruits",
-    subtitle: "Fresh From Our Gardens",
-    image: "/images/hero/fresh_fruits.png",
-    color: "#b5e55bc8", // New Vibrant Green/Yellow for Fruits
-  },
-  {
-    id: "04",
-    title: "Plants",
-    subtitle: "Grow Your Own Heritage",
-    image: "/images/hero/plants_premium.png",
-    color: "#7fa23fc8", // Matched alpha channel with other categories
-  },
-];
+import { CATEGORIES } from "@/lib/data";
 
 interface CategoryHeroProps {
   onSelect: (index: number) => void;
