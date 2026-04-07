@@ -61,7 +61,7 @@ export default function ShopPage() {
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
-        className="relative w-full text-white pt-28 pb-8 px-6 md:px-12 lg:px-24 flex flex-col md:flex-row items-center justify-between text-left overflow-hidden cursor-crosshair z-10 bg-transparent"
+        className="relative w-full text-white pt-24 md:pt-28 pb-8 px-6 md:px-12 lg:px-24 flex flex-col md:flex-row items-center justify-between text-left overflow-hidden cursor-crosshair z-10 bg-transparent"
       >
         
         {/* Ambient Glows (Dragon Fruit vibes) */}
@@ -98,7 +98,7 @@ export default function ShopPage() {
 
         {/* Left Side Content */}
         <div className="relative z-10 w-full md:w-1/2 pt-4">
-          <h1 className="text-4xl md:text-5xl lg:text-5xl font-playfair font-black mb-3 tracking-tight drop-shadow-md">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-playfair font-black mb-3 tracking-tight drop-shadow-md">
             Shop Our <span className="opacity-90 italic">Collections</span>
           </h1>
           <p className="max-w-lg text-sm opacity-80 font-inter font-light drop-shadow-sm leading-relaxed">
@@ -171,7 +171,7 @@ export default function ShopPage() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Product Grid (5 items per row) */}
+        {/* Product Grid (Responsive: 2 cols mobile, 3 cols tablet, 5 cols desktop) */}
         <AnimatePresence mode="wait">
           <motion.div
             key={"grid-" + activeCategory.id}
@@ -181,7 +181,7 @@ export default function ShopPage() {
             transition={{ duration: 0.4 }}
           >
             {activeCategory.products && activeCategory.products.length > 0 ? (
-               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-6 items-stretch">
+               <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-6 items-stretch">
                  {activeCategory.products.map((product) => (
                    <ProductCard key={product.id} product={product} accentColor={activeCategory.color} />
                  ))}
