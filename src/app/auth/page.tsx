@@ -9,12 +9,12 @@ import { useHeaderColor } from "@/lib/HeaderColorContext";
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
-  const { setIsImmersive, setHeaderColor } = useHeaderColor();
+  const { setIsImmersive, setHeaderColor, headerColor } = useHeaderColor();
+  const activeColor = headerColor;
 
   useEffect(() => {
     setIsImmersive(false); // Make header normal
-    setHeaderColor("#0b2b1a");
-  }, [setIsImmersive, setHeaderColor]);
+  }, [setIsImmersive]);
 
   return (
     <div className="min-h-screen w-full flex flex-col md:flex-row bg-[#f1f1f2] font-sans">
@@ -29,9 +29,10 @@ export default function AuthPage() {
         {/* Animated Background */}
         <div className="absolute inset-0 z-0 opacity-40">
            <motion.div 
-             animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
+             animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.6, 0.3] }}
              transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-             className="absolute -top-[20%] -left-[20%] w-[150%] h-[150%] rounded-full bg-[radial-gradient(circle,rgba(200,28,106,0.2)_0%,transparent_70%)] blur-[80px]"
+             className="absolute -top-[20%] -left-[20%] w-[150%] h-[150%] rounded-full blur-[80px]"
+             style={{ background: `radial-gradient(circle, ${activeColor}55 0%, transparent 70%)` }}
            />
         </div>
 
@@ -55,7 +56,7 @@ export default function AuthPage() {
 
         <div className="relative z-20 mt-auto">
           <h2 className="text-4xl lg:text-6xl font-black font-playfair text-white leading-tight mb-4 tracking-tight drop-shadow-md">
-            Cultivate your <br/><span className="text-brand-pink italic font-light">premium lifestyle.</span>
+            Cultivate your <br/><span className="italic font-light" style={{ color: activeColor }}>premium lifestyle.</span>
           </h2>
           <p className="text-white/70 font-inter max-w-sm leading-relaxed">
              Join the Rafah Garden family today to manage your orders, save your favorite collections, and embrace nature.
@@ -68,7 +69,10 @@ export default function AuthPage() {
         
         {/* Subtle Decorative Background on Right Side */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-             <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-brand-pink/5 blur-[100px] -translate-y-1/2 translate-x-1/3" />
+             <div 
+               className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 opacity-20" 
+               style={{ background: activeColor }}
+             />
              <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-[#0b2b1a]/5 blur-[100px] translate-y-1/2 -translate-x-1/3" />
         </div>
 
@@ -102,7 +106,8 @@ export default function AuthPage() {
                     <input 
                       type="text" 
                       placeholder="John Doe" 
-                      className="w-full px-5 py-4 rounded-xl bg-white/50 border border-black/5 focus:border-brand-pink/50 focus:bg-white outline-none transition-all placeholder:text-gray-300 font-medium text-[#0b2b1a]" 
+                      className="w-full px-5 py-4 rounded-xl bg-white/50 border border-black/5 focus:bg-white outline-none transition-all placeholder:text-gray-300 font-medium text-[#0b2b1a]" 
+                      style={{ caretColor: activeColor }}
                     />
                   </div>
                 )}
@@ -119,16 +124,20 @@ export default function AuthPage() {
                 <div className="space-y-1.5">
                   <div className="flex justify-between items-end ml-2">
                     <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Password</label>
-                    {isLogin && <a href="#" className="text-[10px] uppercase font-bold tracking-widest text-brand-pink hover:underline">Forgot?</a>}
+                    {isLogin && <a href="#" className="text-[10px] uppercase font-bold tracking-widest hover:underline" style={{ color: activeColor }}>Forgot?</a>}
                   </div>
                   <input 
                     type="password" 
                     placeholder="••••••••" 
-                    className="w-full px-5 py-4 rounded-xl bg-white/50 border border-black/5 focus:border-brand-pink/50 focus:bg-white outline-none transition-all placeholder:text-gray-300 font-medium text-[#0b2b1a]" 
+                    className="w-full px-5 py-4 rounded-xl bg-white/50 border border-black/5 focus:bg-white outline-none transition-all placeholder:text-gray-300 font-medium text-[#0b2b1a]" 
+                    style={{ caretColor: activeColor }}
                   />
                 </div>
 
-                <button className="w-full py-4 mt-4 bg-[#0b2b1a] hover:bg-brand-pink text-white font-black tracking-widest uppercase text-sm rounded-xl transition-colors shadow-lg active:scale-[0.98]">
+                <button 
+                  className="w-full py-4 mt-4 text-white font-black tracking-widest uppercase text-sm rounded-xl transition-all shadow-lg active:scale-[0.98]"
+                  style={{ backgroundColor: activeColor }}
+                >
                   {isLogin ? "Sign In" : "Register"}
                 </button>
               </form>

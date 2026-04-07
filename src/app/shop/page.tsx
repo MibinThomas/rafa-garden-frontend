@@ -34,16 +34,34 @@ export default function ShopPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#f1f1f2] font-sans pb-24">
+    <div 
+      className="relative min-h-screen font-sans pb-24 transition-colors duration-1000 ease-in-out"
+      style={{ backgroundColor: activeCategory.color }}
+    >
+      {/* Immersive Global Background Glows */}
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+         <motion.div 
+           key={"glow1-" + activeCategory.id}
+           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3], x: [0, 50, 0] }}
+           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+           className="absolute top-[10%] left-[10%] w-[800px] h-[800px] rounded-full blur-[120px]"
+           style={{ background: `radial-gradient(circle, ${activeCategory.color}dd 0%, transparent 70%)`, filter: "brightness(1.2) saturate(1.2)" }}
+         />
+         <motion.div 
+           key={"glow2-" + activeCategory.id}
+           animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2], x: [0, -50, 0] }}
+           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+           className="absolute bottom-[-10%] right-[5%] w-[700px] h-[700px] rounded-full blur-[120px]"
+           style={{ background: `radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%)` }}
+         />
+      </div>
       {/* Premium Hero Section (Breadcrumb) - Dynamic Color */}
       <motion.section 
         ref={heroRef}
-        animate={{ backgroundColor: activeCategory.color }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
-        className="relative w-full text-white pt-28 pb-8 px-6 md:px-12 lg:px-24 flex flex-col md:flex-row items-center justify-between text-left overflow-hidden cursor-crosshair"
+        className="relative w-full text-white pt-28 pb-8 px-6 md:px-12 lg:px-24 flex flex-col md:flex-row items-center justify-between text-left overflow-hidden cursor-crosshair z-10 bg-transparent"
       >
         
         {/* Ambient Glows (Dragon Fruit vibes) */}
@@ -137,17 +155,17 @@ export default function ShopPage() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
             transition={{ duration: 0.3 }}
-            className="mb-10 flex flex-col md:flex-row items-baseline justify-between gap-4 border-b border-black/5 pb-6"
+            className="mb-10 flex flex-col md:flex-row items-baseline justify-between gap-4 border-b border-white/10 pb-6"
           >
             <div>
-              <h2 className="text-3xl md:text-4xl font-black font-playfair tracking-tight text-[#0b2b1a] mb-2">
+              <h2 className="text-3xl md:text-4xl font-black font-playfair tracking-tight text-white mb-2">
                 {activeCategory.title}
               </h2>
-              <p className="text-base opacity-60 font-inter max-w-md">
+              <p className="text-base text-white/60 font-inter max-w-md">
                 {activeCategory.subtitle}
               </p>
             </div>
-            <span className="text-sm font-bold uppercase tracking-[0.2em] opacity-40 whitespace-nowrap">
+            <span className="text-sm font-bold uppercase tracking-[0.2em] text-white/40 whitespace-nowrap">
               {activeCategory.products.length} Products
             </span>
           </motion.div>
@@ -169,8 +187,8 @@ export default function ShopPage() {
                  ))}
                </div>
             ) : (
-               <div className="w-full py-24 flex items-center justify-center bg-white/50 rounded-3xl border border-black/5">
-                 <p className="text-lg opacity-50 font-medium">Products arriving soon...</p>
+               <div className="w-full py-24 flex items-center justify-center bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10">
+                 <p className="text-lg text-white/50 font-medium">Products arriving soon...</p>
                </div>
             )}
           </motion.div>

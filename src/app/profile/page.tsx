@@ -14,12 +14,12 @@ const TABS = [
 
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState("overview");
-  const { setIsImmersive, setHeaderColor } = useHeaderColor();
+  const { setIsImmersive, setHeaderColor, headerColor } = useHeaderColor();
+  const activeColor = headerColor;
 
   useEffect(() => {
     setIsImmersive(false);
-    setHeaderColor("#0b2b1a");
-  }, [setIsImmersive, setHeaderColor]);
+  }, [setIsImmersive]);
 
   // Mock Orders
   const mockOrders = [
@@ -51,11 +51,12 @@ export default function ProfilePage() {
                    onClick={() => setActiveTab(tab.id)}
                    className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl transition-all ${
                      isActive 
-                       ? "bg-[#0b2b1a] text-white shadow-md" 
+                       ? "text-white shadow-md" 
                        : "text-gray-500 hover:bg-black/5 hover:text-[#0b2b1a]"
                    }`}
+                   style={isActive ? { backgroundColor: activeColor } : {}}
                  >
-                   <Icon size={18} className={isActive ? "text-brand-pink" : ""} />
+                   <Icon size={18} />
                    <span className="font-bold text-sm tracking-wide">{tab.label}</span>
                    {isActive && <ChevronRight size={16} className="ml-auto opacity-50" />}
                  </button>
@@ -86,8 +87,8 @@ export default function ProfilePage() {
                          Welcome back, Lazim!
                        </h2>
                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                           <div className="bg-[#0b2b1a] p-6 rounded-[1.5rem] text-white shadow-lg relative overflow-hidden">
-                              <div className="absolute top-0 right-0 w-32 h-32 bg-brand-pink/20 rounded-full blur-2xl -translate-y-1/2 translate-x-1/4" />
+                           <div className="p-6 rounded-[1.5rem] text-white shadow-lg relative overflow-hidden" style={{ backgroundColor: activeColor }}>
+                              <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-2xl -translate-y-1/2 translate-x-1/4" />
                               <h3 className="text-sm uppercase tracking-widest opacity-70 mb-1 font-bold">Total Orders</h3>
                               <p className="text-4xl font-black font-playfair">{mockOrders.length}</p>
                            </div>
@@ -149,7 +150,7 @@ export default function ProfilePage() {
                                 </div>
                                 <div className="flex items-center justify-between sm:flex-col sm:items-end gap-2">
                                   <span className="font-bold tabular-nums">₹{order.total.toFixed(2)}</span>
-                                  <button className="text-xs font-bold uppercase text-brand-pink hover:underline tracking-widest">
+                                  <button className="text-xs font-bold uppercase hover:underline tracking-widest" style={{ color: activeColor }}>
                                     View Details
                                   </button>
                                 </div>

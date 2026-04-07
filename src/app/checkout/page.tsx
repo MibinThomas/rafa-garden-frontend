@@ -10,12 +10,12 @@ import { useHeaderColor } from "@/lib/HeaderColorContext";
 
 export default function CheckoutPage() {
   const { items, cartTotal } = useCart();
-  const { setIsImmersive, setHeaderColor } = useHeaderColor();
+  const { setIsImmersive, setHeaderColor, headerColor } = useHeaderColor();
+  const activeColor = headerColor;
 
   useEffect(() => {
     setIsImmersive(false);
-    setHeaderColor("#0b2b1a");
-  }, [setIsImmersive, setHeaderColor]);
+  }, [setIsImmersive]);
 
   const shippingCost = 15.00;
   const finalTotal = cartTotal + (cartTotal > 0 ? shippingCost : 0);
@@ -27,7 +27,7 @@ export default function CheckoutPage() {
         {/* Header */}
         <div className="mb-10 flex items-center justify-between">
             <div>
-              <Link href="/shop" className="text-brand-magenta inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest hover:text-brand-pink transition-colors mb-4">
+              <Link href="/shop" className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest transition-colors mb-4" style={{ color: activeColor }}>
                   <ArrowLeft size={16} /> Back to Shop
               </Link>
               <h1 className="text-4xl md:text-5xl font-black font-playfair text-[#0b2b1a]">
@@ -94,7 +94,7 @@ export default function CheckoutPage() {
                                 </div>
                                 <div className="flex-1">
                                     <h4 className="font-bold text-sm tracking-tight leading-tight line-clamp-1">{item.name}</h4>
-                                    <p className="text-brand-pink font-sans text-sm mt-1">₹{item.price.toFixed(2)}</p>
+                                    <p className="font-sans text-sm mt-1" style={{ color: activeColor }}>₹{item.price.toFixed(2)}</p>
                                 </div>
                                 <span className="font-bold text-sm">₹{(item.price * item.quantity).toFixed(2)}</span>
                             </div>
@@ -113,13 +113,14 @@ export default function CheckoutPage() {
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-white/10 mt-4">
                         <span className="text-lg font-bold">Total</span>
-                        <span className="text-3xl font-black font-playfair"><span className="text-brand-pink mr-1 text-xl">₹</span>{cartTotal > 0 ? finalTotal.toFixed(2) : "0.00"}</span>
+                        <span className="text-3xl font-black font-playfair"><span className="mr-1 text-xl" style={{ color: activeColor }}>₹</span>{cartTotal > 0 ? finalTotal.toFixed(2) : "0.00"}</span>
                     </div>
                 </div>
 
                 <button 
                   disabled={items.length === 0}
-                  className="w-full py-4 mt-8 bg-brand-pink text-white font-black tracking-widest uppercase text-sm rounded-xl transition-all shadow-lg hover:bg-white hover:text-[#0b2b1a] disabled:opacity-50 disabled:hover:bg-brand-pink disabled:hover:text-white active:scale-95"
+                  className="w-full py-4 mt-8 text-white font-black tracking-widest uppercase text-sm rounded-xl transition-all shadow-lg hover:bg-white hover:text-[#0b2b1a] disabled:opacity-50 active:scale-95"
+                  style={{ backgroundColor: activeColor }}
                 >
                     Proceed to Payment
                 </button>
