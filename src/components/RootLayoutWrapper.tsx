@@ -4,7 +4,7 @@ import React from "react";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { FloatingHeader } from "@/components/FloatingHeader";
-import { CartSidebar } from "@/components/CartSidebar";
+import { CartModal } from "@/components/CartModal";
 import { Inter, Playfair_Display, Outfit, Montserrat } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -29,7 +29,7 @@ export function RootLayoutWrapper({ children }: { children: React.ReactNode }) {
         <main className="flex-1 flex flex-col">
           {children}
         </main>
-        <CartSidebar />
+        <CartModal />
       </ThemeProvider>
     </body>
   );

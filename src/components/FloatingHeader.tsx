@@ -53,7 +53,7 @@ export function FloatingHeader() {
               {["Home", "Shop", "About"].map((link) => (
                 <Link 
                   key={link} 
-                  href="/"
+                  href={link === "Home" ? "/" : `/${link.toLowerCase()}`}
                   className="text-white font-outfit font-medium text-[0.9rem] opacity-90 hover:opacity-100 transition-opacity relative group"
                 >
                   {link}
