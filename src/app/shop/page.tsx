@@ -3,8 +3,9 @@
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { CATEGORIES } from "@/lib/data";
+import { CATEGORIES, Product } from "@/lib/data";
 import { ProductCard } from "@/components/ProductCard";
+import { ProductDetailSection } from "@/components/ProductDetailSection";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
 
 export default function ShopPage() {
@@ -21,6 +22,9 @@ export default function ShopPage() {
   const [activeProductIndex, setActiveProductIndex] = useState(0);
   const featuredProduct = activeCategory.products[activeProductIndex] || activeCategory.products[0];
 
+  // State for inline details section
+  const [selectedGridProduct, setSelectedGridProduct] = useState<Product | null>(null);
+
   useEffect(() => {
     // Disable immersive hero specific behaviors globally for the shop page
     setIsImmersive(true);
@@ -28,6 +32,7 @@ export default function ShopPage() {
     setHeaderColor(activeCategory.color);
     // Reset product index when category changes
     setActiveProductIndex(0);
+    setSelectedGridProduct(null);
     return () => setIsImmersive(false);
   }, [setIsImmersive, setHeaderColor, activeCategory.color]);
 
@@ -50,7 +55,8 @@ export default function ShopPage() {
 
   return (
     <div
-      className="relative min-h-screen font-sans pb-24 transition-colors duration-1000 ease-in-out bg-[#f1f1f2]"
+      className="relative min-h-screen font-sans pb-24 transition-colors duration-1000 ease-in-out"
+      style={{ backgroundColor: activeCategory.color }}
     >
       {/* Immersive Global Background Glows */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
@@ -79,15 +85,8 @@ export default function ShopPage() {
         className="relative w-full h-[600px] md:h-[750px] lg:h-[800px] text-white flex items-center overflow-hidden cursor-crosshair z-10 bg-transparent"
       >
 
-        {/* Cinematic Background Image (Lush Farm Landscape) */}
+        {/* Cinematic Background Theme */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-           <Image 
-             src="/images/about/kenny-dragon-fruit-tree-farm-thailand-country-landscape.jpg"
-             alt="Dragon Fruit Farm"
-             fill
-             className="object-cover opacity-20 mix-blend-luminosity"
-             priority
-           />
            {/* Color Tint Overlay */}
            <motion.div 
              animate={{ backgroundColor: activeCategory.color }}
@@ -131,16 +130,19 @@ export default function ShopPage() {
                     <button
                       key={cat.id}
                       onClick={() => setActiveCategoryIndex(index)}
+                      style={{ backgroundColor: cat.color, borderColor: cat.color }}
                       className={`relative overflow-hidden flex items-center justify-between px-6 py-4 rounded-2xl border transition-all duration-300 group
                         ${isActive
-                          ? 'bg-white/20 backdrop-blur-md border-white shadow-lg'
-                          : 'bg-transparent border-white/10 hover:bg-white/10 hover:border-white/30'
+                          ? 'backdrop-blur-md shadow-xl text-white opacity-100'
+                          : 'opacity-50 hover:opacity-100 shadow-md text-white/90'
                         }
                       `}
                     >
                       <div className="relative z-10 flex items-center gap-4">
-                        <span className={`w-2 h-2 rounded-full transition-transform bg-white ${isActive ? 'scale-125' : 'scale-100 opacity-30 group-hover:opacity-100'}`} />
-                        <span className={`font-bold tracking-[0.1em] uppercase text-xs ${isActive ? 'text-white' : 'text-white/60 group-hover:text-white'}`}>
+                        <span 
+                          className={`w-2 h-2 rounded-full transition-transform ${isActive ? 'scale-125 bg-white' : 'scale-100 bg-white/70 group-hover:bg-white'}`} 
+                        />
+                        <span className={`font-bold tracking-[0.1em] uppercase text-xs text-white`}>
                           {cat.title}
                         </span>
                       </div>
@@ -161,14 +163,10 @@ export default function ShopPage() {
                   transition={{ type: "spring", stiffness: 100, damping: 20 }}
                   className="relative w-72 h-72 md:w-96 md:h-96 lg:w-[450px] lg:h-[450px] z-20 pointer-events-auto drop-shadow-2xl"
                 >
-                   {/* Stacked Effect based on Design Image */}
-                   <motion.div 
-                     animate={{ y: [0, -15, 0], rotate: [0, 5, 0] }}
-                     transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                     className="absolute inset-0 z-10"
-                   >
+                   {/* Product Image */}
+                   <div className="absolute inset-0 z-10">
                      <Image src={featuredProduct.image} alt={featuredProduct.name} fill className="object-contain drop-shadow-2xl" />
-                   </motion.div>
+                   </div>
                 </motion.div>
               </AnimatePresence>
 
@@ -263,14 +261,13 @@ export default function ShopPage() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
-            transition={{ duration: 0.3 }}
-            className="mb-10 flex flex-col md:flex-row items-baseline justify-between gap-4 border-b border-black/5 pb-6"
+            className="mb-10 flex flex-col md:flex-row items-baseline justify-between gap-4 border-b border-white/10 pb-6"
           >
             <div>
-              <h2 className="text-3xl md:text-4xl font-black font-playfair tracking-tight text-[#0b2b1a] mb-2">
+              <h2 className="text-3xl md:text-4xl font-black font-playfair tracking-tight text-white mb-2">
                 {activeCategory.title}
               </h2>
-              <p className="text-base text-gray-500 font-inter max-w-md">
+              <p className="text-base text-white/70 font-inter max-w-md">
                 {activeCategory.subtitle}
               </p>
             </div>
@@ -292,7 +289,12 @@ export default function ShopPage() {
             {activeCategory.products && activeCategory.products.length > 0 ? (
               <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-6 items-stretch">
                 {activeCategory.products.map((product) => (
-                  <ProductCard key={product.id} product={product} accentColor={activeCategory.color} />
+                  <ProductCard 
+                    key={product.id} 
+                    product={product} 
+                    accentColor={activeCategory.color} 
+                    onSelect={(p) => setSelectedGridProduct(p)}
+                  />
                 ))}
               </div>
             ) : (
@@ -301,6 +303,20 @@ export default function ShopPage() {
               </div>
             )}
           </motion.div>
+        </AnimatePresence>
+
+        {/* Inline Product Detail Section */}
+        <AnimatePresence mode="wait">
+           {selectedGridProduct && (
+             <div className="mt-8">
+               <ProductDetailSection 
+                 product={selectedGridProduct} 
+                 categoryTitle={activeCategory.title}
+                 categoryColor={activeCategory.color}
+                 onClose={() => setSelectedGridProduct(null)}
+               />
+             </div>
+           )}
         </AnimatePresence>
 
       </section>

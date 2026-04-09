@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { useCart } from "@/lib/CartContext";
 import { useWishlist } from "@/lib/WishlistContext";
 import { Product } from "@/lib/data";
 import { ShoppingBasket, Heart } from "lucide-react";
 
-export function ProductCard({ product, accentColor = "#c81c6a" }: { product: Product, accentColor?: string }) {
+export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { product: Product, accentColor?: string, onSelect?: (product: Product) => void }) {
   const { addToCart } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
   const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
@@ -39,7 +38,7 @@ export function ProductCard({ product, accentColor = "#c81c6a" }: { product: Pro
       whileHover={{ y: -8 }}
       className="group relative aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-lg transition-all duration-500 bg-black/5 flex flex-col justify-end"
     >
-      <Link href={`/shop/product/${product.id}`} className="absolute inset-0 z-0">
+      <button onClick={() => onSelect?.(product)} className="absolute inset-0 z-0 text-left cursor-pointer border-none bg-transparent m-0 p-0">
         <Image
           src={product.image}
           alt={product.name}
@@ -49,7 +48,7 @@ export function ProductCard({ product, accentColor = "#c81c6a" }: { product: Pro
         />
         {/* Dark Gradient Overlay for Text Visibility */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-      </Link>
+      </button>
 
       {/* Top Controls */}
       <div className="absolute top-4 right-4 z-20">

@@ -15,7 +15,7 @@ export function FloatingHeader() {
   return (
     <>
       {/* Desktop Header */}
-      <div className="w-full hidden md:flex items-center pt-8 pb-2.5 pointer-events-auto select-none">
+      <div className="w-full hidden md:flex items-center pt-8 pb-2.5 pointer-events-auto select-none bg-[#f1f1f2]">
         <div className="max-w-[1600px] mx-auto w-full flex items-center justify-between px-4 md:px-12">
           {/* Left Pill: Logo */}
           <motion.div 
@@ -85,7 +85,7 @@ export function FloatingHeader() {
       </div>
 
       {/* Mobile Header */}
-      <div className="w-full flex md:hidden items-center justify-between px-4 pt-3 pb-2 pointer-events-auto">
+      <div className="w-full flex md:hidden items-center justify-between px-4 pt-3 pb-2 pointer-events-auto bg-[#f1f1f2]">
         <motion.div 
           animate={{ backgroundColor: headerColor }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
