@@ -26,7 +26,7 @@ export const CATEGORIES: Category[] = [
     id: "01",
     title: "Crush",
     subtitle: "Pure Botanical Refreshment",
-    image: "/images/hero/crush_bottle.webp",
+    image: "/images/hero/crush_bottle.png",
     color: "#c81c6a",
     products: [
       {
