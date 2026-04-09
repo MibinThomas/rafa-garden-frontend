@@ -10,8 +10,6 @@ import { useHeaderColor } from "@/lib/HeaderColorContext";
 
 export default function ShopPage() {
   const { setIsImmersive, setHeaderColor } = useHeaderColor();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
 
   // State for active category
@@ -36,14 +34,7 @@ export default function ShopPage() {
     return () => setIsImmersive(false);
   }, [setIsImmersive, setHeaderColor, activeCategory.color]);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    if (!heroRef.current) return;
-    const rect = heroRef.current.getBoundingClientRect();
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-  };
+
 
   const nextProduct = () => {
     setActiveProductIndex((prev) => (prev + 1) % activeCategory.products.length);
@@ -75,23 +66,20 @@ export default function ShopPage() {
           style={{ background: `radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%)` }}
         />
       </div>
-      
+
       {/* Premium Hero Section - Cinematic Spotlight Redesign */}
       <motion.section
         ref={heroRef}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
-        className="relative w-full h-[600px] md:h-[750px] lg:h-[800px] text-white flex items-center overflow-hidden cursor-crosshair z-10 bg-transparent"
+        className="relative w-full h-[500px] sm:h-[650px] lg:h-[850px] text-white flex items-center overflow-hidden z-10 bg-transparent"
       >
 
         {/* Cinematic Background Theme */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-           {/* Color Tint Overlay */}
-           <motion.div 
-             animate={{ backgroundColor: activeCategory.color }}
-             className="absolute inset-0 transition-colors duration-1000 opacity-40"
-           />
+          {/* Color Tint Overlay */}
+          <motion.div
+            animate={{ backgroundColor: activeCategory.color }}
+            className="absolute inset-0 transition-colors duration-1000 opacity-40"
+          />
         </div>
 
         {/* Category Watermark */}
@@ -102,7 +90,7 @@ export default function ShopPage() {
             animate={{ opacity: 0.1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: -100, scale: 1.2 }}
             transition={{ duration: 1, ease: "circOut" }}
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-black text-[25vw] md:text-[20vw] leading-none select-none pointer-events-none uppercase tracking-tighter opacity-10"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-black text-[18vw] sm:text-[22vw] md:text-[20vw] leading-none select-none pointer-events-none uppercase tracking-tighter opacity-10"
           >
             {activeCategory.title}
           </motion.h2>
@@ -110,146 +98,166 @@ export default function ShopPage() {
 
         {/* Central Spotlight Content */}
         <div className="relative w-full h-full max-w-[1700px] mx-auto px-6 md:px-12 lg:px-24 flex items-center justify-between pointer-events-none">
-           
-           {/* Navigation Arrows */}
-           <div className="absolute inset-y-0 left-6 md:left-12 flex items-center z-30 pointer-events-auto">
-              <button onClick={prevProduct} className="p-4 rounded-full border border-white/20 bg-white/5 backdrop-blur-xl hover:bg-white/20 transition-all active:scale-95 group">
-                <motion.span whileHover={{ x: -4 }} className="block">
-                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                </motion.span>
-              </button>
-           </div>
-           
-           <div className="absolute inset-y-0 right-6 md:right-12 flex items-center z-30 pointer-events-auto">
-              {/* Category Selection stays on the far right as requested */}
-              <div className="hidden lg:flex flex-col gap-2 w-full max-w-[280px]">
-                <h3 className="text-xs uppercase tracking-[0.2em] font-bold mb-4 ml-4 text-white opacity-40">Select Category</h3>
-                {CATEGORIES.map((cat, index) => {
-                  const isActive = index === activeCategoryIndex;
-                  return (
-                    <button
-                      key={cat.id}
-                      onClick={() => setActiveCategoryIndex(index)}
-                      style={{ backgroundColor: cat.color, borderColor: cat.color }}
-                      className={`relative overflow-hidden flex items-center justify-between px-6 py-4 rounded-2xl border transition-all duration-300 group
+
+          {/* Navigation Arrows */}
+          <div className="absolute inset-y-0 left-6 md:left-12 flex items-center z-30 pointer-events-auto">
+            <button onClick={prevProduct} className="p-4 rounded-full border border-white/20 bg-white/5 backdrop-blur-xl hover:bg-white/20 transition-all active:scale-95 group">
+              <motion.span whileHover={{ x: -4 }} className="block">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </motion.span>
+            </button>
+          </div>
+
+          <div className="absolute inset-y-0 right-6 md:right-12 flex items-center z-30 pointer-events-auto">
+            {/* Category Selection stays on the far right as requested */}
+            <div className="hidden lg:flex flex-col gap-2 w-full max-w-[280px]">
+              <h3 className="text-xs uppercase tracking-[0.2em] font-bold mb-4 ml-4 text-white opacity-40">Select Category</h3>
+              {CATEGORIES.map((cat, index) => {
+                const isActive = index === activeCategoryIndex;
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => setActiveCategoryIndex(index)}
+                    style={{ backgroundColor: cat.color, borderColor: cat.color }}
+                    className={`relative overflow-hidden flex items-center justify-between px-6 py-4 rounded-2xl border transition-all duration-300 group
                         ${isActive
-                          ? 'backdrop-blur-md shadow-xl text-white opacity-100'
-                          : 'opacity-50 hover:opacity-100 shadow-md text-white/90'
-                        }
+                        ? 'backdrop-blur-md shadow-xl text-white opacity-100'
+                        : 'opacity-50 hover:opacity-100 shadow-md text-white/90'
+                      }
                       `}
-                    >
-                      <div className="relative z-10 flex items-center gap-4">
-                        <span 
-                          className={`w-2 h-2 rounded-full transition-transform ${isActive ? 'scale-125 bg-white' : 'scale-100 bg-white/70 group-hover:bg-white'}`} 
-                        />
-                        <span className={`font-bold tracking-[0.1em] uppercase text-xs text-white`}>
-                          {cat.title}
-                        </span>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-           </div>
+                  >
+                    <div className="relative z-10 flex items-center gap-4">
+                      <span
+                        className={`w-2 h-2 rounded-full transition-transform ${isActive ? 'scale-125 bg-white' : 'scale-100 bg-white/70 group-hover:bg-white'}`}
+                      />
+                      <span className={`font-bold tracking-[0.1em] uppercase text-xs text-white`}>
+                        {cat.title}
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
-           {/* Central Featured Product Spotlight */}
-           <div className="w-full flex items-center justify-center pointer-events-none">
-              <AnimatePresence mode="wait">
+          {/* Central Featured Product Spotlight */}
+          <div className="w-full flex items-center justify-center pointer-events-none">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={featuredProduct.id}
+                initial={{ opacity: 0, scale: 0.8, y: 50 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 1.1, y: -50 }}
+                transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                className="relative w-56 h-56 sm:w-80 sm:h-80 lg:w-[480px] lg:h-[480px] z-20 pointer-events-auto drop-shadow-2xl"
+              >
+                {/* Product Image */}
+                <div className="absolute inset-0 z-10">
+                  <Image src={featuredProduct.image} alt={featuredProduct.name} fill className="object-contain drop-shadow-2xl" />
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Variant Circles next to the product as shown in design */}
+            <div className="flex flex-col gap-3 ml-8 pointer-events-auto">
+              {featuredProduct.variants.slice(0, 3).map((v, i) => (
                 <motion.div
-                  key={featuredProduct.id}
-                  initial={{ opacity: 0, scale: 0.8, y: 50 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 1.1, y: -50 }}
-                  transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                  className="relative w-72 h-72 md:w-96 md:h-96 lg:w-[450px] lg:h-[450px] z-20 pointer-events-auto drop-shadow-2xl"
+                  key={i}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 + i * 0.1 }}
+                  className="w-14 h-14 rounded-full border border-white/20 bg-white/10 backdrop-blur-md flex flex-col items-center justify-center text-white"
                 >
-                   {/* Product Image */}
-                   <div className="absolute inset-0 z-10">
-                     <Image src={featuredProduct.image} alt={featuredProduct.name} fill className="object-contain drop-shadow-2xl" />
-                   </div>
+                  <span className="text-[10px] font-black uppercase tracking-tighter leading-none">{v.size}</span>
+                  <span className="text-[8px] font-bold opacity-60 uppercase">{v.unit}</span>
                 </motion.div>
-              </AnimatePresence>
-
-              {/* Variant Circles next to the product as shown in design */}
-              <div className="flex flex-col gap-3 ml-8 pointer-events-auto">
-                 {featuredProduct.variants.slice(0, 3).map((v, i) => (
-                   <motion.div 
-                     key={i} 
-                     initial={{ opacity: 0, x: 20 }}
-                     animate={{ opacity: 1, x: 0 }}
-                     transition={{ delay: 0.2 + i * 0.1 }}
-                     className="w-14 h-14 rounded-full border border-white/20 bg-white/10 backdrop-blur-md flex flex-col items-center justify-center text-white"
-                   >
-                      <span className="text-[10px] font-black uppercase tracking-tighter leading-none">{v.size}</span>
-                      <span className="text-[8px] font-bold opacity-60 uppercase">{v.unit}</span>
-                   </motion.div>
-                 ))}
-                 {/* Next Product Dot Navigator */}
-                 <div className="flex justify-center mt-4 gap-1.5 px-4 h-10 items-center">
-                    {activeCategory.products.map((_, i) => (
-                      <div key={i} className={`w-1.5 h-1.5 rounded-full transition-all ${i === activeProductIndex ? "bg-white scale-125 shadow-lg w-4" : "bg-white/20"}`} />
-                    ))}
-                 </div>
+              ))}
+              {/* Next Product Dot Navigator */}
+              <div className="flex justify-center mt-4 gap-1.5 px-4 h-10 items-center">
+                {activeCategory.products.map((_, i) => (
+                  <div key={i} className={`w-1.5 h-1.5 rounded-full transition-all ${i === activeProductIndex ? "bg-white scale-125 shadow-lg w-4" : "bg-white/20"}`} />
+                ))}
               </div>
-           </div>
+            </div>
+          </div>
 
-           {/* Mobile Side Arrows / Navigation */}
-           <div className="absolute inset-y-0 right-6 md:right-12 flex items-center z-30 pointer-events-auto lg:hidden">
-              <button onClick={nextProduct} className="p-4 rounded-full border border-white/20 bg-white/5 backdrop-blur-xl hover:bg-white/20 transition-all active:scale-95 group">
-                <motion.span whileHover={{ x: 4 }} className="block">
-                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                </motion.span>
-              </button>
-           </div>
+          {/* Mobile Side Arrows / Navigation */}
+          <div className="absolute inset-y-0 right-6 md:right-12 flex items-center z-30 pointer-events-auto lg:hidden">
+            <button onClick={nextProduct} className="p-4 rounded-full border border-white/20 bg-white/5 backdrop-blur-xl hover:bg-white/20 transition-all active:scale-95 group">
+              <motion.span whileHover={{ x: 4 }} className="block">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </motion.span>
+            </button>
+          </div>
         </div>
 
         {/* Bottom Left Spotlight Details */}
         <div className="absolute bottom-12 left-6 md:left-12 lg:left-24 z-30 max-w-xl pointer-events-none">
-           <AnimatePresence mode="wait">
-             <motion.div
-               key={"details-" + featuredProduct.id}
-               initial={{ opacity: 0, y: 20 }}
-               animate={{ opacity: 1, y: 0 }}
-               exit={{ opacity: 0, y: -20 }}
-               transition={{ duration: 0.4 }}
-             >
-                <h1 className="text-4xl md:text-5xl lg:text-7xl font-playfair font-black mb-4 tracking-tighter drop-shadow-xl">
-                  {featuredProduct.name}
-                </h1>
-                <p className="max-w-lg text-base md:text-lg opacity-70 font-inter font-light drop-shadow-sm leading-relaxed">
-                  {featuredProduct.description}
-                </p>
-             </motion.div>
-           </AnimatePresence>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={"details-" + featuredProduct.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+            >
+              <h1 className="text-3xl sm:text-5xl lg:text-8xl font-playfair font-black mb-3 lg:mb-6 tracking-tighter drop-shadow-xl leading-[0.9]">
+                {featuredProduct.name}
+              </h1>
+              <p className="max-w-[280px] sm:max-w-lg text-sm sm:text-lg opacity-70 font-inter font-light drop-shadow-sm leading-relaxed line-clamp-2 sm:line-clamp-none">
+                {featuredProduct.description}
+              </p>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
-        {/* Fluid Mouse Cursor Glow */}
-        <motion.div
-          className="absolute z-0 pointer-events-none rounded-full blur-[80px]"
-          animate={{
-            x: mousePosition.x - 250, 
-            y: mousePosition.y - 250,
-            opacity: isHovering ? 0.8 : 0,
-            scale: isHovering ? 1 : 0.8,
-          }}
-          transition={{ type: "tween", ease: "backOut", duration: 0.5 }}
-          style={{
-            width: "500px",
-            height: "500px",
-            background: "radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 60%)",
-            mixBlendMode: "screen",
-          }}
-        />
+
 
         {/* Right Arrow for Desktop (Centered) */}
         <div className="hidden lg:flex absolute right-[250px] inset-y-0 items-center z-30 pointer-events-auto">
-            <button onClick={nextProduct} className="p-4 rounded-full border border-white/20 bg-white/5 backdrop-blur-xl hover:bg-white/20 transition-all active:scale-95 group">
-                <motion.span whileHover={{ x: 4 }} className="block">
-                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                </motion.span>
-            </button>
+          <button onClick={nextProduct} className="p-4 rounded-full border border-white/20 bg-white/5 backdrop-blur-xl hover:bg-white/20 transition-all active:scale-95 group">
+            <motion.span whileHover={{ x: 4 }} className="block">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </motion.span>
+          </button>
+        </div>
+
+        {/* Swipe Hint for Mobile */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 lg:hidden pointer-events-none opacity-40">
+          <motion.div
+            animate={{ x: [-10, 10, -10] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="text-[10px] font-bold uppercase tracking-[0.2em]"
+          >
+            Swipe to explore
+          </motion.div>
         </div>
       </motion.section>
+
+      {/* Mobile Category Selection Bar */}
+      <div className="lg:hidden w-full px-6 py-8 overflow-x-auto scrollbar-hide flex gap-3 z-20 relative">
+        {CATEGORIES.map((cat, index) => {
+          const isActive = index === activeCategoryIndex;
+          return (
+            <button
+              key={cat.id}
+              onClick={() => setActiveCategoryIndex(index)}
+              style={{ backgroundColor: cat.color, borderColor: cat.color }}
+              className={`relative shrink-0 flex items-center gap-3 px-6 py-3 rounded-xl border transition-all duration-300
+                ${isActive
+                  ? 'shadow-xl text-white opacity-100 scale-105'
+                  : 'opacity-40 text-white/90 scale-100'
+                }
+              `}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full bg-white ${isActive ? 'opacity-100' : 'opacity-50'}`} />
+              <span className="font-bold tracking-[0.1em] uppercase text-[10px] whitespace-nowrap">
+                {cat.title}
+              </span>
+            </button>
+          );
+        })}
+      </div>
 
       {/* Active Collection Single View Grid */}
       <section className="max-w-[1700px] mx-auto w-full px-6 md:px-12 py-16">
@@ -289,10 +297,10 @@ export default function ShopPage() {
             {activeCategory.products && activeCategory.products.length > 0 ? (
               <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-6 items-stretch">
                 {activeCategory.products.map((product) => (
-                  <ProductCard 
-                    key={product.id} 
-                    product={product} 
-                    accentColor={activeCategory.color} 
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    accentColor={activeCategory.color}
                     onSelect={(p) => setSelectedGridProduct(p)}
                   />
                 ))}
@@ -307,16 +315,16 @@ export default function ShopPage() {
 
         {/* Inline Product Detail Section */}
         <AnimatePresence mode="wait">
-           {selectedGridProduct && (
-             <div className="mt-8">
-               <ProductDetailSection 
-                 product={selectedGridProduct} 
-                 categoryTitle={activeCategory.title}
-                 categoryColor={activeCategory.color}
-                 onClose={() => setSelectedGridProduct(null)}
-               />
-             </div>
-           )}
+          {selectedGridProduct && (
+            <div className="mt-8">
+              <ProductDetailSection
+                product={selectedGridProduct}
+                categoryTitle={activeCategory.title}
+                categoryColor={activeCategory.color}
+                onClose={() => setSelectedGridProduct(null)}
+              />
+            </div>
+          )}
         </AnimatePresence>
 
       </section>
