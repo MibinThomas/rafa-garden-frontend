@@ -10,10 +10,8 @@ export async function POST(request: Request): Promise<NextResponse> {
   }
 
   try {
-    const body = request.body;
-    if (!body) {
-      return NextResponse.json({ error: 'Body is required' }, { status: 400 });
-    }
+    const arrayBuffer = await request.arrayBuffer();
+    const body = Buffer.from(arrayBuffer);
 
     const token = process.env.BLOB_READ_WRITE_TOKEN;
     if (!token) {
@@ -23,6 +21,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     const blob = await put(filename, body, {
       access: 'public',
       token: token,
+      addRandomSuffix: true,
     });
 
     return NextResponse.json(blob);
