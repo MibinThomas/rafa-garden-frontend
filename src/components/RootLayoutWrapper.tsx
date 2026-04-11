@@ -4,6 +4,7 @@ import React from "react";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { FloatingHeader } from "@/components/FloatingHeader";
+import { Footer } from "@/components/Footer";
 import { CartModal } from "@/components/CartModal";
 import { Inter, Playfair_Display, Outfit, Montserrat } from "next/font/google";
 
@@ -29,6 +30,7 @@ export function RootLayoutWrapper({ children }: { children: React.ReactNode }) {
         <main className="flex-1 flex flex-col">
           {children}
         </main>
+        <Footer />
         <CartModal />
       </ThemeProvider>
     </body>

@@ -289,7 +289,7 @@ export default function ShopPage() {
       </div>
 
       {/* Active Collection Single View Grid */}
-      <section className="max-w-[1700px] mx-auto w-full px-6 md:px-12 py-16">
+      <section className="max-w-[1700px] mx-auto w-full px-6 md:px-12 pt-16 pb-8">
 
         {/* Dynamic Section Header */}
         <AnimatePresence mode="wait">
@@ -363,7 +363,6 @@ export default function ShopPage() {
             </div>
           )}
         </AnimatePresence>
-
       </section>
     </div>
   );
