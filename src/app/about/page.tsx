@@ -11,8 +11,45 @@ export default function AboutPage() {
   const { setIsImmersive, setHeaderColor, headerColor } = useHeaderColor();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [content, setContent] = useState<Record<string, any>>({
+    "about.hero.small": "The Dragon Fruit Heritage",
+    "about.hero.main": "Vibrant Nature. Premium Harvest.",
+    "about.hero.desc": "Step into the Rafah Dragon Fruit Garden—where ancient heritage meets modern sustainable cultivation for an unparalleled exotic experience.",
+    "about.story.small": "Our Dragon Fruit Story",
+    "about.story.main": "Cultivating the Jewel of the Tropical Garden.",
+    "about.story.p1": "Nestled in the heart of our botanical sanctuary lies the Dragon Fruit Garden. Here, we've perfected the art of cultivating the Pitaya, blending centuries-old wisdom with modern vertical farming technology.",
+    "about.story.p2": "Every dragon fruit at Rafah is a testament to biodiversity. From the vivid red varieties to the pristine yellow exports, our garden produces a spectrum of flavors designed to elevate your palate and nourish your soul.",
+    "about.story.image": "/images/about/ngoc-nguyen-phuong-qNOuWqisUQ0-unsplash.jpg",
+    "about.values.title": "Crafted with Precision",
+    "about.values.desc": "Our dragon fruit garden is governed by three core pillars that prioritize flavor, health, and ecological balance."
+  });
+  
   const containerRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const res = await fetch("/api/content?group=about");
+        const data = await res.json();
+        
+        if (Array.isArray(data)) {
+          const contentMap: any = {};
+          data.forEach((item: any) => {
+            contentMap[item.key] = item.value;
+          });
+          if (Object.keys(contentMap).length > 0) {
+            setContent(prev => ({ ...prev, ...contentMap }));
+          }
+        } else {
+          console.error("Data received from /api/content (about) is not an array:", data);
+        }
+      } catch (err) {
+        console.error("Failed to load about content", err);
+      }
+    };
+    fetchContent();
+  }, []);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -83,7 +120,7 @@ export default function AboutPage() {
             className="text-xs md:text-sm font-bold uppercase tracking-[0.4em] mb-4 block"
             style={{ color: activeColor }}
           >
-            The Dragon Fruit Heritage
+            {content["about.hero.small"]}
           </motion.span>
           <motion.h1 
             initial={{ opacity: 0, scale: 0.95 }}
@@ -91,8 +128,13 @@ export default function AboutPage() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="text-5xl md:text-7xl lg:text-9xl font-black font-playfair tracking-tight mb-6"
           >
-            Vibrant <span className="italic" style={{ color: activeColor }}>Nature.</span><br/>
-            Premium <span className="text-[#b5e55b] italic">Harvest.</span>
+             {content["about.hero.main"].split(". ").map((part: string, idx: number) => (
+                <span key={idx}>
+                   {part}
+                   {idx === 0 && <><span className="italic" style={{ color: activeColor }}>Nature.</span><br/></>}
+                   {idx === 1 && <span className="text-[#b5e55b] italic">Harvest.</span>}
+                </span>
+             ))}
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0 }}
@@ -100,8 +142,7 @@ export default function AboutPage() {
             transition={{ duration: 1, delay: 0.5 }}
             className="max-w-2xl mx-auto text-lg md:text-xl opacity-80 font-inter font-light leading-relaxed drop-shadow-sm"
           >
-            Step into the Rafah Dragon Fruit Garden—where ancient heritage meets 
-            modern sustainable cultivation for an unparalleled exotic experience.
+            {content["about.hero.desc"]}
           </motion.p>
         </motion.div>
 
@@ -165,7 +206,7 @@ export default function AboutPage() {
          <div className="max-w-[1400px] mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div className="relative aspect-[3/4] rounded-[4rem] overflow-hidden group shadow-2xl">
                <Image 
-                 src="/images/about/ngoc-nguyen-phuong-qNOuWqisUQ0-unsplash.jpg"
+                 src={content["about.story.image"]}
                  alt="Dragon Fruit Garden"
                  fill
                  className="object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
@@ -178,16 +219,16 @@ export default function AboutPage() {
             </div>
 
             <div className="flex flex-col justify-center">
-               <h2 className="font-bold uppercase tracking-widest text-sm mb-6" style={{ color: activeColor }}>Our Dragon Fruit Story</h2>
+               <h2 className="font-bold uppercase tracking-widest text-sm mb-6" style={{ color: activeColor }}>{content["about.story.small"]}</h2>
                <h3 className="text-4xl md:text-5xl font-black font-playfair text-[#0b2b1a] mb-10 leading-[1.15]">
-                 Cultivating the <span className="italic" style={{ color: activeColor }}>Jewel</span> of the Tropical Garden.
+                 {content["about.story.main"]}
                </h3>
                <div className="space-y-8 text-gray-500 font-inter text-lg leading-relaxed font-light">
                   <p>
-                    Nestled in the heart of our botanical sanctuary lies the Dragon Fruit Garden. Here, we've perfected the art of cultivating the Pitaya, blending centuries-old wisdom with modern vertical farming technology.
+                    {content["about.story.p1"]}
                   </p>
                   <p>
-                    Every dragon fruit at Rafah is a testament to biodiversity. From the vivid red varieties to the pristine yellow exports, our garden produces a spectrum of flavors designed to elevate your palate and nourish your soul.
+                    {content["about.story.p2"]}
                   </p>
                </div>
                
@@ -215,8 +256,8 @@ export default function AboutPage() {
       <section className="bg-[#0b2b1a] py-40 relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
           <div className="text-left mb-24 max-w-2xl">
-            <h2 className="text-4xl md:text-6xl font-black font-playfair text-white mb-6">Crafted with <span className="italic" style={{ color: activeColor }}>Precision</span></h2>
-            <p className="text-white/60 text-lg md:text-xl font-light leading-relaxed">Our dragon fruit garden is governed by three core pillars that prioritize flavor, health, and ecological balance.</p>
+            <h2 className="text-4xl md:text-6xl font-black font-playfair text-white mb-6">{content["about.values.title"]}</h2>
+            <p className="text-white/60 text-lg md:text-xl font-light leading-relaxed">{content["about.values.desc"]}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">

@@ -4,13 +4,17 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { User, ShoppingBasket } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCart } from "@/lib/CartContext";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
 
 export function FloatingHeader() {
+  const pathname = usePathname();
   const { openCart, items } = useCart();
   const { headerColor } = useHeaderColor();
   const itemCount = items.reduce((total: number, item: any) => total + item.quantity, 0);
+
+  if (pathname.startsWith('/admin')) return null;
 
   return (
     <>

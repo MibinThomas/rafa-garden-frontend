@@ -13,20 +13,35 @@ interface CategoryHeroProps {
 }
 
 export function CategoryHero({ onSelect }: CategoryHeroProps) {
+  const [categories, setCategories] = useState<any[]>(CATEGORIES);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isMounted, setIsMounted] = useState(false);
   const { headerColor, setHeaderColor } = useHeaderColor();
 
   useEffect(() => {
+    // Fetch live categories
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch("/api/categories");
+        if (res.ok) {
+           const data = await res.json();
+           if (data && data.length > 0) setCategories(data);
+        }
+      } catch (e) {
+        console.error("Live load failed:", e);
+      }
+    };
+    fetchCategories();
+
     setIsMounted(true);
     setHoveredIndex(0); // Default to Crush (index 0) after mount
   }, []);
 
   useEffect(() => {
-    if (isMounted && hoveredIndex !== null) {
-      setHeaderColor(CATEGORIES[hoveredIndex].color);
+    if (isMounted && hoveredIndex !== null && categories[hoveredIndex]) {
+      setHeaderColor(categories[hoveredIndex].color);
     }
-  }, [hoveredIndex, setHeaderColor, isMounted]);
+  }, [hoveredIndex, setHeaderColor, isMounted, categories]);
 
   if (!isMounted) return null; // Avoid hydration mismatch
 
@@ -37,7 +52,7 @@ export function CategoryHero({ onSelect }: CategoryHeroProps) {
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         className="w-full flex-1 max-w-[1600px] mx-auto overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem] shadow-[0_40px_100px_rgba(0,0,0,0.1)] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 relative"
       >
-        {CATEGORIES.map((cat, index) => (
+        {categories.map((cat, index) => (
           <motion.div
             key={cat.id}
             onMouseEnter={() => setHoveredIndex(index)}

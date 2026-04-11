@@ -3,11 +3,12 @@ import "./globals.css";
 import { CartProvider } from "@/lib/CartContext";
 import { HeaderColorProvider } from "@/lib/HeaderColorContext";
 import { WishlistProvider } from "@/lib/WishlistContext";
+import { SiteSettingsProvider } from "@/lib/SiteSettingsContext";
 import { RootLayoutWrapper } from "@/components/RootLayoutWrapper";
 
 export const metadata: Metadata = {
-  title: "DRGN CRUSH | Zero Gravity Refreshment",
-  description: "High-performance e-commerce template for DRGN CRUSH.",
+  title: "Rafah Garden | Heritage Pitaya Sanctuary",
+  description: "Experience the botanical essence of Rafah's premium dragon fruit harvest.",
 };
 
 export default function RootLayout({
@@ -18,13 +19,15 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <HeaderColorProvider>
-        <CartProvider>
-          <WishlistProvider>
-            <RootLayoutWrapper>
-              {children}
-            </RootLayoutWrapper>
-          </WishlistProvider>
-        </CartProvider>
+        <SiteSettingsProvider>
+          <CartProvider>
+            <WishlistProvider>
+              <RootLayoutWrapper>
+                {children}
+              </RootLayoutWrapper>
+            </WishlistProvider>
+          </CartProvider>
+        </SiteSettingsProvider>
       </HeaderColorProvider>
     </html>
   );

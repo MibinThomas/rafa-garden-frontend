@@ -11,10 +11,14 @@ import { useHeaderColor } from "@/lib/HeaderColorContext";
 export default function ShopPage() {
   const { setIsImmersive, setHeaderColor } = useHeaderColor();
   const heroRef = useRef<HTMLElement>(null);
+  
+  // Dynamic State for categories
+  const [categories, setCategories] = useState<any[]>(CATEGORIES);
+  const [loading, setLoading] = useState(true);
 
   // State for active category
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
-  const activeCategory = CATEGORIES[activeCategoryIndex];
+  const activeCategory = categories[activeCategoryIndex] || CATEGORIES[0];
 
   // State for spotlight featured product
   const [activeProductIndex, setActiveProductIndex] = useState(0);
@@ -24,6 +28,24 @@ export default function ShopPage() {
   const [selectedGridProduct, setSelectedGridProduct] = useState<Product | null>(null);
 
   useEffect(() => {
+    // Fetch live categories from database
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch("/api/categories");
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.length > 0) {
+             setCategories(data);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load dynamic categories:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCategories();
+
     // Disable immersive hero specific behaviors globally for the shop page
     setIsImmersive(true);
     // Dynamically lock header color to active category
@@ -112,7 +134,7 @@ export default function ShopPage() {
             {/* Category Selection stays on the far right as requested */}
             <div className="hidden lg:flex flex-col gap-2 w-full max-w-[280px]">
               <h3 className="text-xs uppercase tracking-[0.2em] font-bold mb-4 ml-4 text-white opacity-40">Select Category</h3>
-              {CATEGORIES.map((cat, index) => {
+              {categories.map((cat, index) => {
                 const isActive = index === activeCategoryIndex;
                 return (
                   <button
@@ -236,7 +258,7 @@ export default function ShopPage() {
 
       {/* Mobile Category Selection Bar */}
       <div className="lg:hidden w-full px-6 py-8 overflow-x-auto scrollbar-hide flex gap-3 z-20 relative">
-        {CATEGORIES.map((cat, index) => {
+        {categories.map((cat, index) => {
           const isActive = index === activeCategoryIndex;
           return (
             <button
