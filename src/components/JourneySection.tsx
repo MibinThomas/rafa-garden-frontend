@@ -64,7 +64,7 @@ export function JourneySection() {
             className="text-4xl md:text-6xl lg:text-7xl font-black font-playfair text-white tracking-tighter leading-none"
           >
             Journey from <span className="italic">Soil to Soul.</span>
-          </h2 >
+          </motion.h2>
         </div>
 
         {/* Journey Steps */}
