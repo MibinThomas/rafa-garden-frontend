@@ -31,18 +31,22 @@ export default function AboutPage() {
     const fetchContent = async () => {
       try {
         const res = await fetch("/api/content?group=about");
-        const data = await res.json();
-        
-        if (Array.isArray(data)) {
-          const contentMap: any = {};
-          data.forEach((item: any) => {
-            contentMap[item.key] = item.value;
-          });
-          if (Object.keys(contentMap).length > 0) {
-            setContent(prev => ({ ...prev, ...contentMap }));
+        if (res.ok) {
+          const contentType = res.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const data = await res.json();
+            if (Array.isArray(data)) {
+              const contentMap: any = {};
+              data.forEach((item: any) => {
+                contentMap[item.key] = item.value;
+              });
+              if (Object.keys(contentMap).length > 0) {
+                setContent(prev => ({ ...prev, ...contentMap }));
+              }
+            } else {
+              console.error("Data received from /api/content (about) is not an array:", data);
+            }
           }
-        } else {
-          console.error("Data received from /api/content (about) is not an array:", data);
         }
       } catch (err) {
         console.error("Failed to load about content", err);

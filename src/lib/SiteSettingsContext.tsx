@@ -27,6 +27,20 @@ export function SiteSettingsProvider({ children }: { children: ReactNode }) {
   const fetchSettings = async () => {
     try {
       const res = await fetch("/api/content?group=global");
+      
+      if (!res.ok) {
+        console.warn(`Failed to fetch site settings: ${res.status}`);
+        setLoading(false);
+        return;
+      }
+
+      const contentType = res.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        console.warn("Received non-JSON response from /api/content");
+        setLoading(false);
+        return;
+      }
+
       const data = await res.json();
       
       if (Array.isArray(data)) {

@@ -24,8 +24,11 @@ export function CategoryHero({ onSelect }: CategoryHeroProps) {
       try {
         const res = await fetch("/api/categories");
         if (res.ok) {
-           const data = await res.json();
-           if (data && data.length > 0) setCategories(data);
+           const contentType = res.headers.get("content-type");
+           if (contentType && contentType.includes("application/json")) {
+             const data = await res.json();
+             if (data && data.length > 0) setCategories(data);
+           }
         }
       } catch (e) {
         console.error("Live load failed:", e);

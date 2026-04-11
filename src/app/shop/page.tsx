@@ -33,10 +33,17 @@ export default function ShopPage() {
       try {
         const res = await fetch("/api/categories");
         if (res.ok) {
-          const data = await res.json();
-          if (data && data.length > 0) {
-             setCategories(data);
+          const contentType = res.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const data = await res.json();
+            if (data && data.length > 0) {
+               setCategories(data);
+            }
+          } else {
+            console.warn("Received non-JSON response from /api/categories");
           }
+        } else {
+          console.warn(`Failed to fetch categories: ${res.status}`);
         }
       } catch (err) {
         console.error("Failed to load dynamic categories:", err);
@@ -307,17 +314,25 @@ export default function ShopPage() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Product Grid (Responsive: 2 cols mobile, 3 cols tablet, 5 cols desktop) */}
+        {/* Product Grid Wrapper with Premium Rounded Container */}
         <AnimatePresence mode="wait">
           <motion.div
-            key={"grid-" + activeCategory.id}
-            initial={{ opacity: 0, y: 15 }}
+            key={"grid-container-" + activeCategory.id}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.98 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="relative p-6 sm:p-12 md:p-16 lg:p-20 rounded-[3rem] sm:rounded-[5rem] overflow-hidden"
           >
+            {/* Fixed Background Color */}
+            <div 
+              className="absolute inset-0 bg-[#f1f1f2]"
+            />
+            {/* Subtle Inner Glow */}
+            <div className="absolute inset-0 border border-white/20 rounded-[inherit] pointer-events-none" />
+
             {activeCategory.products && activeCategory.products.length > 0 ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-6 items-stretch">
+              <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 sm:gap-12 md:gap-16 items-start">
                 {activeCategory.products.map((product: Product) => (
                   <ProductCard
                     key={product.id}
@@ -328,8 +343,8 @@ export default function ShopPage() {
                 ))}
               </div>
             ) : (
-              <div className="w-full py-24 flex items-center justify-center bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10">
-                <p className="text-lg text-white/50 font-medium">Products arriving soon...</p>
+              <div className="relative z-10 w-full py-32 flex items-center justify-center bg-white/5 backdrop-blur-xl rounded-[3rem] border border-white/10">
+                <p className="text-xl text-white/40 font-bold uppercase tracking-widest">Collection arriving soon...</p>
               </div>
             )}
           </motion.div>
