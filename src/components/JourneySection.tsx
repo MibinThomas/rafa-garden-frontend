@@ -79,7 +79,7 @@ export function JourneySection() {
                   initial={{ opacity: 0, scale: 0.9, x: isEven ? -50 : 50 }}
                   whileInView={{ opacity: 1, scale: 1, x: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] as const }}
                   className="relative w-full md:w-1/2 aspect-[4/5] rounded-[2rem] md:rounded-[4rem] overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.5)] border border-white/5"
                 >
                   <Image

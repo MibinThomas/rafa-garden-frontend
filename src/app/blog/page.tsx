@@ -26,7 +26,7 @@ export default function BlogListingPage() {
     visible: { 
       y: 0, 
       opacity: 1,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }
     }
   };
 
@@ -79,7 +79,7 @@ export default function BlogListingPage() {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }}
           className="relative bg-white/80 backdrop-blur-3xl p-8 sm:p-16 lg:p-24 rounded-[3.5rem] sm:rounded-[5rem] shadow-[0_50px_100px_rgba(0,0,0,0.05)] border border-white/50"
         >
           <motion.div 

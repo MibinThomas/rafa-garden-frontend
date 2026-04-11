@@ -321,7 +321,7 @@ export default function ShopPage() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }}
             className="relative p-6 sm:p-12 md:p-16 lg:p-20 rounded-[3rem] sm:rounded-[5rem] overflow-hidden"
           >
             {/* Fixed Background Color */}

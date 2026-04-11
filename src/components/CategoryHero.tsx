@@ -55,7 +55,7 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
     <section className="relative w-full flex-1 px-4 pt-[10px] pb-[10px] md:px-12 flex flex-col font-sans overflow-hidden">
       <motion.div
         animate={{ backgroundColor: "#f1f1f1" }}
-        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] as const }}
         className="w-full flex-1 max-w-[1600px] mx-auto overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem] shadow-[0_40px_100px_rgba(0,0,0,0.1)] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 relative"
       >
         {categories.map((cat, index) => (

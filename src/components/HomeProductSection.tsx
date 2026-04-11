@@ -35,7 +35,7 @@ export function HomeProductSection({ categoryIndex }: HomeProductSectionProps) {
             key={category.id + "-title"}
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }}
           >
             <span 
               className="text-[10px] font-bold uppercase tracking-[0.5em] mb-4 block"
@@ -71,7 +71,7 @@ export function HomeProductSection({ categoryIndex }: HomeProductSectionProps) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10"
           >
             {category.products.slice(0, 4).map((product) => (

@@ -37,7 +37,7 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
       initial={{ x: "100%" }}
       animate={{ x: 0 }}
       exit={{ x: "100%" }}
-      transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] as const }}
       className="fixed inset-0 z-[60] overflow-hidden flex flex-col font-sans"
       style={{ backgroundColor: cat.color }}
     >

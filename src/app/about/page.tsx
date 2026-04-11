@@ -129,7 +129,7 @@ export default function AboutPage() {
           <motion.h1 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] as const }}
             className="text-5xl md:text-7xl lg:text-9xl font-black font-playfair tracking-tight mb-6"
           >
              {content["about.hero.main"].split(". ").map((part: string, idx: number) => (

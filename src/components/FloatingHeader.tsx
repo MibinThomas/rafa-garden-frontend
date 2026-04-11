@@ -26,8 +26,8 @@ export function FloatingHeader() {
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1, backgroundColor: headerColor }}
             transition={{ 
-              y: { duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] },
-              backgroundColor: { duration: 1.2, ease: [0.16, 1, 0.3, 1] }
+              y: { duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] as const },
+              backgroundColor: { duration: 1.2, ease: [0.16, 1, 0.3, 1] as const }
             }}
             className="rounded-full px-8 h-13 flex items-center shadow-[0_10px_30px_rgba(0,0,0,0.1)] cursor-pointer group hover:scale-[1.02] transition-transform duration-300"
           >
@@ -47,8 +47,8 @@ export function FloatingHeader() {
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1, backgroundColor: headerColor }}
             transition={{ 
-              y: { duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] },
-              backgroundColor: { duration: 1.2, ease: [0.16, 1, 0.3, 1] }
+              y: { duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] as const },
+              backgroundColor: { duration: 1.2, ease: [0.16, 1, 0.3, 1] as const }
             }}
             className="rounded-full px-10 h-13 flex items-center gap-14 shadow-[0_10px_30px_rgba(0,0,0,0.1)] pointer-events-auto"
           >
@@ -92,7 +92,7 @@ export function FloatingHeader() {
       <div className="w-full flex md:hidden items-center justify-between px-4 pt-3 pb-2 pointer-events-auto bg-[#f1f1f2]">
         <motion.div 
           animate={{ backgroundColor: headerColor }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] as const }}
           className="flex-1 flex items-center justify-between rounded-full px-6 py-2 shadow-lg gap-4"
         >
           {/* Logo */}
