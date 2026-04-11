@@ -14,7 +14,7 @@ type CartContextType = {
     isCartOpen: boolean;
     openCart: () => void;
     closeCart: () => void;
-    addToCart: (item: Omit<CartItem, "quantity">) => void;
+    addToCart: (item: Omit<CartItem, "quantity">, qty?: number) => void;
     removeFromCart: (id: string) => void;
     cartTotal: number;
 };

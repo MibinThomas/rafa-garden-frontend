@@ -29,13 +29,11 @@ export function ProductDetailSection({ product, categoryTitle, categoryColor, on
   const isFavorited = isInWishlist(product.id);
 
   const handleAddToCart = () => {
-    for (let i = 0; i < quantity; i++) {
-      addToCart({
-        id: `${product.id}-${selectedVariantIdx}`,
-        name: `${product.name} (${selectedVariant.size} ${selectedVariant.unit})`.trim(),
-        price: selectedVariant.price || 599
-      });
-    }
+    addToCart({
+      id: `${product.id}-${selectedVariantIdx}`,
+      name: `${product.name} (${selectedVariant.size} ${selectedVariant.unit})`.trim(),
+      price: selectedVariant.price || 599
+    }, quantity);
   };
 
   return (
