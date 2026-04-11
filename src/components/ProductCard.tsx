@@ -6,12 +6,13 @@ import { motion } from "framer-motion";
 import { useCart } from "@/lib/CartContext";
 import { useWishlist } from "@/lib/WishlistContext";
 import { Product } from "@/lib/data";
-import { ShoppingBasket, Heart } from "lucide-react";
+import { ShoppingBasket, Heart, Plus, Minus } from "lucide-react";
 
 export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { product: Product, accentColor?: string, onSelect?: (product: Product) => void }) {
   const { addToCart } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
   const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   const selectedVariant = product.variants[selectedVariantIdx] || { size: "Standard", unit: "", price: 599 };
   const currentPrice = selectedVariant.price || 599.00;
@@ -24,13 +25,23 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
       id: `${product.id}-${selectedVariantIdx}`,
       name: `${product.name} (${selectedVariant.size} ${selectedVariant.unit})`.trim(),
       price: currentPrice
-    });
+    }, quantity);
   };
 
   const handleWishlist = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     toggleWishlist(product.id);
+  };
+
+  const incrementQty = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setQuantity(prev => prev + 1);
+  };
+
+  const decrementQty = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (quantity > 1) setQuantity(prev => prev - 1);
   };
 
   return (
@@ -99,8 +110,24 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
               </div>
             </div>
 
-            {/* Right: Price */}
-            <div className="text-right">
+            {/* Right: Price & Small Qty */}
+            <div className="text-right flex flex-col items-end pointer-events-auto">
+               {/* Small Quantity Selector */}
+               <div className="flex items-center gap-2 mb-1 bg-gray-50/50 rounded-full px-2 py-0.5 border border-gray-100">
+                 <button 
+                   onClick={decrementQty}
+                   className="hover:text-black text-gray-400 transition-colors focus:outline-none"
+                 >
+                   <Minus size={10} strokeWidth={3} />
+                 </button>
+                 <span className="text-[10px] font-bold text-gray-900 w-3 text-center">{quantity}</span>
+                 <button 
+                   onClick={incrementQty}
+                   className="hover:text-black text-gray-400 transition-colors focus:outline-none"
+                 >
+                   <Plus size={10} strokeWidth={3} />
+                 </button>
+               </div>
                <p className="text-sm sm:text-lg font-medium tabular-nums flex items-start justify-end" style={{ color: accentColor }}>
                  <span className="text-[8px] mt-0.5 mr-0.5 opacity-80 font-bold">₹</span>
                  <span>{currentPrice.toFixed(0)}</span>
