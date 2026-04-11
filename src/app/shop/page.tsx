@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { CATEGORIES, Product } from "@/lib/data";
+import { CATEGORIES, Product, ProductVariant } from "@/lib/data";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductDetailSection } from "@/components/ProductDetailSection";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
@@ -182,7 +182,7 @@ export default function ShopPage() {
 
             {/* Variant Circles next to the product as shown in design */}
             <div className="flex flex-col gap-3 ml-8 pointer-events-auto">
-              {featuredProduct.variants.slice(0, 3).map((v, i) => (
+              {featuredProduct.variants.slice(0, 3).map((v: ProductVariant, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: 20 }}
