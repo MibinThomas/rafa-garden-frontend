@@ -180,6 +180,9 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                        </button>
                     </div>
                  </div>
+                 <p className="mt-4 ml-2 text-[9px] font-black uppercase tracking-[0.2em] text-[#bbbdbf]">
+                    Suggested Dimensions: <span className="text-[#0b2b1a] opacity-60">1920 x 1080 px</span> (Heritage Standard)
+                 </p>
                  <input 
                     type="file" 
                     className="hidden" 
