@@ -1,31 +1,62 @@
 "use client";
 
-import { use } from "react";
+import { use, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { BLOG_POSTS, BlogPost } from "@/lib/data";
-import { ArrowLeft, ArrowRight, Clock, Calendar, User, Share2, Instagram, MessageCircle } from "lucide-react";
+import { BlogPost } from "@/lib/data";
+import { ArrowLeft, ArrowRight, Clock, Calendar, User, Share2, Instagram, MessageCircle, Loader2 } from "lucide-react";
 
 export default function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = use(params);
-  const post = BLOG_POSTS.find((p) => p.slug === resolvedParams.slug);
+  const [post, setPost] = useState<BlogPost | null>(null);
+  const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  if (!post) {
-    return notFound();
-  }
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const res = await fetch("/api/blog");
+        const data = await res.json();
+        
+        if (Array.isArray(data)) {
+          const found = data.find((p: any) => p.slug === resolvedParams.slug);
+          if (found) {
+            setPost(found);
+            setRelatedPosts(data.filter((p: any) => p.slug !== resolvedParams.slug).slice(0, 2));
+          } else {
+            return notFound();
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch post:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchContent();
+  }, [resolvedParams.slug]);
 
-  // Related Posts (simple find others)
-  const relatedPosts = BLOG_POSTS.filter((p) => p.slug !== resolvedParams.slug).slice(0, 2);
-
-  // Reading Progress Bar
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001
   });
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#0b2b1a] text-white">
+        <Loader2 className="w-12 h-12 text-[#c81c6a] animate-spin mb-6" />
+        <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40">Consulting the Sages...</p>
+      </div>
+    );
+  }
+
+  if (!post) {
+    return notFound();
+  }
 
   return (
     <div className="min-h-screen bg-white selection:bg-[#c81c6a] selection:text-white pb-32">
@@ -44,12 +75,14 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
           transition={{ duration: 1.8, ease: "easeOut" }}
           className="absolute inset-0 z-0"
         >
-          <Image 
-            src={post.image} 
-            alt={post.title} 
-            fill 
-            className="object-cover blur-[2px]"
-          />
+          {post.image && (
+            <Image 
+              src={post.image} 
+              alt={post.title} 
+              fill 
+              className="object-cover blur-[2px]"
+            />
+          )}
         </motion.div>
 
         {/* Gradient Transition to White Content */}
@@ -71,7 +104,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
 
             <span 
               className="inline-block px-4 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-[0.2em] text-white mb-6 shadow-xl"
-              style={{ backgroundColor: post.accentColor }}
+              style={{ backgroundColor: post.accentColor || '#c81c6a' }}
             >
               {post.category}
             </span>
@@ -101,18 +134,15 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
             className="prose prose-lg sm:prose-xl max-w-none font-inter text-gray-700 leading-relaxed font-light"
           >
             {/* Subtitle / Excerpt as Lead-in */}
-            <p className="text-2xl sm:text-3xl font-playfair font-medium text-[#0b2b1a] italic border-l-4 pl-8 mb-16" style={{ borderColor: post.accentColor }}>
+            <p className="text-2xl sm:text-3xl font-playfair font-medium text-[#0b2b1a] italic border-l-4 pl-8 mb-16" style={{ borderColor: post.accentColor || '#c81c6a' }}>
               "{post.excerpt}"
             </p>
 
-            {/* Split Content into Paragraphs for better reading */}
-            {post.content.split('. ').map((para, i) => (
-              <p key={i} className="mb-8">
-                {para}{i < post.content.split('. ').length - 1 ? '.' : ''}
-              </p>
-            ))}
+            <div className="whitespace-pre-line">
+              {post.content}
+            </div>
 
-            <p className="mb-8">
+            <p className="mt-16 text-gray-400 font-light italic">
                Our commitment at Rafah Garden remains unchanged: to bring the purest botanical wonders from our soil to your soul. Every harvest is a story of patience, and every fruit is a masterpiece of nature's design. Stay tuned as we continue to unlock the secrets of the dragon fruit garden.
             </p>
           </motion.article>
@@ -147,7 +177,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
             {relatedPosts.map((rPost) => (
               <Link key={rPost.id} href={`/blog/${rPost.slug}`} className="group block">
                 <div className="relative aspect-[16/9] rounded-[3rem] overflow-hidden mb-8 shadow-xl">
-                  <Image src={rPost.image} alt={rPost.title} fill className="object-cover transition-transform duration-1000 group-hover:scale-110" />
+                  {rPost.image && <Image src={rPost.image} alt={rPost.title} fill className="object-cover transition-transform duration-1000 group-hover:scale-110" />}
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors" />
                 </div>
                 <h4 className="text-2xl sm:text-3xl font-bold font-playfair mb-4 leading-tight group-hover:text-[#c81c6a] transition-colors">{rPost.title}</h4>

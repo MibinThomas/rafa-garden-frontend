@@ -1,14 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { BLOG_POSTS, BlogPost } from "@/lib/data";
-import { ArrowRight, Calendar, Clock, ChevronRight } from "lucide-react";
+import { BlogPost } from "@/lib/data";
+import { ArrowRight, Calendar, Clock, Loader2 } from "lucide-react";
 
 export default function BlogListingPage() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await fetch("/api/blog");
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          setPosts(data.filter((p: any) => p.isPublished !== false));
+        }
+      } catch (error) {
+        console.error("Failed to fetch posts:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPosts();
+  }, []);
 
   // Animation Variants
   const containerVariants = {
@@ -82,68 +101,77 @@ export default function BlogListingPage() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }}
           className="relative bg-white/80 backdrop-blur-3xl p-8 sm:p-16 lg:p-24 rounded-[3.5rem] sm:rounded-[5rem] shadow-[0_50px_100px_rgba(0,0,0,0.05)] border border-white/50"
         >
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-16"
-          >
-            {BLOG_POSTS.map((post: BlogPost, index: number) => (
-              <motion.article
-                key={post.id}
-                variants={itemVariants}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                className="group flex flex-col h-full"
-              >
-                <Link href={`/blog/${post.slug}`} className="flex flex-col h-full group">
-                  {/* Image Container with Elegant Mask */}
-                  <div className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden mb-8 shadow-2xl transition-transform duration-700 group-hover:scale-[1.02] group-hover:-translate-y-2">
-                    <Image 
-                      src={post.image} 
-                      alt={post.title} 
-                      fill 
-                      className="object-cover transition-transform duration-1000 group-hover:scale-110"
-                    />
-                    
-                    {/* Category Badge */}
-                    <div className="absolute top-6 left-6 z-10">
-                      <span 
-                        className="px-5 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-md shadow-lg"
-                        style={{ backgroundColor: `${post.accentColor}cc` }}
-                      >
-                        {post.category}
-                      </span>
+          {loading ? (
+             <div className="flex flex-col items-center justify-center py-32 space-y-6">
+                <Loader2 className="w-12 h-12 text-[#c81c6a] animate-spin" />
+                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-400">Consulting the Sages...</p>
+             </div>
+          ) : (
+            <motion.div 
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-16"
+            >
+              {posts.map((post: BlogPost, index: number) => (
+                <motion.article
+                  key={post.id}
+                  variants={itemVariants}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  className="group flex flex-col h-full"
+                >
+                  <Link href={`/blog/${post.slug}`} className="flex flex-col h-full group">
+                    {/* Image Container with Elegant Mask */}
+                    <div className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden mb-8 shadow-2xl transition-transform duration-700 group-hover:scale-[1.02] group-hover:-translate-y-2">
+                      {post.image && (
+                        <Image 
+                          src={post.image} 
+                          alt={post.title} 
+                          fill 
+                          className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                        />
+                      )}
+                      
+                      {/* Category Badge */}
+                      <div className="absolute top-6 left-6 z-10">
+                        <span 
+                          className="px-5 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-md shadow-lg"
+                          style={{ backgroundColor: `${post.accentColor || '#c81c6a'}cc` }}
+                        >
+                          {post.category}
+                        </span>
+                      </div>
+
+                      {/* Subtle Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     </div>
 
-                    {/* Subtle Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  </div>
+                    {/* Text Content */}
+                    <div className="flex-1 px-2">
+                      <div className="flex items-center gap-4 mb-4 opacity-40 text-[10px] font-bold uppercase tracking-widest">
+                        <span className="flex items-center gap-1.5"><Calendar size={12} strokeWidth={3} /> {post.date}</span>
+                        <span className="flex items-center gap-1.5"><Clock size={12} strokeWidth={3} /> {post.readingTime}</span>
+                      </div>
+                      
+                      <h2 className="text-2xl sm:text-3xl font-bold font-playfair text-gray-900 mb-4 leading-tight group-hover:text-[#c81c6a] transition-colors duration-300">
+                        {post.title}
+                      </h2>
+                      
+                      <p className="text-sm sm:text-base text-gray-500 font-inter font-light leading-relaxed mb-6 line-clamp-3">
+                        {post.excerpt}
+                      </p>
 
-                  {/* Text Content */}
-                  <div className="flex-1 px-2">
-                    <div className="flex items-center gap-4 mb-4 opacity-40 text-[10px] font-bold uppercase tracking-widest">
-                      <span className="flex items-center gap-1.5"><Calendar size={12} strokeWidth={3} /> {post.date}</span>
-                      <span className="flex items-center gap-1.5"><Clock size={12} strokeWidth={3} /> {post.readingTime}</span>
+                      <div className="mt-auto flex items-center gap-2 text-[#c81c6a] text-[10px] font-black uppercase tracking-[0.2em] group-hover:gap-4 transition-all duration-300">
+                        Read Full Article <ArrowRight size={14} strokeWidth={3} />
+                      </div>
                     </div>
-                    
-                    <h2 className="text-2xl sm:text-3xl font-bold font-playfair text-gray-900 mb-4 leading-tight group-hover:text-[#c81c6a] transition-colors duration-300">
-                      {post.title}
-                    </h2>
-                    
-                    <p className="text-sm sm:text-base text-gray-500 font-inter font-light leading-relaxed mb-6 line-clamp-3">
-                      {post.excerpt}
-                    </p>
-
-                    <div className="mt-auto flex items-center gap-2 text-[#c81c6a] text-[10px] font-black uppercase tracking-[0.2em] group-hover:gap-4 transition-all duration-300">
-                      Read Full Article <ArrowRight size={14} strokeWidth={3} />
-                    </div>
-                  </div>
-                </Link>
-              </motion.article>
-            ))}
-          </motion.div>
+                  </Link>
+                </motion.article>
+              ))}
+            </motion.div>
+          )}
         </motion.div>
       </section>
 
