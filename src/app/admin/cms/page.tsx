@@ -7,6 +7,7 @@ import { CmsForm } from "@/components/admin/CmsForm";
 import { SiteContentForm } from "@/components/admin/SiteContentForm";
 import { DeleteConfirmDialog } from "@/components/admin/DeleteConfirmDialog";
 import Link from "next/link";
+import { Product } from "@/lib/data";
 
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -21,7 +22,7 @@ interface Category {
   subtitle: string;
   image: string;
   color: string;
-  products: any[];
+  products: Product[];
 }
 
 type Tab = "categories" | "about" | "global";

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { X, ShoppingBasket, Heart, Share2, ShieldCheck, Truck, RefreshCcw } from "lucide-react";
-import { Product } from "@/lib/data";
+import { Product, ProductVariant } from "@/lib/data";
 import { useCart } from "@/lib/CartContext";
 import { useWishlist } from "@/lib/WishlistContext";
 
@@ -115,7 +115,7 @@ export function ProductDetailSection({ product, categoryTitle, categoryColor, on
             <div>
               <h3 className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-3">Select Variation</h3>
               <div className="flex flex-wrap gap-2">
-                {product.variants.map((v: any, idx: number) => (
+                {product.variants.map((v: ProductVariant, idx: number) => (
                   <button
                     key={idx}
                     onClick={() => setSelectedVariantIdx(idx)}

@@ -13,7 +13,7 @@ export default function ShopPage() {
   const heroRef = useRef<HTMLElement>(null);
   
   // Dynamic State for categories
-  const [categories, setCategories] = useState<any[]>(CATEGORIES);
+  const [categories, setCategories] = useState<Category[]>(CATEGORIES);
   const [loading, setLoading] = useState(true);
 
   // State for active category
@@ -134,7 +134,7 @@ export default function ShopPage() {
             {/* Category Selection stays on the far right as requested */}
             <div className="hidden lg:flex flex-col gap-2 w-full max-w-[280px]">
               <h3 className="text-xs uppercase tracking-[0.2em] font-bold mb-4 ml-4 text-white opacity-40">Select Category</h3>
-              {categories.map((cat, index) => {
+              {categories.map((cat: Category, index: number) => {
                 const isActive = index === activeCategoryIndex;
                 return (
                   <button
@@ -196,7 +196,7 @@ export default function ShopPage() {
               ))}
               {/* Next Product Dot Navigator */}
               <div className="flex justify-center mt-4 gap-1.5 px-4 h-10 items-center">
-                {activeCategory.products.map((_, i) => (
+                {activeCategory.products.map((_: Product, i: number) => (
                   <div key={i} className={`w-1.5 h-1.5 rounded-full transition-all ${i === activeProductIndex ? "bg-white scale-125 shadow-lg w-4" : "bg-white/20"}`} />
                 ))}
               </div>
@@ -258,7 +258,7 @@ export default function ShopPage() {
 
       {/* Mobile Category Selection Bar */}
       <div className="lg:hidden w-full px-6 py-8 overflow-x-auto scrollbar-hide flex gap-3 z-20 relative">
-        {categories.map((cat, index) => {
+        {categories.map((cat: Category, index: number) => {
           const isActive = index === activeCategoryIndex;
           return (
             <button
@@ -318,7 +318,7 @@ export default function ShopPage() {
           >
             {activeCategory.products && activeCategory.products.length > 0 ? (
               <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-6 items-stretch">
-                {activeCategory.products.map((product) => (
+                {activeCategory.products.map((product: Product) => (
                   <ProductCard
                     key={product.id}
                     product={product}
