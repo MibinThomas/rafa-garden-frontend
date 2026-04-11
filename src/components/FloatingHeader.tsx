@@ -54,7 +54,7 @@ export function FloatingHeader() {
           >
             {/* Navigation Links */}
             <div className="flex items-center gap-10">
-              {["Home", "Shop", "About"].map((link) => (
+              {["Home", "Shop", "About", "Blog"].map((link) => (
                 <Link 
                   key={link} 
                   href={link === "Home" ? "/" : `/${link.toLowerCase()}`}
