@@ -57,13 +57,16 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
         body: file,
       });
 
-      if (!response.ok) throw new Error("Upload failed");
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Upload failed");
+      }
 
       const blob = await response.json();
       setFormData(prev => ({ ...prev, image: blob.url }));
-    } catch (error) {
+    } catch (error: any) {
       console.error("Upload error:", error);
-      alert("Failed to upload image.");
+      alert(`Upload Failed: ${error.message}`);
     } finally {
       setUploading(false);
     }
