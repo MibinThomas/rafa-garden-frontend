@@ -10,13 +10,34 @@ export default function ContactPage() {
   const { settings } = useSiteSettings();
   const [formState, setFormState] = useState<"idle" | "submitting" | "success">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormState("submitting");
-    // Simulate API delay
-    setTimeout(() => {
-      setFormState("success");
-    }, 1500);
+
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      message: formData.get("message"),
+    };
+
+    try {
+      const res = await fetch("/api/enquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        setFormState("success");
+      } else {
+        throw new Error("Submission failed");
+      }
+    } catch (error) {
+      console.error("Contact form error:", error);
+      alert("Something went wrong. Please try again or reach out on WhatsApp.");
+      setFormState("idle");
+    }
   };
 
   return (
@@ -133,6 +154,7 @@ export default function ContactPage() {
                         <label className="text-[10px] uppercase font-black tracking-widest text-[#c81c6a] mb-2 block">Full Name</label>
                         <input 
                           required
+                          name="name"
                           type="text" 
                           placeholder="Your identity" 
                           className="w-full bg-transparent border-b border-gray-100 py-3 focus:border-[#c81c6a] focus:outline-none transition-all font-inter text-gray-900"
@@ -142,6 +164,7 @@ export default function ContactPage() {
                         <label className="text-[10px] uppercase font-black tracking-widest text-[#c81c6a] mb-2 block">Email Address</label>
                         <input 
                           required
+                          name="email"
                           type="email" 
                           placeholder="Where to reach you" 
                           className="w-full bg-transparent border-b border-gray-100 py-3 focus:border-[#c81c6a] focus:outline-none transition-all font-inter text-gray-900"
@@ -153,6 +176,7 @@ export default function ContactPage() {
                       <label className="text-[10px] uppercase font-black tracking-widest text-[#c81c6a] mb-2 block">Your Vision or Query</label>
                       <textarea 
                         required
+                        name="message"
                         rows={4}
                         placeholder="Share your thoughts with us..." 
                         className="w-full bg-transparent border-b border-gray-100 py-3 focus:border-[#c81c6a] focus:outline-none transition-all font-inter text-gray-900 resize-none"

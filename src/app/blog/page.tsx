@@ -11,6 +11,8 @@ export default function BlogListingPage() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const [subEmail, setSubEmail] = useState("");
+  const [subStatus, setSubStatus] = useState<"idle" | "submitting" | "success">("idle");
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -186,16 +188,60 @@ export default function BlogListingPage() {
            <p className="text-gray-500 mb-10 font-light max-w-lg mx-auto leading-relaxed">
              Join our Botanical VIP list for exclusive insights into heritage cultivation, early harvest alerts, and exotic lifestyle tips.
            </p>
-           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-             <input 
-               type="email" 
-               placeholder="Enter your email sanctuary" 
-               className="w-full sm:w-auto px-8 py-5 rounded-2xl bg-white border border-gray-200 focus:outline-none focus:border-[#c81c6a] transition-all text-sm font-inter"
-             />
-             <button className="w-full sm:w-auto px-10 py-5 rounded-2xl bg-[#c81c6a] text-white font-bold tracking-widest uppercase text-xs hover:bg-[#9a0c52] transition-colors shadow-xl">
-               Subscribe
-             </button>
-           </div>
+           
+           <AnimatePresence mode="wait">
+             {subStatus === "success" ? (
+               <motion.div
+                 initial={{ opacity: 0, scale: 0.9 }}
+                 animate={{ opacity: 1, scale: 1 }}
+                 className="flex flex-col items-center justify-center space-y-4"
+               >
+                 <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center shadow-inner">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                 </div>
+                 <p className="text-xs font-black uppercase tracking-[0.2em] text-green-600">You're on the list!</p>
+               </motion.div>
+             ) : (
+               <form 
+                 onSubmit={async (e) => {
+                   e.preventDefault();
+                   if (!subEmail || subStatus === "submitting") return;
+                   setSubStatus("submitting");
+                   try {
+                     const res = await fetch("/api/subscriptions", {
+                       method: "POST",
+                       headers: { "Content-Type": "application/json" },
+                       body: JSON.stringify({ email: subEmail })
+                     });
+                     if (res.ok) setSubStatus("success");
+                     else throw new Error("Subscription failed");
+                   } catch (err) {
+                     console.error(err);
+                     alert("Something went wrong. Please try again.");
+                     setSubStatus("idle");
+                   }
+                 }}
+                 className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+               >
+                 <input 
+                   required
+                   type="email" 
+                   value={subEmail}
+                   onChange={(e) => setSubEmail(e.target.value)}
+                   disabled={subStatus === "submitting"}
+                   placeholder="Enter your email sanctuary" 
+                   className="w-full sm:w-auto px-8 py-5 rounded-2xl bg-white border border-gray-200 focus:outline-none focus:border-[#c81c6a] transition-all text-sm font-inter disabled:opacity-50"
+                 />
+                 <button 
+                   type="submit"
+                   disabled={subStatus === "submitting"}
+                   className="w-full sm:w-auto px-10 py-5 rounded-2xl bg-[#c81c6a] text-white font-bold tracking-widest uppercase text-xs hover:bg-[#9a0c52] transition-colors shadow-xl active:scale-95 disabled:opacity-50 flex items-center justify-center gap-3"
+                 >
+                   {subStatus === "submitting" ? "Syncing..." : "Subscribe"}
+                 </button>
+               </form>
+             )}
+           </AnimatePresence>
          </motion.div>
       </section>
     </div>
