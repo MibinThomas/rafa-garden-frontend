@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { CATEGORIES, Product, ProductVariant } from "@/lib/data";
+import { CATEGORIES, Product, ProductVariant, Category } from "@/lib/data";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductDetailSection } from "@/components/ProductDetailSection";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
