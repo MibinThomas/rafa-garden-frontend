@@ -10,9 +10,10 @@ import { CATEGORIES } from "@/lib/data";
 
 interface CategoryHeroProps {
   onSelect: (index: number) => void;
+  onHover?: (index: number) => void;
 }
 
-export function CategoryHero({ onSelect }: CategoryHeroProps) {
+export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
   const [categories, setCategories] = useState<any[]>(CATEGORIES);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isMounted, setIsMounted] = useState(false);
@@ -38,13 +39,15 @@ export function CategoryHero({ onSelect }: CategoryHeroProps) {
 
     setIsMounted(true);
     setHoveredIndex(0); // Default to Crush (index 0) after mount
+    if (onHover) onHover(0);
   }, []);
 
   useEffect(() => {
     if (isMounted && hoveredIndex !== null && categories[hoveredIndex]) {
       setHeaderColor(categories[hoveredIndex].color);
+      if (onHover) onHover(hoveredIndex);
     }
-  }, [hoveredIndex, setHeaderColor, isMounted, categories]);
+  }, [hoveredIndex, setHeaderColor, isMounted, categories, onHover]);
 
   if (!isMounted) return null; // Avoid hydration mismatch
 

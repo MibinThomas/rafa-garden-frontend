@@ -38,7 +38,7 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
       animate={{ x: 0 }}
       exit={{ x: "100%" }}
       transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-      className="absolute inset-0 z-50 overflow-hidden flex flex-col font-sans"
+      className="fixed inset-0 z-[60] overflow-hidden flex flex-col font-sans"
       style={{ backgroundColor: cat.color }}
     >
       {/* Minimalist Floating Back Button */}
