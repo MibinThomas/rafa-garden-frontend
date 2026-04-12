@@ -34,8 +34,8 @@ export default function Home() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] as const }}
             className="w-full"
           >
-            {/* Full Screen Hero Section */}
-            <div className="h-screen flex flex-col pt-2 md:pt-4">
+            {/* Compact Hero Section - Stretches to fill remaining 100vh on Mobile */}
+            <div className="h-[calc(100dvh-70px)] md:h-screen flex flex-col pt-0 md:pt-4 overflow-hidden">
               <CategoryHero 
                 onSelect={(index) => setSelectedCategoryIndex(index)} 
                 onHover={(index) => setHoveredCategoryIndex(index)}
