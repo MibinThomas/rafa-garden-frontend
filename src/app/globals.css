@@ -21,6 +21,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'DharmaGothic';
+  src: url('/brand/fonts/DHARMAGOTHICE_BOLD_R.OTF') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
 @theme {
   --color-brand-pink: #c81c6a;
   --color-brand-magenta: #9a0c52;
@@ -30,6 +37,7 @@
   
   --font-avant-garde: 'AvantGarde', sans-serif;
   --font-outfit: 'Outfit', sans-serif;
+  --font-dharma-gothic: 'DharmaGothic', sans-serif;
 }
 
 :root {

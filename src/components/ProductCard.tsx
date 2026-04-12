@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { useCart } from "@/lib/CartContext";
 import { useWishlist } from "@/lib/WishlistContext";
 import { Product } from "@/lib/data";
-import { ShoppingBasket, Heart, Plus, Minus } from "lucide-react";
+import { Heart, Plus, Minus } from "lucide-react";
 
 export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { product: Product, accentColor?: string, onSelect?: (product: Product) => void }) {
   const { addToCart } = useCart();
@@ -19,7 +19,7 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
   const isFavorited = isInWishlist(product.id);
 
   const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault(); // Prevent navigating to product page
+    e.preventDefault(); 
     e.stopPropagation();
     addToCart({
       id: `${product.id}-${selectedVariantIdx}`,
@@ -46,115 +46,127 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
 
   return (
     <motion.div 
-      initial="initial"
-      whileHover="hover"
-      animate="initial"
-      className="group relative flex flex-col justify-end h-full"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="group relative flex flex-col h-full bg-transparent p-2"
     >
-      <motion.div 
-        variants={{
-          initial: { y: 0 },
-          hover: { y: -10 }
-        }}
-        className="relative w-full aspect-[4/5] overflow-visible flex flex-col"
-      >
-        {/* Top Portion: Colored Background */}
+      {/* Top Portion: Product Showcase */}
+      <div className="relative w-full aspect-[4/5] mb-1 flex items-center justify-center overflow-visible">
+        {/* Decorative Frame - Adjusted to 50% width and 75% height, with active category color stroke */}
         <div 
-          className="absolute top-0 left-0 right-0 h-[60%] rounded-t-[2.5rem] transition-colors duration-500"
-          style={{ backgroundColor: accentColor }}
+          className="absolute left-0 top-1/2 -translate-y-1/2 w-[50%] h-[75%] rounded-[1.5rem] border transition-all duration-500 pointer-events-none" 
+          style={{ borderColor: accentColor + '44' }}
         />
         
-        {/* Bottom Portion: White Background */}
-        <div className="absolute bottom-0 left-0 right-0 h-[40%] bg-white rounded-b-[2.5rem] shadow-xl" />
-
-        {/* Wishlist Button */}
-        <div className="absolute top-4 right-4 z-20">
+        {/* Wishlist Button - More Subtle Circular Design */}
+        <div className="absolute top-0 right-0 z-30">
           <button 
             onClick={handleWishlist}
-            className={`w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md border border-white/20 transition-all ${
-              isFavorited ? "bg-white text-red-500 shadow-md" : "bg-white/10 text-white hover:bg-white hover:text-black"
+            className={`w-11 h-11 rounded-full flex items-center justify-center transition-all duration-500 border border-black/5 ${
+              isFavorited 
+                ? "bg-white text-red-500 shadow-xl scale-110" 
+                : "bg-black/[0.03] text-black/10 hover:bg-white hover:text-black hover:scale-105"
             }`}
           >
             <Heart size={18} fill={isFavorited ? "currentColor" : "none"} />
           </button>
         </div>
 
-        {/* Product Image: Floating and Bleeding */}
+        {/* Product Image: Centered but overlapping the frame edge */}
         <button 
           onClick={() => onSelect?.(product)}
-          className="absolute inset-0 z-10 flex items-center justify-center p-4 cursor-pointer border-none bg-transparent"
+          className="relative z-10 w-full h-full flex items-center justify-center p-2 cursor-pointer border-none bg-transparent"
         >
-          <div className="relative w-full h-[65%] -translate-y-[15%] group-hover:scale-110 transition-transform duration-700 ease-out">
+          <motion.div 
+            className="relative w-full h-[95%] -translate-y-[15px]"
+            whileHover={{ scale: 1.05, y: -20 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          >
             <Image
               src={product.image}
               alt={product.name}
               fill
-              className="object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.3)]"
+              className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.15)]"
               priority
             />
-          </div>
+          </motion.div>
         </button>
+      </div>
 
-        {/* Product Details (Bottom White Part) */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 z-20 pointer-events-none">
-          <div className="flex justify-between items-end w-full">
-            {/* Left: Name & Variant */}
-            <div className="text-left max-w-[70%]">
-              <h3 className="font-bold text-[13px] sm:text-[15px] text-gray-900 font-sans tracking-tight mb-0.5 line-clamp-1">
-                {product.name}
-              </h3>
-              <div className="flex items-center gap-1.5">
-                <span className="text-[8px] sm:text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-none">
-                  {selectedVariant.size} {selectedVariant.unit}
-                </span>
-              </div>
-            </div>
+      {/* Product Information Area */}
+      <div className="flex flex-col flex-1 px-1">
+        <h3 className="font-heading font-bold text-xl text-[#333333] tracking-tight mb-2 leading-none">
+          {product.name}
+        </h3>
 
-            {/* Right: Price & Small Qty */}
-            <div className="text-right flex flex-col items-end pointer-events-auto">
-               {/* Small Quantity Selector */}
-               <div className="flex items-center gap-2 mb-1 bg-gray-50/50 rounded-full px-2 py-0.5 border border-gray-100">
-                 <button 
-                   onClick={decrementQty}
-                   className="hover:text-black text-gray-400 transition-colors focus:outline-none"
-                 >
-                   <Minus size={10} strokeWidth={3} />
-                 </button>
-                 <span className="text-[10px] font-bold text-gray-900 w-3 text-center">{quantity}</span>
-                 <button 
-                   onClick={incrementQty}
-                   className="hover:text-black text-gray-400 transition-colors focus:outline-none"
-                 >
-                   <Plus size={10} strokeWidth={3} />
-                 </button>
-               </div>
-               <p className="text-sm sm:text-lg font-medium tabular-nums flex items-start justify-end" style={{ color: accentColor }}>
-                 <span className="text-[8px] mt-0.5 mr-0.5 opacity-80 font-bold">₹</span>
-                 <span>{currentPrice.toFixed(0)}</span>
-               </p>
-            </div>
-          </div>
+        {/* Dynamic Dot Selection for Variants */}
+        <div className="flex items-center gap-4 mb-4">
+          {product.variants.map((v, idx) => (
+            <button
+              key={idx}
+              onClick={(e) => {
+                 e.stopPropagation();
+                 setSelectedVariantIdx(idx);
+              }}
+              className="flex items-center gap-1.5 group cursor-pointer"
+            >
+              <span className={`text-[8px] font-bold uppercase tracking-widest transition-colors ${
+                selectedVariantIdx === idx ? "text-[#333333]" : "text-[#333333]/30 group-hover:text-[#333333]/60"
+              }`}>
+                {v.size}{v.unit}
+              </span>
+              <div 
+                className={`w-2 h-2 rounded-full border-[1.5px] transition-all duration-300 ${
+                  selectedVariantIdx === idx ? "scale-110 border-transparent shadow-sm" : "border-[#333333]/15 group-hover:border-[#333333]/30"
+                }`}
+                style={{ 
+                  backgroundColor: selectedVariantIdx === idx ? accentColor : 'transparent' 
+                }}
+              />
+            </button>
+          ))}
         </div>
-      </motion.div>
 
-      {/* Cart Button: Full Width */}
-      <motion.div 
-        variants={{
-          initial: { opacity: 0, y: 10 },
-          hover: { opacity: 1, y: 0 }
-        }}
-        transition={{ duration: 0.3 }}
-        className="mt-2 px-0 pointer-events-auto"
-      >
-        <button
-          onClick={handleAddToCart}
-          className="w-full py-3.5 rounded-2xl text-white font-bold tracking-[0.2em] uppercase text-[9px] transition-all flex items-center justify-center gap-3 shadow-lg active:scale-95"
-          style={{ backgroundColor: accentColor }}
-        >
-          <ShoppingBasket size={12} /> Add to Cart
-        </button>
-      </motion.div>
+        {/* Quantity Selector - Smaller */}
+        <div className="flex items-center gap-4 mb-5">
+          <button 
+            onClick={decrementQty}
+            className="w-6 h-6 flex items-center justify-center rounded-lg border border-[#333333]/5 text-[#333333]/20 hover:border-[#333333]/30 hover:text-[#333333] transition-all"
+          >
+            <Minus size={12} strokeWidth={2.5} />
+          </button>
+          <span className="text-[12px] font-bold font-avant-garde text-[#333333]/30 w-3 text-center">
+            {quantity}
+          </span>
+          <button 
+            onClick={incrementQty}
+            className="w-6 h-6 flex items-center justify-center rounded-lg border border-[#333333]/5 text-[#333333]/20 hover:border-[#333333]/30 hover:text-[#333333] transition-all"
+          >
+            <Plus size={12} strokeWidth={2.5} />
+          </button>
+        </div>
+
+        {/* Footer: Price and Action - More Compact */}
+        <div className="mt-auto pt-3 flex items-center justify-between border-t border-black/5">
+          <div className="flex items-start text-[#333333] font-sans">
+            <span className="text-[9px] font-bold mt-1 mr-0.5 opacity-40">₹</span>
+            <span className="text-xl font-bold tracking-tighter leading-none">
+              {currentPrice.toFixed(0)}
+            </span>
+          </div>
+
+          <button
+            onClick={handleAddToCart}
+            className="px-6 py-2 rounded-full text-white font-bold tracking-widest uppercase text-[8px] shadow-lg hover:scale-105 active:scale-95 transition-all"
+            style={{ 
+              backgroundColor: accentColor,
+              boxShadow: `0 10px 20px ${accentColor}33`
+            }}
+          >
+            Buy Now
+          </button>
+        </div>
+      </div>
     </motion.div>
   );
 }
-
