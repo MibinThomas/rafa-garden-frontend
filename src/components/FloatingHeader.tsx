@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { User, ShoppingBasket, Search } from "lucide-react";
+import { User, ShoppingBasket, Search, Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCart } from "@/lib/CartContext";
@@ -89,41 +89,53 @@ export function FloatingHeader() {
         </div>
       </div>
 
-      {/* Mobile Header - Unified */}
-      <div className="w-full flex md:hidden items-center justify-between px-4 pt-4 pb-2 pointer-events-auto bg-[#f1f1f2]">
-        <div className="w-full flex items-center justify-between rounded-full bg-white px-5 py-2.5 shadow-sm border border-black/5">
-          {/* Logo */}
+      {/* Redesigned Mobile Header - Matching Mockup */}
+      <div className="w-full flex md:hidden items-center justify-between px-6 py-4 pointer-events-auto bg-[#f1f1f2]">
+        
+        <div className="flex-none">
           <Link href="/" className="flex items-center">
-            <div className="relative w-24 h-10">
+            <div className="relative w-8 h-8">
               <Image
-                src="/images/logo/Rafah logo.webp"
-                alt="Rafah Garden"
+                src="/images/logo/mobilelogo.webp"
+                alt="Logo"
                 fill
                 className="object-contain"
               />
             </div>
           </Link>
+        </div>
 
-          {/* Action Icons */}
-          <div className="flex items-center gap-4">
-            <button className="text-[#333333]/50">
-              <Search size={18} strokeWidth={2} />
-            </button>
-            <Link href="/auth" className="text-[#333333]/50">
-              <User size={18} strokeWidth={2} />
-            </Link>
-            <button 
-              onClick={openCart}
-              className="text-[#333333]/50 relative"
-            >
-              <ShoppingBasket size={20} strokeWidth={2} />
-              {itemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#9a0c52] text-white text-[0.5rem] font-bold w-3.5 h-3.5 flex items-center justify-center rounded-full">
-                  {itemCount}
-                </span>
-              )}
-            </button>
+        {/* Center: Pill-shaped Search Bar */}
+        <div className="flex-1 flex justify-center px-4">
+          <div className="relative w-full max-w-[200px] flex items-center bg-[#EAEAEA] rounded-full h-8 px-3 shadow-[inset_0_2px_4px_rgba(0,0,0,0.06)]">
+            <Search size={14} className="text-[#333333]/30 mr-2" />
+            <input 
+              type="text" 
+              placeholder="Search..." 
+              className="bg-transparent border-none outline-none text-[0.7rem] w-full text-[#333333] placeholder:text-[#333333]/30 font-avant-garde"
+            />
           </div>
+        </div>
+
+        {/* Right: Action Icons */}
+        <div className="flex-none flex items-center gap-4">
+          <Link href="/auth" className="text-[#333333]/50">
+            <User size={20} strokeWidth={1.5} />
+          </Link>
+          <button 
+            onClick={openCart}
+            className="text-[#333333]/50 relative"
+          >
+            <ShoppingBasket size={22} strokeWidth={1.5} />
+            {itemCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-[#9a0c52] text-white text-[0.5rem] font-bold w-3.5 h-3.5 flex items-center justify-center rounded-full">
+                {itemCount}
+              </span>
+            )}
+          </button>
+          <button className="text-[#333333]/40">
+            <Menu size={22} strokeWidth={1.5} />
+          </button>
         </div>
       </div>
     </>
