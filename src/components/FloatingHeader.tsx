@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { User, ShoppingBasket } from "lucide-react";
+import { User, ShoppingBasket, Search } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCart } from "@/lib/CartContext";
@@ -18,112 +18,113 @@ export function FloatingHeader() {
 
   return (
     <>
-      {/* Desktop Header */}
-      <div className="w-full hidden md:flex items-center pt-8 pb-2.5 pointer-events-auto select-none bg-[#f1f1f2]">
-        <div className="max-w-[1600px] mx-auto w-full flex items-center justify-between px-4 md:px-12">
-          {/* Left Pill: Logo */}
-          <motion.div 
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1, backgroundColor: headerColor }}
-            transition={{ 
-              y: { duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] as const },
-              backgroundColor: { duration: 1.2, ease: [0.16, 1, 0.3, 1] as const }
-            }}
-            className="rounded-full px-8 h-13 flex items-center shadow-[0_10px_30px_rgba(0,0,0,0.1)] cursor-pointer group hover:scale-[1.02] transition-transform duration-300"
-          >
-            <div className="relative w-32 h-10">
-              <Image
-                src="/images/logo/Rafah logo white.webp"
-                alt="Rafah Garden"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-          </motion.div>
+      {/* Unified Desktop Header */}
+      <div className="w-full hidden md:flex items-center pt-8 pb-4 pointer-events-auto select-none bg-[#f1f1f2]">
+        <div className="max-w-[1700px] mx-auto w-full flex items-center px-6 md:px-12">
+          
+          {/* Logo Section - Flex-1 to balance with Right Section */}
+          <div className="flex-1 flex items-center">
+            <Link href="/" className="flex items-center group transition-transform duration-300 hover:scale-[1.02]">
+              <div className="relative w-32 h-14">
+                <Image
+                  src="/images/logo/Rafah logo.webp" 
+                  alt="Rafah Garden"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </Link>
+          </div>
   
-          {/* Right Pill: Navigation & Actions */}
-          <motion.div 
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1, backgroundColor: headerColor }}
-            transition={{ 
-              y: { duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] as const },
-              backgroundColor: { duration: 1.2, ease: [0.16, 1, 0.3, 1] as const }
-            }}
-            className="rounded-full px-10 h-13 flex items-center gap-14 shadow-[0_10px_30px_rgba(0,0,0,0.1)] pointer-events-auto"
-          >
-            {/* Navigation Links */}
-            <div className="flex items-center gap-10">
-              {["Home", "Shop", "About", "Blog", "Contact"].map((link) => (
-                <Link 
-                  key={link} 
-                  href={link === "Home" ? "/" : `/${link.toLowerCase()}`}
-                  className="text-white font-outfit font-medium text-[0.9rem] opacity-90 hover:opacity-100 transition-opacity relative group"
-                >
-                  {link}
-                  <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-white transition-all duration-300 group-hover:w-full" />
-                </Link>
-              ))}
+          {/* Navigation Links - Centered between two Flex-1 containers */}
+          <div className="flex-initial flex items-center justify-center gap-10 lg:gap-14 px-8">
+            {["Home", "Shop", "Blog", "About", "Contact"].map((link) => (
+              <Link 
+                key={link} 
+                href={link === "Home" ? "/" : `/${link.toLowerCase()}`}
+                className="text-[#333333]/50 font-avant-garde font-medium text-[0.85rem] hover:text-[#333333] transition-colors relative group"
+              >
+                {link}
+                <motion.span 
+                  className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[#9a0c52] transition-all duration-300 group-hover:w-full" 
+                />
+              </Link>
+            ))}
+          </div>
+
+          {/* Right Section: Search & Actions - Flex-1 to balance with Logo Section */}
+          <div className="flex-1 flex items-center gap-4 lg:gap-6 justify-end">
+            {/* Search Bar UI */}
+            <div className="relative group">
+              <div className="flex items-center bg-[#e5e5e7] hover:bg-[#dcdce0] transition-colors rounded-full px-4 py-2 w-48 lg:w-64 gap-3 border border-transparent focus-within:border-[#9a0c52]/20">
+                <Search size={16} className="text-[#333333]/30" />
+                <input 
+                  type="text" 
+                  placeholder="Search products..." 
+                  className="bg-transparent border-none outline-none text-[0.75rem] w-full text-[#333333] placeholder:text-[#333333]/25 font-avant-garde"
+                />
+              </div>
             </div>
-  
+
             {/* Utility Icons */}
-            <div className="flex items-center gap-6 border-l border-white/20 pl-10">
-              <Link href="/auth" className="text-white hover:scale-110 transition-transform block">
-                <User size={22} strokeWidth={2} />
+            <div className="flex items-center gap-4 border-l border-black/5 pl-6">
+              <Link href="/auth" className="text-[#333333]/50 hover:text-[#333333] hover:scale-110 transition-all block">
+                <User size={22} strokeWidth={1.5} />
               </Link>
               
               <button 
                 onClick={openCart}
-                className="text-white relative hover:scale-110 transition-transform"
+                className="text-[#333333]/50 hover:text-[#333333] relative hover:scale-110 transition-all"
               >
-                <ShoppingBasket size={24} strokeWidth={1.8} />
+                <ShoppingBasket size={24} strokeWidth={1.5} />
                 {itemCount > 0 && (
-                  <span className="absolute -top-1.5 -right-2 bg-white text-[#9a0c52] text-[0.65rem] font-bold w-4.5 h-4.5 flex items-center justify-center rounded-full shadow-lg">
+                  <span className="absolute -top-1 -right-1 bg-[#9a0c52] text-white text-[0.6rem] font-bold w-4 h-4 flex items-center justify-center rounded-full shadow-lg">
                     {itemCount}
                   </span>
                 )}
               </button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
-      {/* Mobile Header */}
-      <div className="w-full flex md:hidden items-center justify-between px-4 pt-3 pb-2 pointer-events-auto bg-[#f1f1f2]">
-        <motion.div 
-          animate={{ backgroundColor: headerColor }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] as const }}
-          className="flex-1 flex items-center justify-between rounded-full px-6 py-2 shadow-lg gap-4"
-        >
+      {/* Mobile Header - Unified */}
+      <div className="w-full flex md:hidden items-center justify-between px-4 pt-4 pb-2 pointer-events-auto bg-[#f1f1f2]">
+        <div className="w-full flex items-center justify-between rounded-full bg-white px-5 py-2.5 shadow-sm border border-black/5">
           {/* Logo */}
-          <div className="relative w-24 h-8">
-            <Image
-              src="/images/logo/Rafah logo white.webp"
-              alt="Rafah Garden"
-              fill
-              className="object-contain"
-            />
-          </div>
+          <Link href="/" className="flex items-center">
+            <div className="relative w-24 h-10">
+              <Image
+                src="/images/logo/Rafah logo.webp"
+                alt="Rafah Garden"
+                fill
+                className="object-contain"
+              />
+            </div>
+          </Link>
 
           {/* Action Icons */}
           <div className="flex items-center gap-4">
-            <Link href="/auth" className="text-white p-1 opacity-90 active:scale-90 transition-transform block">
-              <User size={20} strokeWidth={2.5} />
+            <button className="text-[#333333]/50">
+              <Search size={18} strokeWidth={2} />
+            </button>
+            <Link href="/auth" className="text-[#333333]/50">
+              <User size={18} strokeWidth={2} />
             </Link>
-            
             <button 
               onClick={openCart}
-              className="text-white relative p-1 opacity-90 active:scale-90 transition-transform"
+              className="text-[#333333]/50 relative"
             >
-              <ShoppingBasket size={22} strokeWidth={2} />
+              <ShoppingBasket size={20} strokeWidth={2} />
               {itemCount > 0 && (
-                <span className="absolute top-0 right-0 bg-white text-[0.6rem] font-bold text-black border border-black/10 w-4 h-4 flex items-center justify-center rounded-full">
+                <span className="absolute -top-1 -right-1 bg-[#9a0c52] text-white text-[0.5rem] font-bold w-3.5 h-3.5 flex items-center justify-center rounded-full">
                   {itemCount}
                 </span>
               )}
             </button>
           </div>
-        </motion.div>
+        </div>
       </div>
     </>
   );

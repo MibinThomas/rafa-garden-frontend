@@ -1,6 +1,25 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
+@font-face {
+  font-family: 'AvantGarde';
+  src: url('/brand/fonts/ITC AVANT GARDE GOTHIC STD DEMI.OTF') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvantGarde';
+  src: url('/brand/fonts/ITC AVANT GARDE GOTHIC STD MEDIUM.OTF') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvantGarde';
+  src: url('/brand/fonts/ITC Avant Garde Gothic Std Book.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
 
 @theme {
   --color-brand-pink: #c81c6a;
@@ -8,23 +27,26 @@
   --color-brand-green: #7fa23f;
   --color-brand-grey: #bbbdbf;
   --color-brand-bg: #f1f1f2;
+  
+  --font-avant-garde: 'AvantGarde', sans-serif;
+  --font-outfit: 'Outfit', sans-serif;
 }
 
 :root {
-  --font-sans: var(--font-outfit), var(--font-inter), ui-sans-serif, system-ui;
+  --font-sans: 'AvantGarde', var(--font-outfit), var(--font-inter), ui-sans-serif, system-ui;
   --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
-  --font-avant-garde: var(--font-montserrat);
 }
 
 body {
   font-family: var(--font-sans);
   overflow-x: hidden;
   background-color: var(--color-brand-bg);
-  color: #1a1a1a;
+  color: #333333;
 }
 
-h1, h2, h3, h4, h5, h6, .font-serif {
-  font-family: var(--font-serif);
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: 'AvantGarde', sans-serif;
+  font-weight: 600;
 }
 
 /* Custom scrollbar */
@@ -53,5 +75,20 @@ h1, h2, h3, h4, h5, h6, .font-serif {
   .scrollbar-hide {
     -ms-overflow-style: none !important; /* IE and Edge */
     scrollbar-width: none !important; /* Firefox */
+  }
+
+  .bg-number {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 8rem;
+    font-weight: 400;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.03);
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    font-family: 'AvantGarde', sans-serif;
   }
 }

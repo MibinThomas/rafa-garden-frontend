@@ -43,7 +43,7 @@ export function HomeProductSection({ categoryIndex }: HomeProductSectionProps) {
             >
               Curated Selection
             </span>
-            <h2 className="text-4xl sm:text-6xl font-black font-playfair tracking-tighter leading-none">
+            <h2 className="text-4xl sm:text-6xl font-black font-avant-garde tracking-tighter leading-none">
               Explore {category.title} <span className="italic opacity-30">Series.</span>
             </h2>
           </motion.div>
@@ -55,10 +55,10 @@ export function HomeProductSection({ categoryIndex }: HomeProductSectionProps) {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="max-w-md"
           >
-            <p className="text-gray-500 font-light leading-relaxed mb-6">
+            <p className="text-gray-500 font-medium font-avant-garde leading-relaxed mb-6 opacity-60">
               {category.subtitle}. Hand-harvested from our heritage sanctuaries, each product represents the pinnacle of botanical purity and craftsmanship.
             </p>
-            <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest" style={{ color: category.color }}>
+            <div className="flex items-center gap-2 text-[10px] font-bold font-avant-garde uppercase tracking-[0.2em]" style={{ color: category.color }}>
               Shop Full Collection <ArrowRight size={14} strokeWidth={3} />
             </div>
           </motion.div>
