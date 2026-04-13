@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
 import { CATEGORIES } from "@/lib/data";
@@ -17,6 +18,7 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number>(0);
   const [isMounted, setIsMounted] = useState(false);
   const { setHeaderColor } = useHeaderColor();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -89,11 +91,11 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
               {/* Background Watermark Title (Active State Only) */}
               {isActive && (
                 <div className="absolute inset-0 flex items-center justify-start pl-4 pointer-events-none select-none overflow-hidden h-full z-0">
-                  <motion.h1 
+                  <motion.h1
                     layout
-                    className="font-bold tracking-tighter transition-all duration-700 font-avant-garde leading-none uppercase text-[8.5rem] text-[#333333]/[0.08]"
+                    className="font-bold tracking-tighter transition-all duration-700 font-brand-heading leading-none text-[8.5rem] text-[#333333]/[0.12]"
                   >
-                    {cat.id === "01" ? "Crush" : cat.id === "02" ? "Jam" : cat.id === "03" ? "Fruit" : "Plant"}
+                    {cat.id === "01" ? "Crush" : cat.id === "02" ? "jams" : cat.id === "03" ? "Fruits" : "Plants"}
                   </motion.h1>
                 </div>
               )}
@@ -101,95 +103,95 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
               {/* Content Wrapper */}
               <div className="relative z-10 w-full h-full flex items-center px-4">
 
-                {/* INACTIVE STATE CONTENT (Directly from Mockup) */}
+                {/* INACTIVE STATE CONTENT - ALIGNED WITH MOCKUP */}
                 {!isActive && (
-                  <div className="w-full h-full flex flex-col justify-between py-2 relative">
+                  <div className="w-full h-full flex flex-col justify-between py-6 relative">
                     {/* Top Left Description */}
-                    <div className="max-w-[120px]">
-                      <p className="text-[0.4rem] leading-tight text-[#333333]/60 font-avant-garde line-clamp-2">
+                    <div className="max-w-[140px] opacity-60">
+                      <p className="text-[0.45rem] leading-[1.3] font-avant-garde">
                         This is a sample product details must be enter here to show the ui ux design minimal stage
                       </p>
                     </div>
 
                     {/* Middle Left Button */}
-                    <div className="my-auto">
-                       <button className="flex items-center justify-between w-full max-w-[90px] px-3 py-1.5 rounded-full border border-[#333333]/30 text-[#333333] font-avant-garde text-[0.55rem] font-bold bg-transparent">
+                    <div className="flex-1 flex items-center">
+                      <button className="flex items-center justify-between gap-3 px-4 py-2 rounded-full border border-[#333333]/20 text-[#333333] font-avant-garde text-[0.6rem] font-bold bg-transparent group hover:bg-[#333333] hover:text-white transition-all duration-300">
                         <span>View More</span>
-                        <ArrowRight size={10} className="ml-1 opacity-60" />
+                        <ArrowRight size={12} className="opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
                       </button>
                     </div>
 
-                    {/* Bottom Content Group */}
-                    <div className="flex items-end justify-between w-full">
-                       <div className="flex flex-col gap-0.5">
-                          <h3 className="text-[0.5rem] font-bold uppercase tracking-[0.15em] text-[#333333] font-avant-garde leading-tight">
-                            Pure <br /> Botanical <br /> Refreshment
-                          </h3>
-                       </div>
-                       <div className="max-w-[120px] pb-0.5">
-                          <p className="text-[0.38rem] opacity-50 font-avant-garde leading-tight line-clamp-2">
-                            This is a sample product details must be enter here to show the ui ux design minimal stage
-                          </p>
-                       </div>
+                    {/* Bottom Left Content Group */}
+                    <div className="flex flex-col gap-2">
+                      <h3 className="text-[0.6rem] font-bold uppercase tracking-[0.2em] text-[#333333] font-brand-heading leading-[1.1]">
+                        Pure <br /> Botanical <br /> Refreshment
+                      </h3>
+                      <div className="max-w-[140px] opacity-40">
+                        <p className="text-[0.42rem] line-clamp-2 font-avant-garde leading-[1.3]">
+                          This is a sample product details must be enter here to show the ui ux design minimal stage
+                        </p>
+                      </div>
                     </div>
 
-                    {/* Redesign Watermark for Inactive State to be right-aligned and larger */}
-                    <div className="absolute inset-y-0 right-[-10px] flex items-center justify-end z-0 pointer-events-none w-full h-full overflow-hidden">
-                       <h1 className="text-[6rem] font-bold tracking-tighter font-avant-garde leading-none uppercase text-[#333333]/[0.15] select-none">
-                          {cat.id === "01" ? "Crush" : cat.id === "02" ? "Jam" : cat.id === "03" ? "Fruit" : "Plant"}
-                       </h1>
+                    {/* Large Watermark Title on the Right */}
+                    <div className="absolute inset-y-0 right-[-15px] flex items-center justify-end z-0 pointer-events-none w-full h-full overflow-hidden">
+                      <h1 className="text-[6.5rem] font-bold tracking-tighter font-brand-heading leading-none text-[#333333]/[0.15] select-none">
+                        {cat.title}
+                      </h1>
                     </div>
                   </div>
                 )}
 
-                {/* ACTIVE STATE CONTENT (High-Fidelity) */}
+                {/* ACTIVE STATE CONTENT - ALIGNED WITH MOCKUP */}
                 {isActive && (
-                  <div className="w-full h-full flex items-center">
-                    {/* Left Column (Grey side) */}
-                    <div className="w-[38%] flex flex-col justify-end pb-4 h-full">
-                      <div className="mb-auto pt-2">
-                         <h3 className="text-[0.55rem] font-bold uppercase tracking-[0.2em] text-[#333333] font-avant-garde leading-tight">
+                  <div className="w-full h-full flex items-center relative">
+                    {/* Left Column (Gray side) - Footer Content */}
+                    <div className="w-[42%] flex flex-col justify-end pb-6 h-full">
+                      <div className="flex flex-col gap-2">
+                        <h3 className="text-[0.6rem] font-bold uppercase tracking-[0.2em] text-[#333333] font-brand-heading leading-[1.1]">
                           Pure <br /> Botanical <br /> Refreshment
                         </h3>
+                        <div className="max-w-[100px] opacity-40">
+                          <p className="text-[0.42rem] line-clamp-2 font-avant-garde leading-[1.2]">
+                            This is a sample product details must be enter here
+                          </p>
+                        </div>
                       </div>
-                      <p className="text-[0.42rem] leading-tight text-[#333333]/40 font-avant-garde max-w-[90px]">
-                         This is a sample product details must be enter here.
-                      </p>
                     </div>
 
-                    {/* Bridge for the centered bottle */}
-                    <div className="w-[12%] h-full" />
-
-                    {/* Right Column (Inside Colored panel) */}
-                    <div className="w-[50%] flex flex-col justify-center items-start text-white pl-4 pr-1">
-                       <p className="text-[0.45rem] leading-tight font-avant-garde opacity-90 mb-2 line-clamp-3">
-                        This is a sample product details must be enter here to show the ui ux design minimal stage
-                      </p>
-                      <button 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onSelect(index);
-                        }}
-                        className="flex items-center justify-between w-full max-w-[90px] px-3 py-1.5 rounded-full border border-white/40 text-white font-avant-garde text-[0.6rem] font-bold bg-transparent backdrop-blur-sm"
-                      >
-                        <span>Buy Now</span>
-                        <ArrowRight size={12} className="ml-1" />
-                      </button>
+                    {/* Right Column (Inside Colored panel) - Interactive Area */}
+                    <div className="w-[58%] flex flex-col justify-center items-start text-white pl-8 pr-4 h-full relative z-20">
+                      <div className="max-w-[160px]">
+                        <p className="text-[0.55rem] leading-[1.4] font-avant-garde opacity-90 mb-5">
+                          This is a sample product details must be enter here to show the ui ux design minimal stage
+                        </p>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            router.push(`/shop?cat=${index}`);
+                          }}
+                          className="flex items-center justify-between gap-4 px-6 py-2.5 rounded-full border border-white/40 text-white font-avant-garde text-[0.65rem] font-bold bg-transparent backdrop-blur-md hover:bg-white hover:text-black transition-all duration-300 group shadow-lg"
+                        >
+                          <span>Buy Now</span>
+                          <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                        </button>
+                      </div>
                     </div>
 
                     {/* Product Image Centered on Boundary */}
                     <motion.div
-                      key={cat.id + "-img-v3"}
-                      initial={{ scale: 0.8, opacity: 0, x: 20 }}
-                      animate={{ scale: 1.15, opacity: 1, x: 0 }}
-                      className="absolute left-[30%] right-[40%] inset-y-0 flex items-center justify-center z-30 pointer-events-none"
+                      key={cat.id + "-mobile-img"}
+                      initial={{ scale: 0.8, opacity: 0, x: 50 }}
+                      animate={{ scale: 1.25, opacity: 1, x: 0 }}
+                      transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                      className="absolute left-[20%] right-[35%] inset-y-0 flex items-center justify-center z-30 pointer-events-none"
                     >
                       <Image
                         src={cat.image}
                         alt={cat.title}
-                        width={200}
-                        height={350}
-                        className="object-contain drop-shadow-[0_25px_50px_rgba(0,0,0,0.3)]"
+                        width={220}
+                        height={400}
+                        className="object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,0.4)]"
                         priority
                       />
                     </motion.div>
@@ -304,7 +306,7 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
 
                 {/* Heading */}
                 <motion.h2
-                  className="text-4xl lg:text-[4.2rem] font-bold mb-1 tracking-tighter font-avant-garde leading-[1.1] z-30"
+                  className="text-4xl lg:text-[4.2rem] font-bold mb-1 tracking-tighter font-brand-heading leading-[1.1] z-30"
                   animate={{
                     color: hoveredIndex === index ? "#ffffff" : "#6f7074"
                   }}
@@ -337,6 +339,12 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={(e) => {
+                    if (hoveredIndex === index) {
+                      e.stopPropagation();
+                      router.push(`/shop?cat=${index}`);
+                    }
+                  }}
                   className={`flex items-center justify-between w-full max-w-[170px] md:max-w-[180px] px-6 md:px-8 py-3 rounded-full border transition-all duration-300 font-avant-garde text-[0.7rem] md:text-[0.75rem] font-medium tracking-tight z-30
                     ${hoveredIndex === index
                       ? "border-white/40 text-white bg-transparent hover:bg-white/10"

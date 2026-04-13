@@ -34,11 +34,13 @@
   --color-brand-green: #7fa23f;
   --color-brand-grey: #bbbdbf;
   --color-brand-bg: #f1f1f2;
-  
+
   --font-avant-garde: 'AvantGarde', sans-serif;
   --font-outfit: 'Outfit', sans-serif;
   --font-dharma-gothic: 'DharmaGothic', sans-serif;
 }
+
+
 
 :root {
   --font-sans: 'AvantGarde', var(--font-outfit), var(--font-inter), ui-sans-serif, system-ui;
@@ -52,7 +54,13 @@ body {
   color: #333333;
 }
 
-h1, h2, h3, h4, h5, h6, .font-heading {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-heading {
   font-family: 'AvantGarde', sans-serif;
   font-weight: 600;
 }
@@ -76,13 +84,17 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 }
 
 @layer utilities {
+
   /* Hide scrollbar utility */
   .scrollbar-hide::-webkit-scrollbar {
     display: none !important;
   }
+
   .scrollbar-hide {
-    -ms-overflow-style: none !important; /* IE and Edge */
-    scrollbar-width: none !important; /* Firefox */
+    -ms-overflow-style: none !important;
+    /* IE and Edge */
+    scrollbar-width: none !important;
+    /* Firefox */
   }
 
   .bg-number {
@@ -98,5 +110,15 @@ h1, h2, h3, h4, h5, h6, .font-heading {
     user-select: none;
     z-index: 0;
     font-family: 'AvantGarde', sans-serif;
+  }
+
+  .font-brand-heading {
+    font-family: 'DharmaGothic', sans-serif !important;
+  }
+
+  @media (min-width: 768px) {
+    .font-brand-heading {
+      font-family: 'AvantGarde', sans-serif !important;
+    }
   }
 }

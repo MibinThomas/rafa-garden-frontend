@@ -1,23 +1,29 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { CATEGORIES, Product, ProductVariant, Category } from "@/lib/data";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductDetailSection } from "@/components/ProductDetailSection";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
 
-export default function ShopPage() {
+function ShopContent() {
   const { setIsImmersive, setHeaderColor } = useHeaderColor();
   const heroRef = useRef<HTMLElement>(null);
+  const searchParams = useSearchParams();
 
   // Dynamic State for categories
   const [categories, setCategories] = useState<Category[]>(CATEGORIES);
   const [loading, setLoading] = useState(true);
 
+  // Initial category from query param
+  const catParam = searchParams.get("cat");
+  const initialIndex = catParam ? parseInt(catParam) : 0;
+
   // State for active category
-  const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
+  const [activeCategoryIndex, setActiveCategoryIndex] = useState(initialIndex);
   const activeCategory = categories[activeCategoryIndex] || CATEGORIES[0];
 
   // State for spotlight featured product
@@ -31,6 +37,17 @@ export default function ShopPage() {
   const [quantity, setQuantity] = useState(2);
   // State for selected size
   const [selectedSize, setSelectedSize] = useState("500ml");
+
+  useEffect(() => {
+    // Update active category if query param changes
+    const cat = searchParams.get("cat");
+    if (cat !== null) {
+      const idx = parseInt(cat);
+      if (!isNaN(idx) && idx >= 0 && idx < categories.length) {
+        setActiveCategoryIndex(idx);
+      }
+    }
+  }, [searchParams, categories.length]);
 
   useEffect(() => {
     // Fetch live categories from database
@@ -91,7 +108,7 @@ export default function ShopPage() {
               animate={{ opacity: 0.1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 1.1, y: -100 }}
               transition={{ duration: 0.8, ease: "circOut" }}
-              className="font-dharma-gothic text-[14vw] lowercase leading-none text-[#333333] tracking-tighter"
+              className="font-brand-heading text-[14vw] leading-none text-[#333333] tracking-tighter"
             >
               {activeCategory.title}
             </motion.h1>
@@ -133,7 +150,7 @@ export default function ShopPage() {
                     ? "bg-white shadow-xl scale-110 border-transparent text-[#333333]"
                     : "bg-white/5 text-[#333333]/20 hover:text-[#333333]/40 border-[#333333]/5"}
                 `}
-                style={{ 
+                style={{
                   borderColor: selectedSize === size ? activeCategory.color : undefined,
                   color: selectedSize === size ? activeCategory.color : undefined
                 }}
@@ -153,7 +170,7 @@ export default function ShopPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h2 
+              <h2
                 className="text-4xl md:text-5xl font-heading leading-[0.85] mb-2 text-left transition-colors duration-500"
                 style={{ color: activeCategory.color }}
               >
@@ -189,7 +206,7 @@ export default function ShopPage() {
 
             {/* Product Centerpiece */}
             <div className="relative z-20 w-[300px] h-[400px] md:w-[400px] md:h-[60vh] max-h-[650px]">
-              
+
               {/* Decorative Vertical Text - "Pure Botanical Refreshment" */}
               <div className="absolute -right-24 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 opacity-20 pointer-events-none select-none z-0">
                 <span className="text-[10px] font-bold uppercase tracking-[0.5em] [writing-mode:vertical-rl] rotate-180">Pure</span>
@@ -260,9 +277,9 @@ export default function ShopPage() {
             </div>
 
             {/* Buy Now Button */}
-            <button 
+            <button
               className="text-white px-10 py-4 rounded-full font-avant-garde font-bold text-sm transition-all shadow-xl hover:scale-105 active:scale-95"
-              style={{ 
+              style={{
                 backgroundColor: activeCategory.color,
                 boxShadow: `0 20px 40px ${activeCategory.color}33`
               }}
@@ -377,5 +394,13 @@ export default function ShopPage() {
         </AnimatePresence >
       </section >
     </div >
+  );
+}
+
+export default function ShopPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#f1f1f2] flex items-center justify-center">Loading Shop...</div>}>
+      <ShopContent />
+    </Suspense>
   );
 }

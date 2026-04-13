@@ -4,7 +4,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CATEGORIES } from "@/lib/data";
 import Image from "next/image";
-import { ArrowLeft, MousePointer2, ChevronLeft, ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ArrowLeft, MousePointer2, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 
 interface CategoryDetailProps {
   categoryIndex: number;
@@ -14,7 +15,8 @@ interface CategoryDetailProps {
 export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
   const cat = CATEGORIES[categoryIndex];
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
-  
+  const router = useRouter();
+
   // Safe fallback if products array is empty
   const currentProduct = cat.products?.[currentProductIndex] || {
     id: "temp", name: cat.title, description: "Description unavailable.", image: cat.image, variants: []
@@ -42,13 +44,13 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
       style={{ backgroundColor: cat.color }}
     >
       {/* Minimalist Floating Back Button */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 1, duration: 0.8 }}
         className="absolute top-6 md:top-24 left-8 md:left-16 z-40"
       >
-        <button 
+        <button
           onClick={onBack}
           className="flex items-center gap-3 px-5 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white hover:bg-white hover:text-black transition-all duration-300 group shadow-xl"
         >
@@ -59,31 +61,31 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
 
       {/* Main Content Area */}
       <div className="relative flex-1 flex items-center justify-center">
-        
+
         {/* Huge Background Text - Fixed to Category Title */}
-        <motion.h1 
+        <motion.h1
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 0.15, scale: 1 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="absolute inset-0 flex items-center justify-center text-[18vw] md:text-[24vw] font-black leading-none text-white select-none z-10 pointer-events-none"
+          className="absolute inset-0 flex items-center justify-center text-[18vw] md:text-[24vw] font-black leading-none text-white select-none z-10 pointer-events-none font-brand-heading"
         >
-          {cat.title.toUpperCase()}
+          {cat.title}
         </motion.h1>
 
         {/* Carousel Prev Button */}
         {cat.products?.length > 1 && (
-           <button 
-             onClick={handlePrev} 
-             className="absolute left-4 md:left-24 z-40 p-3 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white hover:text-black transition duration-300 backdrop-blur-md"
-           >
-             <ChevronLeft size={32} />
-           </button>
+          <button
+            onClick={handlePrev}
+            className="absolute left-4 md:left-24 z-40 p-3 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white hover:text-black transition duration-300 backdrop-blur-md"
+          >
+            <ChevronLeft size={32} />
+          </button>
         )}
 
         {/* Central Product Image with AnimatePresence for transitions */}
         <div className="relative z-20 w-full h-[45%] md:h-[70%] lg:h-[85%] max-h-[35vh] md:max-h-none flex items-center justify-center pointer-events-none">
           <AnimatePresence mode="wait">
-            <motion.div 
+            <motion.div
               key={currentProduct.id}
               initial={{ y: 50, opacity: 0, scale: 0.9 }}
               animate={{ y: 0, opacity: 1, scale: 1 }}
@@ -104,12 +106,12 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
 
         {/* Carousel Next Button */}
         {cat.products?.length > 1 && (
-           <button 
-             onClick={handleNext} 
-             className="absolute right-24 md:right-32 z-40 p-3 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white hover:text-black transition duration-300 backdrop-blur-md"
-           >
-             <ChevronRight size={32} />
-           </button>
+          <button
+            onClick={handleNext}
+            className="absolute right-24 md:right-32 z-40 p-3 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white hover:text-black transition duration-300 backdrop-blur-md"
+          >
+            <ChevronRight size={32} />
+          </button>
         )}
 
         {/* Right Variant Selectors */}
@@ -142,9 +144,8 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
               <button
                 key={idx}
                 onClick={() => setCurrentProductIndex(idx)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  idx === currentProductIndex ? "bg-white w-6" : "bg-white/30 hover:bg-white/60"
-                }`}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === currentProductIndex ? "bg-white w-6" : "bg-white/30 hover:bg-white/60"
+                  }`}
               />
             ))}
           </div>
@@ -156,7 +157,7 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
         <div className="max-w-md">
           <AnimatePresence mode="wait">
             <motion.div key={currentProduct.id + "-text"}>
-              <motion.h2 
+              <motion.h2
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -20, opacity: 0 }}
@@ -165,7 +166,7 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
               >
                 {currentProduct.name}
               </motion.h2>
-              <motion.p 
+              <motion.p
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -20, opacity: 0 }}
@@ -180,6 +181,7 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.9 }}
+            onClick={() => router.push(`/shop?cat=${categoryIndex}`)}
             className="px-6 py-2.5 bg-white text-black font-bold rounded-full text-xs uppercase tracking-widest hover:bg-black hover:text-white transition-colors shadow-xl"
           >
             Add to Cart
@@ -187,18 +189,19 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
         </div>
 
         {/* Scroll Down Hint (Optional, currently just aesthetic) */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
+          onClick={() => router.push(`/shop?cat=${categoryIndex}`)}
           className="hidden md:flex flex-col items-center gap-4 cursor-pointer hover:scale-105 transition-transform"
         >
           <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center relative overflow-hidden group">
-            <motion.div 
-               animate={{ y: [0, 5, 0] }}
-               transition={{ duration: 2, repeat: Infinity }}
+            <motion.div
+              animate={{ y: [0, 5, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
             >
-              <MousePointer2 size={24} />
+              <ArrowRight size={24} />
             </motion.div>
           </div>
           <span className="text-[10px] font-bold uppercase tracking-[0.3em] opacity-80">Explore More</span>
