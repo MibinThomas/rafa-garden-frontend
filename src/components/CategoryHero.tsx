@@ -65,7 +65,7 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
             <motion.div
               key={cat.id}
               onClick={() => setHoveredIndex(index)}
-              className={`relative flex-1 min-h-0 w-full overflow-hidden cursor-pointer rounded-[10px]
+              className={`relative flex-1 min-h-0 w-full overflow-hidden cursor-pointer rounded-[20px] transition-all duration-700
                 ${isActive ? "bg-[#e5e5e7]" : index % 2 === 0 ? "bg-[#f1f1f2]" : "bg-[#e5e5e7]"}
               `}
             >
@@ -77,11 +77,11 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="absolute inset-0 flex pl-3 pr-0 py-0 pointer-events-none"
+                    className="absolute inset-0 flex pl-3 pr-0 py-0 pointer-events-none z-10"
                   >
                     <div className="w-[42%] h-full" />
                     <div
-                      className="w-[58%] h-full rounded-l-[1.5rem] rounded-tr-[10px] rounded-br-[10px] transition-all duration-700 shadow-sm"
+                      className="w-[58%] h-full rounded-l-[1.5rem] rounded-tr-[20px] rounded-br-[20px] transition-all duration-700 shadow-[0_0_20px_rgba(0,0,0,0.05)] relative"
                       style={{ backgroundColor: cat.color }}
                     />
                   </motion.div>
@@ -93,7 +93,7 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                 <div className="absolute inset-0 flex items-center justify-start pl-4 pointer-events-none select-none overflow-hidden h-full z-0">
                   <motion.h1
                     layout
-                    className="font-bold tracking-tighter transition-all duration-700 font-brand-heading leading-none text-[8.5rem] text-[#333333]/[0.12]"
+                    className="font-bold tracking-tight transition-all duration-700 font-brand-heading leading-none text-[10rem] text-[#333333]/[0.10] -ml-2"
                   >
                     {cat.id === "01" ? "Crush" : cat.id === "02" ? "jams" : cat.id === "03" ? "Fruits" : "Plants"}
                   </motion.h1>
@@ -101,126 +101,112 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
               )}
 
               {/* Content Wrapper */}
-              <div className="relative z-10 w-full h-full flex items-center px-4">
+              <div className="relative z-20 w-full h-full flex items-center px-4">
 
-                {/* INACTIVE STATE CONTENT - ALIGNED WITH MOCKUP */}
+                {/* INACTIVE STATE CONTENT - 1:1 MATCH WITH Mockup */}
                 {!isActive && (
-                  <div className="w-full h-full flex flex-col justify-between py-6 relative">
+                  <div className="w-full h-full flex flex-col justify-between py-6 px-1 relative">
                     {/* Top Left Description */}
-                    <div className="max-w-[140px] opacity-60">
-                      <p className="text-[0.45rem] leading-[1.3] font-avant-garde">
+                    <div className="max-w-[130px] opacity-60">
+                      <p className="text-[0.45rem] leading-[1.3] font-avant-garde uppercase tracking-tight">
                         This is a sample product details must be enter here to show the ui ux design minimal stage
                       </p>
                     </div>
 
-                    {/* Middle Left Button */}
+                    {/* Middle Left Button - Reduced Size by 40% */}
                     <div className="flex-1 flex items-center">
-                      <button className="flex items-center justify-between gap-3 px-4 py-2 rounded-full border border-[#333333]/20 text-[#333333] font-avant-garde text-[0.6rem] font-bold bg-transparent group hover:bg-[#333333] hover:text-white transition-all duration-300">
+                      <button className="flex items-center justify-between gap-2 px-3.5 py-1.5 rounded-full border border-[#333333]/30 text-[#333333] font-avant-garde text-[0.5rem] font-bold bg-transparent group hover:bg-[#333333] hover:text-white transition-all duration-300">
                         <span>View More</span>
-                        <ArrowRight size={12} className="opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                        <ArrowRight size={10} className="opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
                       </button>
                     </div>
 
-                    {/* Bottom Left Content Group */}
-                    <div className="flex flex-col gap-2">
-                      <h3 className="text-[0.6rem] font-bold uppercase tracking-[0.2em] text-[#333333] font-brand-heading leading-[1.1]">
-                        Pure <br /> Botanical <br /> Refreshment
-                      </h3>
-                      <div className="max-w-[140px] opacity-40">
-                        <p className="text-[0.42rem] line-clamp-2 font-avant-garde leading-[1.3]">
-                          This is a sample product details must be enter here to show the ui ux design minimal stage
+                    {/* Bottom Content Group - EXACT 1:1 ALIGNMENT */}
+                    <div className="flex items-end gap-3 mb-1">
+                      <div className="shrink-0">
+                        <h3 className="text-[0.45rem] font-bold uppercase tracking-[0.05em] text-[#333333] font-brand-heading leading-[1.2]">
+                          Pure <br /> Botanical <br /> Refreshment
+                        </h3>
+                      </div>
+                      <div className="max-w-[100px] opacity-40">
+                        <p className="text-[0.38rem] font-avant-garde leading-[1.3] uppercase line-clamp-2">
+                          This is a sample product details must be enter here to show the ui ux design
                         </p>
                       </div>
                     </div>
 
-                    {/* Large Watermark Title on the Right */}
-                    <div className="absolute inset-y-0 right-[-15px] flex items-center justify-end z-0 pointer-events-none w-full h-full overflow-hidden">
-                      <h1 className="text-[6.5rem] font-bold tracking-tighter font-brand-heading leading-none text-[#333333]/[0.15] select-none">
-                        {cat.title}
+                    {/* Large Watermark Title on the Right - Refined Opacity */}
+                    <div className="absolute inset-y-0 right-[-10px] flex items-center justify-end z-0 pointer-events-none w-full h-full overflow-hidden">
+                      <h1 className="text-[6.2rem] font-bold tracking-tight font-brand-heading leading-none text-[#333333]/[0.15] select-none">
+                        {cat.id === "02" ? "Jam" : cat.title}
                       </h1>
                     </div>
                   </div>
                 )}
 
-                {/* ACTIVE STATE CONTENT - ALIGNED WITH MOCKUP */}
+                {/* ACTIVE STATE CONTENT - 1:1 MATCH WITH Mockup */}
                 {isActive && (
                   <div className="w-full h-full flex items-center relative">
-                    {/* Left Column (Gray side) - Footer Content */}
-                    <div className="w-[42%] flex flex-col justify-end pb-6 h-full">
-                      <div className="flex flex-col gap-2">
-                        <h3 className="text-[0.6rem] font-bold uppercase tracking-[0.2em] text-[#333333] font-brand-heading leading-[1.1]">
-                          Pure <br /> Botanical <br /> Refreshment
-                        </h3>
-                        <div className="max-w-[100px] opacity-40">
-                          <p className="text-[0.42rem] line-clamp-2 font-avant-garde leading-[1.2]">
-                            This is a sample product details must be enter here
+                    {/* Left Column (Gray side) - Brand Footer */}
+                    <div className="w-[42%] flex flex-col justify-end pb-2 h-full">
+                      <div className="flex items-end gap-3 px-1 ml-[-0.8rem]">
+                        <div className="shrink-0">
+                          <h3 className="text-[0.45rem] font-bold tracking-wide text-[#333333] font-avant-garde leading-[1.3]">
+                            Pure <br /> Botanical <br /> Refreshment
+                          </h3>
+                        </div>
+                        <div className="max-w-[100px] opacity-40 mb-[1px]">
+                          <p className="text-[0.38rem] font-avant-garde leading-[1.3] line-clamp-3">
+                            This is a sample product details must be enter here to show the ui ux
                           </p>
                         </div>
                       </div>
                     </div>
 
                     {/* Right Column (Inside Colored panel) - Interactive Area */}
-                    <div className="w-[58%] flex flex-col justify-center items-start text-white pl-8 pr-4 h-full relative z-20">
-                      <div className="max-w-[160px]">
-                        <p className="text-[0.55rem] leading-[1.4] font-avant-garde opacity-90 mb-5">
-                          This is a sample product details must be enter here to show the ui ux design minimal stage
+                    <div className="w-[58%] flex flex-col justify-center items-start text-white pl-8 pr-4 h-full relative z-30">
+                      <div className="max-w-[140px]">
+                        <p className="text-[0.45rem] leading-[1.6] font-avant-garde opacity-90 mb-5 tracking-wide">
+                          This is a sample product details must <br/> be enter here to show the ui ux <br/> design minimal stage
                         </p>
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
                             router.push(`/shop?cat=${index}`);
                           }}
-                          className="flex items-center justify-between gap-4 px-6 py-2.5 rounded-full border border-white/40 text-white font-avant-garde text-[0.65rem] font-bold bg-transparent backdrop-blur-md hover:bg-white hover:text-black transition-all duration-300 group shadow-lg"
+                          className="flex items-center justify-between gap-4 px-5 py-2 rounded-full border border-white/40 text-white font-avant-garde text-[0.55rem] font-bold bg-transparent backdrop-blur-sm hover:bg-white hover:text-black transition-all duration-300 group shadow-lg"
                         >
                           <span>Buy Now</span>
-                          <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                          <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
                         </button>
                       </div>
                     </div>
 
-                    {/* Product Image Centered on Boundary */}
-                    <motion.div
-                      key={cat.id + "-mobile-img"}
-                      initial={{ scale: 0.8, opacity: 0, x: 50 }}
-                      animate={{ scale: 1.25, opacity: 1, x: 0 }}
-                      transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                      className="absolute left-[20%] right-[35%] inset-y-0 flex items-center justify-center z-30 pointer-events-none"
-                    >
-                      <Image
-                        src={cat.image}
-                        alt={cat.title}
-                        width={220}
-                        height={400}
-                        className="object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,0.4)]"
-                        priority
-                      />
-                    </motion.div>
-
                     {/* Floating Pitayas EXACT Positions from Mockup */}
                     {index === 0 && (
-                      <div className="pointer-events-none absolute inset-0 z-40">
+                      <div className="pointer-events-none absolute inset-0 z-[60]">
                         {/* Top Left Pitaya */}
                         <motion.div
-                          className="absolute top-[18%] left-[34%] w-10 h-10"
-                          animate={{ y: [0, -8, 0], rotate: [0, 20, 0] }}
+                          className="absolute top-[18%] left-[26%] w-10 h-10 filter blur-[1px]"
+                          animate={{ y: [0, -5, 0], rotate: [0, 10, 0] }}
                           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                         >
                           <Image src="/images/hero/floatingpitaya.png" alt="" fill className="object-contain" />
                         </motion.div>
 
-                        {/* Middle Right Pitaya */}
+                        {/* Middle Left Pitaya - Near bottle waist */}
                         <motion.div
-                          className="absolute bottom-[28%] right-[32%] w-12 h-12"
-                          animate={{ y: [0, 10, 0], rotate: [0, -15, 0] }}
+                          className="absolute bottom-[32%] left-[22%] w-12 h-12 filter blur-[2px]"
+                          animate={{ y: [0, 8, 0], rotate: [0, -10, 0] }}
                           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
                         >
                           <Image src="/images/hero/floatingpitaya.png" alt="" fill className="object-contain" />
                         </motion.div>
 
-                        {/* Bottom Left Pitaya */}
+                        {/* Bottom Right Pitaya - Near bottle base */}
                         <motion.div
-                          className="absolute bottom-[22%] left-[38%] w-9 h-9"
-                          animate={{ y: [0, 6, 0], scale: [1, 1.1, 1] }}
+                          className="absolute bottom-[20%] left-[58%] w-14 h-14 filter blur-[1.5px]"
+                          animate={{ y: [0, 6, 0], scale: [1, 1.05, 1], rotate: [0, 15, 0] }}
                           transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
                         >
                           <Image src="/images/hero/floatingpitaya.png" alt="" fill className="object-contain" />
@@ -230,6 +216,29 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                   </div>
                 )}
               </div>
+
+              {/* Product Image - Absolute to the Card Container for reliable Bottom Alignment */}
+              <AnimatePresence>
+                {isActive && (
+                  <motion.div
+                    key={cat.id + "-mobile-img-v5"}
+                    initial={{ scale: 0.8, opacity: 0, y: 50, x: "-50%" }}
+                    animate={{ scale: 1.0, opacity: 1, y: 0, x: "-50%" }}
+                    exit={{ scale: 0.8, opacity: 0, y: 20, x: "-50%" }}
+                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute bottom-[-16px] left-[42%] z-[50] pointer-events-none"
+                  >
+                    <Image
+                      src={cat.image}
+                      alt={cat.title}
+                      width={170}
+                      height={320}
+                      className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)] origin-bottom"
+                      priority
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           );
         })}
@@ -306,7 +315,7 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
 
                 {/* Heading */}
                 <motion.h2
-                  className="text-4xl lg:text-[4.2rem] font-bold mb-1 tracking-tighter font-brand-heading leading-[1.1] z-30"
+                  className="text-4xl lg:text-[4.2rem] font-bold mb-1 tracking-tight font-brand-heading leading-[1.1] z-30"
                   animate={{
                     color: hoveredIndex === index ? "#ffffff" : "#6f7074"
                   }}
