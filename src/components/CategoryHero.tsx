@@ -108,16 +108,16 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                   <div className="w-full h-full flex flex-col justify-between py-6 px-1 relative">
                     {/* Top Left Description */}
                     <div className="max-w-[130px] opacity-60">
-                      <p className="text-[0.45rem] leading-[1.3] font-avant-garde uppercase tracking-tight">
+                      <p className="text-[6px] leading-[1.3] font-avant-garde lowercase tracking-tight">
                         This is a sample product details must be enter here to show the ui ux design minimal stage
                       </p>
                     </div>
 
-                    {/* Middle Left Button - Reduced Size by 40% */}
-                    <div className="flex-1 flex items-center">
-                      <button className="flex items-center justify-between gap-2 px-3.5 py-1.5 rounded-full border border-[#333333]/30 text-[#333333] font-avant-garde text-[0.5rem] font-bold bg-transparent group hover:bg-[#333333] hover:text-white transition-all duration-300">
+                    {/* Middle Left Button - Reduced Size and Centered */}
+                    <div className="flex-1 flex items-center justify-start w-full max-w-[130px]">
+                      <button className="flex items-center justify-center gap-1.5 px-3 py-1 rounded-full border border-[#333333]/30 text-[#333333] font-avant-garde text-[0.45rem] font-bold bg-transparent group hover:bg-[#333333] hover:text-white transition-all duration-300">
                         <span>View More</span>
-                        <ArrowRight size={10} className="opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                        <ArrowRight size={8} className="opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
                       </button>
                     </div>
 
@@ -174,10 +174,10 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                             e.stopPropagation();
                             router.push(`/shop?cat=${index}`);
                           }}
-                          className="flex items-center justify-between gap-4 px-5 py-2 rounded-full border border-white/40 text-white font-avant-garde text-[0.55rem] font-bold bg-transparent backdrop-blur-sm hover:bg-white hover:text-black transition-all duration-300 group shadow-lg"
+                          className="flex mx-auto items-center justify-center gap-2.5 px-3.5 py-1.5 rounded-full border border-white/40 text-white font-avant-garde text-[0.5rem] font-bold bg-transparent backdrop-blur-sm hover:bg-white hover:text-black transition-all duration-300 group shadow-lg"
                         >
                           <span>Buy Now</span>
-                          <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                          <ArrowRight size={10} className="group-hover:translate-x-1 transition-transform" />
                         </button>
                       </div>
                     </div>
