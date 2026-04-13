@@ -124,7 +124,7 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                     {/* Bottom Content Group - EXACT 1:1 ALIGNMENT */}
                     <div className="flex items-end gap-3 mb-1">
                       <div className="shrink-0">
-                        <h3 className="text-[0.45rem] font-bold tracking-[0.05em] text-[#737478] font-brand-heading leading-[1.2]">
+                        <h3 className="text-[0.45rem] font-bold tracking-[0.05em] text-[#737478] font-brand-heading leading-[1.05]">
                           Pure <br /> botanical <br /> refreshment
                         </h3>
                       </div>
@@ -151,7 +151,7 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                     <div className="w-[42%] flex flex-col justify-end py-6 px-1 h-full">
                       <div className="flex items-end gap-3 mb-1">
                         <div className="shrink-0">
-                        <h3 className="text-[0.45rem] font-bold tracking-[0.05em] text-[#737478] font-brand-heading leading-[1.2]">
+                        <h3 className="text-[0.45rem] font-bold tracking-[0.05em] text-[#737478] font-brand-heading leading-[1.05]">
                             Pure <br /> botanical <br /> refreshment
                           </h3>
                         </div>
@@ -187,7 +187,7 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                       <div className="pointer-events-none absolute inset-0 z-[60]">
                         {/* Top Left Pitaya */}
                         <motion.div
-                          className="absolute top-[18%] left-[26%] w-10 h-10 filter blur-[1px]"
+                          className="absolute top-[18%] left-[26%] w-6 h-6 filter blur-[1px]"
                           animate={{ y: [0, -5, 0], rotate: [0, 10, 0] }}
                           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                         >
@@ -196,7 +196,7 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
 
                         {/* Middle Left Pitaya - Near bottle waist */}
                         <motion.div
-                          className="absolute bottom-[32%] left-[22%] w-12 h-12 filter blur-[2px]"
+                          className="absolute bottom-[32%] left-[22%] w-8 h-8 filter blur-[2px]"
                           animate={{ y: [0, 8, 0], rotate: [0, -10, 0] }}
                           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
                         >
@@ -205,7 +205,7 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
 
                         {/* Bottom Right Pitaya - Placed above the bottle */}
                         <motion.div
-                          className="absolute bottom-[22%] left-[48%] w-14 h-14 filter blur-[1.5px]"
+                          className="absolute bottom-[22%] left-[48%] w-10 h-10 filter blur-[1.5px]"
                           animate={{ y: [0, 6, 0], scale: [1, 1.05, 1], rotate: [0, 15, 0] }}
                           transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
                         >
