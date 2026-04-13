@@ -124,7 +124,7 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                     {/* Bottom Content Group - EXACT 1:1 ALIGNMENT */}
                     <div className="flex items-end gap-3 mb-1">
                       <div className="shrink-0">
-                        <h3 className="text-[0.45rem] font-bold tracking-[0.05em] text-[#333333] font-brand-heading leading-[1.2]">
+                        <h3 className="text-[0.45rem] font-bold tracking-[0.05em] text-[#737478] font-brand-heading leading-[1.2]">
                           Pure <br /> botanical <br /> refreshment
                         </h3>
                       </div>
@@ -151,7 +151,7 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                     <div className="w-[42%] flex flex-col justify-end py-6 px-1 h-full">
                       <div className="flex items-end gap-3 mb-1">
                         <div className="shrink-0">
-                        <h3 className="text-[0.45rem] font-bold tracking-[0.05em] text-[#333333] font-brand-heading leading-[1.2]">
+                        <h3 className="text-[0.45rem] font-bold tracking-[0.05em] text-[#737478] font-brand-heading leading-[1.2]">
                             Pure <br /> botanical <br /> refreshment
                           </h3>
                         </div>
