@@ -50,12 +50,12 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
 
   const getBgColor = (index: number, isHovered: boolean) => {
     if (isHovered) return categories[index].color;
-    const greys = ["#f1f1f2", "#e5e5e7", "#dbdbdd", "#d1d1d3"];
-    return greys[index] || "#f1f1f2";
+    const greys = ["#e6e7e8", "#e5e5e7", "#dbdbdd", "#d1d1d3"];
+    return greys[index] || "#e6e7e8";
   };
 
   return (
-    <section className="relative w-full flex-1 md:px-12 flex flex-col font-sans overflow-hidden bg-[#f1f1f2]">
+    <section className="relative w-full flex-1 md:px-12 flex flex-col font-sans overflow-hidden bg-[#e6e7e8]">
 
       {/* Mobile-Only High-Fidelity Accordion (Directly from Mockup) */}
       <div className="flex md:hidden flex-col h-full w-full gap-2 p-2">
@@ -66,7 +66,7 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
               key={cat.id}
               onClick={() => setHoveredIndex(index)}
               className={`relative flex-1 min-h-0 w-full overflow-hidden cursor-pointer rounded-xl transition-all duration-700
-                ${isActive ? "bg-[#e5e5e7]" : index % 2 === 0 ? "bg-[#f1f1f2]" : "bg-[#e5e5e7]"}
+                ${isActive ? "bg-[#e5e5e7]" : index % 2 === 0 ? "bg-[#e6e7e8]" : "bg-[#e5e5e7]"}
               `}
             >
               {/* Background Style for Active Card - Rounded Inset Panel */}

@@ -23,7 +23,7 @@ export default function Home() {
   }, [selectedCategoryIndex, setIsImmersive]);
 
   return (
-    <main className="relative flex-1 flex flex-col font-sans bg-[#f1f1f2]">
+    <main className="relative flex-1 flex flex-col font-sans bg-[#e6e7e8]">
       <AnimatePresence mode="popLayout">
         {selectedCategoryIndex === null ? (
           <motion.div

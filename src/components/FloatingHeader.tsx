@@ -19,7 +19,7 @@ export function FloatingHeader() {
   return (
     <>
       {/* Unified Desktop Header */}
-      <div className={`w-full hidden md:flex items-center pt-8 pb-4 pointer-events-auto select-none transition-all duration-1000 ${isImmersive ? "absolute top-0 left-0 z-50 bg-transparent" : "bg-[#f1f1f2]"}`}>
+      <div className={`w-full hidden md:flex items-center pt-8 pb-4 pointer-events-auto select-none transition-all duration-1000 ${isImmersive ? "absolute top-0 left-0 z-50 bg-transparent" : "bg-[#e6e7e8]"}`}>
         <div className="max-w-[1700px] mx-auto w-full flex items-center px-6 md:px-12">
           
           {/* Logo Section - Flex-1 to balance with Right Section */}
@@ -90,7 +90,7 @@ export function FloatingHeader() {
       </div>
 
       {/* Redesigned Mobile Header - Matching Mockup */}
-      <div className={`w-full flex md:hidden items-center justify-between px-6 py-4 pointer-events-auto transition-all duration-1000 ${isImmersive ? "absolute top-0 left-0 z-50 bg-transparent" : "bg-[#f1f1f2]"}`}>
+      <div className={`w-full flex md:hidden items-center justify-between px-6 py-4 pointer-events-auto transition-all duration-1000 ${isImmersive ? "absolute top-0 left-0 z-50 bg-transparent" : "bg-[#e6e7e8]"}`}>
         
         <div className="flex-none">
           <Link href="/" className="flex items-center">

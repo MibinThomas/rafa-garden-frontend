@@ -92,7 +92,7 @@ function ShopContent() {
 
   return (
     <div
-      className="relative min-h-screen font-sans pb-24 transition-colors duration-1000 ease-in-out bg-[#f1f1f2]"
+      className="relative min-h-screen font-sans pb-24 transition-colors duration-1000 ease-in-out bg-[#e6e7e8]"
     >
       {/* Editorial Hero Section - High-Fidelity Product Spotlight */}
       <motion.section
@@ -350,11 +350,11 @@ function ShopContent() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }}
-            className="relative p-6 sm:p-12 md:p-16 lg:p-20 rounded-[3rem] sm:rounded-[5rem] overflow-hidden"
+            className="relative p-6 sm:p-12 md:p-16 lg:p-20 rounded-[31px] overflow-hidden"
           >
             {/* Fixed Background Color */}
             <div
-              className="absolute inset-0 bg-[#f1f1f2]"
+              className="absolute inset-0 bg-[#e6e7e8]"
             />
             {/* Subtle Inner Glow */}
             <div className="absolute inset-0 border border-white/20 rounded-[inherit] pointer-events-none" />
@@ -399,7 +399,7 @@ function ShopContent() {
 
 export default function ShopPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#f1f1f2] flex items-center justify-center">Loading Shop...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-[#e6e7e8] flex items-center justify-center">Loading Shop...</div>}>
       <ShopContent />
     </Suspense>
   );

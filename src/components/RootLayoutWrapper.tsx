@@ -26,7 +26,7 @@ export function RootLayoutWrapper({ children }: { children: React.ReactNode }) {
   return (
     <body
       className={`${inter.variable} ${playfair.variable} ${outfit.variable} ${montserrat.variable} min-h-screen text-[#0b2b1a] antialiased font-sans flex flex-col transition-colors duration-1000`}
-      style={{ backgroundColor: isImmersive ? headerColor : "#f1f1f2" }}
+      style={{ backgroundColor: isImmersive ? headerColor : "#e6e7e8" }}
     >
       <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
         <FloatingHeader />

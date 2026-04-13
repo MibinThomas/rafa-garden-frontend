@@ -20,7 +20,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="w-full bg-[#dfdfdf] text-[#4a4b4d] pt-20 pb-8 px-6 md:px-16 font-sans relative overflow-hidden">
+    <footer className="w-full bg-[#e6e7e8] text-[#4a4b4d] pt-20 pb-8 px-6 md:px-16 font-sans relative overflow-hidden">
       
       {/* Main Container */}
       <div className="max-w-[1700px] mx-auto grid grid-cols-1 lg:grid-cols-[1.3fr_2fr] gap-x-24 gap-y-16 border-b border-[#333333]/10 pb-12">
@@ -129,7 +129,7 @@ export function Footer() {
                 
                 {/* Independent Floating Pill Button */}
                 <button 
-                  className="absolute right-[22px] bottom-[24px] w-[46px] h-[24px] border border-[#bcbbbd] hover:bg-[#333333]/5 rounded-full text-[#333333]/50 transition-all flex items-center justify-center bg-[#dfdfdf] shadow-sm z-10"
+                  className="absolute right-[22px] bottom-[24px] w-[46px] h-[24px] border border-[#bcbbbd] hover:bg-[#333333]/5 rounded-full text-[#333333]/50 transition-all flex items-center justify-center bg-[#e6e7e8] shadow-sm z-10"
                 >
                    <Send size={11} strokeWidth={2.5} className="ml-[-2px] opacity-80" />
                 </button>

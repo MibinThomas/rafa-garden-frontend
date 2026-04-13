@@ -42,7 +42,7 @@ export function ProductDetailSection({ product, categoryTitle, categoryColor, on
       animate={{ opacity: 1, y: 0, height: "auto" }}
       exit={{ opacity: 0, y: 50, height: 0 }}
       transition={{ duration: 0.5, ease: "circOut" }}
-      className="w-full bg-[#f1f1f2] rounded-[3rem] shadow-2xl relative overflow-hidden mt-8 mb-16 border border-white/20"
+      className="w-full bg-[#e6e7e8] rounded-[3rem] shadow-2xl relative overflow-hidden mt-8 mb-16 border border-white/20"
     >
       <button
         onClick={onClose}
