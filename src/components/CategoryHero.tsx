@@ -230,13 +230,13 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                     animate={{ scale: 1.0, opacity: 1, y: 0, x: "-50%" }}
                     exit={{ scale: 0.8, opacity: 0, y: 20, x: "-50%" }}
                     transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute bottom-[-10px] left-[42%] z-[50] pointer-events-none"
+                    className="absolute bottom-0 left-[42%] z-[50] pointer-events-none"
                   >
                     <Image
                       src={cat.image}
                       alt={cat.title}
-                      width={130}
-                      height={240}
+                      width={100}
+                      height={200}
                       className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)] origin-bottom"
                       priority
                     />
