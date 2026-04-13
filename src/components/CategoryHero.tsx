@@ -148,16 +148,16 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                 {isActive && (
                   <div className="w-full h-full flex items-center relative">
                     {/* Left Column (Gray side) - Brand Footer */}
-                    <div className="w-[42%] flex flex-col justify-end pb-2 h-full">
-                      <div className="flex items-end gap-3 px-1 ml-[-0.8rem]">
+                    <div className="w-[42%] flex flex-col justify-end py-6 px-1 h-full">
+                      <div className="flex items-end gap-3 mb-1">
                         <div className="shrink-0">
-                          <h3 className="text-[0.45rem] font-bold tracking-wide text-[#333333] font-avant-garde leading-[1.3]">
+                          <h3 className="text-[0.45rem] font-bold uppercase tracking-[0.05em] text-[#333333] font-brand-heading leading-[1.2]">
                             Pure <br /> Botanical <br /> Refreshment
                           </h3>
                         </div>
-                        <div className="max-w-[100px] opacity-40 mb-[1px]">
-                          <p className="text-[0.38rem] font-avant-garde leading-[1.3] line-clamp-3">
-                            This is a sample product details must be enter here to show the ui ux
+                        <div className="max-w-[100px] opacity-40">
+                          <p className="text-[0.38rem] font-avant-garde leading-[1.3] uppercase line-clamp-2">
+                            This is a sample product details must be enter here to show the ui ux design
                           </p>
                         </div>
                       </div>
@@ -203,9 +203,9 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                           <Image src="/images/hero/floatingpitaya.png" alt="" fill className="object-contain" />
                         </motion.div>
 
-                        {/* Bottom Right Pitaya - Near bottle base */}
+                        {/* Bottom Right Pitaya - Placed above the bottle */}
                         <motion.div
-                          className="absolute bottom-[20%] left-[58%] w-14 h-14 filter blur-[1.5px]"
+                          className="absolute bottom-[22%] left-[48%] w-14 h-14 filter blur-[1.5px]"
                           animate={{ y: [0, 6, 0], scale: [1, 1.05, 1], rotate: [0, 15, 0] }}
                           transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
                         >
@@ -217,7 +217,11 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                 )}
               </div>
 
-              {/* Product Image - Absolute to the Card Container for reliable Bottom Alignment */}
+              {/* =========================================================================
+                 📸 MOBILE SCREEN PRODUCT IMAGE STYLING 📸
+                 Edit the 'width', 'height', and 'bottom' positioning below to tweak 
+                 the size and placement of the floating bottle exclusively on mobile.
+              ========================================================================= */}
               <AnimatePresence>
                 {isActive && (
                   <motion.div
@@ -226,19 +230,20 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                     animate={{ scale: 1.0, opacity: 1, y: 0, x: "-50%" }}
                     exit={{ scale: 0.8, opacity: 0, y: 20, x: "-50%" }}
                     transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute bottom-[-16px] left-[42%] z-[50] pointer-events-none"
+                    className="absolute bottom-[-10px] left-[42%] z-[50] pointer-events-none"
                   >
                     <Image
                       src={cat.image}
                       alt={cat.title}
-                      width={170}
-                      height={320}
+                      width={130}
+                      height={240}
                       className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)] origin-bottom"
                       priority
                     />
                   </motion.div>
                 )}
               </AnimatePresence>
+              {/* ========================================================================= */}
             </motion.div>
           );
         })}
