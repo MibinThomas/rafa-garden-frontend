@@ -135,9 +135,9 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                       </div>
                     </div>
 
-                    {/* Large Watermark Title on the Right - Refined Opacity */}
+                    {/* Large Watermark Title on the Right - Updated Color */}
                     <div className="absolute inset-y-0 right-[-10px] flex items-center justify-end z-0 pointer-events-none w-full h-full overflow-hidden">
-                      <h1 className="text-[6.2rem] font-bold tracking-tight font-brand-heading leading-none text-[#333333]/[0.15] select-none">
+                      <h1 className="text-[6.2rem] font-bold tracking-tight font-brand-heading leading-none text-[#6C6D71] select-none">
                         {cat.id === "02" ? "Jam" : cat.title}
                       </h1>
                     </div>
