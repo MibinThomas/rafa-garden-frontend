@@ -124,15 +124,15 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                     {/* Bottom Content Group - EXACT 1:1 ALIGNMENT */}
                     <div className="flex items-end gap-3 mb-1">
                       <div className="shrink-0">
-                        <h3 className="text-[0.45rem] font-bold uppercase tracking-[0.05em] text-[#333333] font-brand-heading leading-[1.2]">
-                          Pure <br /> Botanical <br /> Refreshment
+                        <h3 className="text-[0.45rem] font-bold tracking-[0.05em] text-[#333333] font-brand-heading leading-[1.2]">
+                          Pure <br /> botanical <br /> refreshment
                         </h3>
                       </div>
-                      <div className="max-w-[100px] opacity-40">
-                        <p className="text-[0.38rem] font-avant-garde leading-[1.3] uppercase line-clamp-2">
-                          This is a sample product details must be enter here to show the ui ux design
-                        </p>
-                      </div>
+                        <div className="max-w-[100px] opacity-40">
+                          <p className="text-[6px] font-avant-garde leading-[1.3] line-clamp-2">
+                            This is a sample product details must be enter here to show the ui ux design
+                          </p>
+                        </div>
                     </div>
 
                     {/* Large Watermark Title on the Right - Updated Color */}
@@ -151,12 +151,12 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                     <div className="w-[42%] flex flex-col justify-end py-6 px-1 h-full">
                       <div className="flex items-end gap-3 mb-1">
                         <div className="shrink-0">
-                          <h3 className="text-[0.45rem] font-bold uppercase tracking-[0.05em] text-[#333333] font-brand-heading leading-[1.2]">
-                            Pure <br /> Botanical <br /> Refreshment
+                        <h3 className="text-[0.45rem] font-bold tracking-[0.05em] text-[#333333] font-brand-heading leading-[1.2]">
+                            Pure <br /> botanical <br /> refreshment
                           </h3>
                         </div>
                         <div className="max-w-[100px] opacity-40">
-                          <p className="text-[0.38rem] font-avant-garde leading-[1.3] uppercase line-clamp-2">
+                          <p className="text-[6px] font-avant-garde leading-[1.3] line-clamp-2">
                             This is a sample product details must be enter here to show the ui ux design
                           </p>
                         </div>
@@ -164,7 +164,7 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                     </div>
 
                     {/* Right Column (Inside Colored panel) - Interactive Area */}
-                    <div className="w-[58%] flex flex-col justify-center items-start text-white pl-8 pr-4 h-full relative z-30">
+                    <div className="w-[58%] flex flex-col justify-center items-start text-white pl-14 pr-4 h-full relative z-30">
                       <div className="max-w-[140px]">
                         <p className="text-[0.45rem] leading-[1.6] font-avant-garde opacity-90 mb-5 tracking-wide">
                           This is a sample product details must <br/> be enter here to show the ui ux <br/> design minimal stage
@@ -174,10 +174,10 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                             e.stopPropagation();
                             router.push(`/shop?cat=${index}`);
                           }}
-                          className="flex mx-auto items-center justify-center gap-2.5 px-3.5 py-1.5 rounded-full border border-white/40 text-white font-avant-garde text-[0.5rem] font-bold bg-transparent backdrop-blur-sm hover:bg-white hover:text-black transition-all duration-300 group shadow-lg"
+                          className="flex mx-auto items-center justify-center gap-1.5 px-3 py-1 rounded-full border border-white/40 text-white font-avant-garde text-[0.45rem] font-bold bg-transparent backdrop-blur-sm hover:bg-white hover:text-black transition-all duration-300 group shadow-lg"
                         >
                           <span>Buy Now</span>
-                          <ArrowRight size={10} className="group-hover:translate-x-1 transition-transform" />
+                          <ArrowRight size={8} className="group-hover:translate-x-1 transition-transform" />
                         </button>
                       </div>
                     </div>
