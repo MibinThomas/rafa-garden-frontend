@@ -1,59 +1,70 @@
-# Redesign Homepage Hero Section
+# Redesigning CMS to Support Mobile Content & Global Custom Fonts
 
-The goal is to replace the current GSAP scroll-based Hero with a modern, 4-category expanding accordion layout. This will improve navigation and provide a fresh, premium look that directly matches the user's reference image.
+This updated implementation plan details how we will redesign the Admin Panel and the existing backend architecture to solve two major requirements:
+1. Allowing administrators to edit mobile-specific text content natively.
+2. Empowering administrators to upload raw font files (`.woff`, `.ttf`) and globally swap the application typography dynamically.
+
+---
+
+## Part 1: Mobile Screen Editable Subsystems
+
+### Database Layer
+#### [MODIFY] `src/models/Category.ts`
+- Extend the `CategorySchema` to include three new optional fields:
+  - `mobileTitle` (String)
+  - `mobileShortDesc` (String)
+  - `mobileActiveDesc` (String)
+
+#### [MODIFY] `src/lib/data.ts`
+- Extend the `Category` Typescript interface mapping to officially support the 3 new mobile properties.
+
+### Admin CMS Panel Updates
+#### [MODIFY] `src/components/admin/CmsForm.tsx`
+- **Initial State Tracker**: Enhance the layout `formData` state to track the 3 parameters.
+- **Mobile Content Panel**: Construct a new visual form grouping titled "Mobile Screen Content" with `<textarea>` elements allowing for `\n` line breaks.
+
+### Consumer Frontend Interface
+#### [MODIFY] `src/components/CategoryHero.tsx`
+- **Dynamic Processing**: Exchange the static string `"Pure <br /> botanical <br /> refreshment"` with the database-fed `cat.mobileTitle`, utilizing `whitespace-pre-line` to handle the CMS carriage returns without injecting raw HTML.
+
+---
+
+## Part 2: Dynamic Font File Upload Engine
+
+### Site Content Model & Seeding
+#### [MODIFY] `src/models/SiteContent.ts`
+- Add `"font"` to the allowed structural `type` enums (currently `text | image | json`).
+
+#### [MODIFY] `src/lib/seed.ts` (or equivalent initialization hook)
+- Create two static keys in the `SiteContent` table: 
+  - Key: `global.font.primary` (Label: "Main Brand Heading Font")
+  - Key: `global.font.secondary` (Label: "Secondary Body Font")
+
+### File Upload and CMS Controller
+#### [MODIFY] `src/components/admin/SiteContentForm.tsx`
+- Add a dedicated condition when `type === "font"`.
+- This will render a unique file upload mechanism strictly accepting `.woff`, `.woff2`, and `.ttf` formats.
+- Once uploaded, it passes the binary to `Vercel Blob Storage` (via the existing `/api/upload` endpoint) and persists the generated URL in the database.
+
+### Global CSS Injection
+#### [MODIFY] `src/app/layout.tsx`
+- **Server Component Fetching**: Import the `SiteContent` Mongoose model directly and fetch the dynamic font URLs during the root server-side sweep.
+- **`<style>` Injection**: Render a dynamic `<style>` block at the `<head>` root:
+```css
+@font-face {
+  font-family: 'Dynamic-Heading';
+  src: url('{{global.font.primary.value}}');
+}
+:root {
+  --font-dynamic-playfair: 'Dynamic-Heading', serif !important;
+}
+```
+- Map these new CSS variables explicitly over the existing Tailwind font utilities (like `--font-playfair` in the CSS root), ensuring that if a font is uploaded via the admin panel, it natively overrides the entire project instantaneously without requiring code commits.
+
+---
 
 ## User Review Required
-
 > [!IMPORTANT]
-> **Design Aesthetic Update**: I have integrated your provided Color Guide and Typography.
-> - **Colors**: We will use `#c81c6a` (Primary Pink), `#9a0c52` (Deep Magenta), `#7fa23f` (Green), and `#bbbdbf` (Grey) on a `#f1f1f2` background.
-> - **Typography**: I will use **Playfair Display** for serif headings and **Outfit** (a close match for Avant Garde) for the geometric sans-serif text.
-
-## Proposed Changes
-
-### Assets
-
-### Assets
-
-I have generated four high-quality custom images for the following categories:
-- **Dragon Fruit Crush**
-- **Dragon Fruit Jam**
-- **Tropical Fruits**
-- **Nursery Plants**
-
-These will be moved to the `public/` directory during the execution phase.
-
-These will be moved to the `public/` directory upon execution.
-
-### Components
-
-#### [NEW] [CategoryHero.tsx](file:///c:/MIB/rafa-garden-frontend/src/components/CategoryHero.tsx)
-- This will be the main component of the new homepage.
-- It will feature a 4-column layout (on desktop) that expands on hover or click.
-- Each column will display:
-  - Sequence number (01, 02, 03, 04).
-  - Category name.
-  - Subtitle/Description.
-  - "View More" button.
-- The active/hovered section will show a large product image with a colored background, matching the reference image.
-
-### Pages
-
-#### [MODIFY] [page.tsx](file:///c:/MIB/rafa-garden-frontend/src/app/page.tsx)
-- Replace `ExperienceCanvas` with the new `CategoryHero` component.
-- Adjust the layout to ensure a seamless transition to the `ProductGrid`.
-
-## Open Questions
-
-1. **Category Links**: Where should the "View More" buttons link to? Should they scroll down to the `ProductGrid` or link to dedicated category pages?
-2. **Mobile Layout**: For mobile, would you prefer a vertical stack of these cards or a horizontal slider?
-
-## Verification Plan
-
-### Automated Tests
-- No automated tests currently exist for this UI redesign.
-
-### Manual Verification
-- Verify the expansion animation is fluid using `framer-motion`.
-- Ensure responsiveness across desktop, tablet, and mobile.
-- Verify that the four categories display the correct images and copy.
+> The Font Injection layer is incredibly powerful. It means that the instant you upload a `.woff` font in the admin panel, the entire global website layout will dynamically repopulate with that new font structure.
+>
+> Please review this scaled-up architecture (Mobile CMS + Global Font Flow) and reply with **"Approved"** to kick off execution!
