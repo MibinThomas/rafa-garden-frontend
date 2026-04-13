@@ -23,7 +23,7 @@ export default function Home() {
   }, [selectedCategoryIndex, setIsImmersive]);
 
   return (
-    <main className="relative min-h-screen flex flex-col font-sans bg-[#f1f1f2]">
+    <main className="relative flex-1 flex flex-col font-sans bg-[#f1f1f2]">
       <AnimatePresence mode="popLayout">
         {selectedCategoryIndex === null ? (
           <motion.div
@@ -32,18 +32,20 @@ export default function Home() {
             animate={{ opacity: 1 }}
             exit={{ x: "-20%", opacity: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] as const }}
-            className="w-full"
+            className="w-full flex-1 flex flex-col h-full"
           >
-            {/* Compact Hero Section - Reduced height by 15% as requested */}
-            <div className="h-[calc(85dvh-70px)] md:h-screen flex flex-col pt-0 md:pt-4 overflow-hidden">
+            {/* Full Screen Hero Section - Hard constrained to exactly fill the screen minus header */}
+            <div className="h-[calc(100dvh-70px)] md:h-[calc(100vh-100px)] flex flex-col pt-0 md:pt-4 overflow-hidden">
               <CategoryHero 
                 onSelect={(index) => setSelectedCategoryIndex(index)} 
                 onHover={(index) => setHoveredCategoryIndex(index)}
               />
             </div>
 
-            {/* Dynamic Product Grid Section Below Hero */}
-            <HomeProductSection categoryIndex={hoveredCategoryIndex} />
+            {/* Dynamic Product Grid Section Below Hero - Hidden on Mobile to focus solely on categories */}
+            <div className="hidden md:block">
+              <HomeProductSection categoryIndex={hoveredCategoryIndex} />
+            </div>
           </motion.div>
         ) : (
           <CategoryDetail

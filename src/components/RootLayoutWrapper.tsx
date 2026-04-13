@@ -7,6 +7,7 @@ import { FloatingHeader } from "@/components/FloatingHeader";
 import { Footer } from "@/components/Footer";
 import { CartModal } from "@/components/CartModal";
 import { Inter, Playfair_Display, Outfit, Montserrat } from "next/font/google";
+import { usePathname } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
@@ -19,6 +20,8 @@ const montserrat = Montserrat({
 
 export function RootLayoutWrapper({ children }: { children: React.ReactNode }) {
   const { headerColor, isImmersive } = useHeaderColor();
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
 
   return (
     <body
@@ -30,7 +33,9 @@ export function RootLayoutWrapper({ children }: { children: React.ReactNode }) {
         <main className="flex-1 flex flex-col">
           {children}
         </main>
-        <Footer />
+        <div className={isHomePage ? "hidden md:block" : ""}>
+          <Footer />
+        </div>
         <CartModal />
       </ThemeProvider>
     </body>
