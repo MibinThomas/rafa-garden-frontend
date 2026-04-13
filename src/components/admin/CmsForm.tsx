@@ -19,10 +19,16 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
     image: "",
     color: "#c81c6a",
     products: [] as any[],
+    mobileTitle: "",
+    mobileShortDesc: "",
+    mobileActiveDesc: "",
   });
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [productUploadingIdx, setProductUploadingIdx] = useState<number | null>(null);
+  const productFileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (category) {
@@ -33,6 +39,9 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
         image: category.image || "",
         color: category.color || "#c81c6a",
         products: category.products || [],
+        mobileTitle: category.mobileTitle || "",
+        mobileShortDesc: category.mobileShortDesc || "",
+        mobileActiveDesc: category.mobileActiveDesc || "",
       });
     } else {
       setFormData({
@@ -42,6 +51,9 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
         image: "",
         color: "#c81c6a",
         products: [],
+        mobileTitle: "",
+        mobileShortDesc: "",
+        mobileActiveDesc: "",
       });
     }
   }, [category, isOpen]);
@@ -69,6 +81,34 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
       alert(`Upload Failed: ${error.message}`);
     } finally {
       setUploading(false);
+    }
+  };
+
+  const handleProductImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (productUploadingIdx === null) return;
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const response = await fetch(`/api/upload?filename=${encodeURIComponent(file.name)}`, {
+        method: "POST",
+        body: file,
+      });
+
+      if (!response.ok) throw new Error("Upload failed");
+
+      const blob = await response.json();
+      
+      setFormData(prev => {
+        const newProducts = [...prev.products];
+        newProducts[productUploadingIdx].image = blob.url;
+        return { ...prev, products: newProducts };
+      });
+    } catch (error: any) {
+       console.error("Upload error:", error);
+       alert(`Upload Failed: ${error.message}`);
+    } finally {
+       setProductUploadingIdx(null);
     }
   };
 
@@ -242,6 +282,45 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                  </div>
               </div>
 
+              {/* Mobile Content Strategy */}
+              <div className="grid grid-cols-1 gap-6 pt-6 border-t border-gray-50">
+                 <div>
+                    <h3 className="text-xl font-black font-playfair text-[#0b2b1a]">Mobile Screen Hierarchies</h3>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Press enter/return for native line breaks.</p>
+                 </div>
+                 
+                 <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-[#c81c6a] ml-1">Mobile Tagline (Headline)</label>
+                    <textarea 
+                      value={formData.mobileTitle}
+                      onChange={e => setFormData(prev => ({ ...prev, mobileTitle: e.target.value }))}
+                      className="w-full px-6 py-4 bg-gray-50 rounded-2xl border-none outline-none font-bold text-[#0b2b1a] focus:ring-2 focus:ring-[#c81c6a]/20 transition-all resize-none"
+                      rows={3}
+                      placeholder="Pure&#10;botanical&#10;refreshment"
+                    />
+                 </div>
+                 <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Mobile Desc (Inactive Layout)</label>
+                    <textarea 
+                      value={formData.mobileShortDesc}
+                      onChange={e => setFormData(prev => ({ ...prev, mobileShortDesc: e.target.value }))}
+                      className="w-full px-6 py-4 bg-gray-50 rounded-2xl border-none outline-none font-bold text-[#0b2b1a] focus:ring-2 focus:ring-[#c81c6a]/20 transition-all resize-none"
+                      rows={2}
+                      placeholder="This is a sample product details..."
+                    />
+                 </div>
+                 <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Mobile Desc (Active Block)</label>
+                    <textarea 
+                      value={formData.mobileActiveDesc}
+                      onChange={e => setFormData(prev => ({ ...prev, mobileActiveDesc: e.target.value }))}
+                      className="w-full px-6 py-4 bg-gray-50 rounded-2xl border-none outline-none font-bold text-[#0b2b1a] focus:ring-2 focus:ring-[#c81c6a]/20 transition-all resize-none"
+                      rows={3}
+                      placeholder="This is a sample product details must&#10;be enter here..."
+                    />
+                 </div>
+              </div>
+
               {/* Products Subsection */}
               <div className="space-y-6 pt-6 border-t border-gray-50">
                 <div className="flex items-center justify-between">
@@ -256,16 +335,30 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                 </div>
 
                 <div className="space-y-4">
-                   {formData.products.map((p, idx) => (
-                     <div key={idx} className="bg-gray-50/50 p-6 rounded-3xl border border-gray-100 flex items-center gap-6">
-                        <div className="w-16 h-16 rounded-xl bg-white flex items-center justify-center text-gray-200 border border-gray-100">
+                    {formData.products.map((p, idx) => (
+                      <div key={idx} className="bg-gray-50/50 p-6 rounded-3xl border border-gray-100 flex gap-6 group/item hover:border-[#c81c6a]/20 transition-all">
+                        <div 
+                          className="relative w-24 h-24 shrink-0 rounded-xl bg-white flex items-center justify-center text-gray-200 border border-gray-100 overflow-hidden group/img cursor-pointer"
+                          onClick={() => {
+                            setProductUploadingIdx(idx);
+                            productFileInputRef.current?.click();
+                          }}
+                        >
                            {p.image ? (
-                             <img src={p.image} className="w-full h-full object-cover rounded-xl" />
+                             <img src={p.image} className="w-full h-full object-cover" />
                            ) : (
                              <Camera size={24} />
                            )}
+                           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
+                              <Upload size={16} className="text-white" />
+                           </div>
+                           {productUploadingIdx === idx && (
+                             <div className="absolute inset-0 bg-[#0b2b1a]/60 backdrop-blur-sm flex items-center justify-center text-white">
+                                <Loader2 className="animate-spin" size={16} />
+                             </div>
+                           )}
                         </div>
-                        <div className="flex-1">
+                        <div className="flex-1 flex flex-col justify-center">
                            <input 
                              type="text" 
                              value={p.name}
@@ -274,20 +367,45 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                                newProducts[idx].name = e.target.value;
                                setFormData(prev => ({ ...prev, products: newProducts }));
                              }}
-                             className="w-full bg-transparent border-none p-0 outline-none font-black text-[#0b2b1a] mb-1"
+                             className="w-full bg-transparent border-none p-0 outline-none font-black text-[#0b2b1a] mb-2 placeholder:text-gray-300"
+                             placeholder="Product Name"
                            />
-                           <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">ID: {p.id}</p>
+                           <textarea
+                             value={p.description || ""}
+                             onChange={e => {
+                               const newProducts = [...formData.products];
+                               newProducts[idx].description = e.target.value;
+                               setFormData(prev => ({ ...prev, products: newProducts }));
+                             }}
+                             className="w-full bg-white/50 rounded-xl px-4 py-2 border border-black/5 outline-none text-[10px] font-bold text-gray-500 mb-3 resize-none focus:ring-2 focus:ring-[#c81c6a]/20 transition-all placeholder:text-gray-300"
+                             rows={2}
+                             placeholder="Enter product description/details..."
+                           />
+                           <div className="flex items-center justify-between">
+                             <p className="text-[9px] text-gray-400 font-bold uppercase tracking-widest bg-white/50 px-2 py-1 rounded-md">ID: {p.id}</p>
+                           </div>
                         </div>
-                        <button 
-                          type="button"
-                          onClick={() => removeProduct(idx)}
-                          className="p-3 text-red-300 hover:text-red-500 transition-colors"
-                        >
-                          <Trash2 size={18} />
-                        </button>
-                     </div>
-                   ))}
-                </div>
+                        <div className="flex flex-col items-center justify-center">
+                          <button 
+                            type="button"
+                            onClick={() => removeProduct(idx)}
+                            className="p-3 bg-red-50 rounded-xl text-red-300 hover:text-red-500 hover:bg-red-100 transition-colors"
+                          >
+                            <Trash2 size={18} />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                 </div>
+                 
+                 {/* Hidden Product Image Uploader */}
+                 <input 
+                    type="file" 
+                    className="hidden" 
+                    ref={productFileInputRef} 
+                    onChange={handleProductImageUpload}
+                    accept="image/*"
+                 />
               </div>
             </form>
 

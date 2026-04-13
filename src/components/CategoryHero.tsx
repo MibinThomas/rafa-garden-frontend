@@ -65,7 +65,7 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
             <motion.div
               key={cat.id}
               onClick={() => setHoveredIndex(index)}
-              className={`relative flex-1 min-h-0 w-full overflow-hidden cursor-pointer rounded-[20px] transition-all duration-700
+              className={`relative flex-1 min-h-0 w-full overflow-hidden cursor-pointer rounded-xl transition-all duration-700
                 ${isActive ? "bg-[#e5e5e7]" : index % 2 === 0 ? "bg-[#f1f1f2]" : "bg-[#e5e5e7]"}
               `}
             >
@@ -81,7 +81,7 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                   >
                     <div className="w-[42%] h-full" />
                     <div
-                      className="w-[58%] h-full rounded-l-[1.5rem] rounded-tr-[20px] rounded-br-[20px] transition-all duration-700 shadow-[0_0_20px_rgba(0,0,0,0.05)] relative"
+                      className="w-[58%] h-full rounded-l-xl rounded-r-xl transition-all duration-700 shadow-[0_0_20px_rgba(0,0,0,0.05)] relative"
                       style={{ backgroundColor: cat.color }}
                     />
                   </motion.div>
@@ -124,13 +124,13 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                     {/* Bottom Content Group - EXACT 1:1 ALIGNMENT */}
                     <div className="flex items-end gap-3 mb-1">
                       <div className="shrink-0">
-                        <h3 className="text-[0.45rem] font-bold tracking-[0.05em] text-[#737478] font-brand-heading leading-[1.05]">
-                          Pure <br /> botanical <br /> refreshment
+                        <h3 className="text-[0.45rem] font-bold tracking-[0.05em] text-[#737478] font-brand-heading leading-[1.05] whitespace-pre-line">
+                          {cat.mobileTitle || "Pure\nbotanical\nrefreshment"}
                         </h3>
                       </div>
                         <div className="max-w-[100px] opacity-40">
                           <p className="text-[6px] font-avant-garde leading-[1.3] line-clamp-2">
-                            This is a sample product details must be enter here to show the ui ux design
+                            {cat.mobileShortDesc || "This is a sample product details must be enter here to show the ui ux design"}
                           </p>
                         </div>
                     </div>
@@ -151,13 +151,13 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                     <div className="w-[42%] flex flex-col justify-end py-6 px-1 h-full">
                       <div className="flex items-end gap-3 mb-1">
                         <div className="shrink-0">
-                        <h3 className="text-[0.45rem] font-bold tracking-[0.05em] text-[#737478] font-brand-heading leading-[1.05]">
-                            Pure <br /> botanical <br /> refreshment
+                        <h3 className="text-[0.45rem] font-bold tracking-[0.05em] text-[#737478] font-brand-heading leading-[1.05] whitespace-pre-line">
+                            {cat.mobileTitle || "Pure\nbotanical\nrefreshment"}
                           </h3>
                         </div>
                         <div className="max-w-[100px] opacity-40">
                           <p className="text-[6px] font-avant-garde leading-[1.3] line-clamp-2">
-                            This is a sample product details must be enter here to show the ui ux design
+                            {cat.mobileShortDesc || "This is a sample product details must be enter here to show the ui ux design"}
                           </p>
                         </div>
                       </div>
@@ -166,8 +166,8 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                     {/* Right Column (Inside Colored panel) - Interactive Area */}
                     <div className="w-[58%] flex flex-col justify-center items-start text-white pl-14 pr-4 h-full relative z-30">
                       <div className="max-w-[140px]">
-                        <p className="text-[0.45rem] leading-[1.6] font-avant-garde opacity-90 mb-5 tracking-wide">
-                          This is a sample product details must <br/> be enter here to show the ui ux <br/> design minimal stage
+                        <p className="text-[0.45rem] leading-[1.6] font-avant-garde opacity-90 mb-5 tracking-wide whitespace-pre-line">
+                          {cat.mobileActiveDesc || "This is a sample product details must\nbe enter here to show the ui ux\ndesign minimal stage"}
                         </p>
                         <button
                           onClick={(e) => {

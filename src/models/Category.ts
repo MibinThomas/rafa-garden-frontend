@@ -21,6 +21,9 @@ const CategorySchema = new mongoose.Schema({
   image: { type: String, required: true },
   color: { type: String, required: true },
   products: [ProductSchema],
+  mobileTitle: { type: String },
+  mobileShortDesc: { type: String },
+  mobileActiveDesc: { type: String },
 }, { timestamps: true });
 
 // Check if the model exists before creating it (useful for Next.js hot reloading)

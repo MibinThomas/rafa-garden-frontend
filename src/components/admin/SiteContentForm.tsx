@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 interface SiteContent {
   key: string;
   value: string;
-  type: "text" | "image" | "json";
+  type: "text" | "image" | "json" | "font";
   group: string;
   label?: string;
 }
@@ -145,11 +145,20 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
                       {item.label || item.key.split('.').pop()?.replace(/_/g, ' ')}
                     </label>
                     
-                    {item.type === "image" ? (
+                    {item.type === "image" || item.type === "font" ? (
                       <div className="relative group">
                         <div className="aspect-video rounded-3xl bg-gray-50 border-2 border-dashed border-gray-100 flex items-center justify-center overflow-hidden">
                           {item.value ? (
-                            <img src={item.value} className="w-full h-full object-cover" />
+                            item.type === "font" ? (
+                               <div className="text-center font-bold text-[#0b2b1a] text-xs">
+                                  <span className="bg-[#c81c6a]/10 text-[#c81c6a] px-3 py-1 rounded-full break-all max-w-[80%] inline-block">
+                                    {item.value.split('/').pop()}
+                                  </span>
+                                  <p className="mt-2 text-gray-400">Font Currently Active</p>
+                               </div>
+                            ) : (
+                               <img src={item.value} className="w-full h-full object-cover" />
+                            )
                           ) : (
                             <Upload size={24} className="text-gray-200" />
                           )}
@@ -164,16 +173,12 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
                             <button 
                               type="button"
                               onClick={() => {
-                                // We'll need a way to trigger the specific file input
-                                // For simplicity, we can use a temporary hidden input or just one file input
-                                // But since it's a list, we'll use a trick or multiple inputs.
-                                // Let's just use one shared input and store the pending key.
                                 (fileInputRef.current as any).pendingKey = item.key;
                                 fileInputRef.current?.click();
                               }}
                               className="bg-white text-[#0b2b1a] px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest"
                             >
-                              Upload Image
+                              Upload {item.type === "font" ? "Font File" : "Image"}
                             </button>
                           </div>
                         </div>
@@ -205,7 +210,7 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
                   const key = (fileInputRef.current as any).pendingKey;
                   if (key) handleImageUpload(key, e);
                 }}
-                accept="image/*"
+                accept="image/*, .woff, .woff2, .ttf, .otf"
               />
             </form>
 

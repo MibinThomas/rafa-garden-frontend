@@ -18,6 +18,9 @@ export interface Category {
   subtitle: string;
   image: string;  // Main image used on Home page accordion
   color: string;
+  mobileTitle?: string;
+  mobileShortDesc?: string;
+  mobileActiveDesc?: string;
   products: Product[];
 }
 
