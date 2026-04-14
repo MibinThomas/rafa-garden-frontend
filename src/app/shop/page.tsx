@@ -111,7 +111,7 @@ function ShopContent() {
               className="text-[400px] leading-none text-[#333333] tracking-normal lowercase whitespace-nowrap opacity-5"
               style={{ fontFamily: "'DharmaGothic', sans-serif", fontWeight: 700 }}
             >
-              {activeCategory.title === 'jams' ? 'Jam' : activeCategory.title === 'Fruits' ? 'Plant' : activeCategory.title}
+              {activeCategory.title}
             </motion.h1>
           </AnimatePresence>
         </div>
@@ -133,7 +133,7 @@ function ShopContent() {
                     Dragon
                   </h1>
                   <h1 className="font-brand-heading text-[2.5rem] leading-[0.9] tracking-tight capitalize" style={{ color: activeCategory.color }}>
-                    {activeCategory.title === 'jams' ? 'Jam' : activeCategory.title === 'Fruits' ? 'Plant' : activeCategory.title}
+                    {activeCategory.title}
                   </h1>
                   <p className="text-[0.7rem] capitalize tracking-[0.2em] text-[#333333]/60 font-avant-garde font-bold mt-8 max-w-[200px] leading-relaxed">
                     This is a sample<br />Description for product 1....
@@ -146,7 +146,7 @@ function ShopContent() {
             <div className="absolute top-[88px] right-[124px] md:right-[148px] pointer-events-auto">
               <div className="flex gap-4">
                 {categories.map((cat, idx) => {
-                  const displayTitle = cat.title === 'jams' ? 'Jam' : cat.title === 'Fruits' ? 'Plant' : cat.title;
+                  const displayTitle = cat.title;
                   return (
                     <button
                       key={cat.id}
