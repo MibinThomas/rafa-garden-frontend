@@ -108,7 +108,7 @@ function ShopContent() {
               animate={{ opacity: 0.1, scale: 1.1, y: 0, x: -100 }}
               exit={{ opacity: 0, scale: 1.2, y: -100, x: -100 }}
               transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-[400px] leading-none text-[#333333] tracking-tighter lowercase whitespace-nowrap opacity-5"
+              className="text-[400px] leading-none text-[#333333] tracking-normal lowercase whitespace-nowrap opacity-5"
               style={{ fontFamily: "'DharmaGothic', sans-serif", fontWeight: 700 }}
             >
               {activeCategory.title === 'jams' ? 'Jam' : activeCategory.title === 'Fruits' ? 'Plant' : activeCategory.title}
@@ -119,7 +119,7 @@ function ShopContent() {
         {/* Global Alignment Container (Syncs with Header) */}
         <div className="absolute inset-x-0 top-0 bottom-0 z-40 pointer-events-none">
           <div className="max-w-[1700px] mx-auto w-full h-full relative px-6 md:px-12">
-            
+
             {/* Title Block - Aligned Left with Logo */}
             <div className="absolute top-[112px] left-6 md:left-12 pointer-events-auto">
               <AnimatePresence mode="wait">
@@ -129,13 +129,13 @@ function ShopContent() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6 }}
                 >
-                  <h1 className="font-brand-heading text-[2.5rem] leading-[1.1] tracking-tight uppercase" style={{ color: activeCategory.color }}>
+                  <h1 className="font-brand-heading text-[2.5rem] leading-[1.1] tracking-tight capitalize" style={{ color: activeCategory.color }}>
                     Dragon
                   </h1>
-                  <h1 className="font-brand-heading text-[2.5rem] leading-[0.9] tracking-tight uppercase" style={{ color: activeCategory.color }}>
+                  <h1 className="font-brand-heading text-[2.5rem] leading-[0.9] tracking-tight capitalize" style={{ color: activeCategory.color }}>
                     {activeCategory.title === 'jams' ? 'Jam' : activeCategory.title === 'Fruits' ? 'Plant' : activeCategory.title}
                   </h1>
-                  <p className="text-[0.7rem] uppercase tracking-[0.2em] text-[#333333]/60 font-avant-garde font-bold mt-8 max-w-[200px] leading-relaxed">
+                  <p className="text-[0.7rem] capitalize tracking-[0.2em] text-[#333333]/60 font-avant-garde font-bold mt-8 max-w-[200px] leading-relaxed">
                     This is a sample<br />Description for product 1....
                   </p>
                 </motion.div>
@@ -168,23 +168,6 @@ function ShopContent() {
               </div>
             </div>
 
-            {/* Size Selector - Floating Right Middle */}
-            <div className="absolute top-1/2 -translate-y-1/2 right-6 md:right-12 z-50 flex flex-col items-center gap-6 pointer-events-auto">
-              {["500 ml", "200 ml", "100 ml"].map((size) => (
-                <button
-                  key={size}
-                  onClick={() => setSelectedSize(size)}
-                  className={`w-14 h-14 rounded-full border flex items-center justify-center transition-all duration-300 font-avant-garde text-[0.65rem] font-medium tracking-tight
-                    ${selectedSize === size
-                      ? "bg-white shadow-[0_10px_30px_rgba(0,0,0,0.1)] scale-110 border-transparent text-[#333333]"
-                      : "bg-transparent text-[#333333]/30 hover:text-[#333333]/50 border-[#333333]/15"}
-                  `}
-                >
-                  {size}
-                </button>
-              ))}
-            </div>
-
           </div>
         </div>
 
@@ -194,26 +177,26 @@ function ShopContent() {
           {/* Navigation Arrows */}
           <button
             onClick={prevProduct}
-            className="absolute left-12 p-5 rounded-full border border-[#333333]/15 text-[#333333]/40 hover:text-[#333333] hover:bg-white/20 transition-all z-50 group"
+            className="absolute left-12 p-3.5 rounded-full border border-[#333333]/15 text-[#333333]/40 hover:text-[#333333] hover:bg-white/20 transition-all z-50 group"
           >
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" className="group-active:scale-90 transition-transform"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" className="group-active:scale-90 transition-transform"><polyline points="15 18 9 12 15 6"></polyline></svg>
           </button>
 
           <button
             onClick={nextProduct}
-            className="absolute right-12 p-5 rounded-full border border-[#333333]/15 text-[#333333]/40 hover:text-[#333333] hover:bg-white/20 transition-all z-50 group"
+            className="absolute right-12 p-3.5 rounded-full border border-[#333333]/15 text-[#333333]/40 hover:text-[#333333] hover:bg-white/20 transition-all z-50 group"
           >
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" className="group-active:scale-90 transition-transform"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" className="group-active:scale-90 transition-transform"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
 
           {/* Main Product Container */}
           <div className="relative flex items-center justify-center w-full max-w-6xl h-full py-12">
 
             {/* Product Centerpiece - Shifted 100px Left */}
-            <div className="relative z-20 w-[300px] h-[400px] md:w-[450px] md:h-[70vh] max-h-[750px] flex justify-center items-center -translate-x-[100px]">
+            <div className="relative z-20 w-[225px] h-[300px] md:w-[338px] md:h-[52.5vh] max-h-[562px] flex justify-center items-center -translate-x-[100px]">
 
               {/* Decorative Vertical Text - Bottom aligned parallel lines */}
-              <div className="absolute right-[-140px] top-1/2 -translate-y-1/2 flex flex-row items-end gap-4 opacity-30 select-none z-0 pointer-events-none">
+              <div className="absolute bottom-[0px] right-[-260px] flex flex-row items-end gap-1.5 opacity-30 select-none pointer-events-none">
                 <span className="text-[14px] font-bold uppercase tracking-[0.3em] [writing-mode:vertical-rl] rotate-180 font-avant-garde whitespace-nowrap">Pure</span>
                 <span className="text-[14px] font-bold uppercase tracking-[0.3em] [writing-mode:vertical-rl] rotate-180 font-avant-garde whitespace-nowrap">Botanical</span>
                 <span className="text-[14px] font-bold uppercase tracking-[0.3em] [writing-mode:vertical-rl] rotate-180 font-avant-garde whitespace-nowrap">Refreshment</span>
@@ -226,14 +209,14 @@ function ShopContent() {
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="absolute -bottom-10 -left-10 w-48 h-48 z-10"
+                      className="absolute -bottom-10 -left-10 w-[115px] h-[115px] z-10"
                     >
                       <Image src="/images/hero/floatingpitaya.png" alt="" fill className="object-contain" />
                     </motion.div>
                     <motion.div
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="absolute -bottom-4 right-10 w-40 h-40 z-10 rotate-45"
+                      className="absolute -bottom-4 right-10 w-[96px] h-[96px] z-10 rotate-45"
                     >
                       <Image src="/images/hero/floatingpitaya.png" alt="" fill className="object-contain" />
                     </motion.div>
@@ -241,7 +224,7 @@ function ShopContent() {
                       key={"pitaya-1"}
                       animate={{ y: [0, -15, 0], rotate: [0, 5, 0] }}
                       transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                      className="absolute -left-24 top-1/4 w-32 h-32 z-10"
+                      className="absolute -left-24 top-1/4 w-[77px] h-[77px] z-10"
                     >
                       <Image src="/images/hero/floatingpitaya.png" alt="" fill className="object-contain" />
                     </motion.div>
@@ -249,7 +232,7 @@ function ShopContent() {
                       key={"pitaya-2"}
                       animate={{ y: [0, 15, 0], rotate: [0, -8, 0] }}
                       transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                      className="absolute -right-20 bottom-1/3 w-36 h-36 z-10"
+                      className="absolute -right-20 bottom-1/3 w-[86px] h-[86px] z-10"
                     >
                       <Image src="/images/hero/floatingpitaya.png" alt="" fill className="object-contain" />
                     </motion.div>
