@@ -1,14 +1,16 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Facebook, Instagram, Youtube, Twitter, Send } from "lucide-react";
+import { Facebook, Instagram, Youtube, Twitter, Send, Plus, Minus } from "lucide-react";
 import { useSiteSettings } from "@/lib/SiteSettingsContext";
 
 export function Footer() {
   const pathname = usePathname();
   const { settings } = useSiteSettings();
+  const [openSection, setOpenSection] = useState<string | null>(null);
 
   if (pathname.startsWith('/admin')) return null;
 
@@ -26,13 +28,13 @@ export function Footer() {
       <div className="max-w-[1700px] mx-auto grid grid-cols-1 lg:grid-cols-[1.3fr_2fr] gap-x-24 gap-y-16 border-b border-[#333333]/10 pb-12">
         
         {/* Left Section: Botanical Collage & Heritage Text */}
-        <div className="relative flex flex-col justify-between">
+        <div className="relative flex flex-col items-center lg:items-start justify-between">
           <div className="relative w-full aspect-[4/3] max-w-[500px] hover:scale-[1.02] transition-transform duration-700">
              <Image 
                src="/images/footer/Ui footer all products.webp" 
                alt="Heritage Pitaya Collection"
                fill
-               className="object-contain object-left"
+               className="object-contain object-center lg:object-left"
                priority
              />
           </div>
@@ -42,12 +44,20 @@ export function Footer() {
         <div className="flex flex-col justify-between pt-4">
           
           {/* Top Half: Grids */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left">
             
             {/* Nav: Navigate */}
-            <div className="flex flex-col gap-6">
-              <h4 className="text-[#333333] font-avant-garde font-bold text-sm tracking-wide">Navigate</h4>
-              <ul className="flex flex-col gap-4 text-[#737478] text-xs font-avant-garde">
+            <div className="flex flex-col items-center md:items-start gap-4 md:gap-6">
+              <button 
+                onClick={() => setOpenSection(openSection === 'navigate' ? null : 'navigate')}
+                className="w-full flex items-center justify-center md:justify-start gap-3"
+              >
+                <h4 className="text-[#333333] font-avant-garde font-bold text-sm tracking-wide">Navigate</h4>
+                <div className="md:hidden text-[#333333]/50 mt-1">
+                  {openSection === 'navigate' ? <Minus size={14} /> : <Plus size={14} />}
+                </div>
+              </button>
+              <ul className={`flex-col items-center md:items-start gap-4 text-[#737478] text-xs font-avant-garde w-full pt-2 md:pt-0 ${openSection === 'navigate' ? 'flex' : 'hidden md:flex'}`}>
                 <li><Link href="/" className="hover:text-black transition-colors">Home</Link></li>
                 <li><Link href="/shop" className="hover:text-black transition-colors">Shop</Link></li>
                 <li><Link href="/about" className="hover:text-black transition-colors">About</Link></li>
@@ -57,9 +67,17 @@ export function Footer() {
             </div>
 
             {/* Nav: Collections */}
-            <div className="flex flex-col gap-6">
-              <h4 className="text-[#333333] font-avant-garde font-bold text-sm tracking-wide">Collections</h4>
-              <ul className="flex flex-col gap-4 text-[#737478] text-xs font-avant-garde">
+            <div className="flex flex-col items-center md:items-start gap-4 md:gap-6">
+              <button 
+                onClick={() => setOpenSection(openSection === 'collections' ? null : 'collections')}
+                className="w-full flex items-center justify-center md:justify-start gap-3"
+              >
+                <h4 className="text-[#333333] font-avant-garde font-bold text-sm tracking-wide">Collections</h4>
+                <div className="md:hidden text-[#333333]/50 mt-1">
+                  {openSection === 'collections' ? <Minus size={14} /> : <Plus size={14} />}
+                </div>
+              </button>
+              <ul className={`flex-col items-center md:items-start gap-4 text-[#737478] text-xs font-avant-garde w-full pt-2 md:pt-0 ${openSection === 'collections' ? 'flex' : 'hidden md:flex'}`}>
                 <li><Link href="/shop?cat=0" className="hover:text-black transition-colors">Crush</Link></li>
                 <li><Link href="/shop?cat=1" className="hover:text-black transition-colors">Jam</Link></li>
                 <li><Link href="/shop?cat=2" className="hover:text-black transition-colors">Fruits</Link></li>
@@ -68,9 +86,9 @@ export function Footer() {
             </div>
 
             {/* Nav: About */}
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col items-center md:items-start gap-6 border-b border-[#333333]/10 md:border-0 pb-4 md:pb-0">
               <h4 className="text-[#333333] font-avant-garde font-bold text-sm tracking-wide">About</h4>
-              <ul className="flex flex-col gap-4 text-[#737478] text-xs font-avant-garde">
+              <ul className="flex flex-col items-center md:items-start gap-4 text-[#737478] text-xs font-avant-garde">
                 <li><Link href="/terms" className="hover:text-black transition-colors">Terms and Conditions</Link></li>
                 <li><Link href="/returns" className="hover:text-black transition-colors">Return and Refund Policy</Link></li>
                 <li><Link href="/privacy" className="hover:text-black transition-colors">Privacy Policy</Link></li>
@@ -79,14 +97,14 @@ export function Footer() {
             </div>
 
             {/* Nav: Connect (Isolated by precise border) */}
-            <div className="flex flex-col gap-6 md:pl-8 md:border-l border-[#333333]/15">
+            <div className="flex flex-col items-center md:items-start gap-6 md:pl-8 md:border-l border-[#333333]/15">
               <h4 className="text-[#333333] font-avant-garde font-bold text-sm tracking-wide mb-1">Connect</h4>
-              <p className="text-[#737478] text-xs leading-[1.6] font-avant-garde mb-8">
+              <p className="text-[#737478] text-xs leading-[1.6] font-avant-garde mb-8 text-center md:text-left">
                 Al Aweer, Dubai<br />
                 United Arab Emirates
               </p>
               
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
                 <a href={socialLinks.facebook} className="w-6 h-6 rounded-full bg-[#737478] text-[#dfdfdf] flex items-center justify-center hover:bg-[#333333] transition-colors"><Facebook size={12} fill="currentColor" /></a>
                 <a href={socialLinks.twitter} className="w-6 h-6 rounded-full bg-[#737478] text-[#dfdfdf] flex items-center justify-center hover:bg-[#333333] transition-colors"><Twitter size={12} fill="currentColor" /></a>
                 <a href={socialLinks.instagram} className="w-6 h-6 rounded-full bg-[#737478] text-[#dfdfdf] flex items-center justify-center hover:bg-[#333333] transition-colors"><Instagram size={12} /></a>
