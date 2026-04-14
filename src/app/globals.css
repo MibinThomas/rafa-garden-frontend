@@ -116,6 +116,10 @@ h6,
     font-family: 'DharmaGothic', sans-serif !important;
   }
 
+  .font-dharma-gothic {
+    font-family: 'DharmaGothic', sans-serif !important;
+  }
+
   @media (min-width: 768px) {
     .font-brand-heading {
       font-family: 'AvantGarde', sans-serif !important;

@@ -97,195 +97,228 @@ function ShopContent() {
       {/* Editorial Hero Section - High-Fidelity Product Spotlight */}
       <motion.section
         ref={heroRef}
-        className="relative w-full h-[100dvh] flex flex-col overflow-hidden z-10"
+        className="relative w-full h-[100dvh] flex flex-col overflow-hidden z-10 mt-[50px]"
       >
         {/* Background Watermark (Dharma Gothic) */}
         <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.h1
               key={activeCategory.title}
-              initial={{ opacity: 0, scale: 0.9, y: 100 }}
-              animate={{ opacity: 0.1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 1.1, y: -100 }}
+              initial={{ opacity: 0, scale: 0.9, y: 100, x: -100 }}
+              animate={{ opacity: 0.1, scale: 1.1, y: 0, x: -100 }}
+              exit={{ opacity: 0, scale: 1.2, y: -100, x: -100 }}
               transition={{ duration: 0.8, ease: "circOut" }}
-              className="font-brand-heading text-[14vw] leading-none text-[#333333] tracking-tighter"
+              className="text-[400px] leading-none text-[#333333] tracking-tighter lowercase whitespace-nowrap opacity-5"
+              style={{ fontFamily: "'DharmaGothic', sans-serif", fontWeight: 700 }}
             >
-              {activeCategory.title}
+              {activeCategory.title === 'jams' ? 'Jam' : activeCategory.title === 'Fruits' ? 'Plant' : activeCategory.title}
             </motion.h1>
           </AnimatePresence>
         </div>
 
-        {/* Selection Area (Top Right Viewport Hub) */}
-        <div className="absolute top-32 right-6 md:right-12 lg:right-[200px] z-30 flex flex-col gap-10 items-end">
+        {/* Global Alignment Container (Syncs with Header) */}
+        <div className="absolute inset-x-0 top-0 bottom-0 z-40 pointer-events-none">
+          <div className="max-w-[1700px] mx-auto w-full h-full relative px-6 md:px-12">
+            
+            {/* Title Block - Aligned Left with Logo */}
+            <div className="absolute top-[112px] left-6 md:left-12 pointer-events-auto">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeCategory.id}
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <h1 className="font-brand-heading text-[2.5rem] leading-[1.1] tracking-tight uppercase" style={{ color: activeCategory.color }}>
+                    Dragon
+                  </h1>
+                  <h1 className="font-brand-heading text-[2.5rem] leading-[0.9] tracking-tight uppercase" style={{ color: activeCategory.color }}>
+                    {activeCategory.title === 'jams' ? 'Jam' : activeCategory.title === 'Fruits' ? 'Plant' : activeCategory.title}
+                  </h1>
+                  <p className="text-[0.7rem] uppercase tracking-[0.2em] text-[#333333]/60 font-avant-garde font-bold mt-8 max-w-[200px] leading-relaxed">
+                    This is a sample<br />Description for product 1....
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
 
-          {/* Category Navigation - Horizontal Row */}
-          <div className="flex gap-3 overflow-x-auto scrollbar-hide">
-            {categories.map((cat, idx) => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategoryIndex(idx)}
-                className={`px-8 py-2 rounded-full border transition-all duration-300 transform font-avant-garde text-[0.7rem] font-bold tracking-widest uppercase whitespace-nowrap
-                  ${activeCategoryIndex === idx
-                    ? "bg-white/10 backdrop-blur-md shadow-sm text-[#333333]"
-                    : "bg-transparent text-[#333333]/30 hover:text-[#333333]/60"}
-                `}
-                style={{
-                  borderColor: activeCategoryIndex === idx ? cat.color : "rgba(51, 51, 51, 0.15)",
-                  color: activeCategoryIndex === idx ? cat.color : undefined
-                }}
-              >
-                {cat.title}
-              </button>
-            ))}
+            {/* Category Navigation - Aligned Top Right */}
+            <div className="absolute top-[88px] right-[124px] md:right-[148px] pointer-events-auto">
+              <div className="flex gap-4">
+                {categories.map((cat, idx) => {
+                  const displayTitle = cat.title === 'jams' ? 'Jam' : cat.title === 'Fruits' ? 'Plant' : cat.title;
+                  return (
+                    <button
+                      key={cat.id}
+                      onClick={() => setActiveCategoryIndex(idx)}
+                      className={`px-8 py-2 rounded-full border transition-all duration-300 font-avant-garde text-[0.7rem] font-bold tracking-[0.15em] uppercase whitespace-nowrap
+                        ${activeCategoryIndex === idx
+                          ? "bg-white/10 backdrop-blur-md shadow-sm"
+                          : "bg-transparent hover:bg-white/5"}
+                      `}
+                      style={{
+                        borderColor: activeCategoryIndex === idx ? cat.color : "rgba(51, 51, 51, 0.2)",
+                        color: activeCategoryIndex === idx ? cat.color : "#666666"
+                      }}
+                    >
+                      {displayTitle}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Size Selector - Floating Right Middle */}
+            <div className="absolute top-1/2 -translate-y-1/2 right-6 md:right-12 z-50 flex flex-col items-center gap-6 pointer-events-auto">
+              {["500 ml", "200 ml", "100 ml"].map((size) => (
+                <button
+                  key={size}
+                  onClick={() => setSelectedSize(size)}
+                  className={`w-14 h-14 rounded-full border flex items-center justify-center transition-all duration-300 font-avant-garde text-[0.65rem] font-medium tracking-tight
+                    ${selectedSize === size
+                      ? "bg-white shadow-[0_10px_30px_rgba(0,0,0,0.1)] scale-110 border-transparent text-[#333333]"
+                      : "bg-transparent text-[#333333]/30 hover:text-[#333333]/50 border-[#333333]/15"}
+                  `}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+
           </div>
-
-          {/* Size Selector - Vertical Stack as Circular Pills */}
-          <div className="flex flex-col items-center gap-6">
-            {["500ml", "200ml", "100ml"].map((size) => (
-              <button
-                key={size}
-                onClick={() => setSelectedSize(size)}
-                className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-300 font-avant-garde text-[0.6rem] font-bold tracking-tight
-                  ${selectedSize === size
-                    ? "bg-white shadow-xl scale-110 border-transparent text-[#333333]"
-                    : "bg-white/5 text-[#333333]/20 hover:text-[#333333]/40 border-[#333333]/5"}
-                `}
-                style={{
-                  borderColor: selectedSize === size ? activeCategory.color : undefined,
-                  color: selectedSize === size ? activeCategory.color : undefined
-                }}
-              >
-                {size}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Title Block (Top Left - High Fidelity) - Aligned to category navigator */}
-        <div className="absolute top-48 left-6 md:left-12 lg:left-[200px] z-30">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeCategory.id + featuredProduct.id}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2
-                className="text-4xl md:text-5xl font-heading leading-[0.85] mb-2 text-left transition-colors duration-500"
-                style={{ color: activeCategory.color }}
-              >
-                Dragon<br />{activeCategory.title}
-              </h2>
-              <p className="text-[0.6rem] uppercase tracking-[0.2em] text-[#333333]/40 font-avant-garde font-bold max-w-[180px]">
-                {featuredProduct.description.slice(0, 80)}...
-              </p>
-            </motion.div>
-          </AnimatePresence>
         </div>
 
         {/* Central Spotlight Area */}
         <div className="flex-1 relative w-full flex items-center justify-center px-6 md:px-12">
 
-          {/* Navigation Arrows - Product Switching */}
+          {/* Navigation Arrows */}
           <button
             onClick={prevProduct}
-            className="absolute left-6 md:left-12 p-3 rounded-full border border-[#333333]/10 bg-white/5 hover:bg-white/20 transition-all z-40 opacity-30 hover:opacity-100 group"
+            className="absolute left-12 p-5 rounded-full border border-[#333333]/15 text-[#333333]/40 hover:text-[#333333] hover:bg-white/20 transition-all z-50 group"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="group-active:scale-90 transition-transform"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" className="group-active:scale-90 transition-transform"><polyline points="15 18 9 12 15 6"></polyline></svg>
           </button>
 
           <button
             onClick={nextProduct}
-            className="absolute right-6 md:right-12 p-3 rounded-full border border-[#333333]/10 bg-white/5 hover:bg-white/20 transition-all z-40 opacity-30 hover:opacity-100 group"
+            className="absolute right-12 p-5 rounded-full border border-[#333333]/15 text-[#333333]/40 hover:text-[#333333] hover:bg-white/20 transition-all z-50 group"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="group-active:scale-90 transition-transform"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" className="group-active:scale-90 transition-transform"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
 
           {/* Main Product Container */}
           <div className="relative flex items-center justify-center w-full max-w-6xl h-full py-12">
 
-            {/* Product Centerpiece */}
-            <div className="relative z-20 w-[300px] h-[400px] md:w-[400px] md:h-[60vh] max-h-[650px]">
+            {/* Product Centerpiece - Shifted 100px Left */}
+            <div className="relative z-20 w-[300px] h-[400px] md:w-[450px] md:h-[70vh] max-h-[750px] flex justify-center items-center -translate-x-[100px]">
 
-              {/* Decorative Vertical Text - "Pure Botanical Refreshment" */}
-              <div className="absolute -right-24 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 opacity-20 pointer-events-none select-none z-0">
-                <span className="text-[10px] font-bold uppercase tracking-[0.5em] [writing-mode:vertical-rl] rotate-180">Pure</span>
-                <span className="text-[10px] font-bold uppercase tracking-[0.5em] [writing-mode:vertical-rl] rotate-180">Botanical</span>
-                <span className="text-[10px] font-bold uppercase tracking-[0.5em] [writing-mode:vertical-rl] rotate-180">Refreshment</span>
+              {/* Decorative Vertical Text - Bottom aligned parallel lines */}
+              <div className="absolute right-[-140px] top-1/2 -translate-y-1/2 flex flex-row items-end gap-4 opacity-30 select-none z-0 pointer-events-none">
+                <span className="text-[14px] font-bold uppercase tracking-[0.3em] [writing-mode:vertical-rl] rotate-180 font-avant-garde whitespace-nowrap">Pure</span>
+                <span className="text-[14px] font-bold uppercase tracking-[0.3em] [writing-mode:vertical-rl] rotate-180 font-avant-garde whitespace-nowrap">Botanical</span>
+                <span className="text-[14px] font-bold uppercase tracking-[0.3em] [writing-mode:vertical-rl] rotate-180 font-avant-garde whitespace-nowrap">Refreshment</span>
               </div>
 
               <AnimatePresence mode="wait">
-                {/* Floating Pitayas (Decorative) */}
-                <motion.div
-                  key={"pitaya-1-" + activeCategory.id}
-                  animate={{ y: [0, -15, 0], rotate: [0, 5, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute -left-12 top-1/4 w-24 h-24 z-10"
-                >
-                  <Image src="/images/hero/floatingpitaya.png" alt="" fill className="object-contain" />
-                </motion.div>
-                <motion.div
-                  key={"pitaya-2-" + activeCategory.id}
-                  animate={{ y: [0, 15, 0], rotate: [0, -8, 0] }}
-                  transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  className="absolute -right-8 bottom-1/4 w-32 h-32 z-10"
-                >
-                  <Image src="/images/hero/floatingpitaya.png" alt="" fill className="object-contain" />
-                </motion.div>
+                {/* Decorative Pitayas - Crush Category Only */}
+                {activeCategory.title === 'Crush' && (
+                  <>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="absolute -bottom-10 -left-10 w-48 h-48 z-10"
+                    >
+                      <Image src="/images/hero/floatingpitaya.png" alt="" fill className="object-contain" />
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="absolute -bottom-4 right-10 w-40 h-40 z-10 rotate-45"
+                    >
+                      <Image src="/images/hero/floatingpitaya.png" alt="" fill className="object-contain" />
+                    </motion.div>
+                    <motion.div
+                      key={"pitaya-1"}
+                      animate={{ y: [0, -15, 0], rotate: [0, 5, 0] }}
+                      transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute -left-24 top-1/4 w-32 h-32 z-10"
+                    >
+                      <Image src="/images/hero/floatingpitaya.png" alt="" fill className="object-contain" />
+                    </motion.div>
+                    <motion.div
+                      key={"pitaya-2"}
+                      animate={{ y: [0, 15, 0], rotate: [0, -8, 0] }}
+                      transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                      className="absolute -right-20 bottom-1/3 w-36 h-36 z-10"
+                    >
+                      <Image src="/images/hero/floatingpitaya.png" alt="" fill className="object-contain" />
+                    </motion.div>
+                  </>
+                )}
 
                 {/* Main Image */}
                 <motion.div
                   key={featuredProduct.id}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                  animate={{ opacity: 1, scale: 1.05, y: 0 }}
                   exit={{ opacity: 0, scale: 1.1 }}
+                  transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                   className="relative w-full h-full z-10"
                 >
-                  <Image src={featuredProduct.image} alt={featuredProduct.name} fill className="object-contain drop-shadow-[0_25px_50px_rgba(0,0,0,0.25)]" />
+                  <Image
+                    src={featuredProduct.image}
+                    alt={featuredProduct.name}
+                    fill
+                    className="object-contain drop-shadow-[0_45px_100px_rgba(0,0,0,0.3)]"
+                  />
                 </motion.div>
               </AnimatePresence>
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar - Controls and Buy Action */}
-        <div className="relative z-30 w-full pb-10 px-6 md:px-12 lg:px-24 grid grid-cols-1 md:grid-cols-2 items-center">
-          {/* Description Snippet (Left) */}
-          <div className="max-w-[200px] hidden md:block">
-            <p className="text-[0.6rem] leading-relaxed text-[#333333]/30 font-avant-garde font-bold uppercase tracking-wider">
-              {featuredProduct.description.slice(0, 80)}...
-            </p>
-          </div>
-
-          {/* Action Hub (Right) */}
-          <div className="flex justify-end items-center gap-10">
-            {/* Quantity Selector - Moved next to Buy Now */}
-            <div className="flex items-center gap-6">
-              <button
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="w-10 h-10 flex items-center justify-center rounded-xl border border-[#333333]/10 text-[#333333]/20 hover:border-[#333333]/30 hover:text-[#333333]/60 transition-all"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-              </button>
-              <span className="text-2xl font-light font-avant-garde text-[#333333]/20 w-8 text-center">{quantity}</span>
-              <button
-                onClick={() => setQuantity(quantity + 1)}
-                className="w-10 h-10 flex items-center justify-center rounded-xl border border-[#333333]/10 text-[#333333]/20 hover:border-[#333333]/30 hover:text-[#333333]/60 transition-all"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-              </button>
+        {/* Bottom Bar - Grouped Controls */}
+        <div className="relative z-50 w-full mb-12 flex items-center justify-center">
+          <div className="max-w-[1700px] w-full px-6 md:px-12 flex items-center justify-between">
+            {/* Description Line (Left) */}
+            <div className="max-w-[400px]">
+              <p className="text-[0.65rem] leading-relaxed text-[#333333]/40 font-avant-garde font-medium tracking-wider">
+                This is a sample product details must be enter here to<br />show the ui ux design minimal stage
+              </p>
             </div>
 
-            {/* Buy Now Button */}
-            <button
-              className="text-white px-10 py-4 rounded-full font-avant-garde font-bold text-sm transition-all shadow-xl hover:scale-105 active:scale-95"
-              style={{
-                backgroundColor: activeCategory.color,
-                boxShadow: `0 20px 40px ${activeCategory.color}33`
-              }}
-            >
-              Buy Now
-            </button>
+            {/* Hub (Grouped Right) */}
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-4 mr-6">
+                <button
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  className="w-10 h-10 flex items-center justify-center rounded-full border border-[#c81c6a]/20 text-[#c81c6a] hover:bg-[#c81c6a] hover:text-white transition-all"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </button>
+                <span className="text-2xl font-medium font-avant-garde text-[#333333]/20 w-8 text-center">{quantity}</span>
+                <button
+                  onClick={() => setQuantity(quantity + 1)}
+                  className="w-10 h-10 flex items-center justify-center rounded-full border border-[#c81c6a]/20 text-[#c81c6a] hover:bg-[#c81c6a] hover:text-white transition-all"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </button>
+              </div>
+
+              <button className="px-14 py-4 rounded-full font-avant-garde font-bold text-[0.65rem] uppercase tracking-[0.2em] bg-[#666666] text-white transition-all hover:bg-[#444444] shadow-xl">
+                Buy Now
+              </button>
+
+              <button
+                className="px-14 py-4 rounded-full font-avant-garde font-bold text-[0.65rem] uppercase tracking-[0.2em] text-white transition-all shadow-xl"
+                style={{
+                  backgroundColor: activeCategory.color,
+                  boxShadow: `0 20px 40px ${activeCategory.color}44`
+                }}
+              >
+                Add to Cart
+              </button>
+            </div>
           </div>
         </div>
       </motion.section>
