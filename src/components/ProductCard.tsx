@@ -48,38 +48,37 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="group relative flex flex-col h-full bg-transparent p-2"
+      className="group relative flex flex-col h-full bg-transparent p-4 md:p-6"
     >
       {/* Top Portion: Product Showcase */}
-      <div className="relative w-full aspect-[4/5] mb-1 flex items-center justify-center overflow-visible">
-        {/* Decorative Frame - Adjusted to 50% width and 75% height, with active category color stroke */}
+      <div className="relative w-full aspect-[3/4] mb-8 overflow-visible">
+        {/* Decorative Frame */}
         <div 
-          className="absolute left-0 top-1/2 -translate-y-1/2 w-[50%] h-[75%] rounded-[1.5rem] border transition-all duration-500 pointer-events-none" 
-          style={{ borderColor: accentColor + '44' }}
+          className="absolute left-[5%] top-[10%] w-[65%] h-[90%] rounded-[1.5rem] md:rounded-[2rem] border border-black/[0.08] pointer-events-none" 
         />
         
-        {/* Wishlist Button - More Subtle Circular Design */}
-        <div className="absolute top-0 right-0 z-30">
+        {/* Wishlist Button */}
+        <div className="absolute top-[18%] right-[5%] z-30">
           <button 
             onClick={handleWishlist}
-            className={`w-11 h-11 rounded-full flex items-center justify-center transition-all duration-500 border border-black/5 ${
+            className={`w-9 h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center transition-all duration-300 border ${
               isFavorited 
-                ? "bg-white text-red-500 shadow-xl scale-110" 
-                : "bg-black/[0.03] text-black/10 hover:bg-white hover:text-black hover:scale-105"
+                ? "border-red-500 bg-white" 
+                : "border-black/[0.12] bg-transparent hover:bg-black/5"
             }`}
           >
-            <Heart size={18} fill={isFavorited ? "currentColor" : "none"} />
+            <Heart size={16} fill={isFavorited ? "#ef4444" : "#cccccc"} color={isFavorited ? "#ef4444" : "transparent"} />
           </button>
         </div>
 
-        {/* Product Image: Centered but overlapping the frame edge */}
+        {/* Product Image */}
         <button 
           onClick={() => onSelect?.(product)}
-          className="relative z-10 w-full h-full flex items-center justify-center p-2 cursor-pointer border-none bg-transparent"
+          className="absolute inset-0 z-10 w-full h-full flex items-center justify-center cursor-pointer border-none bg-transparent"
         >
           <motion.div 
-            className="relative w-full h-[95%] -translate-y-[15px]"
-            whileHover={{ scale: 1.05, y: -20 }}
+            className="relative w-full h-[110%] -mt-6"
+            whileHover={{ scale: 1.05, y: -10 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
           >
             <Image
@@ -94,13 +93,13 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
       </div>
 
       {/* Product Information Area */}
-      <div className="flex flex-col flex-1 px-1">
-        <h3 className="font-heading font-bold text-xl text-[#333333] tracking-tight mb-2 leading-none">
+      <div className="flex flex-col flex-1">
+        <h3 className="font-brand-heading font-medium text-[1.25rem] md:text-[1.5rem] text-[#666c75] tracking-tight mb-2 leading-none">
           {product.name}
         </h3>
 
-        {/* Dynamic Dot Selection for Variants */}
-        <div className="flex items-center gap-4 mb-4">
+        {/* Size Selection */}
+        <div className="flex items-center gap-3 mb-3">
           {product.variants.map((v, idx) => (
             <button
               key={idx}
@@ -110,58 +109,56 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
               }}
               className="flex items-center gap-1.5 group cursor-pointer"
             >
-              <span className={`text-[8px] font-bold uppercase tracking-widest transition-colors ${
-                selectedVariantIdx === idx ? "text-[#333333]" : "text-[#333333]/30 group-hover:text-[#333333]/60"
+              <span className={`text-[10px] md:text-[11px] font-medium tracking-wide transition-colors ${
+                selectedVariantIdx === idx ? "text-[#a3a3a3]" : "text-[#a3a3a3]/60 group-hover:text-[#a3a3a3]"
               }`}>
                 {v.size}{v.unit}
               </span>
               <div 
-                className={`w-2 h-2 rounded-full border-[1.5px] transition-all duration-300 ${
-                  selectedVariantIdx === idx ? "scale-110 border-transparent shadow-sm" : "border-[#333333]/15 group-hover:border-[#333333]/30"
+                className={`w-2.5 h-2.5 rounded-full flex items-center justify-center transition-all duration-300 border-[1px] ${
+                  selectedVariantIdx === idx ? "border-[#c81c6a]" : "border-[#a3a3a3]/40 group-hover:border-[#a3a3a3]/70"
                 }`}
-                style={{ 
-                  backgroundColor: selectedVariantIdx === idx ? accentColor : 'transparent' 
-                }}
-              />
+              >
+                {selectedVariantIdx === idx && (
+                  <div className="w-1 h-1 rounded-full bg-[#c81c6a]" />
+                )}
+              </div>
             </button>
           ))}
         </div>
 
-        {/* Quantity Selector - Smaller */}
-        <div className="flex items-center gap-4 mb-5">
+        {/* Quantity Selector */}
+        <div className="flex items-center gap-3 mb-4">
           <button 
             onClick={decrementQty}
-            className="w-6 h-6 flex items-center justify-center rounded-lg border border-[#333333]/5 text-[#333333]/20 hover:border-[#333333]/30 hover:text-[#333333] transition-all"
+            className="w-4 h-4 flex items-center justify-center rounded-full border border-black/20 text-[#666] hover:border-black/40 hover:text-black transition-all"
           >
-            <Minus size={12} strokeWidth={2.5} />
+            <Minus size={8} strokeWidth={1.5} />
           </button>
-          <span className="text-[12px] font-bold font-avant-garde text-[#333333]/30 w-3 text-center">
+          <span className="text-[10px] font-medium text-[#666] w-2 text-center">
             {quantity}
           </span>
           <button 
             onClick={incrementQty}
-            className="w-6 h-6 flex items-center justify-center rounded-lg border border-[#333333]/5 text-[#333333]/20 hover:border-[#333333]/30 hover:text-[#333333] transition-all"
+            className="w-4 h-4 flex items-center justify-center rounded-full border border-black/20 text-[#666] hover:border-black/40 hover:text-black transition-all"
           >
-            <Plus size={12} strokeWidth={2.5} />
+            <Plus size={8} strokeWidth={1.5} />
           </button>
         </div>
 
-        {/* Footer: Price and Action - More Compact */}
-        <div className="mt-auto pt-3 flex items-center justify-between border-t border-black/5">
-          <div className="flex items-start text-[#333333] font-sans">
-            <span className="text-[9px] font-bold mt-1 mr-0.5 opacity-40">₹</span>
-            <span className="text-xl font-bold tracking-tighter leading-none">
+        {/* Footer: Price and Action */}
+        <div className="mt-auto flex items-center justify-between w-full">
+          <div className="flex items-start text-[#666c75]">
+            <span className="text-[0.9rem] font-light mt-1 mr-0.5 opacity-70">₹</span>
+            <span className="text-[1.8rem] font-light tracking-tight leading-none">
               {currentPrice.toFixed(0)}
             </span>
           </div>
 
           <button
             onClick={handleAddToCart}
-            className="px-6 py-2 rounded-full text-white font-bold tracking-widest uppercase text-[8px] shadow-lg hover:scale-105 active:scale-95 transition-all"
-            style={{ 
-              backgroundColor: accentColor,
-              boxShadow: `0 10px 20px ${accentColor}33`
-            }}
+            className="px-4 py-1.5 rounded-full text-white font-bold text-[0.5rem] tracking-wider transition-transform hover:scale-105 active:scale-95"
+            style={{ backgroundColor: accentColor }}
           >
             Buy Now
           </button>
