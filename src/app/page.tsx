@@ -42,8 +42,8 @@ export default function Home() {
               />
             </div>
 
-            {/* Dynamic Product Grid Section Below Hero - Hidden on Mobile to focus solely on categories */}
-            <div className="hidden md:block">
+            {/* Dynamic Product Grid Section Below Hero */}
+            <div className="w-full relative z-10 bg-[#e6e7e8]">
               <HomeProductSection categoryIndex={hoveredCategoryIndex} />
             </div>
           </motion.div>

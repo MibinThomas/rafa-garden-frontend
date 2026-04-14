@@ -33,9 +33,7 @@ export function RootLayoutWrapper({ children }: { children: React.ReactNode }) {
         <main className="flex-1 flex flex-col">
           {children}
         </main>
-        <div className={isHomePage ? "hidden md:block" : ""}>
-          <Footer />
-        </div>
+        <Footer />
         <CartModal />
       </ThemeProvider>
     </body>

@@ -376,7 +376,7 @@ function ShopContent() {
             <div className="absolute inset-0 border border-white/20 rounded-[inherit] pointer-events-none" />
 
             {activeCategory.products && activeCategory.products.length > 0 ? (
-              <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-24 items-start">
+              <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-x-4 sm:gap-x-8 gap-y-16 sm:gap-y-24 items-start">
                 {activeCategory.products.map((product: Product) => (
                   <ProductCard
                     key={product.id}
