@@ -23,17 +23,19 @@ export default function AboutPage() {
         {/* Top Text Row */}
         <div className="w-full flex flex-col md:flex-row justify-between relative z-30 gap-12 lg:gap-24">
           {/* Left Typography */}
-          <div className="w-full md:w-1/2 flex flex-col items-start z-20 pl-[100px]">
-            <h3 className="text-[50px] font-bold font-brand-heading text-[#b3b4b6] leading-none tracking-tight mb-[25px]">
-              About us.
-            </h3>
-            <h1 className="text-[100px] leading-[0.85] font-black font-brand-heading text-[#b3b4b6] tracking-tight">
-              Rafah<br />Garden.
-            </h1>
+          <div className="w-full md:w-[40%] flex flex-col items-center justify-center z-20">
+            <div className="flex flex-col items-start text-left">
+              <h3 className="text-[50px] font-bold font-brand-heading text-[#b3b4b6] leading-none tracking-tight mb-[25px]">
+                About us.
+              </h3>
+              <h1 className="text-[100px] leading-[0.85] font-black font-brand-heading text-[#b3b4b6] tracking-tight">
+                Rafah<br />Garden.
+              </h1>
+            </div>
           </div>
 
           {/* Right Description & Logo */}
-          <div className="w-full md:w-1/2 flex flex-col items-start z-20 pr-[60px]">
+          <div className="w-full md:w-[60%] flex flex-col items-start justify-center z-20 pr-[60px]">
             <div className="relative w-[216px] h-[72px] mb-12">
               <Image
                 src="/images/logo/Rafah logo.webp"
