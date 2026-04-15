@@ -15,11 +15,19 @@ export function Footer() {
   if (pathname.startsWith('/admin')) return null;
 
   const socialLinks = {
-    instagram: settings["global.social_instagram"] || "#",
-    facebook: "#",
-    twitter: "#",
-    youtube: "#"
+    instagram: settings["social_instagram"] || "#",
+    facebook: settings["social_facebook"] || "#",
+    twitter: settings["social_twitter"] || "#",
+    youtube: settings["social_youtube"] || "#"
   };
+
+  const primaryMenu = [
+    { label: settings["menu_nav_1_label"] || "Home", url: settings["menu_nav_1_url"] || "/" },
+    { label: settings["menu_nav_2_label"] || "Shop", url: settings["menu_nav_2_url"] || "/shop" },
+    { label: settings["menu_nav_3_label"] || "Blog", url: settings["menu_nav_3_url"] || "/blog" },
+    { label: settings["menu_nav_4_label"] || "About", url: settings["menu_nav_4_url"] || "/about" },
+    { label: settings["menu_nav_5_label"] || "Contact", url: settings["menu_nav_5_url"] || "/contact" }
+  ].filter(m => m.label && m.label.trim() !== "");
 
   return (
     <footer className="w-full bg-[#e6e7e8] text-[#4a4b4d] pt-20 pb-8 px-6 md:px-16 font-sans relative overflow-hidden">
@@ -31,7 +39,7 @@ export function Footer() {
         <div className="relative flex flex-col items-center lg:items-start justify-between">
           <div className="relative w-full aspect-[4/3] max-w-[500px] hover:scale-[1.02] transition-transform duration-700">
              <Image 
-               src="/images/footer/Ui footer all products.webp" 
+               src={settings["footer_image"] || "/images/footer/Ui footer all products.webp"} 
                alt="Heritage Pitaya Collection"
                fill
                className="object-contain object-center lg:object-left"
@@ -58,11 +66,9 @@ export function Footer() {
                 </div>
               </button>
               <ul className={`flex-col items-center md:items-start gap-4 text-[#737478] text-xs font-avant-garde w-full pt-2 md:pt-0 ${openSection === 'navigate' ? 'flex' : 'hidden md:flex'}`}>
-                <li><Link href="/" className="hover:text-black transition-colors">Home</Link></li>
-                <li><Link href="/shop" className="hover:text-black transition-colors">Shop</Link></li>
-                <li><Link href="/about" className="hover:text-black transition-colors">About</Link></li>
-                <li><Link href="/blog" className="hover:text-black transition-colors">Blog</Link></li>
-                <li><Link href="/contact" className="hover:text-black transition-colors">Contact</Link></li>
+                {primaryMenu.map((item) => (
+                  <li key={item.label}><Link href={item.url} className="hover:text-black transition-colors">{item.label}</Link></li>
+                ))}
               </ul>
             </div>
 
@@ -78,10 +84,10 @@ export function Footer() {
                 </div>
               </button>
               <ul className={`flex-col items-center md:items-start gap-4 text-[#737478] text-xs font-avant-garde w-full pt-2 md:pt-0 ${openSection === 'collections' ? 'flex' : 'hidden md:flex'}`}>
-                <li><Link href="/shop?cat=0" className="hover:text-black transition-colors">Crush</Link></li>
-                <li><Link href="/shop?cat=1" className="hover:text-black transition-colors">Jam</Link></li>
-                <li><Link href="/shop?cat=2" className="hover:text-black transition-colors">Fruits</Link></li>
-                <li><Link href="/shop?cat=3" className="hover:text-black transition-colors">Plants</Link></li>
+                {settings["footer_label_col1"] && <li><Link href={settings["footer_url_col1"] || "/shop?cat=0"} className="hover:text-black transition-colors">{settings["footer_label_col1"]}</Link></li>}
+                {settings["footer_label_col2"] && <li><Link href={settings["footer_url_col2"] || "/shop?cat=1"} className="hover:text-black transition-colors">{settings["footer_label_col2"]}</Link></li>}
+                {settings["footer_label_col3"] && <li><Link href={settings["footer_url_col3"] || "/shop?cat=2"} className="hover:text-black transition-colors">{settings["footer_label_col3"]}</Link></li>}
+                {settings["footer_label_col4"] && <li><Link href={settings["footer_url_col4"] || "/shop?cat=3"} className="hover:text-black transition-colors">{settings["footer_label_col4"]}</Link></li>}
               </ul>
             </div>
 
@@ -89,10 +95,10 @@ export function Footer() {
             <div className="flex flex-col items-center md:items-start gap-6 border-b border-[#333333]/10 md:border-0 pb-4 md:pb-0">
               <h4 className="text-[#333333] font-avant-garde font-bold text-sm tracking-wide">About</h4>
               <ul className="flex flex-col items-center md:items-start gap-4 text-[#737478] text-xs font-avant-garde">
-                <li><Link href="/terms" className="hover:text-black transition-colors">Terms and Conditions</Link></li>
-                <li><Link href="/returns" className="hover:text-black transition-colors">Return and Refund Policy</Link></li>
-                <li><Link href="/privacy" className="hover:text-black transition-colors">Privacy Policy</Link></li>
-                <li><Link href="/orders" className="hover:text-black transition-colors">Orders</Link></li>
+                {settings["footer_label_terms"] && <li><Link href={settings["footer_url_terms"] || "/terms"} className="hover:text-black transition-colors">{settings["footer_label_terms"]}</Link></li>}
+                {settings["footer_label_returns"] && <li><Link href={settings["footer_url_returns"] || "/returns"} className="hover:text-black transition-colors">{settings["footer_label_returns"]}</Link></li>}
+                {settings["footer_label_privacy"] && <li><Link href={settings["footer_url_privacy"] || "/privacy"} className="hover:text-black transition-colors">{settings["footer_label_privacy"]}</Link></li>}
+                {settings["footer_label_orders"] && <li><Link href={settings["footer_url_orders"] || "/orders"} className="hover:text-black transition-colors">{settings["footer_label_orders"]}</Link></li>}
               </ul>
             </div>
 
@@ -105,10 +111,10 @@ export function Footer() {
               </p>
               
               <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
-                <a href={socialLinks.facebook} className="w-6 h-6 rounded-full bg-[#737478] text-[#dfdfdf] flex items-center justify-center hover:bg-[#333333] transition-colors"><Facebook size={12} fill="currentColor" /></a>
-                <a href={socialLinks.twitter} className="w-6 h-6 rounded-full bg-[#737478] text-[#dfdfdf] flex items-center justify-center hover:bg-[#333333] transition-colors"><Twitter size={12} fill="currentColor" /></a>
-                <a href={socialLinks.instagram} className="w-6 h-6 rounded-full bg-[#737478] text-[#dfdfdf] flex items-center justify-center hover:bg-[#333333] transition-colors"><Instagram size={12} /></a>
-                <a href={socialLinks.youtube} className="w-6 h-6 rounded-full bg-[#737478] text-[#dfdfdf] flex items-center justify-center hover:bg-[#333333] transition-colors"><Youtube size={12} fill="currentColor" /></a>
+                <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="w-6 h-6 rounded-full bg-[#737478] text-[#dfdfdf] flex items-center justify-center hover:bg-[#333333] transition-colors"><Facebook size={12} fill="currentColor" /></a>
+                <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="w-6 h-6 rounded-full bg-[#737478] text-[#dfdfdf] flex items-center justify-center hover:bg-[#333333] transition-colors"><Twitter size={12} fill="currentColor" /></a>
+                <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="w-6 h-6 rounded-full bg-[#737478] text-[#dfdfdf] flex items-center justify-center hover:bg-[#333333] transition-colors"><Instagram size={12} /></a>
+                <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer" className="w-6 h-6 rounded-full bg-[#737478] text-[#dfdfdf] flex items-center justify-center hover:bg-[#333333] transition-colors"><Youtube size={12} fill="currentColor" /></a>
               </div>
               <p className="text-[10px] text-[#737478] font-medium tracking-wide">@rafahgarden</p>
             </div>

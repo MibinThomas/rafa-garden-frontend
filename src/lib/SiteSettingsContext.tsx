@@ -26,7 +26,7 @@ export function SiteSettingsProvider({ children }: { children: ReactNode }) {
 
   const fetchSettings = async () => {
     try {
-      const res = await fetch("/api/content?group=global");
+      const res = await fetch("/api/content");
       
       if (!res.ok) {
         console.warn(`Failed to fetch site settings: ${res.status}`);

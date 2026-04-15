@@ -21,11 +21,27 @@ export async function GET(request: Request) {
     if (contentCount === 0 || force) {
       await SiteContent.deleteMany({});
       contentResult = await SiteContent.insertMany([
-        { key: 'about_hero_title', value: 'The Heritage of Rafah', group: 'about' },
-        { key: 'about_hero_subtitle', value: 'A legacy of botanical excellence spanning generations.', group: 'about' },
-        { key: 'about_story_content', value: 'Founded in the heart of lush landscapes, Rafah Garden is more than just a farm...', group: 'about' },
-        { key: 'site_name', value: 'Rafah Garden', group: 'global' },
-        { key: 'contact_email', value: 'hello@rafagarden.com', group: 'global' }
+        // About Section
+        { key: 'about_hero_title', value: 'The Heritage of Rafah', type: 'text', group: 'about', label: 'Hero Title' },
+        { key: 'about_hero_subtitle', value: 'A legacy of botanical excellence spanning generations.', type: 'text', group: 'about', label: 'Hero Subtitle' },
+        { key: 'about_story_content', value: 'Founded in the heart of lush landscapes, Rafah Garden is more than just a farm...', type: 'text', group: 'about', label: 'Story Description' },
+        
+        // Global
+        { key: 'site_name', value: 'Rafah Garden', type: 'text', group: 'global', label: 'Site Name' },
+        { key: 'contact_email', value: 'hello@rafagarden.com', type: 'text', group: 'global', label: 'Global Contact Email' },
+        
+        // Header
+        { key: 'header_logo', value: '/images/logo/Rafah logo.webp', type: 'image', group: 'header', label: 'Main Logo (320x96px Default)' },
+        { key: 'header_promo_text', value: 'Spring Harvest - Discover our newest premium dragon fruit products!', type: 'text', group: 'header', label: 'Promo Banner Text' },
+        { key: 'header_phone', value: '+971 50 123 4567', type: 'text', group: 'header', label: 'Header Support Phone' },
+        
+        // Footer
+        { key: 'footer_image', value: '/images/footer/Ui footer all products.webp', type: 'image', group: 'footer', label: 'Collage Visual (800x600px Recommended)' },
+        { key: 'footer_description', value: 'Rafah Garden brings you the finest selection of premium dragon fruit products cultivated with passion and sustainable farming practices in Kasaragod, Kerala.', type: 'text', group: 'footer', label: 'Company Description' },
+        { key: 'footer_address', value: 'Rafah Farms, Kasaragod, Kerala, India', type: 'text', group: 'footer', label: 'Headquarters Address' },
+        { key: 'footer_newsletter_title', value: 'Join the Rafah Family', type: 'text', group: 'footer', label: 'Newsletter Title' },
+        { key: 'footer_newsletter_subtitle', value: 'Subscribe to our newsletter for seasonal harvest updates, exclusive farm offers, and botanical insights.', type: 'text', group: 'footer', label: 'Newsletter Subtitle' },
+        { key: 'footer_copyright', value: '© 2026 Rafah Garden. All rights reserved.', type: 'text', group: 'footer', label: 'Copyright Text' }
       ]);
     }
 

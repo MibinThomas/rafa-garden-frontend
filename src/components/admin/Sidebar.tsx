@@ -1,8 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { 
   LayoutDashboard, 
@@ -17,7 +17,11 @@ import {
   Users, 
   Ticket, 
   ShieldCheck,
-  ChevronRight
+  ChevronRight,
+  ChevronDown,
+  Share2,
+  List,
+  Tag
 } from "lucide-react";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -35,7 +39,17 @@ const NAV_ITEMS = [
   { id: "projects", label: "Projects", href: "/admin/projects", icon: Briefcase },
   { id: "blog", label: "Blog", href: "/admin/blog", icon: BookOpen },
   { id: "news", label: "News", href: "/admin/news", icon: Newspaper },
-  { id: "settings", label: "Settings & Content", href: "/admin/settings", icon: Settings },
+  { 
+    id: "settings", 
+    label: "Settings & Content", 
+    icon: Settings,
+    subItems: [
+      { id: "site-settings", label: "Site Settings", href: "/admin/settings", icon: Settings },
+      { id: "social-media", label: "Social Media", href: "/admin/settings/social", icon: Share2 },
+      { id: "payment-methods", label: "Payment Methods", href: "/admin/settings/payments", icon: List },
+      { id: "meta-tags", label: "Meta Tags", href: "/admin/settings/meta", icon: Tag }
+    ]
+  },
   { id: "users", label: "Users", href: "/admin/users", icon: Users },
   { id: "coupons", label: "Coupons", href: "/admin/coupons", icon: Ticket },
   { id: "policies", label: "Policies", href: "/admin/policies", icon: ShieldCheck },
@@ -43,6 +57,16 @@ const NAV_ITEMS = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({
+    settings: pathname?.includes('/admin/settings') ? true : false,
+  });
+
+  const toggleMenu = (id: string) => {
+    setExpandedMenus(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
 
   return (
     <aside className="fixed left-0 top-0 h-screen w-72 bg-white border-r border-[#bbbdbf]/10 z-50 flex flex-col p-6 shadow-sm">
@@ -64,11 +88,67 @@ export function Sidebar() {
       {/* Navigation Links */}
       <nav className="flex-1 space-y-1.5 overflow-y-auto scrollbar-hide">
         {NAV_ITEMS.map((item) => {
+          
+          if (item.subItems) {
+            const isAnyChildActive = item.subItems.some(sub => pathname === sub.href);
+            const isExpanded = expandedMenus[item.id];
+            
+            return (
+              <div key={item.id} className="space-y-1">
+                <button 
+                  onClick={() => toggleMenu(item.id)}
+                  className={cn(
+                    "w-full group flex items-center justify-between px-4 py-3.5 rounded-2xl transition-all duration-300",
+                    isAnyChildActive && !isExpanded
+                      ? "text-[#c81c6a]" 
+                      : "text-[#bbbdbf] hover:bg-gray-50 hover:text-[#0b2b1a]"
+                  )}
+                >
+                  <div className="flex items-center gap-4">
+                    <item.icon size={20} className={cn("transition-colors", isAnyChildActive && !isExpanded ? "text-[#c81c6a]" : "group-hover:text-[#0b2b1a]")} />
+                    <span className="text-[13px] font-bold tracking-tight">{item.label}</span>
+                  </div>
+                  {isExpanded ? (
+                    <ChevronDown size={14} className="opacity-60 transition-all text-[#0b2b1a]" />
+                  ) : (
+                    <ChevronRight size={14} className={cn("opacity-30 transition-all", isAnyChildActive ? "opacity-100" : "-translate-x-2 group-hover:opacity-100 group-hover:translate-x-0")} />
+                  )}
+                </button>
+                
+                {/* Submenu Dropdown */}
+                {isExpanded && (
+                  <div className="pl-4 pr-0 space-y-1 mt-1">
+                    {item.subItems.map((subItem) => {
+                      const isSubActive = pathname === subItem.href;
+                      return (
+                        <Link
+                          key={subItem.id}
+                          href={subItem.href}
+                          className={cn(
+                            "flex items-center gap-3 px-4 py-3 xl:py-2.5 rounded-xl transition-all duration-200",
+                            isSubActive
+                              ? "bg-[#c81c6a]/10 text-[#c81c6a] shadow-[0_2px_10px_rgba(200,28,106,0.05)]"
+                              : "text-[#888888] hover:bg-gray-50 hover:text-[#0b2b1a]"
+                          )}
+                        >
+                          <subItem.icon size={16} className={cn("transition-colors", isSubActive ? "text-[#c81c6a]" : "text-[#bbbdbf]")} />
+                          <span className={cn("text-[13px] tracking-tight", isSubActive ? "font-bold" : "font-medium")}>
+                            {subItem.label}
+                          </span>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          }
+
           const isActive = pathname === item.href;
           return (
             <Link 
               key={item.id} 
-              href={item.href}
+              href={item.href!}
               className={cn(
                 "group flex items-center justify-between px-4 py-3.5 rounded-2xl transition-all duration-300",
                 isActive 

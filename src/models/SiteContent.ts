@@ -4,7 +4,7 @@ export interface ISiteContent {
   key: string;
   value: string;
   type: "text" | "image" | "json" | "font";
-  group: "global" | "home" | "about" | "heritage";
+  group: "global" | "home" | "about" | "heritage" | "header" | "footer" | "social" | "menus";
   label?: string;
 }
 
@@ -13,7 +13,7 @@ const SiteContentSchema = new Schema<ISiteContent>(
     key: { type: String, required: true, unique: true },
     value: { type: String, required: true },
     type: { type: String, enum: ["text", "image", "json", "font"], default: "text" },
-    group: { type: String, enum: ["global", "home", "about", "heritage"], required: true },
+    group: { type: String, enum: ["global", "home", "about", "heritage", "header", "footer", "social", "menus"], required: true },
     label: { type: String },
   },
   { timestamps: true }

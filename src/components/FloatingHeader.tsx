@@ -8,13 +8,23 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCart } from "@/lib/CartContext";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
+import { useSiteSettings } from "@/lib/SiteSettingsContext";
 
 export function FloatingHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const { openCart, items } = useCart();
   const { headerColor, isImmersive } = useHeaderColor();
+  const { settings } = useSiteSettings();
   const itemCount = items.reduce((total: number, item: any) => total + item.quantity, 0);
+
+  const primaryMenu = [
+    { label: settings["menu_nav_1_label"] || "Home", url: settings["menu_nav_1_url"] || "/" },
+    { label: settings["menu_nav_2_label"] || "Shop", url: settings["menu_nav_2_url"] || "/shop" },
+    { label: settings["menu_nav_3_label"] || "Blog", url: settings["menu_nav_3_url"] || "/blog" },
+    { label: settings["menu_nav_4_label"] || "About", url: settings["menu_nav_4_url"] || "/about" },
+    { label: settings["menu_nav_5_label"] || "Contact", url: settings["menu_nav_5_url"] || "/contact" }
+  ].filter(m => m.label && m.label.trim() !== "");
 
   if (pathname.startsWith('/admin')) return null;
 
@@ -41,13 +51,13 @@ export function FloatingHeader() {
   
           {/* Navigation Links - Centered between two Flex-1 containers */}
           <div className="flex-initial flex items-center justify-center gap-10 lg:gap-14 px-8">
-            {["Home", "Shop", "Blog", "About", "Contact"].map((link) => (
+            {primaryMenu.map((item) => (
               <Link 
-                key={link} 
-                href={link === "Home" ? "/" : `/${link.toLowerCase()}`}
+                key={item.label} 
+                href={item.url}
                 className="text-[#333333]/50 font-avant-garde font-medium text-[0.85rem] hover:text-[#333333] transition-colors relative group"
               >
-                {link}
+                {item.label}
                 <motion.span 
                   className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[#9a0c52] transition-all duration-300 group-hover:w-full" 
                 />
@@ -177,19 +187,19 @@ export function FloatingHeader() {
 
               {/* Drawer Links */}
               <div className="flex flex-col gap-6 p-8 mt-4">
-                {["Home", "Shop", "Blog", "About", "Contact"].map((link, idx) => (
+                {primaryMenu.map((item, idx) => (
                   <motion.div
-                    key={link}
+                    key={item.label}
                     initial={{ x: 20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.1 + idx * 0.05, duration: 0.4 }}
                   >
                     <Link 
-                      href={link === "Home" ? "/" : `/${link.toLowerCase()}`}
+                      href={item.url}
                       onClick={() => setIsMenuOpen(false)}
                       className="text-4xl font-black font-avant-garde tracking-tighter text-[#333333] hover:text-[#9a0c52] transition-colors inline-block"
                     >
-                      {link}
+                      {item.label}
                     </Link>
                   </motion.div>
                 ))}
