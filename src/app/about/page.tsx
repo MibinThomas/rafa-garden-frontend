@@ -114,95 +114,109 @@ export default function AboutPage() {
 
       </section>
       {/* 2. PRODUCTS SHOWCASE AREA */}
-      <section className="relative w-full bg-[#dadbdd] mt-40 pt-20 mb-32 z-20">
-        <div className="w-full max-w-[1700px] mx-auto px-6 md:px-12">
-          {/* Top Typography & Description */}
-          <div className="w-full flex flex-col xl:flex-row justify-between items-start xl:items-end gap-12 mb-20">
-            {/* Massive Left Heading */}
-            <div className="flex flex-col shrink-0">
-              <h2 className="text-[4rem] md:text-[6rem] lg:text-[7rem] xl:text-[8rem] font-brand-heading font-black text-[#7a7a7a] leading-[0.8] tracking-tight">
-                Dragon Fruit.
-              </h2>
-              <h2 className="text-[4rem] md:text-[6rem] lg:text-[7rem] xl:text-[8rem] font-brand-heading font-black text-[#7a7a7a] leading-[0.8] tracking-tight">
-                Products
-              </h2>
-            </div>
+      <section className="relative w-full z-20 mt-40 mb-32">
+        
+        {/* Solid #dadbdd Top Part */}
+        <div className="w-full bg-[#dadbdd] pt-20 pb-10">
+          <div className="w-full max-w-[1700px] mx-auto px-6 md:px-12">
+            
+            {/* Top Typography & Description */}
+            <div className="w-full flex flex-col xl:flex-row justify-between items-start xl:items-end gap-12">
+              {/* Massive Left Heading */}
+              <div className="flex flex-col shrink-0">
+                <h2 className="text-[4rem] md:text-[6rem] lg:text-[7rem] xl:text-[8rem] font-brand-heading font-black text-[#7a7a7a] leading-[0.8] tracking-tight">
+                  Dragon Fruit.
+                </h2>
+                <h2 className="text-[4rem] md:text-[6rem] lg:text-[7rem] xl:text-[8rem] font-brand-heading font-black text-[#7a7a7a] leading-[0.8] tracking-tight">
+                  Products
+                </h2>
+              </div>
 
-            {/* Right Description Paragraph */}
-            <div className="w-full xl:max-w-[500px] pb-4">
-              <p className="text-[#888888] text-sm md:text-base leading-relaxed text-justify tracking-tight [word-spacing:-1px]">
-                What began as a small family initiative has blossomed into a thriving agricultural enterprise. With every season, we've perfected our techniques, deepened our commitment to sustainable farming, and expanded our range of delicious dragon fruit products – from fresh whole fruits to our signature Dragon Fruit Crush and Dragon Fruit Jam.
-              </p>
+              {/* Right Description Paragraph */}
+              <div className="w-full xl:max-w-[500px] pb-4">
+                <p className="text-[#888888] text-sm md:text-base leading-relaxed text-justify tracking-tight [word-spacing:-1px]">
+                  What began as a small family initiative has blossomed into a thriving agricultural enterprise. With every season, we've perfected our techniques, deepened our commitment to sustainable farming, and expanded our range of delicious dragon fruit products – from fresh whole fruits to our signature Dragon Fruit Crush and Dragon Fruit Jam.
+                </p>
+              </div>
             </div>
-          </div>
-
-          {/* Central Product Composition */}
-          <div className="relative w-full h-[500px] md:h-[600px] flex items-end justify-center">
-            {/* Left Bottle */}
-            <div className="absolute z-20 left-1/2 -translate-x-[150%] md:-translate-x-[220px] bottom-0 w-[120px] md:w-[150px] h-[300px] md:h-[380px]">
-              <Image src="/images/hero/crush_bottle.png" alt="Dragon Fruit Crush" fill className="object-contain drop-shadow-xl" />
-            </div>
-            {/* Center Bottle */}
-            <div className="relative z-30 w-[150px] md:w-[180px] h-[380px] md:h-[450px]">
-              <Image src="/images/hero/crush_bottle.png" alt="Dragon Fruit Crush" fill className="object-contain drop-shadow-2xl" />
-            </div>
-            {/* Right Bottle */}
-            <div className="absolute z-20 right-1/2 translate-x-[50%] md:translate-x-[220px] bottom-0 w-[120px] md:w-[150px] h-[300px] md:h-[380px]">
-              <Image src="/images/hero/crush_bottle.png" alt="Dragon Fruit Crush" fill className="object-contain drop-shadow-xl" />
-            </div>
+            
           </div>
         </div>
+
+        {/* Lower Part: Split Background (#dadbdd top, #e6e7e8 bottom) and Product Composition */}
+        <div className="relative w-full">
+          {/* Split Background Layer */}
+          <div className="absolute inset-0 z-0 flex flex-col">
+            <div className="w-full h-1/4 bg-[#dadbdd]" />
+            <div className="w-full h-3/4 bg-[#e6e7e8]" />
+          </div>
+
+          <div className="relative z-10 w-full max-w-[1700px] mx-auto px-6 md:px-12 flex flex-col lg:flex-row items-center justify-between pt-10 pb-20">
+            
+            {/* Left Narrative Paragraph */}
+            <div className="w-full lg:max-w-[450px] mb-20 lg:mb-0 z-20 shrink-0">
+              <p className="text-[#7a7a7a] text-sm md:text-base leading-relaxed text-left tracking-tight [word-spacing:-1px]">
+                Rafah Garden is more than just a farm – it's a passion project born from love for nature and commitment to quality. Nestled in the lush landscapes of Kasaragod, Kerala, we have dedicated ourselves to cultivating the finest dragon fruits and crafting premium products that bring the true taste of nature to your home.
+              </p>
+            </div>
+
+            {/* Right Product Composition */}
+            <div className="relative w-full lg:w-[800px] h-[500px] md:h-[600px] flex items-center justify-center shrink-0">
+              <div className="relative w-[300px] md:w-[450px] h-[300px] md:h-[450px] -translate-y-[10%] z-40">
+                <Image src="/images/hero/jam_premium.png" alt="Dragon Fruit Jam Premium" fill className="object-contain drop-shadow-2xl" />
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </section>
       {/* 3. INDIVIDUAL PRODUCT LINES (2x2 Grid) */}
-      <section className="relative w-full max-w-[1200px] mx-auto px-6 mb-40">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-20 gap-x-12">
-
-          {/* Crush */}
-          <div className="flex items-center gap-8 justify-center">
-            <div className="relative w-32 h-40">
-              <Image src="/products/crush_bottle.png" alt="Crush" fill className="object-contain drop-shadow-lg" />
-            </div>
-            <div className="flex items-center gap-4 flex-1">
-              <div className="h-px bg-black/20 flex-1" />
-              <div className="w-1.5 h-1.5 rounded-full bg-[#c81c6a] shrink-0" />
-              <span className="text-sm font-light tracking-widest text-[#555555]">Dragon Fruit Crush</span>
-            </div>
+      <section className="relative w-full max-w-[1400px] mx-auto px-6 mb-40 mt-32 z-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-32 gap-x-12 lg:gap-x-20 place-items-center">
+          
+          {/* Dragon Fruit Crush */}
+          <div className="relative flex items-center justify-end w-full max-w-[500px] h-[100px] group cursor-pointer mt-12 md:mt-0">
+             <div className="w-[80%] h-[75px] border border-[#c1c1c1] rounded-2xl flex items-center pl-24 lg:pl-28 pr-6 bg-transparent transition-colors duration-300 group-hover:bg-white/40">
+                <span className="text-[#888888] font-light text-2xl mr-4">+</span>
+                <span className="text-[#7a7a7a] font-light text-xl lg:text-[22px] tracking-wide">Dragon Fruit Crush</span>
+             </div>
+             <div className="absolute left-[-20px] bottom-[-20px] w-[180px] h-[280px] pointer-events-none z-10 transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
+                <Image src="/images/hero/crush_bottle.png" alt="Dragon Fruit Crush" fill className="object-contain object-bottom drop-shadow-[0_15px_25px_rgba(0,0,0,0.15)]" />
+             </div>
           </div>
 
-          {/* Jam */}
-          <div className="flex items-center gap-8 justify-center">
-            <div className="relative w-32 h-32">
-              <Image src="/products/jam_premium.png" alt="Jam" fill className="object-contain drop-shadow-lg" />
-            </div>
-            <div className="flex items-center gap-4 flex-1">
-              <div className="h-px bg-black/20 flex-1" />
-              <div className="w-1.5 h-1.5 rounded-full bg-[#c81c6a] shrink-0" />
-              <span className="text-sm font-light tracking-widest text-[#555555]">Dragon Fruit Jam</span>
-            </div>
+          {/* Dragon Fruit Jam */}
+          <div className="relative flex items-center justify-end w-full max-w-[500px] h-[100px] group cursor-pointer mt-12 md:mt-0">
+             <div className="w-[80%] h-[75px] border border-[#c1c1c1] rounded-2xl flex items-center pl-24 lg:pl-28 pr-6 bg-transparent transition-colors duration-300 group-hover:bg-white/40">
+                <span className="text-[#888888] font-light text-2xl mr-4">+</span>
+                <span className="text-[#7a7a7a] font-light text-xl lg:text-[22px] tracking-wide">Dragon Fruit Jam</span>
+             </div>
+             <div className="absolute left-[10px] bottom-[-10px] w-[140px] h-[160px] pointer-events-none z-10 transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
+                <Image src="/images/hero/jam_premium.png" alt="Dragon Fruit Jam" fill className="object-contain object-bottom drop-shadow-[0_15px_25px_rgba(0,0,0,0.15)]" />
+             </div>
           </div>
 
-          {/* Fruit */}
-          <div className="flex items-center gap-8 justify-center">
-            <div className="relative w-40 h-32">
-              <Image src="/products/fresh_fruits.png" alt="Fruit" fill className="object-contain drop-shadow-lg" />
-            </div>
-            <div className="flex items-center gap-4 flex-1">
-              <div className="h-px bg-black/20 flex-1" />
-              <div className="w-1.5 h-1.5 rounded-full bg-[#c81c6a] shrink-0" />
-              <span className="text-sm font-light tracking-widest text-[#555555]">Dragon Fruit Fruit</span>
-            </div>
+          {/* Dragon Fruit Fruit */}
+          <div className="relative flex items-center justify-end w-full max-w-[500px] h-[100px] group cursor-pointer mt-12 md:mt-0">
+             <div className="w-[80%] h-[75px] border border-[#c1c1c1] rounded-2xl flex items-center pl-24 lg:pl-28 pr-6 bg-transparent transition-colors duration-300 group-hover:bg-white/40">
+                <span className="text-[#888888] font-light text-2xl mr-4">+</span>
+                <span className="text-[#7a7a7a] font-light text-xl lg:text-[22px] tracking-wide">Dragon Fruit Fruit</span>
+             </div>
+             <div className="absolute left-[10px] bottom-[-30px] w-[200px] h-[220px] pointer-events-none z-10 transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
+                <Image src="/images/hero/fresh_fruits.png" alt="Fresh Dragon Fruit" fill className="object-contain object-bottom drop-shadow-[0_15px_25px_rgba(0,0,0,0.15)]" />
+             </div>
           </div>
 
-          {/* Plant */}
-          <div className="flex items-center gap-8 justify-center">
-            <div className="relative w-32 h-32">
-              <Image src="/products/plants_premium.png" alt="Plant" fill className="object-contain drop-shadow-lg" />
-            </div>
-            <div className="flex items-center gap-4 flex-1">
-              <div className="h-px bg-black/20 flex-1" />
-              <div className="w-1.5 h-1.5 rounded-full bg-[#c81c6a] shrink-0" />
-              <span className="text-sm font-light tracking-widest text-[#555555]">Dragon Fruit Plant</span>
-            </div>
+          {/* Dragon Fruit Plant */}
+          <div className="relative flex items-center justify-end w-full max-w-[500px] h-[100px] group cursor-pointer mt-12 md:mt-0">
+             <div className="w-[80%] h-[75px] border border-[#c1c1c1] rounded-2xl flex items-center pl-24 lg:pl-28 pr-6 bg-transparent transition-colors duration-300 group-hover:bg-white/40">
+                <span className="text-[#888888] font-light text-2xl mr-4">+</span>
+                <span className="text-[#7a7a7a] font-light text-xl lg:text-[22px] tracking-wide">Dragon Fruit Plant</span>
+             </div>
+             <div className="absolute left-[20px] bottom-[-20px] w-[130px] h-[250px] pointer-events-none z-10 transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
+                <Image src="/images/hero/plants_premium.png" alt="Dragon Fruit Plant" fill className="object-contain object-bottom drop-shadow-[0_15px_25px_rgba(0,0,0,0.15)]" />
+             </div>
           </div>
 
         </div>
