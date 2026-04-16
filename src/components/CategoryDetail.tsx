@@ -161,7 +161,7 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.9 }}
-            onClick={() => router.push(`/shop?cat=${categoryIndex}`)}
+            onClick={() => router.push(`/shop?cat=${cat.title.toLowerCase()}`)}
             className="px-6 py-2.5 bg-white text-black font-bold rounded-full text-xs uppercase tracking-widest hover:bg-black hover:text-white transition-colors shadow-xl"
           >
             Buy Now
@@ -173,7 +173,7 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
-          onClick={() => router.push(`/shop?cat=${categoryIndex}`)}
+          onClick={() => router.push(`/shop?cat=${cat.title.toLowerCase()}`)}
           className="hidden md:flex flex-col items-center gap-4 cursor-pointer hover:scale-105 transition-transform"
         >
           <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center relative overflow-hidden group">

@@ -177,7 +177,7 @@ export function CategoryHero({ onHover }: CategoryHeroProps) {
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
-                            router.push(`/shop?cat=${index}`);
+                            router.push(`/shop?cat=${cat.title.toLowerCase()}`);
                           }}
                           className="flex mx-auto items-center justify-center gap-1.5 px-3 py-1 rounded-full border border-white/40 text-white font-avant-garde text-[0.45rem] font-bold bg-transparent backdrop-blur-sm hover:bg-white hover:text-black transition-all duration-300 group shadow-lg"
                         >
