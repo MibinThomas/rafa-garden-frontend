@@ -212,7 +212,7 @@ export default function AboutPage() {
                 <span className="text-[#7a7a7a] font-light text-xl lg:text-[22px] tracking-wide">Dragon Fruit Plant</span>
               </div>
               <div className="absolute left-[20px] bottom-[-20px] w-[130px] h-[250px] pointer-events-none z-10 transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
-                <Image src="/images/hero/plants_premium.png" alt="Dragon Fruit Plant" fill className="object-contain object-bottom drop-shadow-[0_15px_25px_rgba(0,0,0,0.15)]" />
+                <Image src="/products/Plant 1 copy-4CPH7kam37YnVhsUfK3pinxwUeZr1O.webp" alt="Dragon Fruit Plant" fill className="object-contain object-bottom drop-shadow-[0_15px_25px_rgba(0,0,0,0.15)]" />
               </div>
             </div>
 
