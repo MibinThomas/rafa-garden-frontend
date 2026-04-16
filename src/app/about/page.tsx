@@ -228,41 +228,52 @@ export default function AboutPage() {
 
           <div className="relative z-10 flex flex-col lg:flex-row gap-10 lg:gap-6">
 
-            {/* LEFT COLUMN */}
-            <div className="w-full lg:w-[48%] flex flex-col gap-4 relative">
+            {/* LEFT COLUMN — Redesigned "Own Farming" focus with Image Collection */}
+            <div className="w-full lg:w-[48%] flex flex-col relative min-h-[500px]">
 
-              {/* 3 Small Farm Photos */}
-              <div className="flex gap-3">
-                <div className="relative flex-1 aspect-square rounded-2xl overflow-hidden bg-[#d8d9db]">
-                  <Image src="/images/hero/fresh_fruits.png" alt="Farm 1" fill className="object-cover" />
+              {/* 1. TOP GRID: 3 Small Photos */}
+              <div className="grid grid-cols-3 gap-3 mb-3">
+                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-lg border border-white/10 group">
+                  <Image src="/images/about/farm_small_1.png" alt="Farm Detail 1" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
                 </div>
-                <div className="relative flex-1 aspect-square rounded-2xl overflow-hidden bg-[#d8d9db]">
-                  <Image src="/images/hero/floatingpitaya.png" alt="Farm 2" fill className="object-cover" />
+                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-lg border border-white/10 group">
+                  <Image src="/images/about/farm_small_2.png" alt="Farm Detail 2" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
                 </div>
-                <div className="relative flex-1 aspect-square rounded-2xl overflow-hidden bg-[#d8d9db]">
-                  <Image src="/images/hero/fresh_fruits.png" alt="Farm 3" fill className="object-cover" />
+                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-lg border border-white/10 group">
+                  <Image src="/images/about/farm_small_3.png" alt="Farm Detail 3" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
                 </div>
               </div>
 
-              {/* Large Farm Photo */}
-              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#d8d9db]">
-                <Image src="/images/hero/plants_premium.png" alt="Farm Main" fill className="object-cover" />
+              {/* 2. PRIMARY IMAGE: Large Panoramic View */}
+              <div className="relative w-full aspect-[16/8] rounded-[2.5rem] overflow-hidden shadow-2xl border-2 border-white/20 mb-10 group">
+                <Image src="/images/about/farm_panoramic.png" alt="Dragon Fruit Plantation Panoramic" fill className="object-cover transition-transform duration-1000 group-hover:scale-[1.03]" />
               </div>
 
-              {/* "Own Farming" Watermark + Small Photo Row */}
-              <div className="flex items-end gap-4 mt-2">
-                <div className="flex-1">
-                  <h2 className="text-[4.5rem] md:text-[6rem] leading-[0.85] font-dharma-gothic font-black text-[#d1d2d4] tracking-tight select-none">
-                    Own<br />Farming
+              {/* 3. OWN FARMING BLOCK (Split layout) */}
+              <div className="relative mb-6">
+                {/* Row 1: "Own" + Image */}
+                <div className="flex items-center gap-6 lg:gap-10">
+                  <h2 className="text-[7.5rem] md:text-[11rem] lg:text-[13.5rem] leading-[0.8] font-dharma-gothic font-black text-[#d1d2d4] tracking-normal select-none">
+                    Own
                   </h2>
+                  <div className="ml-auto w-[180px] md:w-[240px] lg:w-[300px] h-[80px] md:h-[120px] lg:h-[150px] relative rounded-3xl overflow-hidden shadow-xl border-2 border-white/20 transition-transform duration-500 hover:scale-[1.02]">
+                    <Image 
+                      src="/images/about/farm_rows.png" 
+                      alt="Our Dragon Fruit Farm" 
+                      fill 
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
-                <div className="relative w-[140px] h-[140px] rounded-2xl overflow-hidden bg-[#d8d9db] shrink-0 mb-2">
-                  <Image src="/images/hero/floatingpitaya.png" alt="Farm Detail" fill className="object-cover" />
-                </div>
+
+                {/* Row 2: "Farming" */}
+                <h2 className="text-[7.5rem] md:text-[11rem] lg:text-[13.5rem] leading-[0.8] font-dharma-gothic font-black text-[#d1d2d4] tracking-normal select-none mt-4">
+                  Farming
+                </h2>
               </div>
 
               {/* Narrative Paragraph */}
-              <p className="text-[#888888] text-[0.72rem] leading-[1.9] font-light text-left max-w-[380px] mt-2">
+              <p className="text-[#888888] text-[0.78rem] leading-[1.8] font-light text-left max-w-[420px] ml-1">
                 Rafah Garden is more than just a farm – it's a passion project born from love for nature and commitment to quality. Nestled in the lush landscapes of Kasaragod, Kerala, we have dedicated ourselves to cultivating the finest dragon fruits and crafting premium products that bring the true taste of nature to your home.
               </p>
             </div>
@@ -288,7 +299,7 @@ export default function AboutPage() {
               <div className="relative w-full mt-auto mb-[50px] flex items-center">
 
                 {/* Dotted box — plant only inside */}
-                <div className="border-2 border-dotted border-[#b0bec9] rounded-2xl bg-[#f1f1f2] flex overflow-visible shrink-0" style={{width: 'calc(45% + 60px)'}}>
+                <div className="border-2 border-dotted border-[#b0bec9] rounded-2xl bg-[#f1f1f2] flex overflow-visible shrink-0" style={{ width: 'calc(45% + 60px)' }}>
                   {/* Plant — centered, overflows above */}
                   <div className="flex-1 flex justify-center items-end relative min-h-[180px] py-4">
                     <div className="absolute -top-[554px] w-[448px] h-[704px] z-[20]">
@@ -305,7 +316,7 @@ export default function AboutPage() {
                 </div>
 
                 {/* White text div — right of dotted box */}
-                <div className="bg-[#f1f1f2] rounded-2xl px-8 py-0 relative z-[10] flex items-center" style={{marginLeft: '-80px'}}>
+                <div className="bg-[#f1f1f2] rounded-2xl px-8 py-0 relative z-[10] flex items-center" style={{ marginLeft: '-80px' }}>
                   <h4 className="text-[2rem] md:text-[2.6rem] font-bold text-[#7a7b7d] leading-[1.1] tracking-tight font-avant-garde text-left">
                     Natural<br />Farming<br />Techniques
                   </h4>
