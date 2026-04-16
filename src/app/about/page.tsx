@@ -63,14 +63,15 @@ export default function AboutPage() {
         {/* Background Outline & Text */}
         <div className="absolute inset-x-0 top-0 h-[80%] flex items-center justify-center pointer-events-none z-0">
           <div className="relative w-[300px] h-[350px] md:w-[450px] md:h-[500px] flex flex-col items-center pt-10">
-            {/* Custom SVG Border resembling the puzzle piece box with smooth fillets */}
-            <svg className="absolute inset-0 w-full h-full" viewBox="-2 -2 504 604" fill="none" preserveAspectRatio="none">
-              <path d="M 40 0 L 460 0 A 40 40 0 0 1 500 40 L 500 340 A 20 20 0 0 1 480 360 A 57.5 40 0 0 0 480 440 A 20 20 0 0 1 500 460 L 500 560 A 40 40 0 0 1 460 600 L 40 600 A 40 40 0 0 1 0 560 L 0 360 A 20 20 0 0 1 20 340 A 57.5 40 0 0 0 20 260 A 20 20 0 0 1 0 240 L 0 40 A 40 40 0 0 1 40 0 Z" stroke="#c0c0c0" strokeWidth="1.5" />
-            </svg>
+            {/* Dragon fruit line curved design image as background */}
+            <Image
+              src="/images/about/Dragon fruit line curved.webp"
+              alt="Dragon Fruit Design"
+              fill
+              className="object-contain"
+            />
 
-            <h2 className="text-[2.5rem] md:text-[3.5rem] leading-[0.85] font-black font-brand-heading text-left tracking-tight text-[#b3b4b6] mt-4">
-              Dragon<br />Fruit<br />Products
-            </h2>
+
           </div>
         </div>
 
@@ -81,10 +82,8 @@ export default function AboutPage() {
         <div className="absolute left-6 md:left-[10%] bottom-[20%] flex flex-col gap-1 items-start z-30">
           <span className="text-xl md:text-3xl font-bold font-brand-heading text-[#b3b4b6] leading-none">Dragon<br />Fruit Plant</span>
         </div>
-        <div className="absolute right-6 md:right-[10%] top-[30%] flex flex-col gap-1 items-start z-30">
+        <div className="absolute right-6 md:right-[10%] top-[30%] bottom-[20%] flex flex-col justify-between items-start z-30">
           <span className="text-xl md:text-3xl font-bold font-brand-heading text-[#b3b4b6] leading-none text-left">Dragon<br />Fruit Crush</span>
-        </div>
-        <div className="absolute right-6 md:right-[10%] bottom-[20%] flex flex-col gap-1 items-start z-30">
           <span className="text-xl md:text-3xl font-bold font-brand-heading text-[#b3b4b6] leading-none text-left">Dragon<br />Fruit Fruit</span>
         </div>
 
@@ -109,7 +108,7 @@ export default function AboutPage() {
         <div
           className="absolute z-20 w-[450px] h-[450px] md:w-[700px] md:h-[700px] -bottom-[225px] md:-bottom-[350px] left-1/2 -translate-x-1/2 shrink-0 pointer-events-none"
         >
-          <Image src="/images/hero/fresh_fruits.png" alt="Fresh Dragon Fruits" fill className="object-contain drop-shadow-[0_40px_50px_rgba(0,0,0,0.25)]" priority />
+          <Image src="/images/about/Dragon fruit png.webp" alt="Fresh Dragon Fruits" fill className="object-contain drop-shadow-[0_40px_50px_rgba(0,0,0,0.25)]" priority />
         </div>
 
       </section>
