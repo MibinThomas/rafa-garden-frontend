@@ -3,6 +3,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { X, Upload, Save, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 interface SiteContent {
   key: string;
@@ -10,6 +16,8 @@ interface SiteContent {
   type: "text" | "image" | "json" | "font";
   group: string;
   label?: string;
+  hint?: string;
+  maxLength?: number;
 }
 
 interface SiteContentFormProps {
@@ -141,9 +149,25 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
               ) : (
                 content.map((item) => (
                   <div key={item.key} className="space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">
-                      {item.label || item.key.split('.').pop()?.replace(/_/g, ' ')}
-                    </label>
+                    <div className="flex justify-between items-end">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">
+                        {item.label || item.key.split('.').pop()?.replace(/_/g, ' ')}
+                      </label>
+                      {item.maxLength && (
+                        <span className={cn(
+                          "text-[9px] font-bold uppercase tracking-tight mr-1",
+                          item.value.length > item.maxLength ? "text-red-500" : "text-gray-300"
+                        )}>
+                          {item.value.length} / {item.maxLength} chars
+                        </span>
+                      )}
+                    </div>
+
+                    {item.hint && (
+                      <p className="text-[9px] font-bold text-[#c81c6a] uppercase tracking-wider ml-1 -mt-1 opacity-70">
+                        {item.hint}
+                      </p>
+                    )}
                     
                     {item.type === "image" || item.type === "font" ? (
                       <div className="relative group">

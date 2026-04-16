@@ -27,10 +27,10 @@ export async function POST(request: NextRequest) {
     
     const results = await Promise.all(
       items.map(async (item) => {
-        const { key, value, type, group, label } = item;
+        const { key, value, type, group, label, hint, maxLength } = item;
         return await SiteContent.findOneAndUpdate(
           { key },
-          { value, type, group, label },
+          { value, type, group, label, hint, maxLength },
           { upsert: true, new: true }
         );
       })

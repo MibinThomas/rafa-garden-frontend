@@ -6,6 +6,8 @@ export interface ISiteContent {
   type: "text" | "image" | "json" | "font";
   group: "global" | "home" | "about" | "heritage" | "header" | "footer" | "social" | "menus";
   label?: string;
+  hint?: string;
+  maxLength?: number;
 }
 
 const SiteContentSchema = new Schema<ISiteContent>(
@@ -15,6 +17,8 @@ const SiteContentSchema = new Schema<ISiteContent>(
     type: { type: String, enum: ["text", "image", "json", "font"], default: "text" },
     group: { type: String, enum: ["global", "home", "about", "heritage", "header", "footer", "social", "menus"], required: true },
     label: { type: String },
+    hint: { type: String },
+    maxLength: { type: Number },
   },
   { timestamps: true }
 );
