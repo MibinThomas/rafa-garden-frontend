@@ -123,10 +123,10 @@ export default function AboutPage() {
             <div className="w-full flex flex-col xl:flex-row justify-between items-start xl:items-end gap-12">
               {/* Massive Left Heading */}
               <div className="flex flex-col shrink-0">
-                <h2 className="text-[3.2rem] md:text-[4.8rem] lg:text-[5.6rem] xl:text-[6.4rem] font-brand-heading font-black text-[#7a7a7a] leading-[0.8] tracking-tight">
+                <h2 className="text-[5rem] md:text-[7rem] lg:text-[9rem] xl:text-[11rem] font-dharma-gothic font-black text-[#7a7a7a] leading-[0.9] tracking-tight">
                   Dragon Fruit.
                 </h2>
-                <h2 className="text-[3.2rem] md:text-[4.8rem] lg:text-[5.6rem] xl:text-[6.4rem] font-brand-heading font-black text-[#7a7a7a] leading-[0.8] tracking-tight">
+                <h2 className="text-[5rem] md:text-[7rem] lg:text-[9rem] xl:text-[11rem] font-dharma-gothic font-black text-[#7a7a7a] leading-[0.9] tracking-tight">
                   Products
                 </h2>
               </div>
