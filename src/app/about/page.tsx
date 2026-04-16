@@ -123,10 +123,10 @@ export default function AboutPage() {
             <div className="w-full flex flex-col xl:flex-row justify-between items-start xl:items-end gap-12">
               {/* Massive Left Heading */}
               <div className="flex flex-col shrink-0">
-                <h2 className="text-[4rem] md:text-[6rem] lg:text-[7rem] xl:text-[8rem] font-brand-heading font-black text-[#7a7a7a] leading-[0.8] tracking-tight">
+                <h2 className="text-[3.2rem] md:text-[4.8rem] lg:text-[5.6rem] xl:text-[6.4rem] font-brand-heading font-black text-[#7a7a7a] leading-[0.8] tracking-tight">
                   Dragon Fruit.
                 </h2>
-                <h2 className="text-[4rem] md:text-[6rem] lg:text-[7rem] xl:text-[8rem] font-brand-heading font-black text-[#7a7a7a] leading-[0.8] tracking-tight">
+                <h2 className="text-[3.2rem] md:text-[4.8rem] lg:text-[5.6rem] xl:text-[6.4rem] font-brand-heading font-black text-[#7a7a7a] leading-[0.8] tracking-tight">
                   Products
                 </h2>
               </div>
@@ -142,31 +142,28 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Lower Part: Split Background (#dadbdd top, #e6e7e8 bottom) and Product Composition */}
-        <div className="relative w-full">
-          {/* Split Background Layer */}
-          <div className="absolute inset-0 z-0 flex flex-col">
-            <div className="w-full h-1/4 bg-[#dadbdd]" />
-            <div className="w-full h-3/4 bg-[#e6e7e8]" />
+        {/* Lower Part: Full-bleed product image layout */}
+        <div className="relative w-full bg-[#f1f1f2] min-h-[520px]">
+
+          {/* Left Narrative Paragraph */}
+          <div className="relative z-20 w-full lg:w-[45%] px-6 md:px-12 py-16">
+            <p className="text-[#7a7a7a] text-sm md:text-base leading-relaxed text-left tracking-tight [word-spacing:-1px]">
+              Rafah Garden is more than just a farm – it's a passion project born from love for nature and commitment to quality. Nestled in the lush landscapes of Kasaragod, Kerala, we have dedicated ourselves to cultivating the finest dragon fruits and crafting premium products that bring the true taste of nature to your home.
+            </p>
           </div>
 
-          <div className="relative z-10 w-full max-w-[1700px] mx-auto px-6 md:px-12 flex flex-col lg:flex-row items-center justify-between pt-10 pb-20">
-            
-            {/* Left Narrative Paragraph */}
-            <div className="w-full lg:max-w-[450px] mb-20 lg:mb-0 z-20 shrink-0">
-              <p className="text-[#7a7a7a] text-sm md:text-base leading-relaxed text-left tracking-tight [word-spacing:-1px]">
-                Rafah Garden is more than just a farm – it's a passion project born from love for nature and commitment to quality. Nestled in the lush landscapes of Kasaragod, Kerala, we have dedicated ourselves to cultivating the finest dragon fruits and crafting premium products that bring the true taste of nature to your home.
-              </p>
+          {/* Center Product Image — overlaps 20% into the section above */}
+          <div className="absolute -top-[20%] left-0 right-0 bottom-0 flex items-start justify-center z-30 pointer-events-none">
+            <div className="relative w-[90%] md:w-[75%] lg:w-[65%] h-full translate-x-[50px] scale-[1.25]">
+              <Image
+                src="/images/about/All Products.webp"
+                alt="All Dragon Fruit Products"
+                fill
+                className="object-contain object-center drop-shadow-2xl"
+              />
             </div>
-
-            {/* Right Product Composition */}
-            <div className="relative w-full lg:w-[800px] h-[500px] md:h-[600px] flex items-center justify-center shrink-0">
-              <div className="relative w-[300px] md:w-[450px] h-[300px] md:h-[450px] -translate-y-[10%] z-40">
-                <Image src="/images/hero/jam_premium.png" alt="Dragon Fruit Jam Premium" fill className="object-contain drop-shadow-2xl" />
-              </div>
-            </div>
-
           </div>
+
         </div>
 
       </section>
