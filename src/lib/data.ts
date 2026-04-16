@@ -258,7 +258,7 @@ export const CATEGORIES: Category[] = [
     id: "04",
     title: "Plants",
     subtitle: "Grow Your Own Heritage",
-    image: "/images/hero/plants_premium.png",
+    image: "/products/Plant 1 copy-4CPH7kam37YnVhsUfK3pinxwUeZr1O.webp",
     color: "#7fa23fc8",
     products: [
       {
