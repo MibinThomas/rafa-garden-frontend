@@ -189,7 +189,7 @@ export default function AboutPage() {
                 <span className="text-[#888888] font-light text-2xl mr-4">+</span>
                 <span className="text-[#7a7a7a] font-light text-xl lg:text-[22px] tracking-wide">Dragon Fruit Jam</span>
               </div>
-              <div className="absolute left-[10px] bottom-[-10px] w-[140px] h-[160px] pointer-events-none z-10 transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
+              <div className="absolute left-[10px] bottom-[-10px] w-[224px] h-[256px] pointer-events-none z-10 transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
                 <Image src="/images/hero/jam_premium.png" alt="Dragon Fruit Jam" fill className="object-contain object-bottom drop-shadow-[0_15px_25px_rgba(0,0,0,0.15)]" />
               </div>
             </div>
@@ -211,7 +211,7 @@ export default function AboutPage() {
                 <span className="text-[#888888] font-light text-2xl mr-4">+</span>
                 <span className="text-[#7a7a7a] font-light text-xl lg:text-[22px] tracking-wide">Dragon Fruit Plant</span>
               </div>
-              <div className="absolute left-[20px] bottom-[-20px] w-[130px] h-[250px] pointer-events-none z-10 transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
+              <div className="absolute left-[20px] bottom-[-20px] w-[169px] h-[325px] pointer-events-none z-10 transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
                 <Image src="/products/Plant 1 copy-4CPH7kam37YnVhsUfK3pinxwUeZr1O.webp" alt="Dragon Fruit Plant" fill className="object-contain object-bottom drop-shadow-[0_15px_25px_rgba(0,0,0,0.15)]" />
               </div>
             </div>
@@ -256,7 +256,7 @@ export default function AboutPage() {
                   <h2 className="text-[7.5rem] md:text-[11rem] lg:text-[13.5rem] leading-[0.8] font-dharma-gothic font-black text-[#d1d2d4] tracking-normal select-none">
                     Own
                   </h2>
-                  <div className="ml-auto w-[180px] md:w-[240px] lg:w-[300px] h-[80px] md:h-[120px] lg:h-[150px] relative rounded-3xl overflow-hidden shadow-xl border-2 border-white/20 transition-transform duration-500 hover:scale-[1.02]">
+                  <div className="ml-auto w-[225px] md:w-[300px] lg:w-[375px] h-[100px] md:h-[150px] lg:h-[188px] relative rounded-3xl overflow-hidden shadow-xl border-2 border-white/20 transition-transform duration-500 hover:scale-[1.02]">
                     <Image 
                       src="/images/about/farm_rows.png" 
                       alt="Our Dragon Fruit Farm" 
