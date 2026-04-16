@@ -113,7 +113,7 @@ export default function AboutPage() {
 
       </section>
       {/* 2. PRODUCTS SHOWCASE AREA */}
-      <section className="relative w-full z-20 mt-40 mb-32">
+      <section className="relative w-full z-20 mt-40">
         
         {/* Solid #dadbdd Top Part */}
         <div className="w-full bg-[#dadbdd] pt-20 pb-10">
@@ -168,8 +168,9 @@ export default function AboutPage() {
 
       </section>
       {/* 3. INDIVIDUAL PRODUCT LINES (2x2 Grid) */}
-      <section className="relative w-full max-w-[1400px] mx-auto px-6 mb-40 mt-32 z-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-32 gap-x-12 lg:gap-x-20 place-items-center">
+      <div className="w-full bg-[#f1f1f2]">
+        <section className="relative w-full max-w-[1400px] mx-auto px-6 pt-40 pb-32 z-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-32 gap-x-12 lg:gap-x-20 place-items-center">
           
           {/* Dragon Fruit Crush */}
           <div className="relative flex items-center justify-end w-full max-w-[500px] h-[100px] group cursor-pointer mt-12 md:mt-0">
@@ -200,7 +201,7 @@ export default function AboutPage() {
                 <span className="text-[#7a7a7a] font-light text-xl lg:text-[22px] tracking-wide">Dragon Fruit Fruit</span>
              </div>
              <div className="absolute left-[10px] bottom-[-30px] w-[200px] h-[220px] pointer-events-none z-10 transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
-                <Image src="/images/hero/fresh_fruits.png" alt="Fresh Dragon Fruit" fill className="object-contain object-bottom drop-shadow-[0_15px_25px_rgba(0,0,0,0.15)]" />
+                <Image src="/images/about/Dragon fruit png.webp" alt="Fresh Dragon Fruit" fill className="object-contain object-bottom drop-shadow-[0_15px_25px_rgba(0,0,0,0.15)]" />
              </div>
           </div>
 
@@ -216,7 +217,8 @@ export default function AboutPage() {
           </div>
 
         </div>
-      </section>
+        </section>
+      </div>
 
       {/* 4. FARMING SECTION */}
       <section className="relative w-full max-w-[1700px] mx-auto px-6 md:px-12 flex flex-col md:flex-row gap-12 pt-20">
