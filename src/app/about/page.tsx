@@ -114,11 +114,11 @@ export default function AboutPage() {
       </section>
       {/* 2. PRODUCTS SHOWCASE AREA */}
       <section className="relative w-full z-20 mt-40">
-        
+
         {/* Solid #dadbdd Top Part */}
         <div className="w-full bg-[#dadbdd] pt-20 pb-10">
           <div className="w-full max-w-[1700px] mx-auto px-6 md:px-12">
-            
+
             {/* Top Typography & Description */}
             <div className="w-full flex flex-col xl:flex-row justify-between items-start xl:items-end gap-12">
               {/* Massive Left Heading */}
@@ -138,7 +138,7 @@ export default function AboutPage() {
                 </p>
               </div>
             </div>
-            
+
           </div>
         </div>
 
@@ -171,115 +171,153 @@ export default function AboutPage() {
       <div className="w-full bg-[#f1f1f2]">
         <section className="relative w-full max-w-[1400px] mx-auto px-6 pt-40 pb-32 z-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-32 gap-x-12 lg:gap-x-20 place-items-center">
-          
-          {/* Dragon Fruit Crush */}
-          <div className="relative flex items-center justify-end w-full max-w-[500px] h-[100px] group cursor-pointer mt-12 md:mt-0">
-             <div className="w-[80%] h-[75px] border border-[#c1c1c1] rounded-2xl flex items-center pl-24 lg:pl-28 pr-6 bg-transparent transition-colors duration-300 group-hover:bg-white/40">
+
+            {/* Dragon Fruit Crush */}
+            <div className="relative flex items-center justify-end w-full max-w-[500px] h-[100px] group cursor-pointer mt-12 md:mt-0">
+              <div className="w-[80%] h-[75px] border border-[#c1c1c1] rounded-2xl flex items-center pl-24 lg:pl-28 pr-6 bg-transparent transition-colors duration-300 group-hover:bg-white/40">
                 <span className="text-[#888888] font-light text-2xl mr-4">+</span>
                 <span className="text-[#7a7a7a] font-light text-xl lg:text-[22px] tracking-wide">Dragon Fruit Crush</span>
-             </div>
-             <div className="absolute left-[-20px] bottom-[-20px] w-[180px] h-[280px] pointer-events-none z-10 transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
+              </div>
+              <div className="absolute left-[-20px] bottom-[-20px] w-[180px] h-[280px] pointer-events-none z-10 transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
                 <Image src="/images/hero/crush_bottle.png" alt="Dragon Fruit Crush" fill className="object-contain object-bottom drop-shadow-[0_15px_25px_rgba(0,0,0,0.15)]" />
-             </div>
-          </div>
+              </div>
+            </div>
 
-          {/* Dragon Fruit Jam */}
-          <div className="relative flex items-center justify-end w-full max-w-[500px] h-[100px] group cursor-pointer mt-12 md:mt-0">
-             <div className="w-[80%] h-[75px] border border-[#c1c1c1] rounded-2xl flex items-center pl-24 lg:pl-28 pr-6 bg-transparent transition-colors duration-300 group-hover:bg-white/40">
+            {/* Dragon Fruit Jam */}
+            <div className="relative flex items-center justify-end w-full max-w-[500px] h-[100px] group cursor-pointer mt-12 md:mt-0">
+              <div className="w-[80%] h-[75px] border border-[#c1c1c1] rounded-2xl flex items-center pl-24 lg:pl-28 pr-6 bg-transparent transition-colors duration-300 group-hover:bg-white/40">
                 <span className="text-[#888888] font-light text-2xl mr-4">+</span>
                 <span className="text-[#7a7a7a] font-light text-xl lg:text-[22px] tracking-wide">Dragon Fruit Jam</span>
-             </div>
-             <div className="absolute left-[10px] bottom-[-10px] w-[140px] h-[160px] pointer-events-none z-10 transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
+              </div>
+              <div className="absolute left-[10px] bottom-[-10px] w-[140px] h-[160px] pointer-events-none z-10 transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
                 <Image src="/images/hero/jam_premium.png" alt="Dragon Fruit Jam" fill className="object-contain object-bottom drop-shadow-[0_15px_25px_rgba(0,0,0,0.15)]" />
-             </div>
-          </div>
+              </div>
+            </div>
 
-          {/* Dragon Fruit Fruit */}
-          <div className="relative flex items-center justify-end w-full max-w-[500px] h-[100px] group cursor-pointer mt-12 md:mt-0">
-             <div className="w-[80%] h-[75px] border border-[#c1c1c1] rounded-2xl flex items-center pl-24 lg:pl-28 pr-6 bg-transparent transition-colors duration-300 group-hover:bg-white/40">
+            {/* Dragon Fruit Fruit */}
+            <div className="relative flex items-center justify-end w-full max-w-[500px] h-[100px] group cursor-pointer mt-12 md:mt-0">
+              <div className="w-[80%] h-[75px] border border-[#c1c1c1] rounded-2xl flex items-center pl-24 lg:pl-28 pr-6 bg-transparent transition-colors duration-300 group-hover:bg-white/40">
                 <span className="text-[#888888] font-light text-2xl mr-4">+</span>
                 <span className="text-[#7a7a7a] font-light text-xl lg:text-[22px] tracking-wide">Dragon Fruit Fruit</span>
-             </div>
-             <div className="absolute left-[10px] bottom-[-30px] w-[200px] h-[220px] pointer-events-none z-10 transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
+              </div>
+              <div className="absolute left-[10px] bottom-[-30px] w-[200px] h-[220px] pointer-events-none z-10 transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
                 <Image src="/images/about/Dragon fruit png.webp" alt="Fresh Dragon Fruit" fill className="object-contain object-bottom drop-shadow-[0_15px_25px_rgba(0,0,0,0.15)]" />
-             </div>
-          </div>
+              </div>
+            </div>
 
-          {/* Dragon Fruit Plant */}
-          <div className="relative flex items-center justify-end w-full max-w-[500px] h-[100px] group cursor-pointer mt-12 md:mt-0">
-             <div className="w-[80%] h-[75px] border border-[#c1c1c1] rounded-2xl flex items-center pl-24 lg:pl-28 pr-6 bg-transparent transition-colors duration-300 group-hover:bg-white/40">
+            {/* Dragon Fruit Plant */}
+            <div className="relative flex items-center justify-end w-full max-w-[500px] h-[100px] group cursor-pointer mt-12 md:mt-0">
+              <div className="w-[80%] h-[75px] border border-[#c1c1c1] rounded-2xl flex items-center pl-24 lg:pl-28 pr-6 bg-transparent transition-colors duration-300 group-hover:bg-white/40">
                 <span className="text-[#888888] font-light text-2xl mr-4">+</span>
                 <span className="text-[#7a7a7a] font-light text-xl lg:text-[22px] tracking-wide">Dragon Fruit Plant</span>
-             </div>
-             <div className="absolute left-[20px] bottom-[-20px] w-[130px] h-[250px] pointer-events-none z-10 transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
+              </div>
+              <div className="absolute left-[20px] bottom-[-20px] w-[130px] h-[250px] pointer-events-none z-10 transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
                 <Image src="/images/hero/plants_premium.png" alt="Dragon Fruit Plant" fill className="object-contain object-bottom drop-shadow-[0_15px_25px_rgba(0,0,0,0.15)]" />
-             </div>
-          </div>
+              </div>
+            </div>
 
-        </div>
+          </div>
         </section>
       </div>
 
       {/* 4. FARMING SECTION */}
-      <section className="relative w-full max-w-[1700px] mx-auto px-6 md:px-12 flex flex-col md:flex-row gap-12 pt-20">
+      <div className="w-full bg-[#f1f1f2]">
+        <section className="relative w-full max-w-[1700px] mx-auto px-6 md:px-12 py-20 overflow-hidden">
 
-        {/* HUGE Vertical Watermark Right */}
-        <div className="absolute right-0 top-0 h-full flex flex-col justify-center pointer-events-none overflow-hidden select-none z-0">
-          <span className="text-[18rem] md:text-[25rem] font-brand-heading font-black text-[#dcdddf] leading-none [writing-mode:vertical-rl] opacity-40">
-            Farming
-          </span>
-        </div>
+          {/* "Farming" Watermark — far right */}
 
-        {/* Left Col - Images and Description */}
-        <div className="w-full md:w-5/12 flex flex-col gap-6 z-10">
-          <div className="flex gap-4">
-            <div className="relative w-1/3 aspect-square rounded-xl overflow-hidden bg-black/5">
-              <Image src="/images/about/kenny-dragon-fruit-tree-farm-thailand-country-landscape.jpg" alt="Farm" fill className="object-cover" />
+          <div className="relative z-10 flex flex-col lg:flex-row gap-10 lg:gap-6">
+
+            {/* LEFT COLUMN */}
+            <div className="w-full lg:w-[48%] flex flex-col gap-4 relative">
+
+              {/* 3 Small Farm Photos */}
+              <div className="flex gap-3">
+                <div className="relative flex-1 aspect-square rounded-2xl overflow-hidden bg-[#d8d9db]">
+                  <Image src="/images/hero/fresh_fruits.png" alt="Farm 1" fill className="object-cover" />
+                </div>
+                <div className="relative flex-1 aspect-square rounded-2xl overflow-hidden bg-[#d8d9db]">
+                  <Image src="/images/hero/floatingpitaya.png" alt="Farm 2" fill className="object-cover" />
+                </div>
+                <div className="relative flex-1 aspect-square rounded-2xl overflow-hidden bg-[#d8d9db]">
+                  <Image src="/images/hero/fresh_fruits.png" alt="Farm 3" fill className="object-cover" />
+                </div>
+              </div>
+
+              {/* Large Farm Photo */}
+              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#d8d9db]">
+                <Image src="/images/hero/plants_premium.png" alt="Farm Main" fill className="object-cover" />
+              </div>
+
+              {/* "Own Farming" Watermark + Small Photo Row */}
+              <div className="flex items-end gap-4 mt-2">
+                <div className="flex-1">
+                  <h2 className="text-[4.5rem] md:text-[6rem] leading-[0.85] font-dharma-gothic font-black text-[#d1d2d4] tracking-tight select-none">
+                    Own<br />Farming
+                  </h2>
+                </div>
+                <div className="relative w-[140px] h-[140px] rounded-2xl overflow-hidden bg-[#d8d9db] shrink-0 mb-2">
+                  <Image src="/images/hero/floatingpitaya.png" alt="Farm Detail" fill className="object-cover" />
+                </div>
+              </div>
+
+              {/* Narrative Paragraph */}
+              <p className="text-[#888888] text-[0.72rem] leading-[1.9] font-light text-left max-w-[380px] mt-2">
+                Rafah Garden is more than just a farm – it's a passion project born from love for nature and commitment to quality. Nestled in the lush landscapes of Kasaragod, Kerala, we have dedicated ourselves to cultivating the finest dragon fruits and crafting premium products that bring the true taste of nature to your home.
+              </p>
             </div>
-            <div className="relative w-1/3 aspect-square rounded-xl overflow-hidden bg-black/5">
-              <Image src="/images/about/kenny-dragon-fruit-tree-farm-thailand-country-landscape.jpg" alt="Farm" fill className="object-cover" />
+
+            {/* RIGHT COLUMN */}
+            <div className="w-full lg:w-[52%] flex flex-col relative min-h-[700px]">
+
+              {/* "Farming" watermark — right side overlay */}
+              <div className="absolute right-[150px] top-0 bottom-0 flex items-start pointer-events-none select-none z-0">
+                <span className="text-[9.45rem] md:text-[12.6rem] font-avant-garde font-semibold text-[#e0e1e3] leading-none [writing-mode:vertical-rl] rotate-180 opacity-70">
+                  Farming
+                </span>
+              </div>
+
+              {/* "Nature's Sweetness" — half-width dashed box, text overflows right */}
+              <div className="relative border-2 border-dashed border-[#c0c1c3] border-r-0 rounded-3xl pt-14 pb-14 pl-14 pr-0 mt-0 w-[calc(60%-100px)] z-10 overflow-visible bg-[#f1f1f2]">
+                <h3 className="text-[3.51rem] md:text-[4.45rem] leading-[1.1] font-bold tracking-tight text-[#7a7b7d] font-avant-garde text-left whitespace-nowrap translate-x-[50px]">
+                  Nature's<br />Sweetness<br />in Every Fruit
+                </h3>
+              </div>
+
+              {/* Plant + Dotted Box + Text — row layout */}
+              <div className="relative w-full mt-auto mb-[50px] flex items-center">
+
+                {/* Dotted box — plant only inside */}
+                <div className="border-2 border-dotted border-[#b0bec9] rounded-2xl bg-[#f1f1f2] flex overflow-visible shrink-0" style={{width: 'calc(45% + 60px)'}}>
+                  {/* Plant — centered, overflows above */}
+                  <div className="flex-1 flex justify-center items-end relative min-h-[180px] py-4">
+                    <div className="absolute -top-[554px] w-[448px] h-[704px] z-[20]">
+                      <div className="relative w-full h-full">
+                        <Image
+                          src="/products/Plant 1 copy-4CPH7kam37YnVhsUfK3pinxwUeZr1O.webp"
+                          alt="Dragon Fruit Plant"
+                          fill
+                          className="object-contain object-bottom drop-shadow-xl"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* White text div — right of dotted box */}
+                <div className="bg-[#f1f1f2] rounded-2xl px-8 py-0 relative z-[10] flex items-center" style={{marginLeft: '-80px'}}>
+                  <h4 className="text-[2rem] md:text-[2.6rem] font-bold text-[#7a7b7d] leading-[1.1] tracking-tight font-avant-garde text-left">
+                    Natural<br />Farming<br />Techniques
+                  </h4>
+                </div>
+
+              </div>
+
+
             </div>
-            <div className="relative flex-1 aspect-square rounded-xl overflow-hidden bg-black/5 opacity-50">
-            </div>
           </div>
-
-          <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden bg-black/5 shadow-md">
-            <Image src="/images/about/kenny-dragon-fruit-tree-farm-thailand-country-landscape.jpg" alt="Farm Main" fill className="object-cover" />
-          </div>
-
-          <div className="flex gap-6 mt-12 mb-6">
-            <h2 className="text-[5rem] md:text-[7rem] leading-[0.85] font-black font-brand-heading text-[#d1d1d3]">
-              Own<br />Farming
-            </h2>
-            <div className="relative w-40 aspect-square rounded-2xl overflow-hidden bg-black/5 mt-4 group">
-              <Image src="/images/about/kenny-dragon-fruit-tree-farm-thailand-country-landscape.jpg" alt="Farm Detail" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
-            </div>
-          </div>
-
-          <p className="text-[#666666] text-[0.7rem] leading-[1.8] font-light text-justify max-w-[360px]">
-            Rafah Garden is more than just a farm — it is a sanctuary where our heritage meets the art of modern cultivation. We are dedicated to creating the most extraordinary pitaya, combining ancient wisdom with sustainable practices to craft products of unmatched quality and flavor.
-          </p>
-        </div>
-
-        {/* Right Col - Headings & Plant */}
-        <div className="w-full md:w-7/12 flex flex-col items-center pt-10 z-10">
-          <div className="border border-black/10 rounded-3xl pt-16 pb-12 px-12 md:mr-auto md:ml-12 inline-block bg-[#e6e7e8]/40 backdrop-blur-sm">
-            <h3 className="text-[3rem] md:text-[4rem] leading-[1.05] font-black tracking-tight text-[#666666]">
-              Nature's<br />Sweetness<br />in Every Fruit
-            </h3>
-          </div>
-
-          <div className="relative mt-12 w-[350px] h-[450px]">
-            <Image src="/products/plants_premium.png" alt="Potted Plant" fill className="object-contain drop-shadow-2xl" />
-          </div>
-
-          <div className="flex w-full justify-end mt-[-60px] mr-12 border-t border-black/20 pt-4 max-w-[350px]">
-            <h4 className="text-[1.8rem] font-bold text-[#666666] leading-[1.1] tracking-tight">
-              Natural<br />Farming<br />Techniques
-            </h4>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
     </div>
   );
