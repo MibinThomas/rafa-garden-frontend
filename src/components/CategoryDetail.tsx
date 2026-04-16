@@ -114,26 +114,6 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
           </button>
         )}
 
-        {/* Right Variant Selectors */}
-        <div className="absolute right-4 md:right-12 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-30 pointer-events-auto">
-          <AnimatePresence mode="wait">
-            <motion.div key={currentProduct.id + "-variants"} className="flex flex-col gap-4">
-              {currentProduct.variants?.map((v, idx) => (
-                <motion.button
-                  key={idx}
-                  initial={{ x: 50, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  exit={{ x: 50, opacity: 0 }}
-                  transition={{ delay: idx * 0.1 }}
-                  className={`w-12 h-12 md:w-14 md:h-14 rounded-full border-[1.5px] flex flex-col items-center justify-center text-[10px] font-bold transition-all duration-300
-                    ${idx === 0 ? "bg-white text-black border-white shadow-[0_0_20px_rgba(255,255,255,0.3)]" : "text-white border-white/30 hover:border-white/80 hover:bg-white/10"}
-                  `}
-                >
-                  <span>{v.size}</span>
-                  <span className="scale-90 opacity-80">{v.unit}</span>
-                </motion.button>
-              ))}
-            </motion.div>
           </AnimatePresence>
         </div>
 
@@ -184,7 +164,7 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
             onClick={() => router.push(`/shop?cat=${categoryIndex}`)}
             className="px-6 py-2.5 bg-white text-black font-bold rounded-full text-xs uppercase tracking-widest hover:bg-black hover:text-white transition-colors shadow-xl"
           >
-            Add to Cart
+            Buy Now
           </motion.button>
         </div>
 

@@ -9,11 +9,10 @@ import { useHeaderColor } from "@/lib/HeaderColorContext";
 import { CATEGORIES } from "@/lib/data";
 
 interface CategoryHeroProps {
-  onSelect: (index: number) => void;
   onHover?: (index: number) => void;
 }
 
-export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
+export function CategoryHero({ onHover }: CategoryHeroProps) {
   const [categories, setCategories] = useState<any[]>(CATEGORIES);
   const [hoveredIndex, setHoveredIndex] = useState<number>(0);
   const [isMounted, setIsMounted] = useState(false);
@@ -115,7 +114,13 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
 
                     {/* Middle Left Button - Reduced Size and Centered */}
                     <div className="flex-1 flex items-center justify-start w-full max-w-[130px]">
-                      <button className="flex items-center justify-center gap-1.5 px-3 py-1 rounded-full border border-[#333333]/30 text-[#333333] font-avant-garde text-[0.45rem] font-bold bg-transparent group hover:bg-[#333333] hover:text-white transition-all duration-300">
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          router.push(`/shop?cat=${cat.title.toLowerCase()}`);
+                        }}
+                        className="flex items-center justify-center gap-1.5 px-3 py-1 rounded-full border border-[#333333]/30 text-[#333333] font-avant-garde text-[0.45rem] font-bold bg-transparent group hover:bg-[#333333] hover:text-white transition-all duration-300"
+                      >
                         <span>View More</span>
                         <ArrowRight size={8} className="opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
                       </button>
@@ -260,7 +265,7 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
           <motion.div
             key={cat.id}
             onMouseEnter={() => setHoveredIndex(index)}
-            onClick={() => onSelect(index)}
+            onClick={() => router.push(`/shop?cat=${cat.title.toLowerCase()}`)}
             className="relative h-full flex flex-col cursor-pointer overflow-hidden border-r border-black/5 last:border-none group min-h-[600px] md:min-h-[720px]"
             animate={{
               backgroundColor: getBgColor(index, hoveredIndex === index)
@@ -354,10 +359,8 @@ export function CategoryHero({ onSelect, onHover }: CategoryHeroProps) {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={(e) => {
-                    if (hoveredIndex === index) {
-                      e.stopPropagation();
-                      router.push(`/shop?cat=${index}`);
-                    }
+                    e.stopPropagation();
+                    router.push(`/shop?cat=${cat.title.toLowerCase()}`);
                   }}
                   className={`flex items-center justify-between w-full max-w-[170px] md:max-w-[180px] px-6 md:px-8 py-3 rounded-full border transition-all duration-300 font-avant-garde text-[0.7rem] md:text-[0.75rem] font-medium tracking-tight z-30
                     ${hoveredIndex === index

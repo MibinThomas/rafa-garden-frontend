@@ -20,10 +20,13 @@ function ShopContent() {
 
   // Initial category from query param
   const catParam = searchParams.get("cat");
-  const initialIndex = catParam ? parseInt(catParam) : 0;
+  const initialIndex = catParam ? 
+    CATEGORIES.findIndex(c => c.title.toLowerCase() === catParam.toLowerCase()) : 
+    0;
+  const safeInitialIndex = initialIndex === -1 ? 0 : initialIndex;
 
   // State for active category
-  const [activeCategoryIndex, setActiveCategoryIndex] = useState(initialIndex);
+  const [activeCategoryIndex, setActiveCategoryIndex] = useState(safeInitialIndex);
   const activeCategory = categories[activeCategoryIndex] || CATEGORIES[0];
 
   // State for spotlight featured product
@@ -42,12 +45,12 @@ function ShopContent() {
     // Update active category if query param changes
     const cat = searchParams.get("cat");
     if (cat !== null) {
-      const idx = parseInt(cat);
-      if (!isNaN(idx) && idx >= 0 && idx < categories.length) {
+      const idx = categories.findIndex(c => c.title.toLowerCase() === cat.toLowerCase());
+      if (idx !== -1) {
         setActiveCategoryIndex(idx);
       }
     }
-  }, [searchParams, categories.length]);
+  }, [searchParams, categories]);
 
   useEffect(() => {
     // Fetch live categories from database
