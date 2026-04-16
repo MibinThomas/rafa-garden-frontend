@@ -114,9 +114,6 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
           </button>
         )}
 
-          </AnimatePresence>
-        </div>
-
         {/* Pagination Dots */}
         {cat.products?.length > 1 && (
           <div className="absolute bottom-32 md:bottom-36 left-1/2 -translate-x-1/2 z-40 flex gap-2">
