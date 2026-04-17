@@ -108,19 +108,18 @@ function ShopContent() {
 
             {/* Top Category Selection (Mobile Mockup Style) */}
             <div className="absolute top-[30px] left-0 w-full pointer-events-auto">
-              <div className="flex gap-2.5 px-6 overflow-x-auto scrollbar-hide py-2">
+              <div className="flex gap-2.5 px-6 justify-center overflow-x-auto scrollbar-hide py-2">
                 {categories.map((cat, idx) => {
                   const isActive = activeCategoryIndex === idx;
                   return (
                     <button
                       key={cat.id}
                       onClick={() => setActiveCategoryIndex(idx)}
-                      className="px-6 py-2 rounded-full border transition-all duration-300 font-bold uppercase tracking-widest text-[9px] whitespace-nowrap"
+                      className="px-5 py-2 rounded-full border transition-all duration-300 font-bold uppercase tracking-widest text-[8.5px] whitespace-nowrap"
                       style={{
                         borderColor: cat.color,
                         color: cat.color,
                         backgroundColor: isActive ? 'white' : 'transparent',
-                        boxShadow: isActive ? `0 4px 12px ${cat.color}25` : 'none',
                         opacity: isActive ? 1 : 0.6
                       }}
                     >
@@ -165,7 +164,7 @@ function ShopContent() {
         </div>
 
         {/* Mobile Dynamic Category Backdrop (Mobile Only) */}
-        <div className="lg:hidden absolute inset-0 z-0">
+        <div className="lg:hidden absolute inset-0 z-0 px-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={"bg-" + activeCategory.title}
@@ -342,12 +341,7 @@ function ShopContent() {
         {/* Bottom Bar - Grouped Controls */}
         <div className="relative z-50 w-full mb-12 flex items-center justify-center">
           <div className="max-w-[1700px] w-full px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-0">
-            {/* Description Line (Left) */}
-            <div className="max-w-[400px] text-center md:text-left">
-              <p className="text-[0.6rem] md:text-[0.65rem] leading-relaxed text-[#333333]/40 font-avant-garde font-medium tracking-wider">
-                This is a sample product details must be enter here to<br />show the ui ux design minimal stage
-              </p>
-            </div>
+            <div className="flex-1" />
 
             {/* Hub (Grouped Right) - Only visible on Desktop */}
             <div className="hidden lg:flex flex-col sm:flex-row items-center gap-6">
@@ -391,14 +385,14 @@ function ShopContent() {
       {/* Active Collection Single View Grid */}
       < section className="max-w-[1700px] mx-auto w-full px-6 md:px-12 pt-16 pb-8" >
 
-        {/* Dynamic Section Header */}
+        {/* Dynamic Section Header - Hidden on Mobile/Tab as per user request */}
         < AnimatePresence mode="wait" >
           <motion.div
             key={"header-" + activeCategory.id}
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
-            className="mb-10 flex flex-col md:flex-row items-baseline justify-between gap-4 border-b border-white/10 pb-6"
+            className="hidden lg:flex mb-10 flex flex-col md:flex-row items-baseline justify-between gap-4 border-b border-white/10 pb-6"
           >
             <div>
               <h2 className="text-3xl md:text-4xl font-black font-playfair tracking-tight text-white mb-2">
