@@ -94,7 +94,7 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
 
       {/* Product Information Area */}
       <div className="flex flex-col flex-1">
-        <h3 className="font-brand-heading font-medium text-[1.25rem] md:text-[1.5rem] text-[#666c75] tracking-tight mb-2 leading-none">
+        <h3 className="font-brand-heading font-medium text-[1.1rem] md:text-[1.5rem] text-[#666c75] tracking-tight mb-2 leading-[1.2] md:leading-none">
           {product.name}
         </h3>
 
@@ -157,7 +157,7 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
 
           <button
             onClick={handleAddToCart}
-            className="px-4 py-1.5 rounded-full text-white font-bold text-[0.5rem] tracking-wider transition-transform hover:scale-105 active:scale-95"
+            className="px-4 py-2 rounded-full text-white font-bold text-[0.6rem] md:text-[0.65rem] tracking-wider transition-transform hover:scale-105 active:scale-95 whitespace-nowrap"
             style={{ backgroundColor: accentColor }}
           >
             Buy Now

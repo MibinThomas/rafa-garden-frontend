@@ -111,7 +111,7 @@ function ShopContent() {
               animate={{ opacity: 0.1, scale: 1.1, y: 0, x: -100 }}
               exit={{ opacity: 0, scale: 1.2, y: -100, x: -100 }}
               transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-[400px] leading-none text-[#333333] tracking-normal lowercase whitespace-nowrap opacity-5"
+              className="text-[150px] sm:text-[200px] md:text-[300px] lg:text-[400px] leading-none text-[#333333] tracking-normal lowercase whitespace-nowrap opacity-5"
               style={{ fontFamily: "'DharmaGothic', sans-serif", fontWeight: 700 }}
             >
               {activeCategory.title}
@@ -124,7 +124,7 @@ function ShopContent() {
           <div className="max-w-[1700px] mx-auto w-full h-full relative px-6 md:px-12">
 
             {/* Title Block - Aligned Left with Logo */}
-            <div className="absolute top-[112px] left-6 md:left-12 pointer-events-auto">
+            <div className="absolute top-[80px] md:top-[112px] left-6 md:left-12 pointer-events-auto">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeCategory.id}
@@ -138,15 +138,15 @@ function ShopContent() {
                   <h1 className="font-brand-heading text-[2.5rem] leading-[0.9] tracking-tight capitalize" style={{ color: activeCategory.color }}>
                     {activeCategory.title}
                   </h1>
-                  <p className="text-[0.7rem] capitalize tracking-[0.2em] text-[#333333]/60 font-avant-garde font-bold mt-8 max-w-[200px] leading-relaxed">
+                  <p className="text-[0.6rem] md:text-[0.7rem] capitalize tracking-[0.2em] text-[#333333]/60 font-avant-garde font-bold mt-4 md:mt-8 max-w-[150px] md:max-w-[200px] leading-relaxed">
                     This is a sample<br />Description for product 1....
                   </p>
                 </motion.div>
               </AnimatePresence>
             </div>
 
-            {/* Category Navigation - Aligned Top Right */}
-            <div className="absolute top-[88px] right-[124px] md:right-[148px] pointer-events-auto">
+            {/* Category Navigation - Aligned Top Right - Hidden on Mobile */}
+            <div className="hidden lg:flex absolute top-[88px] right-[124px] md:right-[148px] pointer-events-auto">
               <div className="flex gap-4">
                 {categories.map((cat, idx) => {
                   const displayTitle = cat.title;
@@ -180,26 +180,26 @@ function ShopContent() {
           {/* Navigation Arrows */}
           <button
             onClick={prevProduct}
-            className="absolute left-12 p-3.5 rounded-full border border-[#333333]/15 text-[#333333]/40 hover:text-[#333333] hover:bg-white/20 transition-all z-50 group"
+            className="absolute left-4 md:left-12 p-3.5 rounded-full border border-[#333333]/15 text-[#333333]/40 hover:text-[#333333] hover:bg-white/20 transition-all z-50 group"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" className="group-active:scale-90 transition-transform"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 md:w-5 md:h-5 group-active:scale-90 transition-transform"><polyline points="15 18 9 12 15 6"></polyline></svg>
           </button>
 
           <button
             onClick={nextProduct}
-            className="absolute right-12 p-3.5 rounded-full border border-[#333333]/15 text-[#333333]/40 hover:text-[#333333] hover:bg-white/20 transition-all z-50 group"
+            className="absolute right-4 md:right-12 p-3.5 rounded-full border border-[#333333]/15 text-[#333333]/40 hover:text-[#333333] hover:bg-white/20 transition-all z-50 group"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" className="group-active:scale-90 transition-transform"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 md:w-5 md:h-5 group-active:scale-90 transition-transform"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
 
           {/* Main Product Container */}
           <div className="relative flex items-center justify-center w-full max-w-6xl h-full py-12">
 
-            {/* Product Centerpiece - Shifted 100px Left */}
-            <div className="relative z-20 w-[225px] h-[300px] md:w-[338px] md:h-[52.5vh] max-h-[562px] flex justify-center items-center -translate-x-[100px]">
+            {/* Product Centerpiece - Shifted 100px Left on Desktop */}
+            <div className="relative z-20 w-[200px] h-[260px] sm:w-[250px] sm:h-[350px] md:w-[338px] md:h-[52.5vh] max-h-[562px] flex justify-center items-center lg:-translate-x-[100px]">
 
               {/* Decorative Vertical Text - Bottom aligned parallel lines */}
-              <div className="absolute bottom-[0px] right-[-260px] flex flex-row items-end gap-1.5 opacity-30 select-none pointer-events-none">
+              <div className="hidden lg:flex absolute bottom-[0px] right-[-260px] flex flex-row items-end gap-1.5 opacity-30 select-none pointer-events-none">
                 <span className="text-[14px] font-bold uppercase tracking-[0.3em] [writing-mode:vertical-rl] rotate-180 font-avant-garde whitespace-nowrap">Pure</span>
                 <span className="text-[14px] font-bold uppercase tracking-[0.3em] [writing-mode:vertical-rl] rotate-180 font-avant-garde whitespace-nowrap">Botanical</span>
                 <span className="text-[14px] font-bold uppercase tracking-[0.3em] [writing-mode:vertical-rl] rotate-180 font-avant-garde whitespace-nowrap">Refreshment</span>
@@ -265,17 +265,17 @@ function ShopContent() {
 
         {/* Bottom Bar - Grouped Controls */}
         <div className="relative z-50 w-full mb-12 flex items-center justify-center">
-          <div className="max-w-[1700px] w-full px-6 md:px-12 flex items-center justify-between">
+          <div className="max-w-[1700px] w-full px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-0">
             {/* Description Line (Left) */}
-            <div className="max-w-[400px]">
-              <p className="text-[0.65rem] leading-relaxed text-[#333333]/40 font-avant-garde font-medium tracking-wider">
+            <div className="max-w-[400px] text-center md:text-left">
+              <p className="text-[0.6rem] md:text-[0.65rem] leading-relaxed text-[#333333]/40 font-avant-garde font-medium tracking-wider">
                 This is a sample product details must be enter here to<br />show the ui ux design minimal stage
               </p>
             </div>
 
             {/* Hub (Grouped Right) */}
-            <div className="flex items-center gap-6">
-              <div className="flex items-center gap-4 mr-6">
+            <div className="flex flex-col sm:flex-row items-center gap-6">
+              <div className="flex items-center gap-4">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   className="w-10 h-10 flex items-center justify-center rounded-full border border-[#c81c6a]/20 text-[#c81c6a] hover:bg-[#c81c6a] hover:text-white transition-all"
@@ -291,19 +291,21 @@ function ShopContent() {
                 </button>
               </div>
 
-              <button className="px-14 py-4 rounded-full font-avant-garde font-bold text-[0.65rem] uppercase tracking-[0.2em] bg-[#666666] text-white transition-all hover:bg-[#444444] shadow-xl">
-                Buy Now
-              </button>
+              <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+                <button className="w-full sm:w-auto px-8 md:px-14 py-4 rounded-full font-avant-garde font-bold text-[0.6rem] md:text-[0.65rem] uppercase tracking-[0.2em] bg-[#666666] text-white transition-all hover:bg-[#444444] shadow-xl whitespace-nowrap">
+                  Buy Now
+                </button>
 
-              <button
-                className="px-14 py-4 rounded-full font-avant-garde font-bold text-[0.65rem] uppercase tracking-[0.2em] text-white transition-all shadow-xl"
-                style={{
-                  backgroundColor: activeCategory.color,
-                  boxShadow: `0 20px 40px ${activeCategory.color}44`
-                }}
-              >
-                Add to Cart
-              </button>
+                <button
+                  className="w-full sm:w-auto px-8 md:px-14 py-4 rounded-full font-avant-garde font-bold text-[0.6rem] md:text-[0.65rem] uppercase tracking-[0.2em] text-white transition-all shadow-xl whitespace-nowrap"
+                  style={{
+                    backgroundColor: activeCategory.color,
+                    boxShadow: `0 20px 40px ${activeCategory.color}44`
+                  }}
+                >
+                  Add to Cart
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -369,7 +371,7 @@ function ShopContent() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }}
-            className="relative p-6 sm:p-12 md:p-16 lg:p-20 rounded-[31px] overflow-hidden"
+            className="relative p-4 sm:p-12 md:p-16 lg:p-20 rounded-[20px] sm:rounded-[31px] overflow-hidden"
           >
             {/* Fixed Background Color */}
             <div
@@ -379,7 +381,7 @@ function ShopContent() {
             <div className="absolute inset-0 border border-white/20 rounded-[inherit] pointer-events-none" />
 
             {activeCategory.products && activeCategory.products.length > 0 ? (
-              <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-x-4 sm:gap-x-8 gap-y-16 sm:gap-y-24 items-start">
+              <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-x-4 sm:gap-x-8 gap-y-12 sm:gap-y-24 items-start">
                 {activeCategory.products.map((product: Product) => (
                   <ProductCard
                     key={product.id}
