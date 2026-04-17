@@ -368,15 +368,14 @@ function ShopContent() {
               </div>
 
               <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-                <button className="w-full sm:w-auto px-8 md:px-14 py-4 rounded-full font-avant-garde font-bold text-[0.6rem] md:text-[0.65rem] uppercase tracking-[0.2em] bg-[#666666] text-white transition-all hover:bg-[#444444] shadow-xl whitespace-nowrap">
+                <button className="w-full sm:w-auto px-8 md:px-14 py-4 rounded-full font-avant-garde font-bold text-[0.6rem] md:text-[0.65rem] uppercase tracking-[0.2em] bg-[#666666] text-white transition-all hover:bg-[#444444] whitespace-nowrap">
                   Buy Now
                 </button>
 
                 <button
-                  className="w-full sm:w-auto px-8 md:px-14 py-4 rounded-full font-avant-garde font-bold text-[0.6rem] md:text-[0.65rem] uppercase tracking-[0.2em] text-white transition-all shadow-xl whitespace-nowrap"
+                  className="w-full sm:w-auto px-8 md:px-14 py-4 rounded-full font-avant-garde font-bold text-[0.6rem] md:text-[0.65rem] uppercase tracking-[0.2em] text-white transition-all whitespace-nowrap"
                   style={{
-                    backgroundColor: activeCategory.color,
-                    boxShadow: `0 20px 40px ${activeCategory.color}44`
+                    backgroundColor: activeCategory.color
                   }}
                 >
                   Add to Cart
