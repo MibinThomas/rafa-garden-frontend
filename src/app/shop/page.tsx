@@ -20,8 +20,8 @@ function ShopContent() {
 
   // Initial category from query param
   const catParam = searchParams.get("cat");
-  const initialIndex = catParam ? 
-    CATEGORIES.findIndex(c => c.title.toLowerCase() === catParam.toLowerCase()) : 
+  const initialIndex = catParam ?
+    CATEGORIES.findIndex(c => c.title.toLowerCase() === catParam.toLowerCase()) :
     0;
   const safeInitialIndex = initialIndex === -1 ? 0 : initialIndex;
 
@@ -102,8 +102,98 @@ function ShopContent() {
         ref={heroRef}
         className="relative w-full h-[100dvh] flex flex-col overflow-hidden z-10 mt-[50px]"
       >
-        {/* Background Watermark (Dharma Gothic) */}
-        <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden">
+        {/* Mobile-Only Elements - Hidden on Desktop */}
+        <div className="lg:hidden absolute inset-0 z-40 pointer-events-none">
+          <div className="relative w-full h-full px-6 py-12">
+
+            {/* Top Category Selection (Mobile Mockup Style) */}
+            <div className="absolute top-[30px] left-0 w-full pointer-events-auto">
+              <div className="flex gap-2.5 px-6 overflow-x-auto scrollbar-hide py-2">
+                {categories.map((cat, idx) => {
+                  const isActive = activeCategoryIndex === idx;
+                  return (
+                    <button
+                      key={cat.id}
+                      onClick={() => setActiveCategoryIndex(idx)}
+                      className="px-6 py-2 rounded-full border transition-all duration-300 font-bold uppercase tracking-widest text-[9px] whitespace-nowrap"
+                      style={{
+                        borderColor: cat.color,
+                        color: cat.color,
+                        backgroundColor: isActive ? 'white' : 'transparent',
+                        boxShadow: isActive ? `0 4px 12px ${cat.color}25` : 'none',
+                        opacity: isActive ? 1 : 0.6
+                      }}
+                    >
+                      {cat.title}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Top Left Title Block (Mobile) */}
+            <div className="absolute top-[130px] left-8 pointer-events-none">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={"title-mob-" + activeCategory.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <h1 className="font-brand-heading text-[2.8rem] leading-[1.05] tracking-tight text-[#333333] drop-shadow-sm">
+                    Dragon<br />
+                    <span style={{ color: activeCategory.color }}>{activeCategory.title}</span>
+                  </h1>
+                  <p className="text-[0.65rem] font-bold tracking-widest text-black/40 uppercase mt-2 font-avant-garde">
+                    {activeCategory.subtitle || "This is a sample product details must"}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Bottom Left Decorative Block (Mobile) */}
+            <div className="absolute bottom-[40px] left-8 pointer-events-none">
+              <h2 className="font-brand-heading text-[1.8rem] leading-[1.1] text-[#333333] mb-2">
+                Pure<br />Botanical<br />Refreshment
+              </h2>
+              <p className="text-[0.6rem] leading-relaxed text-[#333333]/40 font-avant-garde font-bold max-w-[150px]">
+                This is a sample product details must be enter here to show the ui ux design minimal stage
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        {/* Mobile Dynamic Category Backdrop (Mobile Only) */}
+        <div className="lg:hidden absolute inset-0 z-0">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={"bg-" + activeCategory.title}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              className="relative w-full h-full"
+            >
+              <Image 
+                src={
+                  activeCategory.title.toLowerCase() === 'crush' ? "/images/hero/shopherocrush.webp" :
+                  activeCategory.title.toLowerCase() === 'jams' ? "/images/hero/jam_premium.png" :
+                  activeCategory.title.toLowerCase() === 'fruits' ? "/images/hero/fresh_fruits.png" :
+                  activeCategory.title.toLowerCase() === 'plants' ? "/images/hero/Plant.webp" :
+                  "/images/hero/shopherocrush.webp" // Default
+                }
+                alt={`${activeCategory.title} backdrop`}
+                fill 
+                className="object-contain" // Using contain to maintain aspect ratio without cropping away from the text areas
+                priority
+              />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Background Watermark (Dharma Gothic) - Properly Hidden on Mobile */}
+        <div className="hidden lg:flex absolute inset-0 z-0 items-center justify-center pointer-events-none overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.h1
               key={activeCategory.title}
@@ -123,45 +213,26 @@ function ShopContent() {
         <div className="absolute inset-x-0 top-0 bottom-0 z-40 pointer-events-none">
           <div className="max-w-[1700px] mx-auto w-full h-full relative px-6 md:px-12">
 
-            {/* Title Block - Aligned Left with Logo */}
-            <div className="absolute top-[80px] md:top-[112px] left-6 md:left-12 pointer-events-auto">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeCategory.id}
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <h1 className="font-brand-heading text-[2.5rem] leading-[1.1] tracking-tight capitalize" style={{ color: activeCategory.color }}>
-                    Dragon
-                  </h1>
-                  <h1 className="font-brand-heading text-[2.5rem] leading-[0.9] tracking-tight capitalize" style={{ color: activeCategory.color }}>
-                    {activeCategory.title}
-                  </h1>
-                  <p className="text-[0.6rem] md:text-[0.7rem] capitalize tracking-[0.2em] text-[#333333]/60 font-avant-garde font-bold mt-4 md:mt-8 max-w-[150px] md:max-w-[200px] leading-relaxed">
-                    This is a sample<br />Description for product 1....
-                  </p>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
             {/* Category Navigation - Aligned Top Right - Hidden on Mobile */}
             <div className="hidden lg:flex absolute top-[88px] right-[124px] md:right-[148px] pointer-events-auto">
-              <div className="flex gap-4">
+              <div className="flex gap-3">
                 {categories.map((cat, idx) => {
                   const displayTitle = cat.title;
+                  const isActive = activeCategoryIndex === idx;
                   return (
                     <button
                       key={cat.id}
                       onClick={() => setActiveCategoryIndex(idx)}
-                      className={`px-8 py-2 rounded-full border transition-all duration-300 font-avant-garde text-[0.7rem] font-bold tracking-[0.15em] uppercase whitespace-nowrap
-                        ${activeCategoryIndex === idx
-                          ? "bg-white/10 backdrop-blur-md shadow-sm"
-                          : "bg-transparent hover:bg-white/5"}
+                      className={`px-7 py-2 rounded-full border transition-all duration-300 font-avant-garde text-[0.7rem] font-bold tracking-[0.15em] uppercase whitespace-nowrap
+                        ${isActive
+                          ? "shadow-sm"
+                          : "hover:bg-white/5"}
                       `}
                       style={{
-                        borderColor: activeCategoryIndex === idx ? cat.color : "rgba(51, 51, 51, 0.2)",
-                        color: activeCategoryIndex === idx ? cat.color : "#666666"
+                        borderColor: cat.color,
+                        color: cat.color,
+                        backgroundColor: isActive ? 'white' : 'transparent',
+                        opacity: isActive ? 1 : 0.7
                       }}
                     >
                       {displayTitle}
@@ -174,20 +245,20 @@ function ShopContent() {
           </div>
         </div>
 
-        {/* Central Spotlight Area */}
-        <div className="flex-1 relative w-full flex items-center justify-center px-6 md:px-12">
+        {/* Central Spotlight Area - Desktop View */}
+        <div className="hidden lg:flex flex-1 relative w-full items-center justify-center px-6 md:px-12">
 
           {/* Navigation Arrows */}
           <button
             onClick={prevProduct}
-            className="absolute left-4 md:left-12 p-3.5 rounded-full border border-[#333333]/15 text-[#333333]/40 hover:text-[#333333] hover:bg-white/20 transition-all z-50 group"
+            className="hidden lg:flex absolute left-4 md:left-12 p-3.5 rounded-full border border-[#333333]/15 text-[#333333]/40 hover:text-[#333333] hover:bg-white/20 transition-all z-50 group items-center justify-center"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 md:w-5 md:h-5 group-active:scale-90 transition-transform"><polyline points="15 18 9 12 15 6"></polyline></svg>
           </button>
 
           <button
             onClick={nextProduct}
-            className="absolute right-4 md:right-12 p-3.5 rounded-full border border-[#333333]/15 text-[#333333]/40 hover:text-[#333333] hover:bg-white/20 transition-all z-50 group"
+            className="hidden lg:flex absolute right-4 md:right-12 p-3.5 rounded-full border border-[#333333]/15 text-[#333333]/40 hover:text-[#333333] hover:bg-white/20 transition-all z-50 group items-center justify-center"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 md:w-5 md:h-5 group-active:scale-90 transition-transform"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
@@ -263,6 +334,11 @@ function ShopContent() {
           </div>
         </div>
 
+        {/* Central Spotlight Area - Mobile View removed centerpiece as per user request */}
+        <div className="lg:hidden flex-1 relative w-full flex items-center justify-center px-6">
+          {/* Front product images removed on mobile */}
+        </div>
+
         {/* Bottom Bar - Grouped Controls */}
         <div className="relative z-50 w-full mb-12 flex items-center justify-center">
           <div className="max-w-[1700px] w-full px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-0">
@@ -273,8 +349,8 @@ function ShopContent() {
               </p>
             </div>
 
-            {/* Hub (Grouped Right) */}
-            <div className="flex flex-col sm:flex-row items-center gap-6">
+            {/* Hub (Grouped Right) - Only visible on Desktop */}
+            <div className="hidden lg:flex flex-col sm:flex-row items-center gap-6">
               <div className="flex items-center gap-4">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -311,31 +387,7 @@ function ShopContent() {
         </div>
       </motion.section>
 
-      {/* Mobile Category Selection Bar */}
-      <div className="lg:hidden w-full px-6 py-8 overflow-x-auto scrollbar-hide flex gap-3 z-20 relative">
-        {categories.map((cat: Category, index: number) => {
-          const isActive = index === activeCategoryIndex;
-          return (
-            <button
-              key={cat.id}
-              onClick={() => setActiveCategoryIndex(index)}
-              style={{ backgroundColor: cat.color, borderColor: cat.color }}
-              className={`relative shrink-0 flex items-center gap-3 px-6 py-3 rounded-xl border transition-all duration-300
-                ${isActive
-                  ? 'shadow-xl text-white opacity-100 scale-105'
-                  : 'opacity-40 text-white/90 scale-100'
-                }
-              `}
-            >
-              <span className={`w-1.5 h-1.5 rounded-full bg-white ${isActive ? 'opacity-100' : 'opacity-50'}`} />
-              <span className="font-bold tracking-[0.1em] uppercase text-[10px] whitespace-nowrap">
-                {cat.title}
-              </span>
-            </button>
-          );
-        })
-        }
-      </div >
+      {/* Mobile Category Selection Bar removed as per user request to use Top Pills only */}
 
       {/* Active Collection Single View Grid */}
       < section className="max-w-[1700px] mx-auto w-full px-6 md:px-12 pt-16 pb-8" >

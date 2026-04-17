@@ -258,42 +258,42 @@ export const CATEGORIES: Category[] = [
     id: "04",
     title: "Plants",
     subtitle: "Grow Your Own Heritage",
-    image: "/products/Plant 1 copy-4CPH7kam37YnVhsUfK3pinxwUeZr1O.webp",
+    image: "/images/hero/Plant.webp",
     color: "#7fa23fc8",
     products: [
       {
         id: "p-1",
         name: "Sample Product 1",
         description: "This is a sample description for product 1.",
-        image: "/products/Plant 1 copy-4CPH7kam37YnVhsUfK3pinxwUeZr1O.webp",
+        image: "/images/hero/Plant.webp",
         variants: [{ size: "Medium", unit: "Pot" }]
       },
       {
         id: "p-2",
         name: "Sample Product 2",
         description: "This is a sample description for product 2.",
-        image: "/products/Plant 1 copy-4CPH7kam37YnVhsUfK3pinxwUeZr1O.webp",
+        image: "/images/hero/Plant.webp",
         variants: [{ size: "Large", unit: "Pot" }]
       },
       {
         id: "p-3",
         name: "Sample Product 3",
         description: "This is a sample description for product 3.",
-        image: "/products/Plant 1 copy-4CPH7kam37YnVhsUfK3pinxwUeZr1O.webp",
+        image: "/images/hero/Plant.webp",
         variants: [{ size: "Small", unit: "Pot" }, { size: "Medium", unit: "Pot" }]
       },
       {
         id: "p-4",
         name: "Sample Product 4",
         description: "This is a sample description for product 4.",
-        image: "/products/Plant 1 copy-4CPH7kam37YnVhsUfK3pinxwUeZr1O.webp",
+        image: "/images/hero/Plant.webp",
         variants: [{ size: "Large", unit: "Pot" }]
       },
       {
         id: "p-5",
         name: "Sample Product 5",
         description: "This is a sample description for product 5.",
-        image: "/products/Plant 1 copy-4CPH7kam37YnVhsUfK3pinxwUeZr1O.webp",
+        image: "/images/hero/Plant.webp",
         variants: [{ size: "Medium", unit: "Pot" }]
       }
     ]
