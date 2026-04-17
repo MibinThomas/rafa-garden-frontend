@@ -7,6 +7,7 @@ import { useCart } from "@/lib/CartContext";
 import { useWishlist } from "@/lib/WishlistContext";
 import { Product } from "@/lib/data";
 import { Heart, Plus, Minus } from "lucide-react";
+import Link from "next/link";
 
 export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { product: Product, accentColor?: string, onSelect?: (product: Product) => void }) {
   const { addToCart } = useCart();
@@ -91,8 +92,8 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
           </button>
 
           {/* Product Image Stage */}
-          <div
-            onClick={() => onSelect?.(product)}
+          <Link
+            href={`/product/${product.id}`}
             className="relative w-full h-full flex items-end justify-center cursor-pointer pt-4 pb-[25px]"
           >
             <motion.div
@@ -110,7 +111,7 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
                 priority
               />
             </motion.div>
-          </div>
+          </Link>
         </div>
 
         {/* Right: Refined Information Panel */}
