@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useCart } from "@/lib/CartContext";
@@ -12,7 +12,16 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
   const { addToCart } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
   const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
-  const [quantity, setQuantity] = useState(2); // Set to 2 to match mockup
+  const [quantity, setQuantity] = useState(2);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia("(min-width: 768px)");
+    setIsDesktop(mql.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mql.addEventListener("change", handler);
+    return () => mql.removeEventListener("change", handler);
+  }, []);
 
   const selectedVariant = product.variants[selectedVariantIdx] || { size: "Standard", unit: "", price: 599 };
   const currentPrice = selectedVariant.price || 599.00;
@@ -38,116 +47,146 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="group relative flex flex-col h-full bg-transparent p-4 md:p-6"
+      className="group relative flex flex-col h-full bg-transparent p-4"
     >
-      {/* Top Section: Showcase & Info */}
-      <div className="flex gap-4 md:gap-6 items-start mb-6">
-        
-        {/* Left: Image Showcase with Decorative Frame */}
-        <div className="relative w-[52%] md:w-[45%] aspect-[0.7] flex-shrink-0">
-          {/* Decorative Frame */}
-          <div className="absolute left-0 bottom-0 w-[94%] h-[92%] md:w-[85%] md:h-[85%] rounded-[1.5rem] md:rounded-[2rem] border border-black/[0.1] -z-0" />
-          
-          {/* Wishlist Button */}
+      <div className="flex gap-4 md:gap-5 items-stretch mb-6 min-h-[220px]">
+
+        {/* Left: Premium SVG Decorative Frame & Image */}
+        <div className="relative w-[45%] flex-shrink-0 flex flex-col items-center">
+
+          {/* Custom Decorative SVG Frame */}
+          <div className="absolute inset-0 -z-10 pointer-events-none">
+            <svg width="100%" height="100%" viewBox="0 0 120 180" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+              {/* Main Line Path: Wraps Left, Bottom, and part of Right side */}
+              {/* Vertical line starts exactly 2px below the circle boundary */}
+              <path
+                d="M 12 30 V 164 C 12 172 20 176 26 176 H 82 C 88 176 92 172 92 164 V 156"
+                stroke="#333333"
+                strokeWidth="0.8"
+                strokeOpacity="0.15"
+                fill="none"
+              />
+              {/* Neck Line extending horizontally from 2px away from the circle */}
+              <path
+                d="M 24 24 H 82"
+                stroke="#333333"
+                strokeWidth="0.8"
+                strokeOpacity="0.15"
+                fill="none"
+              />
+            </svg>
+          </div>
+
+          {/* Floating Heart Circle */}
           <button
             onClick={handleWishlist}
-            className="absolute top-[8%] left-[0%] z-30 w-8 h-8 md:w-9 md:h-9 rounded-full flex items-center justify-center border border-black/[0.1] bg-transparent transition-all hover:bg-black/5"
+            className="absolute top-[14px] left-[2px] z-30 w-[20px] h-[20px] rounded-full flex items-center justify-center border border-black/[0.1] bg-[#f1f1f2] transition-all hover:bg-black/5"
           >
-            <Heart size={14} fill={isFavorited ? "#ef4444" : "#cccccc"} color={isFavorited ? "#ef4444" : "transparent"} />
+            <Heart
+              size={10}
+              fill={isFavorited ? "#ef4444" : "#cccccc"}
+              color={isFavorited ? "#ef4444" : "transparent"}
+              className="transition-colors"
+            />
           </button>
 
-          {/* Product Image */}
-          <div 
+          {/* Product Image Stage */}
+          <div
             onClick={() => onSelect?.(product)}
-            className="absolute inset-x-0 -top-4 bottom-0 z-10 flex items-center justify-center cursor-pointer"
+            className="relative w-full h-full flex items-end justify-center cursor-pointer pt-4 pb-[25px]"
           >
             <motion.div
-              className="relative w-full h-full"
-              whileHover={{ scale: 1.05 }}
+              className="relative w-full h-full max-h-[200px] z-10"
+              whileHover={{ scale: (isDesktop ? 1.7 : 1.5), x: 25, y: -20 }}
+              initial={{ scale: isDesktop ? 1.6 : 1.4, x: 25, y: -20 }}
+              animate={{ scale: isDesktop ? 1.6 : 1.4, x: 25, y: -20 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
             >
               <Image
                 src={product.image}
                 alt={product.name}
                 fill
-                className="object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.12)]"
+                className="object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.15)]"
                 priority
               />
             </motion.div>
           </div>
         </div>
 
-        {/* Right: Detailed Information */}
-        <div className="flex flex-col flex-1 pt-1">
-          <h3 className="font-brand-heading text-[1.5rem] md:text-[1.8rem] leading-[1.1] text-[#666c75] tracking-tight mb-4 lowercase">
-            Dragon<br />
-            <span>{product.name.replace("Dragon ", "")}</span>
+        {/* Right: Refined Information Panel */}
+        <div className="flex flex-col flex-1 justify-center pl-1">
+          {/* Title Staging */}
+          <h3 className="font-avant-garde text-[1.2rem] md:text-[1.4rem] leading-[1.05] text-[#666c75] tracking-tight mb-3">
+            <span className="font-extrabold block text-[#333333]">Dragon</span>
+            <span className="font-bold">{product.name.replace("Dragon ", "")}</span>
           </h3>
 
-          <div className="flex items-baseline gap-2 mb-4">
-            <span className="text-[1.6rem] md:text-[2rem] font-light text-[#666666]">
+          {/* Price & Taxes Logic */}
+          <div className="flex items-baseline gap-1 mb-2">
+            <span className="text-[0.9rem] md:text-[1rem] font-bold text-[#333333] tracking-tighter">
               ₹{currentPrice.toFixed(0)}
             </span>
-            <span className="text-[0.6rem] text-[#666666]/50 whitespace-nowrap">
+            <span className="text-[0.45rem] text-[#333333]/40 whitespace-nowrap font-medium italic">
               inclusive all taxes
             </span>
           </div>
 
-          {/* Quantity Controls (Boxed Style) */}
-          <div className="flex items-center gap-3 mb-6">
+          {/* Quantity Controls (Mockup Style) */}
+          <div className="flex items-center gap-2 mb-2">
             <button
-              onClick={(e) => { e.stopPropagation(); if(quantity > 1) setQuantity(prev => prev - 1); }}
-              className="w-7 h-7 flex items-center justify-center rounded-lg border border-black/[0.12] text-black/60 hover:bg-black/5"
+              onClick={(e) => { e.stopPropagation(); if (quantity > 1) setQuantity(prev => prev - 1); }}
+              className="w-5 h-5 flex items-center justify-center rounded-md border border-black/[0.06] text-black/40 hover:text-black/70 hover:bg-black/5 transition-all"
             >
-              <Minus size={12} strokeWidth={2.5} />
+              <Minus size={10} strokeWidth={2} />
             </button>
-            <span className="text-[0.9rem] font-medium text-black/60 w-4 text-center">
+            <span className="text-[0.65rem] font-medium text-[#666666] w-3 text-center font-playfair">
               {quantity}
             </span>
             <button
               onClick={(e) => { e.stopPropagation(); setQuantity(prev => prev + 1); }}
-              className="w-7 h-7 flex items-center justify-center rounded-lg border border-black/[0.12] text-black/60 hover:bg-black/5"
+              className="w-5 h-5 flex items-center justify-center rounded-md border border-black/[0.06] text-black/40 hover:text-black/70 hover:bg-black/5 transition-all"
             >
-              <Plus size={12} strokeWidth={2.5} />
+              <Plus size={10} strokeWidth={2} />
             </button>
           </div>
 
-          {/* Variants selection */}
-          <div className="flex flex-col gap-2.5">
-            {product.variants.map((v, idx) => (
-              <button
-                key={idx}
-                onClick={(e) => { e.stopPropagation(); setSelectedVariantIdx(idx); }}
-                className="flex items-center gap-2 group"
-              >
-                <span className={`text-[0.8rem] font-medium transition-colors ${
-                  selectedVariantIdx === idx ? "text-[#a3a3a3]" : "text-[#a3a3a3]/50 group-hover:text-[#a3a3a3]"
-                }`}>
-                  {v.size}{v.unit}
-                </span>
-                <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all ${
-                  selectedVariantIdx === idx ? "border-[#c81c6a]" : "border-black/10"
-                }`}>
-                  {selectedVariantIdx === idx && (
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#c81c6a]" />
-                  )}
-                </div>
-              </button>
-            ))}
+          {/* Horizontal Variants selection */}
+          <div className="flex flex-row flex-wrap items-center gap-x-2 gap-y-1 mt-1">
+            {product.variants.map((v, idx) => {
+              const isActive = selectedVariantIdx === idx;
+              return (
+                <button
+                  key={idx}
+                  onClick={(e) => { e.stopPropagation(); setSelectedVariantIdx(idx); }}
+                  className="flex items-center gap-1 group"
+                >
+                  <span className={`text-[0.55rem] md:text-[0.6rem] font-medium transition-colors font-avant-garde tracking-tight ${isActive ? "text-[#333333]" : "text-[#cccccc] group-hover:text-[#999999]"
+                    }`}>
+                    {v.size}{v.unit}
+                  </span>
+                  <div className={`w-2 h-2 rounded-full border transition-all flex items-center justify-center ${isActive ? "border-[#c81c6a]" : "border-[#cccccc] group-hover:border-[#999999]"
+                    }`}>
+                    {isActive && (
+                      <div className="w-1 h-1 rounded-full bg-[#c81c6a] shadow-[0_0_4px_#c81c6a22]" />
+                    )}
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
 
-      {/* Bottom Actions: Full Width Buttons */}
-      <div className="flex gap-3 mt-auto">
+      {/* Action Hub - Premium Rounded Pills (Aligned to SVG Line) */}
+      <div className="flex justify-start gap-2 mt-2 px-0 ml-[4.5%]">
         <button
           onClick={handleAddToCart}
-          className="flex-1 py-3.5 rounded-full text-white font-bold text-[0.65rem] tracking-[0.1em] uppercase bg-[#c81c6a] shadow-lg shadow-[#c81c6a]/20 transition-all hover:scale-[1.02] active:scale-95"
+          className="px-6 py-2 rounded-full text-white font-bold text-[0.58rem] md:text-[0.62rem] tracking-[0.02em] uppercase bg-[#c81c6a] transition-all hover:scale-[1.02] active:scale-95 whitespace-nowrap"
         >
           Add to cart
         </button>
         <button
-          className="flex-1 py-3.5 rounded-full text-white font-bold text-[0.65rem] tracking-[0.1em] uppercase bg-[#666c75] shadow-lg transition-all hover:scale-[1.02] active:scale-95"
+          className="px-6 py-2 rounded-full text-white font-bold text-[0.58rem] md:text-[0.62rem] tracking-[0.02em] uppercase bg-[#666c75] transition-all hover:scale-[1.02] active:scale-95 whitespace-nowrap"
         >
           Buy Now
         </button>

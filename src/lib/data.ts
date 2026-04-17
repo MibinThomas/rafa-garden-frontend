@@ -121,8 +121,7 @@ export const CATEGORIES: Category[] = [
         image: "/products/crush_bottle.png",
         variants: [
           { size: "500", unit: "ML" },
-          { size: "100", unit: "ML" },
-          { size: "125", unit: "ML" }
+          { size: "100", unit: "ML" }
         ]
       },
       {
