@@ -47,9 +47,9 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="group relative flex flex-col h-full bg-transparent p-4"
+      className="group relative flex flex-col h-full bg-transparent p-2 md:p-4"
     >
-      <div className="flex gap-4 md:gap-5 items-stretch mb-6 min-h-[220px]">
+      <div className="flex gap-2 md:gap-5 items-stretch mb-4 md:mb-6 min-h-[160px] md:min-h-[220px]">
 
         {/* Left: Premium SVG Decorative Frame & Image */}
         <div className="relative w-[45%] flex-shrink-0 flex flex-col items-center">
@@ -96,10 +96,10 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
             className="relative w-full h-full flex items-end justify-center cursor-pointer pt-4 pb-[25px]"
           >
             <motion.div
-              className="relative w-full h-full max-h-[200px] z-10"
-              whileHover={{ scale: (isDesktop ? 1.7 : 1.5), x: 25, y: -20 }}
-              initial={{ scale: isDesktop ? 1.6 : 1.4, x: 25, y: -20 }}
-              animate={{ scale: isDesktop ? 1.6 : 1.4, x: 25, y: -20 }}
+              className="relative w-full h-full max-h-[150px] md:max-h-[200px] z-10"
+              whileHover={{ scale: (isDesktop ? 1.7 : 1.25), x: (isDesktop ? 25 : 5), y: (isDesktop ? -20 : -5) }}
+              initial={{ scale: isDesktop ? 1.6 : 1.15, x: isDesktop ? 25 : 5, y: isDesktop ? -20 : -5 }}
+              animate={{ scale: isDesktop ? 1.6 : 1.15, x: isDesktop ? 25 : 5, y: isDesktop ? -20 : -5 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
             >
               <Image
@@ -116,58 +116,58 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
         {/* Right: Refined Information Panel */}
         <div className="flex flex-col flex-1 justify-center pl-1">
           {/* Title Staging */}
-          <h3 className="font-avant-garde text-[1.2rem] md:text-[1.4rem] leading-[1.05] text-[#666c75] tracking-tight mb-3">
+          <h3 className="font-avant-garde text-[0.85rem] md:text-[1.4rem] leading-[1.05] text-[#666c75] tracking-tight mb-2 md:mb-3">
             <span className="font-extrabold block text-[#333333]">Dragon</span>
             <span className="font-bold">{product.name.replace("Dragon ", "")}</span>
           </h3>
 
           {/* Price & Taxes Logic */}
-          <div className="flex items-baseline gap-1 mb-2">
-            <span className="text-[0.9rem] md:text-[1rem] font-bold text-[#333333] tracking-tighter">
+          <div className="flex items-baseline gap-1 mb-1 md:mb-2">
+            <span className="text-[0.75rem] md:text-[1rem] font-bold text-[#333333] tracking-tighter">
               ₹{currentPrice.toFixed(0)}
             </span>
-            <span className="text-[0.45rem] text-[#333333]/40 whitespace-nowrap font-medium italic">
+            <span className="text-[0.4rem] md:text-[0.45rem] text-[#333333]/40 whitespace-nowrap font-medium italic">
               inclusive all taxes
             </span>
           </div>
 
           {/* Quantity Controls (Mockup Style) */}
-          <div className="flex items-center gap-2 mb-2">
+          <div className="flex items-center gap-1.5 md:gap-2 mb-1 md:mb-2">
             <button
               onClick={(e) => { e.stopPropagation(); if (quantity > 1) setQuantity(prev => prev - 1); }}
-              className="w-5 h-5 flex items-center justify-center rounded-md border border-black/[0.06] text-black/40 hover:text-black/70 hover:bg-black/5 transition-all"
+              className="w-4 h-4 md:w-5 md:h-5 flex items-center justify-center rounded-md border border-black/[0.06] text-black/40 hover:text-black/70 hover:bg-black/5 transition-all"
             >
-              <Minus size={10} strokeWidth={2} />
+              <Minus size={isDesktop ? 10 : 8} strokeWidth={2} />
             </button>
-            <span className="text-[0.65rem] font-medium text-[#666666] w-3 text-center font-playfair">
+            <span className="text-[0.55rem] md:text-[0.65rem] font-medium text-[#666666] w-2.5 md:w-3 text-center font-playfair">
               {quantity}
             </span>
             <button
               onClick={(e) => { e.stopPropagation(); setQuantity(prev => prev + 1); }}
-              className="w-5 h-5 flex items-center justify-center rounded-md border border-black/[0.06] text-black/40 hover:text-black/70 hover:bg-black/5 transition-all"
+              className="w-4 h-4 md:w-5 md:h-5 flex items-center justify-center rounded-md border border-black/[0.06] text-black/40 hover:text-black/70 hover:bg-black/5 transition-all"
             >
-              <Plus size={10} strokeWidth={2} />
+              <Plus size={isDesktop ? 10 : 8} strokeWidth={2} />
             </button>
           </div>
 
           {/* Horizontal Variants selection */}
-          <div className="flex flex-row flex-wrap items-center gap-x-2 gap-y-1 mt-1">
+          <div className="flex flex-row flex-wrap items-center gap-x-1.5 md:gap-x-2 gap-y-1 mt-0.5 md:mt-1">
             {product.variants.map((v, idx) => {
               const isActive = selectedVariantIdx === idx;
               return (
                 <button
                   key={idx}
                   onClick={(e) => { e.stopPropagation(); setSelectedVariantIdx(idx); }}
-                  className="flex items-center gap-1 group"
+                  className="flex items-center gap-0.5 md:gap-1 group"
                 >
-                  <span className={`text-[0.55rem] md:text-[0.6rem] font-medium transition-colors font-avant-garde tracking-tight ${isActive ? "text-[#333333]" : "text-[#cccccc] group-hover:text-[#999999]"
+                  <span className={`text-[0.5rem] md:text-[0.6rem] font-medium transition-colors font-avant-garde tracking-tight ${isActive ? "text-[#333333]" : "text-[#cccccc] group-hover:text-[#999999]"
                     }`}>
                     {v.size}{v.unit}
                   </span>
-                  <div className={`w-2 h-2 rounded-full border transition-all flex items-center justify-center ${isActive ? "border-[#c81c6a]" : "border-[#cccccc] group-hover:border-[#999999]"
+                  <div className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border transition-all flex items-center justify-center ${isActive ? "border-[#c81c6a]" : "border-[#cccccc] group-hover:border-[#999999]"
                     }`}>
                     {isActive && (
-                      <div className="w-1 h-1 rounded-full bg-[#c81c6a] shadow-[0_0_4px_#c81c6a22]" />
+                      <div className="w-0.5 h-0.5 md:w-1 md:h-1 rounded-full bg-[#c81c6a] shadow-[0_0_4px_#c81c6a22]" />
                     )}
                   </div>
                 </button>
@@ -178,15 +178,15 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
       </div>
 
       {/* Action Hub - Premium Rounded Pills (Aligned to SVG Line) */}
-      <div className="flex justify-start gap-2 mt-2 px-0 ml-[4.5%]">
+      <div className="flex justify-start gap-1 md:gap-2 mt-2 px-0 ml-0 md:ml-[4.5%]">
         <button
           onClick={handleAddToCart}
-          className="px-6 py-2 rounded-full text-white font-bold text-[0.58rem] md:text-[0.62rem] tracking-[0.02em] uppercase bg-[#c81c6a] transition-all hover:scale-[1.02] active:scale-95 whitespace-nowrap"
+          className="px-3 md:px-6 py-2 rounded-full text-white font-bold text-[0.45rem] md:text-[0.62rem] tracking-[0.02em] uppercase bg-[#c81c6a] transition-all hover:scale-[1.02] active:scale-95 whitespace-nowrap"
         >
           Add to cart
         </button>
         <button
-          className="px-6 py-2 rounded-full text-white font-bold text-[0.58rem] md:text-[0.62rem] tracking-[0.02em] uppercase bg-[#666c75] transition-all hover:scale-[1.02] active:scale-95 whitespace-nowrap"
+          className="px-3 md:px-6 py-2 rounded-full text-white font-bold text-[0.45rem] md:text-[0.62rem] tracking-[0.02em] uppercase bg-[#666c75] transition-all hover:scale-[1.02] active:scale-95 whitespace-nowrap"
         >
           Buy Now
         </button>

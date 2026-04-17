@@ -416,7 +416,7 @@ function ShopContent() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }}
-            className="relative p-4 sm:p-12 md:p-16 lg:p-20 rounded-[20px] sm:rounded-[31px] overflow-hidden"
+            className="relative p-2 sm:p-12 md:p-16 lg:p-20 rounded-[20px] sm:rounded-[31px] overflow-hidden"
           >
             {/* Fixed Background Color */}
             <div
@@ -426,7 +426,7 @@ function ShopContent() {
             <div className="absolute inset-0 border border-white/20 rounded-[inherit] pointer-events-none" />
 
             {activeCategory.products && activeCategory.products.length > 0 ? (
-              <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-x-4 sm:gap-x-8 gap-y-12 sm:gap-y-24 items-start">
+              <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-x-2 md:gap-x-8 gap-y-12 sm:gap-y-24 items-start">
                 {activeCategory.products.map((product: Product) => (
                   <ProductCard
                     key={product.id}
