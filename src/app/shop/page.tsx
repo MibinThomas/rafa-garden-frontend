@@ -383,7 +383,7 @@ function ShopContent() {
       {/* Mobile Category Selection Bar removed as per user request to use Top Pills only */}
 
       {/* Active Collection Single View Grid */}
-      < section className="max-w-[1700px] mx-auto w-full px-6 md:px-12 pt-16 pb-8" >
+      < section className="max-w-[1700px] mx-auto w-full px-0 md:px-12 pt-16 pb-8" >
 
         {/* Dynamic Section Header - Hidden on Mobile/Tab as per user request */}
         < AnimatePresence mode="wait" >
@@ -416,7 +416,7 @@ function ShopContent() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }}
-            className="relative p-2 sm:p-12 md:p-16 lg:p-20 rounded-[20px] sm:rounded-[31px] overflow-hidden"
+            className="relative p-0 sm:p-12 md:p-16 lg:p-20 rounded-[20px] sm:rounded-[31px] overflow-hidden"
           >
             {/* Fixed Background Color */}
             <div

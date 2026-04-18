@@ -15,7 +15,7 @@ export function HomeProductSection({ categoryIndex }: HomeProductSectionProps) {
   if (!category) return null;
 
   return (
-    <section className="bg-[#e6e7e8] py-24 sm:py-32 px-6 md:px-12 relative overflow-hidden min-h-[80vh]">
+    <section className="bg-[#e6e7e8] py-24 sm:py-32 px-0 md:px-12 relative overflow-hidden min-h-[80vh]">
       {/* Dynamic Background Accent */}
       <motion.div 
         key={category.id + "-accent"}
