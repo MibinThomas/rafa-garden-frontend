@@ -7,10 +7,20 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ProductForm } from "@/components/admin/ProductForm";
 
+interface Product {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  category: string;
+  active: boolean;
+  variants: any[];
+}
+
 export default function EditProductPage() {
   const router = useRouter();
   const params = useParams();
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
@@ -92,7 +102,7 @@ export default function EditProductPage() {
             Refine <span className="italic font-normal">Botanical Asset</span>
           </h1>
           <p className="text-[#c81c6a] font-bold text-[10px] uppercase tracking-widest mt-4 ml-1">
-             Editing: {product?.name} ({product?.id})
+             Editing: {product?.name || 'Loading...'} ({product?.id || ''})
           </p>
         </div>
       </div>
@@ -103,7 +113,7 @@ export default function EditProductPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
       >
-        {product && <ProductForm initialData={product} onSubmit={handleSubmit} isLoading={saving} />}
+        {product && <ProductForm initialData={product as any} onSubmit={handleSubmit} isLoading={saving} />}
       </motion.div>
 
       {/* Footer Meta */}
