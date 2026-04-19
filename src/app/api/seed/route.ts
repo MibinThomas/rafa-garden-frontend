@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Category from '@/models/Category';
+import Product from '@/models/Product';
 import SiteContent from '@/models/SiteContent';
 import { CATEGORIES } from '@/lib/data';
+import mongoose from 'mongoose';
 
 export async function GET(request: Request) {
   try {
@@ -11,11 +13,42 @@ export async function GET(request: Request) {
 
     await dbConnect();
     
-    // Seed Categories
+    // 1. Clear existing products and categories
+    // Also drop indexes to avoid legacy constraints like 'sku_1'
+    try {
+      await mongoose.connection.collection('products').dropIndexes();
+    } catch (e) {
+      console.log("No indexes to drop or collection doesn't exist yet");
+    }
+
+    await Product.deleteMany({});
     await Category.deleteMany({});
-    const categoriesResult = await Category.insertMany(CATEGORIES);
     
-    // Seed Initial Site Content if empty or forced
+    // 2. Seed Products and Categories
+    const seededCategories = [];
+    
+    for (const catData of CATEGORIES) {
+      const { products: productsArray, ...categoryInfo } = catData;
+      
+      // Create products first
+      const productDocs = await Product.insertMany(
+        productsArray.map((p: any) => ({
+          ...p,
+          category: categoryInfo.title,
+          active: true
+        }))
+      );
+      
+      // Create category with product references
+      const category = await Category.create({
+        ...categoryInfo,
+        products: productDocs.map(p => p._id)
+      });
+      
+      seededCategories.push(category);
+    }
+    
+    // 3. Seed Initial Site Content if empty or forced
     const contentCount = await SiteContent.countDocuments();
     let contentResult = [];
     if (contentCount === 0 || force) {
@@ -47,11 +80,13 @@ export async function GET(request: Request) {
 
     return NextResponse.json({ 
       success: true, 
-      message: "Database seeded successfully",
-      categories: `${categoriesResult.length} collections added`,
+      message: "Database seeded successfully with refactored product structure",
+      categories: `${seededCategories.length} collections added`,
+      products: "Successfully linked standalone products",
       content: contentResult.length > 0 ? `${contentResult.length} settings added` : "Skipped (already exists)"
     });
   } catch (error: any) {
+    console.error("Seed error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
