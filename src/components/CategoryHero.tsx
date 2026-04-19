@@ -6,46 +6,21 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
-import { CATEGORIES } from "@/lib/data";
 
 interface CategoryHeroProps {
-  onHover?: (index: number) => void;
+  categories: any[];
 }
 
-export function CategoryHero({ onHover }: CategoryHeroProps) {
-  const [categories, setCategories] = useState<any[]>(CATEGORIES);
+export function CategoryHero({ categories }: CategoryHeroProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number>(0);
   const [isMounted, setIsMounted] = useState(false);
-  const { setHeaderColor } = useHeaderColor();
   const router = useRouter();
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const res = await fetch("/api/categories");
-        if (res.ok) {
-          const contentType = res.headers.get("content-type");
-          if (contentType && contentType.includes("application/json")) {
-            const data = await res.json();
-            if (data && data.length > 0) setCategories(data);
-          }
-        }
-      } catch (e) {
-        console.error("Live load failed:", e);
-      }
-    };
-    fetchCategories();
     setIsMounted(true);
   }, []);
 
-  useEffect(() => {
-    if (isMounted && categories[hoveredIndex]) {
-      setHeaderColor(categories[hoveredIndex].color);
-      if (onHover) onHover(hoveredIndex);
-    }
-  }, [hoveredIndex, setHeaderColor, isMounted, categories, onHover]);
-
-  if (!isMounted) return null;
+  if (!isMounted || !categories || categories.length === 0) return null;
 
   const getBgColor = (index: number, isHovered: boolean) => {
     if (isHovered) return categories[index].color;
@@ -56,19 +31,18 @@ export function CategoryHero({ onHover }: CategoryHeroProps) {
   return (
     <section className="relative w-full flex-1 md:px-12 flex flex-col font-sans overflow-hidden bg-[#e6e7e8]">
 
-      {/* Mobile-Only High-Fidelity Accordion (Directly from Mockup) */}
+      {/* Mobile-Only High-Fidelity Accordion */}
       <div className="flex md:hidden flex-col h-full w-full gap-2 p-2">
         {categories.slice(0, 4).map((cat, index) => {
           const isActive = hoveredIndex === index;
           return (
             <motion.div
-              key={cat.id}
+              key={cat.id || cat._id}
               onClick={() => setHoveredIndex(index)}
               className={`relative flex-1 min-h-0 w-full overflow-hidden cursor-pointer rounded-xl transition-all duration-700
                 ${isActive ? "bg-[#e5e5e7]" : index % 2 === 0 ? "bg-[#e6e7e8]" : "bg-[#e5e5e7]"}
               `}
             >
-              {/* Background Style for Active Card - Rounded Inset Panel */}
               <AnimatePresence mode="wait">
                 {isActive && (
                   <motion.div
@@ -87,32 +61,26 @@ export function CategoryHero({ onHover }: CategoryHeroProps) {
                 )}
               </AnimatePresence>
 
-              {/* Background Watermark Title (Active State Only) */}
               {isActive && (
                 <div className="absolute inset-0 flex items-center justify-start pl-4 pointer-events-none select-none overflow-hidden h-full z-0">
                   <motion.h1
                     layout
                     className="font-bold tracking-tight transition-all duration-700 font-brand-heading leading-none text-[10rem] text-[#333333]/[0.10] -ml-2"
                   >
-                    {cat.id === "01" ? "Crush" : cat.id === "02" ? "jams" : cat.id === "03" ? "Fruits" : "Plants"}
+                    {cat.title}
                   </motion.h1>
                 </div>
               )}
 
-              {/* Content Wrapper */}
               <div className="relative z-20 w-full h-full flex items-center px-4">
-
-                {/* INACTIVE STATE CONTENT - 1:1 MATCH WITH Mockup */}
                 {!isActive && (
                   <div className="w-full h-full flex flex-col justify-between py-6 px-1 relative">
-                    {/* Top Left Description */}
                     <div className="max-w-[130px] opacity-60">
                       <p className="text-[6px] leading-[1.3] font-avant-garde lowercase tracking-tight">
-                        This is a sample product details must be enter here to show the ui ux design minimal stage
+                        {cat.subtitle || "Premium botanical refreshment collection."}
                       </p>
                     </div>
 
-                    {/* Middle Left Button - Reduced Size and Centered */}
                     <div className="flex-1 flex items-center justify-start w-full max-w-[130px]">
                       <button 
                         onClick={(e) => {
@@ -126,53 +94,48 @@ export function CategoryHero({ onHover }: CategoryHeroProps) {
                       </button>
                     </div>
 
-                    {/* Bottom Content Group - EXACT 1:1 ALIGNMENT */}
                     <div className="flex items-end gap-3 mb-1">
                       <div className="shrink-0">
                         <h3 className="text-[0.45rem] font-bold tracking-[0.05em] text-[#737478] font-brand-heading leading-[1.05] whitespace-pre-line">
                           {cat.mobileTitle || "Pure\nbotanical\nrefreshment"}
                         </h3>
                       </div>
-                        <div className="max-w-[100px] opacity-40">
-                          <p className="text-[6px] font-avant-garde leading-[1.3] line-clamp-2">
-                            {cat.mobileShortDesc || "This is a sample product details must be enter here to show the ui ux design"}
-                          </p>
-                        </div>
+                      <div className="max-w-[100px] opacity-40">
+                        <p className="text-[6px] font-avant-garde leading-[1.3] line-clamp-2">
+                          {cat.mobileShortDesc || "Experience the essence of nature in every drop."}
+                        </p>
+                      </div>
                     </div>
 
-                    {/* Large Watermark Title on the Right - Updated Color */}
                     <div className="absolute inset-y-0 right-[-10px] flex items-center justify-end z-0 pointer-events-none w-full h-full overflow-hidden">
-                      <h1 className="text-[6.2rem] font-bold tracking-tight font-brand-heading leading-none text-[#6C6D71] select-none">
-                        {cat.id === "02" ? "Jam" : cat.title}
+                      <h1 className="text-[6.2rem] font-bold tracking-tight font-brand-heading leading-none text-[#6C6D71] select-none uppercase opacity-20">
+                        {cat.title}
                       </h1>
                     </div>
                   </div>
                 )}
 
-                {/* ACTIVE STATE CONTENT - 1:1 MATCH WITH Mockup */}
                 {isActive && (
                   <div className="w-full h-full flex items-center relative">
-                    {/* Left Column (Gray side) - Brand Footer */}
                     <div className="w-[42%] flex flex-col justify-end py-6 px-1 h-full">
                       <div className="flex items-end gap-3 mb-1">
                         <div className="shrink-0">
-                        <h3 className="text-[0.45rem] font-bold tracking-[0.05em] text-[#737478] font-brand-heading leading-[1.05] whitespace-pre-line">
+                          <h3 className="text-[0.45rem] font-bold tracking-[0.05em] text-[#737478] font-brand-heading leading-[1.05] whitespace-pre-line">
                             {cat.mobileTitle || "Pure\nbotanical\nrefreshment"}
                           </h3>
                         </div>
                         <div className="max-w-[100px] opacity-40">
                           <p className="text-[6px] font-avant-garde leading-[1.3] line-clamp-2">
-                            {cat.mobileShortDesc || "This is a sample product details must be enter here to show the ui ux design"}
+                            {cat.mobileShortDesc || "Experience the essence of nature in every drop."}
                           </p>
                         </div>
                       </div>
                     </div>
 
-                    {/* Right Column (Inside Colored panel) - Interactive Area */}
                     <div className="w-[58%] flex flex-col justify-center items-start text-white pl-14 pr-4 h-full relative z-30">
                       <div className="max-w-[140px]">
                         <p className="text-[0.45rem] leading-[1.6] font-avant-garde opacity-90 mb-5 tracking-wide whitespace-pre-line">
-                          {cat.mobileActiveDesc || "This is a sample product details must\nbe enter here to show the ui ux\ndesign minimal stage"}
+                          {cat.mobileActiveDesc || "Handcrafted with botanical integrity to provide a sensory experience like no other."}
                         </p>
                         <button
                           onClick={(e) => {
@@ -186,51 +149,14 @@ export function CategoryHero({ onHover }: CategoryHeroProps) {
                         </button>
                       </div>
                     </div>
-
-                    {/* Floating Pitayas EXACT Positions from Mockup */}
-                    {index === 0 && (
-                      <div className="pointer-events-none absolute inset-0 z-[60]">
-                        {/* Top Left Pitaya */}
-                        <motion.div
-                          className="absolute top-[18%] left-[26%] w-6 h-6 filter blur-[1px]"
-                          animate={{ y: [0, -5, 0], rotate: [0, 10, 0] }}
-                          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                        >
-                          <Image src="/images/hero/floatingpitaya.png" alt="" fill className="object-contain" />
-                        </motion.div>
-
-                        {/* Middle Left Pitaya - Near bottle waist */}
-                        <motion.div
-                          className="absolute bottom-[32%] left-[22%] w-8 h-8 filter blur-[2px]"
-                          animate={{ y: [0, 8, 0], rotate: [0, -10, 0] }}
-                          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                        >
-                          <Image src="/images/hero/floatingpitaya.png" alt="" fill className="object-contain" />
-                        </motion.div>
-
-                        {/* Bottom Right Pitaya - Placed above the bottle */}
-                        <motion.div
-                          className="absolute bottom-[22%] left-[48%] w-10 h-10 filter blur-[1.5px]"
-                          animate={{ y: [0, 6, 0], scale: [1, 1.05, 1], rotate: [0, 15, 0] }}
-                          transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                        >
-                          <Image src="/images/hero/floatingpitaya.png" alt="" fill className="object-contain" />
-                        </motion.div>
-                      </div>
-                    )}
                   </div>
                 )}
               </div>
 
-              {/* =========================================================================
-                 📸 MOBILE SCREEN PRODUCT IMAGE STYLING 📸
-                 Edit the 'width', 'height', and 'bottom' positioning below to tweak 
-                 the size and placement of the floating bottle exclusively on mobile.
-              ========================================================================= */}
               <AnimatePresence>
                 {isActive && (
                   <motion.div
-                    key={cat.id + "-mobile-img-v5"}
+                    key={(cat.id || cat._id) + "-mobile-img"}
                     initial={{ scale: 0.8, opacity: 0, y: 50, x: "-50%" }}
                     animate={{ scale: 1.0, opacity: 1, y: 0, x: "-50%" }}
                     exit={{ scale: 0.8, opacity: 0, y: 20, x: "-50%" }}
@@ -248,13 +174,12 @@ export function CategoryHero({ onHover }: CategoryHeroProps) {
                   </motion.div>
                 )}
               </AnimatePresence>
-              {/* ========================================================================= */}
             </motion.div>
           );
         })}
       </div>
 
-      {/* Unified Desktop Header (Hidden on Mobile) */}
+      {/* Unified Desktop Header */}
       <motion.div
         className="hidden md:grid w-full flex-1 max-w-[1700px] mx-auto overflow-hidden rounded-[2.5rem] shadow-[0_40px_100px_rgba(0,0,0,0.08)] grid-cols-4 relative bg-white"
         initial={{ opacity: 0, y: 20 }}
@@ -263,7 +188,7 @@ export function CategoryHero({ onHover }: CategoryHeroProps) {
       >
         {categories.slice(0, 4).map((cat, index) => (
           <motion.div
-            key={cat.id}
+            key={cat.id || cat._id}
             onMouseEnter={() => setHoveredIndex(index)}
             onClick={() => router.push(`/shop?cat=${cat.title.toLowerCase()}`)}
             className="relative h-full flex flex-col cursor-pointer overflow-hidden border-r border-black/5 last:border-none group min-h-[600px] md:min-h-[720px]"
@@ -272,10 +197,8 @@ export function CategoryHero({ onHover }: CategoryHeroProps) {
             }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            {/* Content Container */}
             <div className="relative z-10 w-full h-full flex flex-col items-center justify-center px-4 md:px-8 text-center py-10">
 
-              {/* Product Image Space */}
               <div className="absolute top-[12%] w-full h-[32%] flex items-center justify-center pointer-events-none" style={{ zIndex: 20 }}>
                 <motion.div
                   className="relative w-full h-full"
@@ -283,7 +206,7 @@ export function CategoryHero({ onHover }: CategoryHeroProps) {
                   animate={{
                     opacity: hoveredIndex === index ? 1 : 0,
                     scale: hoveredIndex === index ? 1.2 : 0.8,
-                    y: hoveredIndex === index ? 20 : 40 // Moves slightly down on hover to be closer to text
+                    y: hoveredIndex === index ? 20 : 40 
                   }}
                   transition={{
                     duration: 0.6,
@@ -300,15 +223,13 @@ export function CategoryHero({ onHover }: CategoryHeroProps) {
                 </motion.div>
               </div>
 
-              {/* Main Content Group */}
               <motion.div
                 className="flex flex-col items-center w-full z-10"
                 animate={{
-                  y: hoveredIndex === index ? 70 : 0 // Reduced from 85 to close the gap with the image
+                  y: hoveredIndex === index ? 70 : 0 
                 }}
                 transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
               >
-                {/* Background Number (Watermark) */}
                 <motion.div
                   className="bg-number !static !transform-none !mb-[-1.5rem] !leading-none pointer-events-none"
                   initial={false}
@@ -320,10 +241,9 @@ export function CategoryHero({ onHover }: CategoryHeroProps) {
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                   style={{ zIndex: 5 }}
                 >
-                  {cat.id}
+                  {cat.id || (index + 1).toString().padStart(2, '0')}
                 </motion.div>
 
-                {/* Heading */}
                 <motion.h2
                   className="text-4xl lg:text-[4.2rem] font-bold mb-1 tracking-tight font-brand-heading leading-[1.1] z-30"
                   animate={{
@@ -334,27 +254,24 @@ export function CategoryHero({ onHover }: CategoryHeroProps) {
                   {cat.title}
                 </motion.h2>
 
-                {/* Subtitle */}
                 <motion.p
                   className="text-[0.6rem] md:text-[0.65rem] font-bold uppercase tracking-[0.2em] mb-3 font-avant-garde z-30"
                   animate={{
                     color: hoveredIndex === index ? "rgba(255,255,255,0.8)" : "#666666"
                   }}
                 >
-                  Pure Botanical Refreshment
+                  {cat.subtitle || "Pure Botanical Refreshment"}
                 </motion.p>
 
-                {/* Description */}
                 <motion.p
                   className="text-[0.65rem] md:text-[0.7rem] leading-relaxed font-avant-garde px-4 md:px-6 mb-6 md:mb-8 max-w-[240px] z-30"
                   animate={{
                     color: hoveredIndex === index ? "rgba(255,255,255,0.6)" : "#999999"
                   }}
                 >
-                  This is a sample product details must be enter here to show the ui ux design minimal stage
+                  {cat.mobileActiveDesc || "Handcrafted with botanical integrity to provide a sensory experience like no other."}
                 </motion.p>
 
-                {/* Action Button */}
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
