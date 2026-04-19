@@ -25,7 +25,7 @@ export async function GET(request: Request) {
       headers['Content-Type'] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
     }
     
-    return new Response(content, { headers });
+    return new Response(content as BodyInit, { headers });
   } catch (error: any) {
     console.error("Bulk export error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
