@@ -36,7 +36,6 @@ const NAV_ITEMS = [
   { id: "enquiries", label: "Enquiries", href: "/admin/enquiries", icon: MessageSquare },
   { id: "cms", label: "CMS", href: "/admin/cms", icon: FileEdit },
   { id: "products", label: "Products", href: "/admin/products", icon: Package },
-  { id: "projects", label: "Projects", href: "/admin/projects", icon: Briefcase },
   { id: "blog", label: "Blog", href: "/admin/blog", icon: BookOpen },
   { id: "news", label: "News", href: "/admin/news", icon: Newspaper },
   { 
