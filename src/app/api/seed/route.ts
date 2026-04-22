@@ -74,7 +74,15 @@ export async function GET(request: Request) {
         { key: 'footer_address', value: 'Rafah Farms, Kasaragod, Kerala, India', type: 'text', group: 'footer', label: 'Headquarters Address' },
         { key: 'footer_newsletter_title', value: 'Join the Rafah Family', type: 'text', group: 'footer', label: 'Newsletter Title' },
         { key: 'footer_newsletter_subtitle', value: 'Subscribe to our newsletter for seasonal harvest updates, exclusive farm offers, and botanical insights.', type: 'text', group: 'footer', label: 'Newsletter Subtitle' },
-        { key: 'footer_copyright', value: '© 2026 Rafah Garden. All rights reserved.', type: 'text', group: 'footer', label: 'Copyright Text' }
+        { key: 'footer_copyright', value: '© 2026 Rafah Garden. All rights reserved.', type: 'text', group: 'footer', label: 'Copyright Text' },
+        
+        // Shop Page
+        { key: 'shop_hero_heading_prefix', value: 'Dragon', type: 'text', group: 'shop', label: 'Hero Heading Prefix' },
+        { key: 'shop_default_category_index', value: '0', type: 'text', group: 'shop', label: 'Default Active Category (Index)' },
+        { key: 'shop_mobile_title_color', value: '#6C6D71', type: 'text', group: 'shop', label: 'Mobile Title Color' },
+        { key: 'shop_mobile_bottom_text_color', value: '#787877', type: 'text', group: 'shop', label: 'Mobile Bottom Text Color' },
+        { key: 'shop_mobile_heading', value: 'Pure\nBotanical\nRefreshment', type: 'text', group: 'shop', label: 'Mobile Bottom Heading' },
+        { key: 'shop_mobile_description', value: 'This is a sample product details must be enter here to show the ui ux design minimal stage', type: 'text', group: 'shop', label: 'Mobile Bottom Description' }
       ]);
     }
 

@@ -8,25 +8,35 @@ import { CATEGORIES, Product, ProductVariant, Category } from "@/lib/data";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductDetailSection } from "@/components/ProductDetailSection";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
+import { useSiteSettings } from "@/lib/SiteSettingsContext";
+
 
 function ShopContent() {
   const { setIsImmersive, setHeaderColor } = useHeaderColor();
+  const { settings } = useSiteSettings();
   const heroRef = useRef<HTMLElement>(null);
   const searchParams = useSearchParams();
+
 
   // Dynamic State for categories
   const [categories, setCategories] = useState<Category[]>(CATEGORIES);
   const [loading, setLoading] = useState(true);
 
-  // Initial category from query param
-  const catParam = searchParams.get("cat");
-  const initialIndex = catParam ?
-    CATEGORIES.findIndex(c => c.title.toLowerCase() === catParam.toLowerCase()) :
-    0;
-  const safeInitialIndex = initialIndex === -1 ? 0 : initialIndex;
+  // Initial category from query param or settings
+  useEffect(() => {
+    const catParam = searchParams.get("cat");
+    if (catParam) {
+      const idx = CATEGORIES.findIndex(c => c.title.toLowerCase() === catParam.toLowerCase());
+      if (idx !== -1) setActiveCategoryIndex(idx);
+    } else if (settings['shop_default_category_index']) {
+      const idx = parseInt(settings['shop_default_category_index']);
+      if (!isNaN(idx)) setActiveCategoryIndex(idx);
+    }
+  }, [searchParams, settings]);
 
   // State for active category
-  const [activeCategoryIndex, setActiveCategoryIndex] = useState(safeInitialIndex);
+  const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
+
   const activeCategory = categories[activeCategoryIndex] || CATEGORIES[0];
 
   // State for spotlight featured product
@@ -78,11 +88,19 @@ function ShopContent() {
     setIsImmersive(true);
     // Dynamically lock header color to active category
     setHeaderColor(activeCategory.color);
-    // Reset product index when category changes
-    setActiveProductIndex(0);
+    // Reset product index when category changes based on featured product setting
+    if (activeCategory.desktopFeaturedProductId) {
+      const featIdx = activeCategory.products.findIndex((p: any) => p.id === activeCategory.desktopFeaturedProductId);
+      if (featIdx !== -1) setActiveProductIndex(featIdx);
+      else setActiveProductIndex(0);
+    } else {
+      setActiveProductIndex(0);
+    }
+
     setSelectedGridProduct(null);
     return () => setIsImmersive(false);
-  }, [setIsImmersive, setHeaderColor, activeCategory.color]);
+  }, [setIsImmersive, setHeaderColor, activeCategory.color, activeCategory.desktopFeaturedProductId, activeCategory.products]);
+
 
   // Carousel product switching logic
   const nextProduct = () => {
@@ -139,10 +157,13 @@ function ShopContent() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <h1 className="font-avant-garde text-[2.52rem] leading-[1.05] tracking-tight text-[#6C6D71] drop-shadow-sm font-bold">
-                    Dragon<br />
+                  <h1 className="font-avant-garde text-[2.52rem] leading-[1.05] tracking-tight drop-shadow-sm font-bold"
+                    style={{ color: settings['shop_mobile_title_color'] || '#6C6D71' }}
+                  >
+                    {settings['shop_hero_heading_prefix'] || "Dragon"}<br />
                     <span style={{ color: activeCategory.color }}>{activeCategory.title}</span>
                   </h1>
+
                   <p className="text-[0.65rem] font-bold tracking-widest text-black/40 uppercase mt-2 font-avant-garde">
                     {activeCategory.subtitle || "This is a sample product details must"}
                   </p>
@@ -150,15 +171,19 @@ function ShopContent() {
               </AnimatePresence>
             </div>
 
-            {/* Bottom Left Decorative Block (Mobile) */}
-            <div className="absolute bottom-[60px] left-8 pointer-events-none">
-              <h2 className="font-avant-garde font-bold text-[1.8rem] leading-[1.1] text-[#787877] mb-2">
-                Pure<br />Botanical<br />Refreshment
+            <div className="absolute bottom-[60px] left-8 pointer-events-auto z-50">
+              <h2 className="font-avant-garde font-bold text-[1.8rem] leading-[1.1] mb-2 whitespace-pre-line"
+                style={{ color: settings['shop_mobile_bottom_text_color'] || '#787877' }}
+              >
+                {settings['shop_mobile_heading'] || "Pure\nBotanical\nRefreshment"}
               </h2>
-              <p className="text-[0.6rem] leading-relaxed text-[#787877] font-avant-garde font-bold max-w-[150px]">
-                This is a sample product details must be enter here to show the ui ux design minimal stage
+              <p className="text-[0.6rem] leading-relaxed font-avant-garde font-bold max-w-[150px]"
+                style={{ color: settings['shop_mobile_bottom_text_color'] || '#787877' }}
+              >
+                {settings['shop_mobile_description'] || "This is a sample product details must be enter here to show the ui ux design minimal stage"}
               </p>
             </div>
+
 
           </div>
         </div>
@@ -174,16 +199,19 @@ function ShopContent() {
               transition={{ duration: 0.5 }}
               className="relative w-full h-full"
             >
-              <Image 
+              <Image
                 src={
-                  activeCategory.title.toLowerCase() === 'crush' ? "/images/hero/shopherocrush.webp" :
-                  activeCategory.title.toLowerCase() === 'jams' ? "/images/hero/jam_premium.png" :
-                  activeCategory.title.toLowerCase() === 'fruits' ? "/images/hero/fresh_fruits.png" :
-                  activeCategory.title.toLowerCase() === 'plants' ? "/images/hero/Plant.webp" :
-                  "/images/hero/shopherocrush.webp" // Default
+                  (activeCategory as any).mobileHeroImage || (
+                    activeCategory.title.toLowerCase() === 'crush' ? "/images/hero/shopherocrush.webp" :
+                      activeCategory.title.toLowerCase() === 'jams' ? "/images/hero/jam_premium.png" :
+                        activeCategory.title.toLowerCase() === 'fruits' ? "/images/hero/fresh_fruits.png" :
+                          activeCategory.title.toLowerCase() === 'plants' ? "/images/hero/Plant.webp" :
+                            "/images/hero/shopherocrush.webp" // Default
+                  )
                 }
+
                 alt={`${activeCategory.title} backdrop`}
-                fill 
+                fill
                 className="object-contain" // Using contain to maintain aspect ratio without cropping away from the text areas
                 priority
               />

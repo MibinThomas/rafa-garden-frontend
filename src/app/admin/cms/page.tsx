@@ -1,11 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Plus, Edit2, Trash2, Search, ExternalLink, Image as ImageIcon, Settings as SettingsIcon, Layout, Globe } from "lucide-react";
+import { Plus, Edit2, Trash2, Search, ExternalLink, Image as ImageIcon, Settings as SettingsIcon, Layout, Globe, ShoppingBag } from "lucide-react";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { CmsForm } from "@/components/admin/CmsForm";
 import { SiteContentForm } from "@/components/admin/SiteContentForm";
+import { InlineContentEditor } from "@/components/admin/InlineContentEditor";
 import { DeleteConfirmDialog } from "@/components/admin/DeleteConfirmDialog";
+
 import Link from "next/link";
 import { Product } from "@/lib/data";
 
@@ -25,7 +28,8 @@ interface Category {
   products: Product[];
 }
 
-type Tab = "categories" | "about" | "global";
+type Tab = "categories" | "shop" | "about" | "global";
+
 
 export default function CmsPage() {
   const [activeTab, setActiveTab] = useState<Tab>("categories");
@@ -115,9 +119,11 @@ export default function CmsPage() {
       <div className="flex gap-2 p-1.5 bg-gray-100/50 rounded-2xl w-fit">
         {[
           { id: "categories", label: "Heritage", icon: Layout },
+          { id: "shop", label: "Shop Page", icon: ShoppingBag },
           { id: "about", label: "About Page", icon: SettingsIcon },
           { id: "global", label: "Global Settings", icon: Globe }
         ].map((tab) => (
+
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as Tab)}
@@ -173,14 +179,9 @@ export default function CmsPage() {
           ))}
         </div>
       ) : (
-        <div className="bg-white rounded-[2.5rem] border border-gray-100 p-12 text-center shadow-sm">
-          <div className="w-20 h-20 bg-gray-50 rounded-3xl flex items-center justify-center mx-auto mb-8 text-[#0b2b1a]">
-            {activeTab === "about" ? <SettingsIcon size={32} /> : <Globe size={32} />}
-          </div>
-          <h2 className="text-3xl font-black font-playfair text-[#0b2b1a] mb-4">Edit {activeTab === "about" ? "About Page" : "Global Settings"}</h2>
-          <button onClick={() => setIsContentFormOpen(true)} className="px-12 py-5 bg-[#0b2b1a] text-white rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] shadow-xl hover:scale-105 transition-all">Enter Content Editor</button>
-        </div>
+        <InlineContentEditor group={activeTab} onSave={() => {}} />
       )}
+
 
       {/* Forms */}
       <CmsForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} category={editingCategory} onSave={fetchCategories} />

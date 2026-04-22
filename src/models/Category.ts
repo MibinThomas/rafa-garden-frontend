@@ -11,6 +11,8 @@ const CategorySchema = new mongoose.Schema({
   mobileTitle: { type: String },
   mobileShortDesc: { type: String },
   mobileActiveDesc: { type: String },
+  mobileHeroImage: { type: String },
+  desktopFeaturedProductId: { type: String },
 }, { timestamps: true });
 
 export default mongoose.models.Category || mongoose.model('Category', CategorySchema);

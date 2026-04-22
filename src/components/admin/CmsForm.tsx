@@ -22,7 +22,10 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
     mobileTitle: "",
     mobileShortDesc: "",
     mobileActiveDesc: "",
+    mobileHeroImage: "",
+    desktopFeaturedProductId: "",
   });
+
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -42,7 +45,10 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
         mobileTitle: category.mobileTitle || "",
         mobileShortDesc: category.mobileShortDesc || "",
         mobileActiveDesc: category.mobileActiveDesc || "",
+        mobileHeroImage: category.mobileHeroImage || "",
+        desktopFeaturedProductId: category.desktopFeaturedProductId || "",
       });
+
     } else {
       setFormData({
         id: (Math.floor(Math.random() * 90) + 10).toString(), // Random 2 char ID
@@ -54,7 +60,10 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
         mobileTitle: "",
         mobileShortDesc: "",
         mobileActiveDesc: "",
+        mobileHeroImage: "",
+        desktopFeaturedProductId: "",
       });
+
     }
   }, [category, isOpen]);
 
@@ -75,8 +84,17 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
       }
 
       const blob = await response.json();
-      setFormData(prev => ({ ...prev, image: blob.url }));
+      
+      const pendingType = (fileInputRef.current as any).pendingType;
+      if (pendingType === "mobileHero") {
+        setFormData(prev => ({ ...prev, mobileHeroImage: blob.url }));
+      } else {
+        setFormData(prev => ({ ...prev, image: blob.url }));
+      }
+      
+      (fileInputRef.current as any).pendingType = null;
     } catch (error: any) {
+
       console.error("Upload error:", error);
       alert(`Upload Failed: ${error.message}`);
     } finally {
@@ -319,7 +337,58 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                       placeholder="This is a sample product details must&#10;be enter here..."
                     />
                  </div>
+
+                  <div className="space-y-3 pt-4">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-[#c81c6a] ml-1">Mobile Hero Background Asset</label>
+                    <div className="relative group/mob-hero">
+                      <div className="aspect-[3/4] max-w-[200px] rounded-3xl bg-gray-100 overflow-hidden relative border-2 border-dashed border-gray-200 group-hover/mob-hero:border-[#c81c6a]/30 transition-colors">
+                        {formData.mobileHeroImage ? (
+                          <img src={formData.mobileHeroImage} alt="Mobile Hero" className="w-full h-full object-cover" />
+                        ) : (
+                          <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-gray-300">
+                            <Upload size={24} />
+                            <span className="text-[8px] font-black uppercase tracking-widest">Mobile BG</span>
+                          </div>
+                        )}
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/mob-hero:opacity-100 transition-opacity flex items-center justify-center">
+                          <button 
+                            type="button"
+                            onClick={() => {
+                              (fileInputRef.current as any).pendingType = "mobileHero";
+                              fileInputRef.current?.click();
+                            }}
+                            className="bg-white text-[#0b2b1a] px-4 py-2 rounded-lg text-[9px] font-black uppercase tracking-widest"
+                          >
+                            Change
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
               </div>
+
+              {/* Desktop Optimization Strategy */}
+              <div className="grid grid-cols-1 gap-6 pt-6 border-t border-gray-50">
+                 <div>
+                    <h3 className="text-xl font-black font-playfair text-[#0b2b1a]">Desktop Optimization</h3>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Settings for large screen visual priorities.</p>
+                 </div>
+                 
+                 <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Hero Featured Product</label>
+                    <select 
+                      value={formData.desktopFeaturedProductId}
+                      onChange={e => setFormData(prev => ({ ...prev, desktopFeaturedProductId: e.target.value }))}
+                      className="w-full px-6 py-4 bg-gray-50 rounded-2xl border-none outline-none font-bold text-[#0b2b1a] focus:ring-2 focus:ring-[#c81c6a]/20 transition-all cursor-pointer appearance-none"
+                    >
+                      <option value="">Default (First Product)</option>
+                      {formData.products.map(p => (
+                        <option key={p.id} value={p.id}>{p.name}</option>
+                      ))}
+                    </select>
+                 </div>
+              </div>
+
 
               {/* Products Subsection */}
               <div className="space-y-6 pt-6 border-t border-gray-50">
