@@ -131,7 +131,7 @@ function ShopContent() {
             </div>
 
             {/* Top Left Title Block (Mobile) */}
-            <div className="absolute top-[130px] left-8 pointer-events-none">
+            <div className="absolute top-[110px] left-8 pointer-events-none">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={"title-mob-" + activeCategory.id}
@@ -139,7 +139,7 @@ function ShopContent() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <h1 className="font-brand-heading text-[2.8rem] leading-[1.05] tracking-tight text-[#333333] drop-shadow-sm">
+                  <h1 className="font-avant-garde text-[2.52rem] leading-[1.05] tracking-tight text-[#6C6D71] drop-shadow-sm font-bold">
                     Dragon<br />
                     <span style={{ color: activeCategory.color }}>{activeCategory.title}</span>
                   </h1>
@@ -151,11 +151,11 @@ function ShopContent() {
             </div>
 
             {/* Bottom Left Decorative Block (Mobile) */}
-            <div className="absolute bottom-[40px] left-8 pointer-events-none">
-              <h2 className="font-brand-heading text-[1.8rem] leading-[1.1] text-[#333333] mb-2">
+            <div className="absolute bottom-[60px] left-8 pointer-events-none">
+              <h2 className="font-avant-garde font-bold text-[1.8rem] leading-[1.1] text-[#787877] mb-2">
                 Pure<br />Botanical<br />Refreshment
               </h2>
-              <p className="text-[0.6rem] leading-relaxed text-[#333333]/40 font-avant-garde font-bold max-w-[150px]">
+              <p className="text-[0.6rem] leading-relaxed text-[#787877] font-avant-garde font-bold max-w-[150px]">
                 This is a sample product details must be enter here to show the ui ux design minimal stage
               </p>
             </div>
