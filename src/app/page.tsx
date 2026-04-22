@@ -90,13 +90,13 @@ export default function Home() {
                 key={cat.id || cat._id}
                 onClick={() => handleCategorySelect(idx)}
                 className="px-8 py-3 rounded-full border border-[#333333]/20 transition-all duration-500 font-avant-garde text-[0.7rem] font-bold tracking-[0.15em] uppercase whitespace-nowrap overflow-hidden relative group"
-                style={{ color: activeCollectionIndex === idx ? cat.color : "#666666" }}
+                style={{ 
+                  color: activeCollectionIndex === idx ? cat.color : "#666c75",
+                  backgroundColor: "#f1f1f2",
+                  borderColor: "rgba(51, 51, 51, 0.2)"
+                }}
               >
                 <span className="relative z-10">{cat.title}</span>
-                <div 
-                  className={`absolute inset-0 opacity-10 transition-opacity duration-500 ${activeCollectionIndex === idx ? 'opacity-10' : 'opacity-0'}`}
-                  style={{ backgroundColor: cat.color }}
-                />
               </button>
             ))}
           </div>

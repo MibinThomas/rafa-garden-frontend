@@ -118,9 +118,9 @@ function ShopContent() {
                       className="px-5 py-2 rounded-full border transition-all duration-300 font-bold uppercase tracking-widest text-[8.5px] whitespace-nowrap"
                       style={{
                         borderColor: cat.color,
-                        color: cat.color,
-                        backgroundColor: isActive ? 'white' : 'transparent',
-                        opacity: isActive ? 1 : 0.6
+                        color: isActive ? cat.color : '#666c75',
+                        backgroundColor: '#f1f1f2',
+                        opacity: isActive ? 1 : 0.8
                       }}
                     >
                       {cat.title}
@@ -229,9 +229,9 @@ function ShopContent() {
                       `}
                       style={{
                         borderColor: cat.color,
-                        color: cat.color,
-                        backgroundColor: isActive ? 'white' : 'transparent',
-                        opacity: isActive ? 1 : 0.7
+                        color: isActive ? cat.color : '#666c75',
+                        backgroundColor: '#f1f1f2',
+                        opacity: isActive ? 1 : 0.8
                       }}
                     >
                       {displayTitle}

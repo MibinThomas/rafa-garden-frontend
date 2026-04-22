@@ -98,9 +98,9 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
           >
             <motion.div
               className="relative w-full h-full max-h-[150px] md:max-h-[200px] z-10"
-              whileHover={{ scale: (isDesktop ? 1.7 : 1.25), x: (isDesktop ? 25 : 5), y: (isDesktop ? -20 : -5) }}
-              initial={{ scale: isDesktop ? 1.6 : 1.15, x: isDesktop ? 25 : 5, y: isDesktop ? -20 : -5 }}
-              animate={{ scale: isDesktop ? 1.6 : 1.15, x: isDesktop ? 25 : 5, y: isDesktop ? -20 : -5 }}
+              whileHover={{ scale: (isDesktop ? 1.7 : 1.88), x: (isDesktop ? 25 : 5), y: (isDesktop ? -20 : -5) }}
+              initial={{ scale: isDesktop ? 1.6 : 1.72, x: isDesktop ? 25 : 5, y: isDesktop ? -20 : -5 }}
+              animate={{ scale: isDesktop ? 1.6 : 1.72, x: isDesktop ? 25 : 5, y: isDesktop ? -20 : -5 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
             >
               <Image
