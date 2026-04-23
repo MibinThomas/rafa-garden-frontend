@@ -21,6 +21,10 @@ export interface Category {
   mobileTitle?: string;
   mobileShortDesc?: string;
   mobileActiveDesc?: string;
+  desktopFeaturedProductId?: string;
+  mobileFeaturedProductId?: string;
+  desktopHeroImage?: string;
+  mobileHeroImage?: string;
   products: Product[];
 }
 
