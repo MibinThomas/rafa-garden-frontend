@@ -71,35 +71,32 @@ export default function Home() {
           />
         </div>
 
-        {/* Dynamic Product Grid Section Below Hero */}
-        <div className="w-full relative z-10 bg-[#e6e7e8]">
-          <HomeProductSection 
-            categories={categories}
-            categoryIndex={activeCollectionIndex} 
-          />
-        </div>
-
         {/* Desktop Horizontal Category Navigator */}
-        <div className="hidden md:flex w-full bg-[#e6e7e8] py-16 items-center justify-center relative z-10 border-t border-[#333333]/5">
+        <div className="hidden md:flex w-full bg-[#e6e7e8] py-16 items-center justify-center relative z-10 border-b border-[#333333]/5">
           <div className="flex gap-6 items-center">
-            <span className="font-avant-garde font-bold text-[#333333] text-[0.65rem] tracking-[0.2em] uppercase mr-4">
-              Select Collection:
-            </span>
             {categories.slice(0, 4).map((cat, idx) => (
               <button
                 key={cat.id || cat._id}
                 onClick={() => handleCategorySelect(idx)}
                 className="px-8 py-3 rounded-full border border-[#333333]/20 transition-all duration-500 font-avant-garde text-[0.7rem] font-bold tracking-[0.15em] uppercase whitespace-nowrap overflow-hidden relative group"
                 style={{ 
-                  color: activeCollectionIndex === idx ? cat.color : "#666c75",
-                  backgroundColor: "#f1f1f2",
-                  borderColor: "rgba(51, 51, 51, 0.2)"
+                   color: activeCollectionIndex === idx ? cat.color : "#666c75",
+                   backgroundColor: "#f1f1f2",
+                   borderColor: "rgba(51, 51, 51, 0.2)"
                 }}
               >
                 <span className="relative z-10">{cat.title}</span>
               </button>
             ))}
           </div>
+        </div>
+
+        {/* Dynamic Product Grid Section Below Hero */}
+        <div className="w-full relative z-10 bg-[#e6e7e8]">
+          <HomeProductSection 
+            categories={categories}
+            categoryIndex={activeCollectionIndex} 
+          />
         </div>
       </motion.div>
     </main>

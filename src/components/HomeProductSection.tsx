@@ -15,18 +15,6 @@ export function HomeProductSection({ categories, categoryIndex }: HomeProductSec
 
   return (
     <section className="bg-[#e6e7e8] py-24 sm:py-32 px-0 md:px-12 relative overflow-hidden min-h-[80vh]">
-      {/* Dynamic Background Accent */}
-      <motion.div
-        key={(category.id || category._id) + "-accent"}
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 0.03, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.8 }}
-        transition={{ duration: 1 }}
-        className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 text-[40vw] font-black pointer-events-none select-none uppercase"
-        style={{ color: category.color }}
-      >
-        {category.title}
-      </motion.div>
 
       <div className="max-w-[1600px] mx-auto relative z-10">
         {/* Dynamic Product Grid */}
