@@ -40,11 +40,16 @@ export default function BlogListingPage() {
       <main className="pb-24 px-[32px] max-w-[1440px] mx-auto pt-12 relative" style={{ fontFamily: "inherit" }}>
         
         {/* Header Section */}
-        <header className="-mb-[24px] md:-mb-[36px] lg:-mb-[48px] text-center w-full mx-auto relative pt-12 z-10 flex flex-col items-center">
-          <h2 className="text-[16px] leading-[20px] font-semibold text-[#9c0045] mb-4 uppercase tracking-widest" style={{ fontFamily: "inherit" }}>
-            The Botanical Archive
-          </h2>
-          <h1 className="text-[108px] md:text-[162px] lg:text-[234px] font-extrabold text-[#1b1c1c] opacity-10 whitespace-nowrap tracking-tighter leading-none select-none pointer-events-none" style={{ fontFamily: "inherit" }}>
+        <header className="-mb-[24px] md:-mb-[36px] lg:-mb-[48px] w-full mx-auto relative pt-12 z-10 flex flex-col">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end w-full px-4 lg:px-12 mb-2 md:mb-0">
+            <h2 className="text-[28px] md:text-[36px] lg:text-[42px] leading-tight font-bold text-[#b0b0b0] tracking-tight" style={{ fontFamily: "inherit" }}>
+              The Botanical Archive.
+            </h2>
+            <p className="text-[13px] md:text-[14px] lg:text-[15px] text-[#b0b0b0] max-w-[380px] text-left mt-4 md:mt-0 font-medium leading-relaxed" style={{ fontFamily: "inherit" }}>
+              Exploring the convergence of heritage farming, wellness, <br className="hidden md:block" />and the majestic Pitaya sanctuary.
+            </p>
+          </div>
+          <h1 className="text-[108px] md:text-[162px] lg:text-[234px] text-[#1b1c1c] opacity-10 whitespace-nowrap tracking-normal leading-none select-none pointer-events-none text-center" style={{ fontFamily: "'DharmaGothic', sans-serif", fontWeight: 700 }}>
             Rafah Insights.
           </h1>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[1200px] h-[120%] bg-[#efeded] -z-10 rounded-full blur-[100px] opacity-30"></div>
