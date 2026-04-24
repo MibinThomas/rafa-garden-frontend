@@ -39,31 +39,24 @@ export default function BlogListingPage() {
     <div className={`min-h-screen bg-[#fbf9f9] text-[#1b1c1c] selection:bg-[#c21e5c] selection:text-[#ffdce1] overflow-x-hidden ${plusJakartaSans.className}`}>
       <main className="pb-24 px-[32px] max-w-[1440px] mx-auto pt-12 relative" style={{ fontFamily: "inherit" }}>
         
-        {/* Watermark Background Text */}
-        <div className="absolute top-[280px] left-1/2 transform -translate-x-1/2 w-full text-center z-0 pointer-events-none select-none">
-          <span className="text-[120px] md:text-[180px] lg:text-[260px] font-extrabold text-[#1b1c1c] opacity-10 whitespace-nowrap tracking-tighter leading-none" style={{ fontFamily: "inherit" }}>
-            Rafah Insights.
-          </span>
-        </div>
-
         {/* Header Section */}
-        <header className="mb-[120px] text-center max-w-4xl mx-auto relative pt-12 z-10">
+        <header className="-mb-[24px] md:-mb-[36px] lg:-mb-[48px] text-center w-full mx-auto relative pt-12 z-10 flex flex-col items-center">
           <h2 className="text-[16px] leading-[20px] font-semibold text-[#9c0045] mb-4 uppercase tracking-widest" style={{ fontFamily: "inherit" }}>
             The Botanical Archive
           </h2>
-          <h1 className="text-[90px] md:text-[160px] leading-[1] md:leading-[140px] font-extrabold tracking-[-0.04em] text-[#1b1c1c] relative z-10" style={{ fontFamily: "inherit" }}>
-            Rafah <br/> Insights
+          <h1 className="text-[108px] md:text-[162px] lg:text-[234px] font-extrabold text-[#1b1c1c] opacity-10 whitespace-nowrap tracking-tighter leading-none select-none pointer-events-none" style={{ fontFamily: "inherit" }}>
+            Rafah Insights.
           </h1>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[#efeded] -z-10 rounded-full blur-[100px] opacity-30"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[1200px] h-[120%] bg-[#efeded] -z-10 rounded-full blur-[100px] opacity-30"></div>
         </header>
 
         {/* Featured Articles Grid */}
         {loading ? (
-          <div className="flex flex-col items-center justify-center py-40 space-y-4 relative z-10">
+          <div className="flex flex-col items-center justify-center py-40 space-y-4 relative z-20">
             <Loader2 className="w-10 h-10 text-[#9c0045] animate-spin" />
           </div>
         ) : (
-          <section className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-[120px] px-4 relative z-10">
+          <section className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-[120px] px-4 relative z-20">
             {displayPosts.map((post, index) => (
               <article key={post.id || index} className="flex flex-col group">
                 <div className="relative w-full aspect-[3/4] mb-8 pl-4 pt-4">
