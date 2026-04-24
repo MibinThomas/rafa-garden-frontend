@@ -112,35 +112,32 @@ export default function BlogListingPage() {
         )}
 
         {/* Newsletter Section */}
-        <section className="bg-[#DCE3E0] rounded-[24px] p-10 md:p-16 lg:p-24 text-center max-w-5xl mx-auto my-[120px] relative overflow-hidden z-10">
-          <div className="relative z-10">
-            <h3 className="text-[36px] md:text-[48px] leading-[1.1] md:leading-[56px] font-bold tracking-[-0.02em] text-[#0e1f15] mb-4" style={{ fontFamily: "inherit" }}>
-              Stay Planted in our Garden
+        <section className="w-[100vw] relative left-[50%] right-[50%] -ml-[50vw] -mr-[50vw] bg-[#EEEEEE] py-24 md:py-32 overflow-hidden z-10 mt-[80px]">
+          <div className="relative z-10 max-w-4xl mx-auto text-center">
+            <h3 className="text-[40px] md:text-[64px] tracking-tight leading-[1.1] font-bold text-[#757575] mb-4" style={{ fontFamily: "inherit" }}>
+              Stay Planted in our Garden.
             </h3>
-            <p className="text-[16px] md:text-[18px] leading-[28px] text-[#55675a] mb-8 max-w-lg mx-auto" style={{ fontFamily: "inherit" }}>
-              Join our botanical archive for weekly insights on sustainable luxury, rare recipes, and heritage farming.
+            <p className="text-[15px] md:text-[17px] leading-[24px] text-[#A3A3A3] mb-12 max-w-2xl mx-auto font-light" style={{ fontFamily: "inherit" }}>
+              Join our Botanical VIP list for exclusive insights into heritage cultivation, early harvest alerts, and exotic lifestyle tips.
             </p>
-            <form className="flex flex-col sm:flex-row max-w-md mx-auto bg-[#fbf9f9] p-2 rounded-full shadow-sm" onSubmit={(e) => e.preventDefault()}>
+            <form className="flex flex-row max-w-[500px] mx-auto bg-[#E0E0E0] p-1.5 rounded-2xl" onSubmit={(e) => e.preventDefault()}>
               <input 
                 type="email" 
-                placeholder="Your email address" 
+                placeholder="email..." 
                 required 
-                className="flex-1 bg-transparent border-none focus:ring-0 focus:outline-none text-[14px] leading-[22px] text-[#1b1c1c] px-6 py-3"
+                className="flex-1 bg-transparent border-none focus:ring-0 focus:outline-none text-[16px] text-[#757575] placeholder:text-[#A3A3A3] px-6 py-3"
                 style={{ fontFamily: "inherit" }}
               />
               <button 
                 type="submit" 
-                className="bg-[#9c0045] text-white text-[16px] leading-[20px] font-semibold px-8 py-3 rounded-full hover:bg-[#8f003f] transition-colors inline-flex items-center justify-center space-x-2 mt-2 sm:mt-0"
+                className="bg-[#C81E5B] text-white text-[16px] leading-[20px] font-normal px-8 py-3 rounded-[12px] hover:bg-[#a8194d] transition-colors inline-flex items-center justify-center space-x-2"
                 style={{ fontFamily: "inherit" }}
               >
                 <span>Subscribe</span>
-                <ArrowRight size={16} />
+                <ArrowRight size={18} strokeWidth={1.5} />
               </button>
             </form>
           </div>
-          
-          {/* Decorative blur element behind text */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white rounded-full blur-[80px] opacity-40 z-0 pointer-events-none"></div>
         </section>
 
       </main>
