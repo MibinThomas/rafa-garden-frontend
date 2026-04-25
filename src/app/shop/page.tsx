@@ -366,46 +366,7 @@ function ShopContent() {
           {/* Front product images removed on mobile */}
         </div>
 
-        {/* Bottom Bar - Grouped Controls */}
-        <div className="relative z-50 w-full mb-12 flex items-center justify-center">
-          <div className="max-w-[1700px] w-full px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-0">
-            <div className="flex-1" />
 
-            {/* Hub (Grouped Right) - Only visible on Desktop */}
-            <div className="hidden lg:flex flex-col sm:flex-row items-center gap-6">
-              <div className="flex items-center gap-4">
-                <button
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="w-10 h-10 flex items-center justify-center rounded-full border border-[#c81c6a]/20 text-[#c81c6a] hover:bg-[#c81c6a] hover:text-white transition-all"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                </button>
-                <span className="text-2xl font-medium font-avant-garde text-[#333333]/20 w-8 text-center">{quantity}</span>
-                <button
-                  onClick={() => setQuantity(quantity + 1)}
-                  className="w-10 h-10 flex items-center justify-center rounded-full border border-[#c81c6a]/20 text-[#c81c6a] hover:bg-[#c81c6a] hover:text-white transition-all"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                </button>
-              </div>
-
-              <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-                <button className="w-full sm:w-auto px-8 md:px-14 py-4 rounded-full font-avant-garde font-bold text-[0.6rem] md:text-[0.65rem] uppercase tracking-[0.2em] bg-[#666666] text-white transition-all hover:bg-[#444444] whitespace-nowrap">
-                  Buy Now
-                </button>
-
-                <button
-                  className="w-full sm:w-auto px-8 md:px-14 py-4 rounded-full font-avant-garde font-bold text-[0.6rem] md:text-[0.65rem] uppercase tracking-[0.2em] text-white transition-all whitespace-nowrap"
-                  style={{
-                    backgroundColor: activeCategory.color
-                  }}
-                >
-                  Add to Cart
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
       </motion.section>
 
       {/* Mobile Category Selection Bar removed as per user request to use Top Pills only */}
