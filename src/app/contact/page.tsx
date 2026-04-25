@@ -34,7 +34,7 @@ const SwipeToCallButton = ({ phoneNumber }: { phoneNumber: string }) => {
   const textColor = useTransform(x, [0, 100], ["#a3a3a3", "#ffffff"]);
 
   return (
-    <div ref={containerRef} className="w-full flex-1 h-14 bg-[#e5e5e5] rounded-full flex items-center overflow-hidden border border-[#ffffff]/20 shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)] relative group">
+    <div ref={containerRef} className="w-full lg:flex-1 h-14 bg-[#e5e5e5] rounded-full flex items-center overflow-hidden border border-[#ffffff]/20 shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)] relative group shrink-0">
        {/* Expanding Pink Background Fill */}
        <motion.div 
          style={{ width: fillWidth }}
@@ -173,11 +173,11 @@ export default function ContactPage() {
                       />
                     </div>
 
-                    <div className="flex flex-col sm:flex-row items-center gap-6 pt-6 w-full">
+                    <div className="flex flex-col lg:flex-row items-center gap-6 pt-6 w-full">
                       <button 
                         type="submit"
                         disabled={formState === "submitting"}
-                        className="w-full flex-1 h-14 rounded-full bg-[#c81c6a] text-white font-medium text-[16px] hover:bg-[#a8195a] transition-colors flex items-center justify-between px-8 disabled:opacity-50"
+                        className="w-full lg:flex-1 h-14 rounded-full bg-[#c81c6a] text-white font-medium text-[16px] hover:bg-[#a8195a] transition-colors flex items-center justify-between px-8 disabled:opacity-50 shrink-0"
                       >
                         <span className="mx-auto">{formState === "submitting" ? "Sending..." : "Submit Inquiry"}</span> 
                         <Send size={20} strokeWidth={1.5} className="-rotate-12 shrink-0" />
