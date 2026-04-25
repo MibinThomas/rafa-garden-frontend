@@ -204,7 +204,7 @@ function ShopContent() {
                   (activeCategory as any).mobileHeroImage || (
                     activeCategory.title.toLowerCase() === 'crush' ? "/images/hero/shopherocrush.webp" :
                       activeCategory.title.toLowerCase() === 'jams' ? "/images/hero/jam_premium.png" :
-                        activeCategory.title.toLowerCase() === 'fruits' ? "/images/hero/fresh_fruits.png" :
+                        activeCategory.title.toLowerCase() === 'fruits' ? "/products/Dragon fruit png.webp" :
                           activeCategory.title.toLowerCase() === 'plants' ? "/images/hero/Plant.webp" :
                             "/images/hero/shopherocrush.webp" // Default
                   )

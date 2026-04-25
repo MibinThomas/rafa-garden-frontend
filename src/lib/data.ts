@@ -217,42 +217,42 @@ export const CATEGORIES: Category[] = [
     id: "03",
     title: "Fruits",
     subtitle: "Fresh From Our Gardens",
-    image: "/images/hero/fresh_fruits.png",
+    image: "/products/Dragon fruit png.webp",
     color: "#b5e55bc8",
     products: [
       {
         id: "f-1",
         name: "Sample Product 1",
         description: "This is a sample description for product 1.",
-        image: "/products/fresh_fruits.png",
+        image: "/products/Dragon fruit png.webp",
         variants: [{ size: "1", unit: "KG" }, { size: "3", unit: "KG" }]
       },
       {
         id: "f-2",
         name: "Sample Product 2",
         description: "This is a sample description for product 2.",
-        image: "/products/fresh_fruits.png",
+        image: "/products/Dragon fruit png.webp",
         variants: [{ size: "1", unit: "KG" }]
       },
       {
         id: "f-3",
         name: "Sample Product 3",
         description: "This is a sample description for product 3.",
-        image: "/products/fresh_fruits.png",
+        image: "/products/Dragon fruit png.webp",
         variants: [{ size: "500", unit: "G" }]
       },
       {
         id: "f-4",
         name: "Sample Product 4",
         description: "This is a sample description for product 4.",
-        image: "/products/fresh_fruits.png",
+        image: "/products/Dragon fruit png.webp",
         variants: [{ size: "1", unit: "KG" }]
       },
       {
         id: "f-5",
         name: "Sample Product 5",
         description: "This is a sample description for product 5.",
-        image: "/products/fresh_fruits.png",
+        image: "/products/Dragon fruit png.webp",
         variants: [{ size: "250", unit: "G" }, { size: "500", unit: "G" }]
       }
     ]
