@@ -36,8 +36,8 @@ export default function BlogListingPage() {
   const displayPosts = posts.slice(0, 3);
 
   return (
-    <div className={`min-h-screen bg-[#fbf9f9] text-[#1b1c1c] selection:bg-[#c21e5c] selection:text-[#ffdce1] overflow-x-hidden ${plusJakartaSans.className}`}>
-      <main className="pb-24 px-[32px] max-w-[1440px] mx-auto pt-12 relative" style={{ fontFamily: "inherit" }}>
+    <div className={`min-h-screen bg-[#e6e7e8] text-[#1b1c1c] selection:bg-[#c21e5c] selection:text-[#ffdce1] overflow-x-hidden ${plusJakartaSans.className}`}>
+      <main className="pb-0 px-[32px] max-w-[1440px] mx-auto pt-12 relative" style={{ fontFamily: "inherit" }}>
         
         {/* Header Section */}
         <header className="-mb-[24px] md:-mb-[36px] lg:-mb-[48px] w-full mx-auto relative pt-12 z-10 flex flex-col">
@@ -45,8 +45,8 @@ export default function BlogListingPage() {
             <h2 className="text-[28px] md:text-[36px] lg:text-[42px] leading-tight font-bold text-[#b0b0b0] tracking-tight" style={{ fontFamily: "inherit" }}>
               The Botanical Archive.
             </h2>
-            <p className="text-[13px] md:text-[14px] lg:text-[15px] text-[#b0b0b0] max-w-[380px] text-left mt-4 md:mt-0 font-medium leading-relaxed" style={{ fontFamily: "inherit" }}>
-              Exploring the convergence of heritage farming, wellness, <br className="hidden md:block" />and the majestic Pitaya sanctuary.
+            <p className="text-[13px] md:text-[14px] lg:text-[15px] text-[#b0b0b0] max-w-[380px] text-justify mt-4 md:mt-0 font-medium leading-relaxed" style={{ fontFamily: "inherit" }}>
+              Exploring the convergence of heritage farming, wellness, and the majestic Pitaya sanctuary.
             </p>
           </div>
           <h1 className="text-[108px] md:text-[162px] lg:text-[234px] text-[#1b1c1c] opacity-10 whitespace-nowrap tracking-normal leading-none select-none pointer-events-none text-center" style={{ fontFamily: "'DharmaGothic', sans-serif", fontWeight: 700 }}>
@@ -112,7 +112,7 @@ export default function BlogListingPage() {
         )}
 
         {/* Newsletter Section */}
-        <section className="w-[100vw] relative left-[50%] right-[50%] -ml-[50vw] -mr-[50vw] bg-[#EEEEEE] py-24 md:py-32 overflow-hidden z-10 mt-[80px]">
+        <section className="w-[100vw] relative left-[50%] right-[50%] -ml-[50vw] -mr-[50vw] bg-[#e6e7e8] border-t border-[#d2d2d2] py-24 md:py-32 overflow-hidden z-10 mt-[80px]">
           <div className="relative z-10 max-w-4xl mx-auto text-center">
             <h3 className="text-[40px] md:text-[64px] tracking-tight leading-[1.1] font-bold text-[#757575] mb-4" style={{ fontFamily: "inherit" }}>
               Stay Planted in our Garden.
