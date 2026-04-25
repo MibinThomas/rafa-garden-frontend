@@ -51,7 +51,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
   return (
     <div className="min-h-screen bg-[#e6e7e8] text-[#1b1c1c] selection:bg-[#c81c6a] selection:text-white pb-32 overflow-x-hidden font-inter">
       
-      <main className="max-w-[1400px] mx-auto px-6 md:px-12 pt-32 md:pt-40">
+      <main className="max-w-[1700px] mx-auto px-6 md:px-12 pt-32 md:pt-40">
         
         {/* Hero Section */}
         <div className="flex flex-col lg:flex-row gap-6 md:gap-12 items-stretch">
@@ -61,7 +61,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex-1 relative aspect-[4/3] lg:aspect-[21/9] rounded-[2rem] overflow-hidden shadow-2xl"
+            className="flex-1 relative aspect-[4/3] lg:aspect-[2/1] rounded-[2rem] overflow-hidden shadow-2xl"
           >
             {post.image && (
               <Image 
@@ -73,8 +73,9 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
               />
             )}
             
-            {/* Gradient Overlay for Title Legibility */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            {/* Full Gradient Overlay for Mood and Legibility */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-black/90 via-black/40 to-black/20 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
 
             {/* Inset Title */}
             <div className="absolute bottom-6 left-6 md:bottom-12 md:left-12 pr-6 md:pr-12">
@@ -120,15 +121,18 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
           </div>
         </div>
 
+        {/* Full-width Horizontal Divider */}
+        <div className="w-[100vw] relative left-[50%] right-[50%] -ml-[50vw] -mr-[50vw] border-t border-[#d2d2d2] mt-16 md:mt-24" />
+
         {/* Content Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 mt-16 md:mt-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-0 pt-16 lg:pt-0">
           
           {/* Left Column: Subtitle & Body */}
           <motion.article 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="lg:col-span-7 flex flex-col"
+            className="lg:col-span-7 flex flex-col lg:pt-24 lg:pr-20"
           >
             <h2 className="text-2xl md:text-3xl lg:text-4xl text-[#555555] font-light leading-snug mb-8">
               {post.excerpt}
@@ -144,12 +148,18 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="lg:col-span-5 flex flex-col pt-4 lg:pt-0"
+            className="lg:col-span-5 flex flex-col lg:pt-24 lg:pl-20 lg:border-l border-[#d2d2d2]"
           >
             {/* Custom Hollow Pink Quote Icon built with Tailwind */}
-            <div className="flex gap-4 mb-8">
-              <div className="w-14 h-24 border-[1px] border-[#c81c6a] rounded-full -skew-x-[20deg]" />
-              <div className="w-14 h-24 border-[1px] border-[#c81c6a] rounded-full -skew-x-[20deg]" />
+            <div className="flex gap-5 mb-10 ml-6">
+              <div 
+                className="w-[55px] h-[115px] border-[1px] border-[#c81c6a] rounded-tl-[24px] rounded-br-[24px] rounded-tr-[10%] rounded-bl-[10%]" 
+                style={{ transform: "perspective(180px) rotateX(-10deg) skewX(24deg)" }}
+              />
+              <div 
+                className="w-[55px] h-[115px] border-[1px] border-[#c81c6a] rounded-tl-[24px] rounded-br-[24px] rounded-tr-[10%] rounded-bl-[10%]" 
+                style={{ transform: "perspective(180px) rotateX(-10deg) skewX(24deg)" }}
+              />
             </div>
 
             <p className="text-[#555555] font-light text-[15px] leading-relaxed">
