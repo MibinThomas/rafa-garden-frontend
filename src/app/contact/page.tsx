@@ -115,7 +115,7 @@ export default function ContactPage() {
               Connect with us
             </span>
             <h1 
-              className="text-[140px] md:text-[200px] leading-[0.8] tracking-tight text-[#b5b5b5] select-none uppercase mb-8" 
+              className="text-[140px] md:text-[200px] leading-[0.8] tracking-tight text-[#b5b5b5] select-none mb-8" 
               style={{ fontFamily: "'DharmaGothic', sans-serif", fontWeight: 700 }}
             >
               Get in<br />Touch.
