@@ -39,8 +39,8 @@ export function CategoryHero({ categories }: CategoryHeroProps) {
             <motion.div
               key={cat.id || cat._id}
               onClick={() => setHoveredIndex(index)}
-              className={`relative flex-1 min-h-0 w-full overflow-hidden cursor-pointer rounded-xl transition-all duration-700
-                ${isActive ? "bg-[#e5e5e7]" : index % 2 === 0 ? "bg-[#e6e7e8]" : "bg-[#e5e5e7]"}
+              className={`relative min-h-0 w-full overflow-hidden cursor-pointer rounded-xl transition-all duration-700
+                ${isActive ? "bg-[#e5e5e7] flex-[3]" : index % 2 === 0 ? "bg-[#e6e7e8] flex-1" : "bg-[#e5e5e7] flex-1"}
               `}
             >
               <AnimatePresence mode="wait">
@@ -75,8 +75,8 @@ export function CategoryHero({ categories }: CategoryHeroProps) {
               <div className="relative z-20 w-full h-full flex items-center px-4">
                 {!isActive && (
                   <div className="w-full h-full flex flex-col justify-between py-6 px-1 relative">
-                    <div className="max-w-[130px] opacity-60">
-                      <p className="text-[6px] leading-[1.3] font-avant-garde lowercase tracking-tight">
+                    <div className="max-w-[150px] opacity-60">
+                      <p className="text-[10px] leading-[1.3] font-avant-garde lowercase tracking-tight">
                         {cat.subtitle || "Premium botanical refreshment collection."}
                       </p>
                     </div>
@@ -87,21 +87,21 @@ export function CategoryHero({ categories }: CategoryHeroProps) {
                           e.stopPropagation();
                           router.push(`/shop?cat=${cat.title.toLowerCase()}`);
                         }}
-                        className="flex items-center justify-center gap-1.5 px-3 py-1 rounded-full border border-[#333333]/30 text-[#333333] font-avant-garde text-[0.45rem] font-bold bg-transparent group hover:bg-[#333333] hover:text-white transition-all duration-300"
+                        className="flex items-center justify-center gap-1.5 px-3 py-1 rounded-full border border-[#333333]/30 text-[#333333] font-avant-garde text-[10px] font-bold bg-transparent group hover:bg-[#333333] hover:text-white transition-all duration-300"
                       >
                         <span>View More</span>
-                        <ArrowRight size={8} className="opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                        <ArrowRight size={10} className="opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
                       </button>
                     </div>
 
                     <div className="flex items-end gap-3 mb-1">
                       <div className="shrink-0">
-                        <h3 className="text-[0.45rem] font-bold tracking-[0.05em] text-[#737478] font-brand-heading leading-[1.05] whitespace-pre-line">
+                        <h3 className="text-sm font-bold tracking-[0.05em] text-[#737478] font-brand-heading leading-[1.05] whitespace-pre-line">
                           {cat.mobileTitle || "Pure\nbotanical\nrefreshment"}
                         </h3>
                       </div>
-                      <div className="max-w-[100px] opacity-40">
-                        <p className="text-[6px] font-avant-garde leading-[1.3] line-clamp-2">
+                      <div className="max-w-[120px] opacity-40">
+                        <p className="text-[10px] font-avant-garde leading-[1.3] line-clamp-2">
                           {cat.mobileShortDesc || "Experience the essence of nature in every drop."}
                         </p>
                       </div>
@@ -120,21 +120,21 @@ export function CategoryHero({ categories }: CategoryHeroProps) {
                     <div className="w-[42%] flex flex-col justify-end py-6 px-1 h-full">
                       <div className="flex items-end gap-3 mb-1">
                         <div className="shrink-0">
-                          <h3 className="text-[0.45rem] font-bold tracking-[0.05em] text-[#737478] font-brand-heading leading-[1.05] whitespace-pre-line">
+                          <h3 className="text-sm font-bold tracking-[0.05em] text-[#737478] font-brand-heading leading-[1.05] whitespace-pre-line">
                             {cat.mobileTitle || "Pure\nbotanical\nrefreshment"}
                           </h3>
                         </div>
-                        <div className="max-w-[100px] opacity-40">
-                          <p className="text-[6px] font-avant-garde leading-[1.3] line-clamp-2">
+                        <div className="max-w-[120px] opacity-40">
+                          <p className="text-[10px] font-avant-garde leading-[1.3] line-clamp-2">
                             {cat.mobileShortDesc || "Experience the essence of nature in every drop."}
                           </p>
                         </div>
                       </div>
                     </div>
 
-                    <div className="w-[58%] flex flex-col justify-center items-start text-white pl-14 pr-4 h-full relative z-30">
-                      <div className="max-w-[140px]">
-                        <p className="text-[0.45rem] leading-[1.6] font-avant-garde opacity-90 mb-5 tracking-wide whitespace-pre-line">
+                    <div className="w-[58%] flex flex-col justify-center items-start text-white pl-12 pr-4 h-full relative z-30">
+                      <div className="max-w-[160px]">
+                        <p className="text-xs leading-[1.6] font-avant-garde opacity-90 mb-5 tracking-wide whitespace-pre-line">
                           {cat.mobileActiveDesc || "Handcrafted with botanical integrity to provide a sensory experience like no other."}
                         </p>
                         <button
@@ -142,10 +142,10 @@ export function CategoryHero({ categories }: CategoryHeroProps) {
                             e.stopPropagation();
                             router.push(`/shop?cat=${cat.title.toLowerCase()}`);
                           }}
-                          className="flex mx-auto items-center justify-center gap-1.5 px-3 py-1 rounded-full border border-white/40 text-white font-avant-garde text-[0.45rem] font-bold bg-transparent backdrop-blur-sm hover:bg-white hover:text-black transition-all duration-300 group shadow-lg"
+                          className="flex mx-auto items-center justify-center gap-1.5 px-4 py-1.5 rounded-full border border-white/40 text-white font-avant-garde text-xs font-bold bg-transparent backdrop-blur-sm hover:bg-white hover:text-black transition-all duration-300 group shadow-lg"
                         >
                           <span>Buy Now</span>
-                          <ArrowRight size={8} className="group-hover:translate-x-1 transition-transform" />
+                          <ArrowRight size={10} className="group-hover:translate-x-1 transition-transform" />
                         </button>
                       </div>
                     </div>
@@ -166,8 +166,8 @@ export function CategoryHero({ categories }: CategoryHeroProps) {
                     <Image
                       src={cat.image}
                       alt={cat.title}
-                      width={100}
-                      height={200}
+                      width={130}
+                      height={260}
                       className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)] origin-bottom"
                       priority
                     />
