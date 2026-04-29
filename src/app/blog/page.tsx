@@ -64,13 +64,13 @@ export default function BlogListingPage() {
           <section className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-[120px] px-4 relative z-20">
             {displayPosts.map((post, index) => (
               <article key={post.id || index} className="flex flex-col group">
-                <div className="relative w-full flex justify-end mb-8">
+                <div className="relative w-full flex justify-end mb-[60px]">
                   {/* Background Curved Lines (SVG) */}
                   <svg className="absolute left-0 top-[8%] w-[50%] h-[32%] z-0 pointer-events-none transition-transform duration-700 group-hover:-translate-x-2" xmlns="http://www.w3.org/2000/svg">
                     <rect x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" rx="40" fill="none" stroke="#d2d2d2" strokeWidth="1.5" className="transition-colors duration-500 group-hover:stroke-[#9c0045]" />
                   </svg>
                   
-                  <svg className="absolute left-0 -bottom-[8%] w-[85%] h-[38%] z-0 pointer-events-none transition-transform duration-700 group-hover:-translate-x-2" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="absolute left-0 -bottom-[8%] w-[85%] h-[55%] z-0 pointer-events-none transition-transform duration-700 group-hover:-translate-x-2" xmlns="http://www.w3.org/2000/svg">
                     <rect x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" rx="40" fill="none" stroke="#d2d2d2" strokeWidth="1.5" className="transition-colors duration-500 group-hover:stroke-[#9c0045]" />
                   </svg>
 

@@ -1,70 +1,54 @@
-# Redesigning CMS to Support Mobile Content & Global Custom Fonts
+# Homepage Hero Mobile Redesign Plan
 
-This updated implementation plan details how we will redesign the Admin Panel and the existing backend architecture to solve two major requirements:
-1. Allowing administrators to edit mobile-specific text content natively.
-2. Empowering administrators to upload raw font files (`.woff`, `.ttf`) and globally swap the application typography dynamically.
-
----
-
-## Part 1: Mobile Screen Editable Subsystems
-
-### Database Layer
-#### [MODIFY] `src/models/Category.ts`
-- Extend the `CategorySchema` to include three new optional fields:
-  - `mobileTitle` (String)
-  - `mobileShortDesc` (String)
-  - `mobileActiveDesc` (String)
-
-#### [MODIFY] `src/lib/data.ts`
-- Extend the `Category` Typescript interface mapping to officially support the 3 new mobile properties.
-
-### Admin CMS Panel Updates
-#### [MODIFY] `src/components/admin/CmsForm.tsx`
-- **Initial State Tracker**: Enhance the layout `formData` state to track the 3 parameters.
-- **Mobile Content Panel**: Construct a new visual form grouping titled "Mobile Screen Content" with `<textarea>` elements allowing for `\n` line breaks.
-
-### Consumer Frontend Interface
-#### [MODIFY] `src/components/CategoryHero.tsx`
-- **Dynamic Processing**: Exchange the static string `"Pure <br /> botanical <br /> refreshment"` with the database-fed `cat.mobileTitle`, utilizing `whitespace-pre-line` to handle the CMS carriage returns without injecting raw HTML.
-
----
-
-## Part 2: Dynamic Font File Upload Engine
-
-### Site Content Model & Seeding
-#### [MODIFY] `src/models/SiteContent.ts`
-- Add `"font"` to the allowed structural `type` enums (currently `text | image | json`).
-
-#### [MODIFY] `src/lib/seed.ts` (or equivalent initialization hook)
-- Create two static keys in the `SiteContent` table: 
-  - Key: `global.font.primary` (Label: "Main Brand Heading Font")
-  - Key: `global.font.secondary` (Label: "Secondary Body Font")
-
-### File Upload and CMS Controller
-#### [MODIFY] `src/components/admin/SiteContentForm.tsx`
-- Add a dedicated condition when `type === "font"`.
-- This will render a unique file upload mechanism strictly accepting `.woff`, `.woff2`, and `.ttf` formats.
-- Once uploaded, it passes the binary to `Vercel Blob Storage` (via the existing `/api/upload` endpoint) and persists the generated URL in the database.
-
-### Global CSS Injection
-#### [MODIFY] `src/app/layout.tsx`
-- **Server Component Fetching**: Import the `SiteContent` Mongoose model directly and fetch the dynamic font URLs during the root server-side sweep.
-- **`<style>` Injection**: Render a dynamic `<style>` block at the `<head>` root:
-```css
-@font-face {
-  font-family: 'Dynamic-Heading';
-  src: url('{{global.font.primary.value}}');
-}
-:root {
-  --font-dynamic-playfair: 'Dynamic-Heading', serif !important;
-}
-```
-- Map these new CSS variables explicitly over the existing Tailwind font utilities (like `--font-playfair` in the CSS root), ensuring that if a font is uploaded via the admin panel, it natively overrides the entire project instantaneously without requiring code commits.
-
----
+The current mobile hero section uses a vertical accordion where 4 categories share the screen height evenly. This forces the content into extremely small spaces, resulting in unreadable font sizes (`text-[6px]` and `text-[0.45rem]`) and a cramped layout.
 
 ## User Review Required
+
 > [!IMPORTANT]
-> The Font Injection layer is incredibly powerful. It means that the instant you upload a `.woff` font in the admin panel, the entire global website layout will dynamically repopulate with that new font structure.
->
-> Please review this scaled-up architecture (Mobile CMS + Global Font Flow) and reply with **"Approved"** to kick off execution!
+> Please review the proposed redesign options and let me know your preference. Option 1 is recommended for the best mobile user experience.
+
+### Option 1: Full-Screen Horizontal Swipe Carousel (Recommended)
+Instead of dividing the screen into 4 small vertical slices, we show one category at a time taking up the full screen height.
+- **Layout**: Users swipe left/right to view different categories.
+- **Readability**: Font sizes can be increased to standard readable sizes (e.g., `14px` - `16px`).
+- **Visuals**: Product images can be showcased much larger.
+- **Background**: The entire screen background transitions to the active category's color.
+
+### Option 2: Vertically Expanding Accordion
+We keep the 4 items on the screen, but when a category is tapped, it expands vertically to take up most of the screen (e.g., 70% height), while the other three shrink to narrow tabs at the top/bottom.
+- **Layout**: Tapping expands the item vertically.
+- **Readability**: The active item has enough room for larger, readable text. Non-active items just show the category title.
+- **Visuals**: The image and text can stack vertically in the expanded space.
+
+## Open Questions
+
+> [!NOTE]
+> Which design option do you prefer? (Option 1 or Option 2)
+> Do you want to keep the "Buy Now" and "View More" button styles similar, just scaled up appropriately?
+
+## Proposed Changes
+
+### `c:\MIB\rafa-garden-frontend\src\components\CategoryHero.tsx`
+#### [MODIFY] CategoryHero.tsx
+
+**If Option 1 is chosen:**
+- Replace the mobile `div.flex.md:hidden` block with a swipable carousel using `framer-motion` (e.g., `drag="x"` or simple horizontal scroll snap).
+- Update typography classes from `text-[6px]` and `text-[0.45rem]` to `text-xs`, `text-sm`, and `text-base`.
+- Adjust image positioning and sizing to utilize the full mobile canvas.
+
+**If Option 2 is chosen:**
+- Modify the `flex-1` behavior on mobile to conditionally apply `flex-[3]` (or similar) to the active item, and `flex-none h-16` to inactive items.
+- Re-layout the active item's internal content to stack vertically (image on top, text below) to maximize the available expanded space.
+- Increase font sizes significantly.
+
+## Verification Plan
+
+### Automated Tests
+- Run the local dev server using `npm run dev`.
+
+### Manual Verification
+- Open the application in the browser.
+- Use responsive design mode (DevTools) to simulate mobile screens (iPhone, Android).
+- Verify that text is fully legible without zooming.
+- Test the interaction (swiping or tapping) to ensure smooth transitions.
+- Ensure the desktop layout remains completely unaffected.

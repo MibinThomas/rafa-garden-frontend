@@ -7,6 +7,12 @@ import Product from '@/models/Product'; // Ensure Product model is registered fo
 export async function GET() {
   try {
     await dbConnect();
+    
+    // Explicitly reference the Product model to ensure it's registered
+    // even if it was just imported above. Some Next.js builds/runtimes
+    // can be aggressive with tree-shaking or optimization.
+    const _ignore = Product.modelName; 
+
     // Use .populate('products') to fetch full product details for the frontend
     const categories = await Category.find({})
       .sort({ id: 1 })
