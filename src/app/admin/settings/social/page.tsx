@@ -8,7 +8,7 @@ export default function SocialSettingsPage() {
   return (
     <div className="p-8 pb-32">
       <div className="mb-10">
-        <h1 className="text-3xl font-black text-[#0b2b1a] tracking-tight">Social Media</h1>
+        <h1 className="text-3xl font-black text-[#5d5f61] tracking-tight">Social Media</h1>
         <p className="text-[#888888] mt-2">Manage your global social network links rendered in the footer and contact forms.</p>
       </div>
 

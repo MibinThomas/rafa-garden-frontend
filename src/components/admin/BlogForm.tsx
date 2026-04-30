@@ -128,7 +128,7 @@ export function BlogForm({ isOpen, onClose, post, onSave }: BlogFormProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-[#0b2b1a]/40 backdrop-blur-sm z-[100]"
+            className="fixed inset-0 bg-[#5d5f61]/40 backdrop-blur-sm z-[100]"
           />
 
           <motion.div
@@ -148,13 +148,13 @@ export function BlogForm({ isOpen, onClose, post, onSave }: BlogFormProps) {
                 >
                   Cinematic Narrative
                 </motion.p>
-                <h2 className="text-4xl font-black font-playfair text-[#0b2b1a]">
+                <h2 className="text-4xl font-black font-playfair text-[#5d5f61]">
                   {post ? "Refine" : "Draft"} <span className="italic font-normal">Story</span>
                 </h2>
               </div>
               <button 
                 onClick={onClose} 
-                className="p-4 rounded-2xl bg-white text-gray-300 hover:text-[#0b2b1a] transition-all duration-500 shadow-xl shadow-black/5 hover:scale-110 active:scale-95 border border-gray-50"
+                className="p-4 rounded-2xl bg-white text-gray-300 hover:text-[#5d5f61] transition-all duration-500 shadow-xl shadow-black/5 hover:scale-110 active:scale-95 border border-gray-50"
               >
                 <X size={20} />
               </button>
@@ -180,17 +180,17 @@ export function BlogForm({ isOpen, onClose, post, onSave }: BlogFormProps) {
                     )}
 
                     {uploading && (
-                      <div className="absolute inset-0 bg-[#0b2b1a]/80 backdrop-blur-md flex flex-col items-center justify-center text-white gap-4">
+                      <div className="absolute inset-0 bg-[#5d5f61]/80 backdrop-blur-md flex flex-col items-center justify-center text-white gap-4">
                         <Loader2 className="animate-spin" size={24} />
                         <span className="text-[9px] font-black uppercase tracking-[0.3em]">Processing Asset...</span>
                       </div>
                     )}
 
-                    <div className="absolute inset-0 bg-[#0b2b1a]/40 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-[2px]">
+                    <div className="absolute inset-0 bg-[#5d5f61]/40 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-[2px]">
                       <button
                         type="button"
                         onClick={() => fileInputRef.current?.click()}
-                        className="bg-white text-[#0b2b1a] px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl hover:scale-105 active:scale-95 transition-all"
+                        className="bg-white text-[#5d5f61] px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl hover:scale-105 active:scale-95 transition-all"
                       >
                         {formData.image ? "Replace Narrative Asset" : "Select Visual Asset"}
                       </button>
@@ -208,7 +208,7 @@ export function BlogForm({ isOpen, onClose, post, onSave }: BlogFormProps) {
                     type="text"
                     value={formData.title}
                     onChange={handleTitleChange}
-                    className="w-full px-10 py-8 bg-white rounded-[2.5rem] border border-gray-100 outline-none font-black font-playfair text-4xl text-[#0b2b1a] focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-sm placeholder:text-gray-100"
+                    className="w-full px-10 py-8 bg-white rounded-[2.5rem] border border-gray-100 outline-none font-black font-playfair text-4xl text-[#5d5f61] focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-sm placeholder:text-gray-100"
                     placeholder="The Essence of Botanical Wisdom"
                     required
                   />
@@ -221,7 +221,7 @@ export function BlogForm({ isOpen, onClose, post, onSave }: BlogFormProps) {
                       type="text"
                       value={formData.slug}
                       onChange={e => setFormData(prev => ({ ...prev, slug: e.target.value }))}
-                      className="w-full px-8 py-5 bg-white rounded-[1.5rem] border border-gray-100 outline-none text-[11px] font-black uppercase tracking-widest text-[#0b2b1a] shadow-sm"
+                      className="w-full px-8 py-5 bg-white rounded-[1.5rem] border border-gray-100 outline-none text-[11px] font-black uppercase tracking-widest text-[#5d5f61] shadow-sm"
                       placeholder="essence-of-wisdom"
                     />
                   </div>
@@ -231,7 +231,7 @@ export function BlogForm({ isOpen, onClose, post, onSave }: BlogFormProps) {
                       type="text"
                       value={formData.category}
                       onChange={e => setFormData(prev => ({ ...prev, category: e.target.value }))}
-                      className="w-full px-8 py-5 bg-white rounded-[1.5rem] border border-gray-100 outline-none text-[11px] font-black uppercase tracking-widest text-[#0b2b1a] shadow-sm"
+                      className="w-full px-8 py-5 bg-white rounded-[1.5rem] border border-gray-100 outline-none text-[11px] font-black uppercase tracking-widest text-[#5d5f61] shadow-sm"
                       placeholder="Garden Sage"
                     />
                   </div>
@@ -246,7 +246,7 @@ export function BlogForm({ isOpen, onClose, post, onSave }: BlogFormProps) {
                     type="text"
                     value={formData.subtitle}
                     onChange={e => setFormData(prev => ({ ...prev, subtitle: e.target.value }))}
-                    className="w-full px-8 py-5 bg-white rounded-[1.5rem] border border-gray-100 outline-none text-sm font-bold text-[#0b2b1a] shadow-sm italic"
+                    className="w-full px-8 py-5 bg-white rounded-[1.5rem] border border-gray-100 outline-none text-sm font-bold text-[#5d5f61] shadow-sm italic"
                     placeholder="Short poetic hook..."
                   />
                 </div>
@@ -268,7 +268,7 @@ export function BlogForm({ isOpen, onClose, post, onSave }: BlogFormProps) {
                     value={formData.content}
                     onChange={e => setFormData(prev => ({ ...prev, content: e.target.value }))}
                     rows={15}
-                    className="w-full px-10 py-10 bg-white rounded-[3rem] border border-gray-100 outline-none text-base font-inter font-light text-[#0b2b1a] leading-[1.8] shadow-sm custom-scrollbar"
+                    className="w-full px-10 py-10 bg-white rounded-[3rem] border border-gray-100 outline-none text-base font-inter font-light text-[#5d5f61] leading-[1.8] shadow-sm custom-scrollbar"
                     placeholder="Write the full cinematic story here..."
                   />
                 </div>
@@ -282,7 +282,7 @@ export function BlogForm({ isOpen, onClose, post, onSave }: BlogFormProps) {
                     type="text"
                     value={formData.date}
                     onChange={e => setFormData(prev => ({ ...prev, date: e.target.value }))}
-                    className="w-full px-5 py-4 bg-white rounded-xl border border-gray-100 outline-none text-[10px] font-black uppercase tracking-widest text-[#0b2b1a] shadow-sm"
+                    className="w-full px-5 py-4 bg-white rounded-xl border border-gray-100 outline-none text-[10px] font-black uppercase tracking-widest text-[#5d5f61] shadow-sm"
                   />
                 </div>
                 <div className="space-y-3">
@@ -291,7 +291,7 @@ export function BlogForm({ isOpen, onClose, post, onSave }: BlogFormProps) {
                     type="text"
                     value={formData.readingTime}
                     onChange={e => setFormData(prev => ({ ...prev, readingTime: e.target.value }))}
-                    className="w-full px-5 py-4 bg-white rounded-xl border border-gray-100 outline-none text-[10px] font-black uppercase tracking-widest text-[#0b2b1a] shadow-sm"
+                    className="w-full px-5 py-4 bg-white rounded-xl border border-gray-100 outline-none text-[10px] font-black uppercase tracking-widest text-[#5d5f61] shadow-sm"
                   />
                 </div>
                 <div className="space-y-3">
@@ -324,14 +324,14 @@ export function BlogForm({ isOpen, onClose, post, onSave }: BlogFormProps) {
             <div className="p-10 bg-white border-t border-gray-100/50 flex gap-6">
               <button 
                 onClick={onClose} 
-                className="flex-1 py-6 rounded-[2rem] bg-gray-50 text-gray-400 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-gray-100 hover:text-[#0b2b1a] transition-all duration-500"
+                className="flex-1 py-6 rounded-[2rem] bg-gray-50 text-gray-400 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-gray-100 hover:text-[#5d5f61] transition-all duration-500"
               >
                 Discard Manuscript
               </button>
               <button
                 onClick={handleSave}
                 disabled={saving || !formData.title || !formData.slug}
-                className="flex-[2] py-6 rounded-[2rem] bg-[#0b2b1a] text-white font-black text-[10px] uppercase tracking-[0.4em] shadow-2xl shadow-[#0b2b1a]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-4 transition-all duration-700"
+                className="flex-[2] py-6 rounded-[2rem] bg-[#5d5f61] text-white font-black text-[10px] uppercase tracking-[0.4em] shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-4 transition-all duration-700"
               >
                 {saving ? (
                    <div className="flex items-center gap-4">

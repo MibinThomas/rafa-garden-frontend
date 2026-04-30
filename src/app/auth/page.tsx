@@ -14,19 +14,19 @@ export default function AuthPage() {
 
   useEffect(() => {
     setIsImmersive(false);
-    setHeaderColor("#0b2b1a"); // Deep forest green for auth context
+    setHeaderColor("#5d5f61"); // Deep forest green for auth context
   }, [setIsImmersive, setHeaderColor]);
 
   return (
     <div className="min-h-screen w-full flex flex-col md:flex-row bg-[#f1f1f2] font-sans overflow-hidden">
       
       {/* Mobile Back Button */}
-      <Link href="/" className="md:hidden absolute top-6 left-6 z-50 text-[#0b2b1a] flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] bg-white/80 backdrop-blur-md px-4 py-2 rounded-full shadow-sm">
+      <Link href="/" className="md:hidden absolute top-6 left-6 z-50 text-[#5d5f61] flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] bg-white/80 backdrop-blur-md px-4 py-2 rounded-full shadow-sm">
         <ArrowLeft size={14} /> Back
       </Link>
 
       {/* Left Side: Cinematic Presentation Area */}
-      <div className="hidden md:flex w-[45%] lg:w-[40%] relative bg-[#0b2b1a] flex-col justify-between p-12 lg:p-20 overflow-hidden">
+      <div className="hidden md:flex w-[45%] lg:w-[40%] relative bg-[#5d5f61] flex-col justify-between p-12 lg:p-20 overflow-hidden">
         {/* Dynamic Background Texture */}
         <div className="absolute inset-0 z-0">
            <div className="absolute inset-0 bg-[url('/images/hero/plants_premium.png')] bg-cover bg-center opacity-10 mix-blend-overlay grayscale" />
@@ -49,7 +49,7 @@ export default function AuthPage() {
           className="relative z-20"
         >
           <Link href="/" className="group flex items-center gap-4">
-             <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:bg-white group-hover:text-[#0b2b1a] transition-all">
+             <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:bg-white group-hover:text-[#5d5f61] transition-all">
                 <ArrowLeft size={18} />
              </div>
              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60">Rafah Garden</span>
@@ -111,7 +111,7 @@ export default function AuthPage() {
                className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-[140px] -translate-y-1/2 translate-x-1/4" 
                style={{ background: activeColor }}
              />
-             <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#0b2b1a]/10 blur-[100px]" />
+             <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#5d5f61]/10 blur-[100px]" />
         </div>
 
         <div className="w-full max-w-lg relative z-10">
@@ -127,7 +127,7 @@ export default function AuthPage() {
               
               <div className="mb-12">
                 <span className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-400 mb-4 block">Authentication</span>
-                <h1 className="text-5xl font-black font-playfair text-[#0b2b1a] mb-4 tracking-tighter">
+                <h1 className="text-5xl font-black font-playfair text-[#5d5f61] mb-4 tracking-tighter">
                   {isLogin ? "Welcome Back" : "New Heritage"}
                 </h1>
                 <p className="text-gray-500 font-inter text-sm font-medium opacity-70">
@@ -145,48 +145,48 @@ export default function AuthPage() {
                     animate={{ opacity: 1, height: "auto" }}
                     className="space-y-2"
                   >
-                    <label className="text-[10px] font-black uppercase tracking-widest text-[#0b2b1a] ml-4 opacity-40">Full Name</label>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-[#5d5f61] ml-4 opacity-40">Full Name</label>
                     <div className="relative group">
-                       <User className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#0b2b1a] transition-colors" size={18} />
+                       <User className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#5d5f61] transition-colors" size={18} />
                        <input 
                          type="text" 
                          placeholder="e.g. Alexander Garden" 
-                         className="w-full pl-14 pr-6 py-5 rounded-2xl bg-white border border-gray-100 focus:border-gray-300 outline-none transition-all shadow-sm font-bold text-[#0b2b1a] placeholder:text-gray-200 placeholder:font-normal" 
+                         className="w-full pl-14 pr-6 py-5 rounded-2xl bg-white border border-gray-100 focus:border-gray-300 outline-none transition-all shadow-sm font-bold text-[#5d5f61] placeholder:text-gray-200 placeholder:font-normal" 
                        />
                     </div>
                   </motion.div>
                 )}
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-[#0b2b1a] ml-4 opacity-40">Email Identity</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-[#5d5f61] ml-4 opacity-40">Email Identity</label>
                   <div className="relative group">
-                     <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#0b2b1a] transition-colors" size={18} />
+                     <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#5d5f61] transition-colors" size={18} />
                      <input 
                        type="email" 
                        placeholder="your@email.com" 
-                       className="w-full pl-14 pr-6 py-5 rounded-2xl bg-white border border-gray-100 focus:border-gray-300 outline-none transition-all shadow-sm font-bold text-[#0b2b1a] placeholder:text-gray-200 placeholder:font-normal" 
+                       className="w-full pl-14 pr-6 py-5 rounded-2xl bg-white border border-gray-100 focus:border-gray-300 outline-none transition-all shadow-sm font-bold text-[#5d5f61] placeholder:text-gray-200 placeholder:font-normal" 
                      />
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <div className="flex justify-between items-end mr-4">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-[#0b2b1a] ml-4 opacity-40">Security Key</label>
-                    {isLogin && <a href="#" className="text-[9px] uppercase font-black tracking-widest text-gray-400 hover:text-[#0b2b1a] transition-colors">Recover?</a>}
+                    <label className="text-[10px] font-black uppercase tracking-widest text-[#5d5f61] ml-4 opacity-40">Security Key</label>
+                    {isLogin && <a href="#" className="text-[9px] uppercase font-black tracking-widest text-gray-400 hover:text-[#5d5f61] transition-colors">Recover?</a>}
                   </div>
                   <div className="relative group">
-                     <Lock className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#0b2b1a] transition-colors" size={18} />
+                     <Lock className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#5d5f61] transition-colors" size={18} />
                      <input 
                        type="password" 
                        placeholder="••••••••" 
-                       className="w-full pl-14 pr-6 py-5 rounded-2xl bg-white border border-gray-100 focus:border-gray-300 outline-none transition-all shadow-sm font-bold text-[#0b2b1a] placeholder:text-gray-200 placeholder:font-normal" 
+                       className="w-full pl-14 pr-6 py-5 rounded-2xl bg-white border border-gray-100 focus:border-gray-300 outline-none transition-all shadow-sm font-bold text-[#5d5f61] placeholder:text-gray-200 placeholder:font-normal" 
                      />
                   </div>
                 </div>
 
                 <button 
                   className="w-full py-6 mt-6 text-white font-black tracking-[0.3em] uppercase text-xs rounded-2xl transition-all shadow-2xl active:scale-[0.98] flex items-center justify-center gap-4 hover:brightness-110"
-                  style={{ backgroundColor: "#0b2b1a" }}
+                  style={{ backgroundColor: "#5d5f61" }}
                 >
                   {isLogin ? "Sign In" : "Register"}
                   <CheckCircle2 size={18} className="opacity-40" />
@@ -198,7 +198,7 @@ export default function AuthPage() {
                   {isLogin ? "Member status: Not found" : "Member status: Existing"}{" "}
                   <button 
                     onClick={() => setIsLogin(!isLogin)}
-                    className="text-[#0b2b1a] ml-2 underline underline-offset-4 decoration-2 decoration-brand-pink/30 hover:decoration-brand-pink transition-all"
+                    className="text-[#5d5f61] ml-2 underline underline-offset-4 decoration-2 decoration-brand-pink/30 hover:decoration-brand-pink transition-all"
                   >
                     {isLogin ? "Apply Now" : "Sign In"}
                   </button>

@@ -127,12 +127,12 @@ export default function CheckoutPage() {
               <Link href="/shop" className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest transition-colors mb-4" style={{ color: activeColor }}>
                   <ArrowLeft size={16} /> Back to Shop
               </Link>
-              <h1 className="text-4xl md:text-5xl font-black font-playfair text-[#0b2b1a]">
+              <h1 className="text-4xl md:text-5xl font-black font-playfair text-[#5d5f61]">
                   Checkout
               </h1>
             </div>
             <div className="hidden md:flex items-center gap-4 text-xs font-bold uppercase tracking-widest">
-               <span className="flex items-center gap-1.5 text-[#0b2b1a]"><CheckCircle2 size={16} /> Details</span>
+               <span className="flex items-center gap-1.5 text-[#5d5f61]"><CheckCircle2 size={16} /> Details</span>
                <div className="w-10 h-[2px] bg-black/10" />
                <span className="text-gray-400">WhatsApp Confirmation</span>
             </div>
@@ -145,7 +145,7 @@ export default function CheckoutPage() {
             
             {/* Contact Info */}
             <section className="bg-white/80 backdrop-blur-md rounded-[2rem] p-8 border border-white shadow-sm">
-                <h2 className="text-xl font-bold font-playfair text-[#0b2b1a] mb-6">Contact Information</h2>
+                <h2 className="text-xl font-bold font-playfair text-[#5d5f61] mb-6">Contact Information</h2>
                 <div className="space-y-4">
                     <input 
                       id="email"
@@ -170,7 +170,7 @@ export default function CheckoutPage() {
 
             {/* Shipping Address */}
             <section className="bg-white/80 backdrop-blur-md rounded-[2rem] p-8 border border-white shadow-sm">
-                <h2 className="text-xl font-bold font-playfair text-[#0b2b1a] mb-6">Shipping Address</h2>
+                <h2 className="text-xl font-bold font-playfair text-[#5d5f61] mb-6">Shipping Address</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input id="firstName" value={formData.firstName} onChange={handleInputChange} required type="text" placeholder="First Name" className="w-full px-5 py-4 rounded-xl bg-black/5 outline-none focus:bg-white focus:border-brand-pink/50 border border-transparent transition-all" />
                     <input id="lastName" value={formData.lastName} onChange={handleInputChange} required type="text" placeholder="Last Name" className="w-full px-5 py-4 rounded-xl bg-black/5 outline-none focus:bg-white focus:border-brand-pink/50 border border-transparent transition-all" />
@@ -185,7 +185,7 @@ export default function CheckoutPage() {
 
           {/* Right Column: Order Summary */}
           <div className="w-full lg:w-[40%] lg:sticky lg:top-32">
-            <div className="bg-[#0b2b1a] rounded-[2rem] p-8 text-white shadow-xl relative overflow-hidden">
+            <div className="bg-[#5d5f61] rounded-[2rem] p-8 text-white shadow-xl relative overflow-hidden">
                 <div className="absolute -top-32 -right-32 w-64 h-64 bg-brand-pink/20 blur-3xl rounded-full" />
                 
                 <h2 className="text-xl font-playfair font-black mb-8 relative z-10">Order Summary</h2>
@@ -227,7 +227,7 @@ export default function CheckoutPage() {
                 <button 
                   type="submit"
                   disabled={items.length === 0 || loading}
-                  className="w-full py-5 mt-8 text-white font-black tracking-[0.2em] uppercase text-[10px] rounded-xl transition-all shadow-lg hover:bg-white hover:text-[#0b2b1a] disabled:opacity-50 active:scale-95 flex items-center justify-center gap-3"
+                  className="w-full py-5 mt-8 text-white font-black tracking-[0.2em] uppercase text-[10px] rounded-xl transition-all shadow-lg hover:bg-white hover:text-[#5d5f61] disabled:opacity-50 active:scale-95 flex items-center justify-center gap-3"
                   style={{ backgroundColor: activeColor }}
                 >
                     {loading ? (

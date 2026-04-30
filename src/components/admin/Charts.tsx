@@ -145,13 +145,13 @@ export function RevenueChart({ orders = [] }: { orders?: any[] }) {
   };
 
   return (
-    <div className="bg-white/80 backdrop-blur-xl p-10 rounded-[3.5rem] border border-white shadow-2xl shadow-black/[0.02] mb-12 relative overflow-hidden group">
+    <div className="bg-white/80 backdrop-blur-xl p-10 rounded-[3.5rem] border border-white shadow-2xl shadow-black/[0.02] mb-12 relative group">
       <div className="absolute top-0 right-0 w-64 h-64 bg-[#c81c6a]/5 rounded-full blur-[5rem] -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-110" />
       
       <div className="flex flex-col xl:flex-row xl:items-end justify-between mb-12 gap-8 relative z-10">
         <div>
           <p className="text-[#c81c6a] text-[10px] font-black uppercase tracking-[0.5em] mb-3">Analytics Vault</p>
-          <h3 className="text-[#0b2b1a] text-4xl font-black font-playfair tracking-tighter leading-none">Market Dynamics</h3>
+          <h3 className="text-[#5d5f61] text-4xl font-black font-playfair tracking-tighter leading-none">Market Dynamics</h3>
         </div>
         
         <div className="flex flex-col sm:flex-row items-center gap-6">
@@ -162,11 +162,11 @@ export function RevenueChart({ orders = [] }: { orders?: any[] }) {
                 onClick={() => setTimeframe(t)}
                 className={cn(
                   "px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all duration-300 relative",
-                  timeframe === t ? "text-white" : "text-[#0b2b1a] opacity-40 hover:opacity-100"
+                  timeframe === t ? "text-white" : "text-[#5d5f61] opacity-40 hover:opacity-100"
                 )}
               >
                 {timeframe === t && (
-                  <motion.div layoutId="activeTime" className="absolute inset-0 bg-[#0b2b1a] rounded-xl shadow-lg z-0" />
+                  <motion.div layoutId="activeTime" className="absolute inset-0 bg-[#5d5f61] rounded-xl shadow-lg z-0" />
                 )}
                 <span className="relative z-10">{t}</span>
               </button>
@@ -176,11 +176,11 @@ export function RevenueChart({ orders = [] }: { orders?: any[] }) {
           <div className="flex gap-8 bg-gray-50/50 backdrop-blur-sm p-4 rounded-2xl border border-gray-100">
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 rounded-full bg-[#c81c6a] shadow-[0_0_10px_rgba(200,28,106,0.3)]" />
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#0b2b1a]">Revenue Flow</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#5d5f61]">Revenue Flow</span>
             </div>
             <div className="flex items-center gap-3">
-              <div className="w-2 h-2 rounded-full bg-[#0b2b1a] shadow-[0_0_10px_rgba(11,43,26,0.3)]" />
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#0b2b1a]">Order Volume</span>
+              <div className="w-2 h-2 rounded-full bg-[#5d5f61] shadow-[0_0_10px_rgba(11,43,26,0.3)]" />
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#5d5f61]">Order Volume</span>
             </div>
           </div>
         </div>
@@ -194,8 +194,8 @@ export function RevenueChart({ orders = [] }: { orders?: any[] }) {
           onMouseLeave={() => setHoveredIndex(null)}
         >
           {/* Proper Axis Lines */}
-          <line x1="0" y1="300" x2="1000" y2="300" stroke="#0b2b1a" strokeWidth="2" strokeOpacity="0.1" />
-          <line x1="0" y1="0" x2="0" y2="300" stroke="#0b2b1a" strokeWidth="2" strokeOpacity="0.1" />
+          <line x1="0" y1="300" x2="1000" y2="300" stroke="#5d5f61" strokeWidth="2" strokeOpacity="0.1" />
+          <line x1="0" y1="0" x2="0" y2="300" stroke="#5d5f61" strokeWidth="2" strokeOpacity="0.1" />
           
           <line x1="0" y1="200" x2="1000" y2="200" stroke="#f1f1f2" strokeWidth="1" strokeDasharray="4,4" />
           <line x1="0" y1="100" x2="1000" y2="100" stroke="#f1f1f2" strokeWidth="1" strokeDasharray="4,4" />
@@ -207,7 +207,7 @@ export function RevenueChart({ orders = [] }: { orders?: any[] }) {
               <line 
                 key={i} 
                 x1={i * step} y1="0" x2={i * step} y2="300" 
-                stroke="#0b2b1a" strokeWidth="1" strokeOpacity={hoveredIndex === i ? "0.1" : "0.03"} 
+                stroke="#5d5f61" strokeWidth="1" strokeOpacity={hoveredIndex === i ? "0.1" : "0.03"} 
               />
             );
           })}
@@ -234,7 +234,7 @@ export function RevenueChart({ orders = [] }: { orders?: any[] }) {
               transition={{ duration: 1.5, delay: 0.2, ease: "easeInOut" }}
               d={getPath(true)}
               fill="none"
-              stroke="#0b2b1a"
+              stroke="#5d5f61"
               strokeWidth="2"
               strokeDasharray="6,6"
               strokeLinecap="round"
@@ -271,11 +271,11 @@ export function RevenueChart({ orders = [] }: { orders?: any[] }) {
               initial={{ opacity: 0, y: 10, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.9 }}
-              className="absolute z-50 bg-[#0b2b1a] text-white p-4 rounded-2xl shadow-2xl pointer-events-none min-w-[160px]"
+              className="absolute z-50 bg-[#5d5f61] text-white p-4 rounded-2xl shadow-2xl pointer-events-none min-w-[160px]"
               style={{
                 left: `${(hoveredIndex / (aggregatedData.length - 1)) * 100}%`,
                 top: `30%`,
-                transform: `translateX(-50%)`
+                transform: hoveredIndex >= aggregatedData.length - 2 ? 'translateX(-100%) translateX(-20px)' : hoveredIndex <= 1 ? 'translateX(0%) translateX(20px)' : 'translateX(-50%)',
               }}
             >
               <p className="text-[8px] font-black uppercase tracking-[0.2em] opacity-60 mb-1">{aggregatedData[hoveredIndex].fullLabel}</p>
@@ -293,21 +293,6 @@ export function RevenueChart({ orders = [] }: { orders?: any[] }) {
           )}
         </AnimatePresence>
 
-        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-12 gap-4 mt-10 px-2">
-          {aggregatedData.map((d, i) => (
-            <div key={i} className={cn(
-              "flex flex-col items-center",
-              aggregatedData.length > 12 && i % (timeframe === 'hour' ? 4 : timeframe === 'day' ? 6 : 1) !== 0 ? "hidden md:flex" : ""
-            )}>
-              <span className={cn(
-                "text-[8px] font-black uppercase tracking-tighter sm:tracking-widest whitespace-nowrap transition-all duration-300",
-                hoveredIndex === i ? "text-[#c81c6a] scale-110 opacity-100" : "text-[#0b2b1a] opacity-40"
-              )}>
-                {d.label}
-              </span>
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );
@@ -317,7 +302,7 @@ export function OrderBreakdown({ orders = [] }: { orders?: any[] }) {
   const breakdown = [
     { label: "Inventory Velocity", color: "text-[#c81c6a]", border: "border-[#c81c6a]", icon: "Archive" },
     { label: "Liquidity Status", color: "text-emerald-500", border: "border-emerald-500", icon: "Wallet" },
-    { label: "Settlement Rate", color: "text-[#0b2b1a]", border: "border-[#0b2b1a]", icon: "Shield" },
+    { label: "Settlement Rate", color: "text-[#5d5f61]", border: "border-[#5d5f61]", icon: "Shield" },
   ];
 
   return (
@@ -330,7 +315,7 @@ export function OrderBreakdown({ orders = [] }: { orders?: any[] }) {
           transition={{ delay: idx * 0.1, duration: 0.8 }}
           className="bg-white/80 backdrop-blur-xl p-10 rounded-[3.5rem] border border-white shadow-2xl shadow-black/[0.02] flex flex-col items-center group hover:shadow-black/[0.05] transition-all duration-700"
         >
-          <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-[#0b2b1a] mb-8">{item.label}</h4>
+          <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-[#5d5f61] mb-8">{item.label}</h4>
           <div className={cn("w-44 h-44 rounded-full border-[1.5rem] flex items-center justify-center relative transition-transform duration-1000 group-hover:rotate-12", item.border, "border-opacity-10 shadow-inner")}>
              <div className={cn("absolute inset-0 border-[1.5rem] rounded-full border-t-transparent border-r-transparent", item.border)} />
              <div className="text-center relative z-10">
@@ -365,7 +350,7 @@ export function TopProducts({ orders = [] }: { orders?: any[] }) {
   const displayProducts = sortedProducts.length > 0 ? sortedProducts.map(p => ({
     name: p.name,
     value: Math.round((p.count / maxCount) * 100),
-    color: p.count === maxCount ? "bg-[#0b2b1a]" : "bg-[#c81c6a]",
+    color: p.count === maxCount ? "bg-[#5d5f61]" : "bg-[#c81c6a]",
     category: p.category
   })) : [
     { name: "No Orders Yet", value: 0, color: "bg-gray-100", category: "System Status" }
@@ -375,7 +360,7 @@ export function TopProducts({ orders = [] }: { orders?: any[] }) {
     <div className="bg-white/80 backdrop-blur-xl p-12 rounded-[4rem] border border-white shadow-2xl shadow-black/[0.02] relative overflow-hidden group">
       <div className="flex items-center gap-4 mb-12">
          <div className="w-1 h-10 bg-[#c81c6a] rounded-full" />
-         <h3 className="text-3xl font-black font-playfair text-[#0b2b1a]">Archive Demand</h3>
+         <h3 className="text-3xl font-black font-playfair text-[#5d5f61]">Archive Demand</h3>
       </div>
       
       <div className="space-y-10">
@@ -383,10 +368,10 @@ export function TopProducts({ orders = [] }: { orders?: any[] }) {
           <div key={idx} className="group/item">
             <div className="flex justify-between items-end mb-4">
               <div>
-                <p className="text-[9px] font-black text-[#0b2b1a] uppercase tracking-[0.3em] mb-1">{p.category}</p>
-                <span className="text-lg font-black text-[#0b2b1a] font-playfair tracking-tight">{p.name}</span>
+                <p className="text-[9px] font-black text-[#5d5f61] uppercase tracking-[0.3em] mb-1">{p.category}</p>
+                <span className="text-lg font-black text-[#5d5f61] font-playfair tracking-tight">{p.name}</span>
               </div>
-              <span className="text-[11px] font-black text-[#0b2b1a] tracking-widest">{p.value}%</span>
+              <span className="text-[11px] font-black text-[#5d5f61] tracking-widest">{p.value}%</span>
             </div>
             <div className="h-3 w-full bg-gray-50/50 rounded-full overflow-hidden shadow-inner border border-gray-100/50">
               <motion.div

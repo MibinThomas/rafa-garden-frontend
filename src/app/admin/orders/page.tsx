@@ -173,7 +173,7 @@ export default function OrdersPage() {
     <div className="space-y-12 pb-24 relative">
       {/* Background Watermark */}
       <div className="absolute top-0 right-0 pointer-events-none opacity-[0.03] select-none -mt-10 -mr-20">
-         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#0b2b1a]">EXCHANGE</h1>
+         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#5d5f61]">EXCHANGE</h1>
       </div>
 
       {/* Header */}
@@ -186,14 +186,14 @@ export default function OrdersPage() {
           >
             Transaction Sanctuary
           </motion.p>
-          <h1 className="text-6xl md:text-7xl font-black font-playfair text-[#0b2b1a] tracking-tighter">Orders</h1>
+          <h1 className="text-6xl md:text-7xl font-black font-playfair text-[#5d5f61] tracking-tighter">Orders</h1>
         </div>
 
         <div className="flex flex-wrap items-center gap-4">
           <button 
             onClick={createSampleOrder}
             disabled={creatingSample}
-            className="flex items-center gap-4 bg-white/80 backdrop-blur-md px-10 py-5 rounded-[2.5rem] border border-white font-black text-xs uppercase tracking-[0.2em] text-[#0b2b1a] shadow-2xl shadow-black/[0.02] hover:bg-[#0b2b1a] hover:text-white transition-all duration-500 disabled:opacity-50"
+            className="flex items-center gap-4 bg-white/80 backdrop-blur-md px-10 py-5 rounded-[2.5rem] border border-white font-black text-xs uppercase tracking-[0.2em] text-[#5d5f61] shadow-2xl shadow-black/[0.02] hover:bg-[#5d5f61] hover:text-white transition-all duration-500 disabled:opacity-50"
           >
             {creatingSample ? <Loader2 size={18} className="animate-spin" /> : <Plus size={18} />}
             Generate Sample Order
@@ -207,7 +207,7 @@ export default function OrdersPage() {
             <span className="text-[10px] font-black uppercase tracking-widest">Reset Ledger</span>
           </div>
 
-          <div className="flex items-center gap-3 bg-[#0b2b1a] text-white px-8 py-5 rounded-[2.5rem] shadow-2xl shadow-[#0b2b1a]/20">
+          <div className="flex items-center gap-3 bg-[#5d5f61] text-white px-8 py-5 rounded-[2.5rem] shadow-2xl shadow-[#5d5f61]/20">
             <Download size={18} />
             <span className="text-[10px] font-black uppercase tracking-widest">Export Ledger</span>
           </div>
@@ -223,14 +223,14 @@ export default function OrdersPage() {
             placeholder="Search transactions, names, or registry IDs..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-20 pr-10 py-6 bg-transparent outline-none font-bold text-[#0b2b1a] text-sm placeholder:text-gray-300"
+            className="w-full pl-20 pr-10 py-6 bg-transparent outline-none font-bold text-[#5d5f61] text-sm placeholder:text-gray-300"
           />
         </div>
         
         <div className="flex items-center gap-4 bg-white/40 backdrop-blur-md p-2 rounded-[2rem] border border-white shadow-xl">
            <div className="px-6 py-4 flex items-center gap-3">
               <Filter size={16} className="text-[#c81c6a]" />
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#0b2b1a]">Filter Stage</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-[#5d5f61]">Filter Stage</span>
            </div>
         </div>
       </div>
@@ -250,7 +250,7 @@ export default function OrdersPage() {
             <div className="w-28 h-28 rounded-full bg-white flex items-center justify-center mb-10 shadow-xl border border-gray-50">
                <ShoppingBag className="text-gray-100" size={48} />
             </div>
-            <h3 className="text-3xl font-black font-playfair text-[#0b2b1a] mb-3 tracking-tight">Vault Empty</h3>
+            <h3 className="text-3xl font-black font-playfair text-[#5d5f61] mb-3 tracking-tight">Vault Empty</h3>
             <p className="text-gray-400 text-[11px] font-bold uppercase tracking-[0.4em] max-w-xs leading-relaxed">No transactions have been recorded in this editorial cycle.</p>
           </div>
         ) : (
@@ -276,23 +276,23 @@ export default function OrdersPage() {
                    >
                      <td className="py-10 px-12">
                         <div className="flex flex-col gap-1">
-                           <span className="text-lg font-black font-playfair text-[#0b2b1a] group-hover:text-[#c81c6a] transition-colors">{order.orderId}</span>
+                           <span className="text-lg font-black font-playfair text-[#5d5f61] group-hover:text-[#c81c6a] transition-colors">{order.orderId}</span>
                            <span className="text-[10px] font-black text-gray-300 uppercase tracking-widest">{new Date(order.createdAt).toLocaleDateString()}</span>
                         </div>
                      </td>
                      <td className="py-10 px-10">
                         <div className="flex items-center gap-4">
-                           <div className="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center text-[#0b2b1a] shadow-sm border border-white">
+                           <div className="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center text-[#5d5f61] shadow-sm border border-white">
                               <User size={18} />
                            </div>
                            <div>
-                              <p className="text-[13px] font-black text-[#0b2b1a]">{order.customer.name}</p>
+                              <p className="text-[13px] font-black text-[#5d5f61]">{order.customer.name}</p>
                               <p className="text-[10px] font-bold text-gray-400">{order.customer.email}</p>
                            </div>
                         </div>
                      </td>
                      <td className="py-10 px-10">
-                        <span className="text-xl font-black font-playfair text-[#0b2b1a]">₹{order.totalAmount}</span>
+                        <span className="text-xl font-black font-playfair text-[#5d5f61]">₹{order.totalAmount}</span>
                      </td>
                      <td className="py-10 px-10">
                         <span className={cn(
@@ -306,7 +306,7 @@ export default function OrdersPage() {
                         <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-500">
                            <button 
                              onClick={() => setSelectedOrder(order)}
-                             className="p-4 rounded-2xl bg-white text-[#0b2b1a] hover:bg-[#0b2b1a] hover:text-white shadow-xl shadow-black/5 hover:scale-110 transition-all duration-500"
+                             className="p-4 rounded-2xl bg-white text-[#5d5f61] hover:bg-[#5d5f61] hover:text-white shadow-xl shadow-black/5 hover:scale-110 transition-all duration-500"
                            >
                               <Eye size={16} />
                            </button>
@@ -335,7 +335,7 @@ export default function OrdersPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedOrder(null)}
-              className="fixed inset-0 bg-[#0b2b1a]/40 backdrop-blur-sm z-[100]"
+              className="fixed inset-0 bg-[#5d5f61]/40 backdrop-blur-sm z-[100]"
             />
             <motion.div 
               initial={{ x: "100%" }}
@@ -347,11 +347,11 @@ export default function OrdersPage() {
                <div className="p-10 border-b border-gray-100 flex items-center justify-between">
                   <div>
                     <p className="text-[#c81c6a] font-black text-[9px] uppercase tracking-[0.4em] mb-2">Manifest Identity</p>
-                    <h2 className="text-4xl font-black font-playfair text-[#0b2b1a]">Order <span className="italic font-normal">{selectedOrder.orderId}</span></h2>
+                    <h2 className="text-4xl font-black font-playfair text-[#5d5f61]">Order <span className="italic font-normal">{selectedOrder.orderId}</span></h2>
                   </div>
                   <button 
                     onClick={() => setSelectedOrder(null)}
-                    className="p-4 rounded-2xl bg-gray-50 text-gray-300 hover:text-[#0b2b1a] transition-all"
+                    className="p-4 rounded-2xl bg-gray-50 text-gray-300 hover:text-[#5d5f61] transition-all"
                   >
                     <X size={20} />
                   </button>
@@ -365,7 +365,7 @@ export default function OrdersPage() {
                         <select 
                           value={selectedOrder.status}
                           onChange={(e) => updateOrderStatus(selectedOrder._id, e.target.value)}
-                          className="w-full bg-transparent outline-none font-black text-[#0b2b1a] text-lg cursor-pointer"
+                          className="w-full bg-transparent outline-none font-black text-[#5d5f61] text-lg cursor-pointer"
                         >
                            <option value="pending">Pending</option>
                            <option value="processing">Processing</option>
@@ -378,7 +378,7 @@ export default function OrdersPage() {
                         <p className="text-[9px] font-black text-gray-300 uppercase tracking-widest mb-4">Payment Status</p>
                         <div className="flex items-center gap-3">
                            <div className={cn("w-2 h-2 rounded-full", selectedOrder.paymentStatus === 'paid' ? "bg-emerald-500" : "bg-amber-500")} />
-                           <span className="text-lg font-black text-[#0b2b1a] uppercase">{selectedOrder.paymentStatus}</span>
+                           <span className="text-lg font-black text-[#5d5f61] uppercase">{selectedOrder.paymentStatus}</span>
                         </div>
                      </div>
                   </div>
@@ -386,27 +386,27 @@ export default function OrdersPage() {
                   {/* Customer Information */}
                   <div className="bg-white p-10 rounded-[3rem] border border-gray-100 shadow-xl shadow-black/[0.02] space-y-8">
                      <div className="flex items-center gap-4 pb-6 border-b border-gray-50">
-                        <div className="w-12 h-12 rounded-2xl bg-[#0b2b1a] text-white flex items-center justify-center shadow-lg">
+                        <div className="w-12 h-12 rounded-2xl bg-[#5d5f61] text-white flex items-center justify-center shadow-lg">
                            <User size={20} />
                         </div>
-                        <h3 className="text-2xl font-black font-playfair text-[#0b2b1a]">Customer Profile</h3>
+                        <h3 className="text-2xl font-black font-playfair text-[#5d5f61]">Customer Profile</h3>
                      </div>
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                         <div className="space-y-1">
                            <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest">Name</p>
-                           <p className="font-bold text-[#0b2b1a]">{selectedOrder.customer.name}</p>
+                           <p className="font-bold text-[#5d5f61]">{selectedOrder.customer.name}</p>
                         </div>
                         <div className="space-y-1">
                            <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest">Email</p>
-                           <p className="font-bold text-[#0b2b1a]">{selectedOrder.customer.email}</p>
+                           <p className="font-bold text-[#5d5f61]">{selectedOrder.customer.email}</p>
                         </div>
                         <div className="space-y-1">
                            <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest">Phone</p>
-                           <p className="font-bold text-[#0b2b1a]">{selectedOrder.customer.phone}</p>
+                           <p className="font-bold text-[#5d5f61]">{selectedOrder.customer.phone}</p>
                         </div>
                         <div className="space-y-1">
                            <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest">Payment</p>
-                           <div className="flex items-center gap-2 font-bold text-[#0b2b1a]">
+                           <div className="flex items-center gap-2 font-bold text-[#5d5f61]">
                               <CreditCard size={14} className="opacity-40" /> {selectedOrder.paymentMethod}
                            </div>
                         </div>
@@ -414,7 +414,7 @@ export default function OrdersPage() {
                            <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest">Destination Address</p>
                            <div className="flex gap-4 p-5 bg-gray-50 rounded-2xl border border-gray-100">
                               <MapPin size={18} className="text-[#c81c6a] shrink-0 mt-1" />
-                              <p className="text-[13px] font-medium leading-relaxed text-[#0b2b1a]">{selectedOrder.customer.address}</p>
+                              <p className="text-[13px] font-medium leading-relaxed text-[#5d5f61]">{selectedOrder.customer.address}</p>
                            </div>
                         </div>
                      </div>
@@ -426,7 +426,7 @@ export default function OrdersPage() {
                         <div className="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center shadow-lg">
                            <Package size={20} />
                         </div>
-                        <h3 className="text-2xl font-black font-playfair text-[#0b2b1a]">Asset Manifest</h3>
+                        <h3 className="text-2xl font-black font-playfair text-[#5d5f61]">Asset Manifest</h3>
                      </div>
                      <div className="space-y-6">
                         {selectedOrder.items.map((item, idx) => (
@@ -435,12 +435,12 @@ export default function OrdersPage() {
                                  <img src={item.image} className="w-full h-full object-contain group-hover/item:scale-110 transition-transform duration-700" alt={item.name} />
                               </div>
                               <div className="flex-1">
-                                 <p className="text-lg font-black font-playfair text-[#0b2b1a]">{item.name}</p>
+                                 <p className="text-lg font-black font-playfair text-[#5d5f61]">{item.name}</p>
                                  <p className="text-[10px] font-black text-[#c81c6a] uppercase tracking-widest mt-1">{item.variant.size} {item.variant.unit}</p>
                               </div>
                               <div className="text-right">
-                                 <p className="text-[13px] font-black text-[#0b2b1a]">₹{item.variant.price} &times; {item.quantity}</p>
-                                 <p className="text-sm font-black text-[#0b2b1a] mt-1">₹{item.variant.price * item.quantity}</p>
+                                 <p className="text-[13px] font-black text-[#5d5f61]">₹{item.variant.price} &times; {item.quantity}</p>
+                                 <p className="text-sm font-black text-[#5d5f61] mt-1">₹{item.variant.price * item.quantity}</p>
                               </div>
                            </div>
                         ))}
@@ -450,7 +450,7 @@ export default function OrdersPage() {
                               <p className="text-[11px] font-bold text-gray-400">Total assets excluding botanical surcharges.</p>
                            </div>
                            <div className="text-right">
-                              <p className="text-4xl font-black font-playfair text-[#0b2b1a]">₹{selectedOrder.totalAmount}</p>
+                              <p className="text-4xl font-black font-playfair text-[#5d5f61]">₹{selectedOrder.totalAmount}</p>
                            </div>
                         </div>
                      </div>
@@ -460,7 +460,7 @@ export default function OrdersPage() {
                <div className="p-10 border-t border-gray-100 flex gap-6 print:hidden">
                   <button 
                     onClick={handlePrint}
-                    className="flex-1 py-6 rounded-[2.5rem] bg-gray-50 text-gray-400 font-black text-[10px] uppercase tracking-[0.4em] hover:bg-gray-100 hover:text-[#0b2b1a] transition-all"
+                    className="flex-1 py-6 rounded-[2.5rem] bg-gray-50 text-gray-400 font-black text-[10px] uppercase tracking-[0.4em] hover:bg-gray-100 hover:text-[#5d5f61] transition-all"
                   >
                      Print Invoice
                   </button>
@@ -473,7 +473,7 @@ export default function OrdersPage() {
                   </button>
                   <button 
                     onClick={() => setSelectedOrder(null)}
-                    className="flex-1 py-6 rounded-[2.5rem] bg-[#0b2b1a] text-white font-black text-[10px] uppercase tracking-[0.4em] shadow-2xl shadow-[#0b2b1a]/20 hover:bg-[#c81c6a] transition-all"
+                    className="flex-1 py-6 rounded-[2.5rem] bg-[#5d5f61] text-white font-black text-[10px] uppercase tracking-[0.4em] shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] transition-all"
                   >
                      Close Manifest
                   </button>
@@ -484,11 +484,11 @@ export default function OrdersPage() {
       </AnimatePresence>
 
       {/* Hidden Proper Invoice for Printing */}
-      <div className="hidden print:block print:relative print:z-[200] bg-white p-20 text-[#0b2b1a]">
+      <div className="hidden print:block print:relative print:z-[200] bg-white p-20 text-[#5d5f61]">
         {selectedOrder && (
           <div className="max-w-4xl mx-auto space-y-24">
             {/* Invoice Header */}
-            <div className="flex justify-between items-start border-b-2 border-[#0b2b1a] pb-12">
+            <div className="flex justify-between items-start border-b-2 border-[#5d5f61] pb-12">
               <div className="space-y-6">
                 <img src="/images/logo/Rafah logo.webp" alt="Rafah Garden" className="h-20 w-auto brightness-0" />
                 <div className="text-[11px] font-black uppercase tracking-widest leading-loose">
@@ -501,8 +501,8 @@ export default function OrdersPage() {
               <div className="text-right space-y-4">
                 <h1 className="text-6xl font-black font-playfair uppercase tracking-tighter">Invoice</h1>
                 <div className="text-[12px] font-black uppercase tracking-[0.3em] text-gray-400 space-y-1">
-                  <p>Manifest No: <span className="text-[#0b2b1a] ml-2">{selectedOrder.orderId}</span></p>
-                  <p>Issue Date: <span className="text-[#0b2b1a] ml-2">{new Date(selectedOrder.createdAt).toLocaleDateString()}</span></p>
+                  <p>Manifest No: <span className="text-[#5d5f61] ml-2">{selectedOrder.orderId}</span></p>
+                  <p>Issue Date: <span className="text-[#5d5f61] ml-2">{new Date(selectedOrder.createdAt).toLocaleDateString()}</span></p>
                 </div>
               </div>
             </div>
@@ -541,7 +541,7 @@ export default function OrdersPage() {
             <div className="pt-12">
               <table className="w-full border-collapse">
                 <thead>
-                  <tr className="border-b-2 border-[#0b2b1a]">
+                  <tr className="border-b-2 border-[#5d5f61]">
                     <th className="text-left py-6 text-[11px] font-black uppercase tracking-[0.3em]">Asset Description</th>
                     <th className="text-center py-6 text-[11px] font-black uppercase tracking-[0.3em]">Qty</th>
                     <th className="text-right py-6 text-[11px] font-black uppercase tracking-[0.3em]">Unit Price</th>
@@ -564,7 +564,7 @@ export default function OrdersPage() {
                       </td>
                       <td className="py-10 text-center font-black text-lg">{item.quantity}</td>
                       <td className="py-10 text-right font-bold text-lg">₹{item.variant.price}</td>
-                      <td className="py-10 text-right font-black text-xl text-[#0b2b1a]">₹{item.variant.price * item.quantity}</td>
+                      <td className="py-10 text-right font-black text-xl text-[#5d5f61]">₹{item.variant.price * item.quantity}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -572,7 +572,7 @@ export default function OrdersPage() {
             </div>
 
             {/* Totals */}
-            <div className="flex justify-end pt-12 border-t-2 border-[#0b2b1a]">
+            <div className="flex justify-end pt-12 border-t-2 border-[#5d5f61]">
               <div className="w-full max-w-sm space-y-6">
                 <div className="flex justify-between text-xs font-black uppercase tracking-[0.2em] text-gray-400">
                   <span>Subtotal</span>

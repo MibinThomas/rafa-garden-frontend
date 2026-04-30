@@ -31,7 +31,7 @@ export function DeleteConfirmDialog({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-[#0b2b1a]/60 backdrop-blur-md z-[200]"
+            className="fixed inset-0 bg-[#5d5f61]/60 backdrop-blur-md z-[200]"
           />
 
           {/* Dialog Container */}
@@ -56,7 +56,7 @@ export function DeleteConfirmDialog({
                    <AlertTriangle className="text-red-500" size={32} />
                 </div>
                 
-                <h2 className="text-3xl font-black font-playfair text-[#0b2b1a] mb-4">
+                <h2 className="text-3xl font-black font-playfair text-[#5d5f61] mb-4">
                   {title}
                 </h2>
                 <p className="text-gray-400 text-sm leading-relaxed font-inter">
@@ -82,7 +82,7 @@ export function DeleteConfirmDialog({
                 <button
                   onClick={onClose}
                   disabled={loading}
-                  className="w-full py-5 bg-gray-50 text-[#0b2b1a] rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-gray-100 transition-all disabled:opacity-50"
+                  className="w-full py-5 bg-gray-50 text-[#5d5f61] rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-gray-100 transition-all disabled:opacity-50"
                 >
                   Keep it for now
                 </button>

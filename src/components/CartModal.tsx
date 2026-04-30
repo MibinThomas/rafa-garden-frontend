@@ -11,8 +11,8 @@ export function CartModal() {
     const { headerColor } = useHeaderColor();
 
     // Determine a safe accent color. Fallback to brand pink if generic or undefined.
-    // We explicitly avoid dark green (#0b2b1a) to ensure visibility in the white modal.
-    const activeColor = (headerColor && headerColor !== "transparent" && headerColor !== "#0b2b1a" && headerColor !== "#f1f1f1") 
+    // We explicitly avoid dark green (#5d5f61) to ensure visibility in the white modal.
+    const activeColor = (headerColor && headerColor !== "transparent" && headerColor !== "#5d5f61" && headerColor !== "#f1f1f1") 
       ? headerColor 
       : "#c81c6a"; // Base brand pink
 

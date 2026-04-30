@@ -12,7 +12,7 @@ export default function SiteSettingsPage() {
     <div className="space-y-12 pb-24 relative">
       {/* Background Watermark */}
       <div className="absolute top-0 right-0 pointer-events-none opacity-[0.03] select-none -mt-10 -mr-20">
-         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#0b2b1a]">SITE</h1>
+         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#5d5f61]">SITE</h1>
       </div>
 
       <div className="relative z-10">
@@ -23,7 +23,7 @@ export default function SiteSettingsPage() {
         >
           Structural Management
         </motion.p>
-        <h1 className="text-6xl md:text-7xl font-black font-playfair text-[#0b2b1a] tracking-tighter">Settings</h1>
+        <h1 className="text-6xl md:text-7xl font-black font-playfair text-[#5d5f61] tracking-tighter">Settings</h1>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl relative z-10">
@@ -38,7 +38,7 @@ export default function SiteSettingsPage() {
             <PanelTop size={32} strokeWidth={2.5} />
           </div>
           <div>
-            <h3 className="text-2xl font-black font-playfair text-[#0b2b1a] group-hover:text-[#c81c6a] transition-colors duration-500">Header Content</h3>
+            <h3 className="text-2xl font-black font-playfair text-[#5d5f61] group-hover:text-[#c81c6a] transition-colors duration-500">Header Content</h3>
             <p className="text-[12px] text-gray-400 font-bold uppercase tracking-widest mt-2 leading-relaxed opacity-60">Menus, banners & global branding.</p>
           </div>
         </motion.div>
@@ -55,7 +55,7 @@ export default function SiteSettingsPage() {
             <PanelBottom size={32} strokeWidth={2.5} />
           </div>
           <div>
-            <h3 className="text-2xl font-black font-playfair text-[#0b2b1a] group-hover:text-[#c81c6a] transition-colors duration-500">Footer Content</h3>
+            <h3 className="text-2xl font-black font-playfair text-[#5d5f61] group-hover:text-[#c81c6a] transition-colors duration-500">Footer Content</h3>
             <p className="text-[12px] text-gray-400 font-bold uppercase tracking-widest mt-2 leading-relaxed opacity-60">Company info, links & social assets.</p>
           </div>
         </motion.div>

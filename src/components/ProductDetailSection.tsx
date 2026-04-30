@@ -47,7 +47,7 @@ export function ProductDetailSection({ product, categoryTitle, categoryColor, on
     >
       <button
         onClick={onClose}
-        className="absolute top-6 right-6 z-50 w-12 h-12 rounded-full bg-black/5 flex items-center justify-center text-[#0b2b1a] hover:bg-black/10 transition-colors"
+        className="absolute top-6 right-6 z-50 w-12 h-12 rounded-full bg-black/5 flex items-center justify-center text-[#5d5f61] hover:bg-black/10 transition-colors"
       >
         <X size={24} />
       </button>
@@ -86,7 +86,7 @@ export function ProductDetailSection({ product, categoryTitle, categoryColor, on
               >
                 <Heart size={window?.innerWidth < 1024 ? 16 : 20} fill={isFavorited ? "currentColor" : "none"} />
               </button>
-              <button className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-white/90 backdrop-blur-md border border-black/5 shadow-md flex items-center justify-center text-gray-400 hover:text-[#0b2b1a] hover:scale-105 transition-all">
+              <button className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-white/90 backdrop-blur-md border border-black/5 shadow-md flex items-center justify-center text-gray-400 hover:text-[#5d5f61] hover:scale-105 transition-all">
                 <Share2 size={window?.innerWidth < 1024 ? 16 : 20} />
               </button>
             </div>
@@ -96,12 +96,12 @@ export function ProductDetailSection({ product, categoryTitle, categoryColor, on
         {/* Right: Product Details */}
         <div className="flex flex-col justify-center">
           <span className="text-xs font-bold uppercase tracking-[0.4em] text-gray-400 mb-3" style={{ color: categoryColor }}>{categoryTitle} Heritage</span>
-          <h2 className="text-4xl md:text-5xl font-black font-playfair text-[#0b2b1a] mb-6 leading-tight">
+          <h2 className="text-4xl md:text-5xl font-black font-playfair text-[#5d5f61] mb-6 leading-tight">
             {product.name}
           </h2>
 
           <div className="flex items-baseline gap-4 mb-8">
-            <span className="text-4xl font-black tabular-nums text-[#0b2b1a]">₹{selectedVariant.price || 599}</span>
+            <span className="text-4xl font-black tabular-nums text-[#5d5f61]">₹{selectedVariant.price || 599}</span>
             <span className="text-sm font-bold uppercase tracking-widest text-gray-400 line-through">₹{Math.floor((selectedVariant.price || 599) * 1.5)}</span>
           </div>
 

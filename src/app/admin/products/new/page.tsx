@@ -38,7 +38,7 @@ export default function NewProductPage() {
     <div className="space-y-12 pb-24 relative">
       {/* Background Watermark */}
       <div className="absolute top-0 right-0 pointer-events-none opacity-[0.03] select-none -mt-10 -mr-20">
-         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#0b2b1a]">CREATE</h1>
+         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#5d5f61]">CREATE</h1>
       </div>
 
       {/* Editorial Header */}
@@ -58,7 +58,7 @@ export default function NewProductPage() {
           >
             Heritage Creation
           </motion.p>
-          <h1 className="text-6xl md:text-7xl font-black font-playfair text-[#0b2b1a] tracking-tighter leading-none">
+          <h1 className="text-6xl md:text-7xl font-black font-playfair text-[#5d5f61] tracking-tighter leading-none">
             New <span className="italic font-normal">Botanical Asset</span>
           </h1>
         </div>

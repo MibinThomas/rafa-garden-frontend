@@ -45,7 +45,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-[#0b2b1a] flex items-center justify-center p-6 selection:bg-[#c81c6a] selection:text-white">
+    <div className="relative w-full h-screen overflow-hidden bg-[#5d5f61] flex items-center justify-center p-6 selection:bg-[#c81c6a] selection:text-white">
       {/* Immersive Botanical Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         {/* Animated Bokeh / Spores */}
@@ -115,7 +115,7 @@ export default function LoginPage() {
             >
               Brand Sanctuary
             </motion.p>
-            <h1 className="text-5xl font-black font-playfair text-[#0b2b1a] tracking-tighter leading-none">
+            <h1 className="text-5xl font-black font-playfair text-[#5d5f61] tracking-tighter leading-none">
               The <span className="italic font-normal">Vault</span>
             </h1>
           </div>
@@ -144,7 +144,7 @@ export default function LoginPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-20 pr-10 py-7 bg-gray-50/50 rounded-3xl outline-none text-sm font-bold text-[#0b2b1a] placeholder:text-gray-200 transition-all duration-500 border border-transparent focus:border-[#c81c6a]/10 focus:bg-white shadow-sm"
+                  className="w-full pl-20 pr-10 py-7 bg-gray-50/50 rounded-3xl outline-none text-sm font-bold text-[#5d5f61] placeholder:text-gray-200 transition-all duration-500 border border-transparent focus:border-[#c81c6a]/10 focus:bg-white shadow-sm"
                 />
               </div>
 
@@ -156,14 +156,14 @@ export default function LoginPage() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-20 pr-10 py-7 bg-gray-50/50 rounded-3xl outline-none text-sm font-bold text-[#0b2b1a] placeholder:text-gray-200 transition-all duration-500 border border-transparent focus:border-[#c81c6a]/10 focus:bg-white shadow-sm"
+                  className="w-full pl-20 pr-10 py-7 bg-gray-50/50 rounded-3xl outline-none text-sm font-bold text-[#5d5f61] placeholder:text-gray-200 transition-all duration-500 border border-transparent focus:border-[#c81c6a]/10 focus:bg-white shadow-sm"
                 />
               </div>
             </div>
 
             <button
               disabled={loading}
-              className="w-full py-8 bg-[#0b2b1a] text-white rounded-3xl font-black text-[10px] uppercase tracking-[0.4em] flex items-center justify-center gap-6 shadow-2xl shadow-[#0b2b1a]/20 hover:bg-[#c81c6a] active:scale-[0.98] transition-all duration-700 disabled:opacity-50 overflow-hidden relative group/btn"
+              className="w-full py-8 bg-[#5d5f61] text-white rounded-3xl font-black text-[10px] uppercase tracking-[0.4em] flex items-center justify-center gap-6 shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] active:scale-[0.98] transition-all duration-700 disabled:opacity-50 overflow-hidden relative group/btn"
             >
               {loading ? (
                 <div className="flex items-center gap-4">

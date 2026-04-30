@@ -182,7 +182,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-[#0b2b1a]/40 backdrop-blur-sm z-[100]"
+            className="fixed inset-0 bg-[#5d5f61]/40 backdrop-blur-sm z-[100]"
           />
 
           {/* Sidebar Form */}
@@ -203,13 +203,13 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                 >
                   Curated Collection
                 </motion.p>
-                <h2 className="text-4xl font-black font-playfair text-[#0b2b1a]">
+                <h2 className="text-4xl font-black font-playfair text-[#5d5f61]">
                   {category ? "Refine" : "New"} <span className="italic font-normal">Heritage</span>
                 </h2>
               </div>
               <button 
                 onClick={onClose}
-                className="p-4 rounded-2xl bg-white text-gray-300 hover:text-[#0b2b1a] transition-all duration-500 shadow-xl shadow-black/5 hover:scale-110 active:scale-95 border border-gray-50"
+                className="p-4 rounded-2xl bg-white text-gray-300 hover:text-[#5d5f61] transition-all duration-500 shadow-xl shadow-black/5 hover:scale-110 active:scale-95 border border-gray-50"
               >
                 <X size={20} />
               </button>
@@ -235,17 +235,17 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                     )}
                     
                     {uploading && (
-                       <div className="absolute inset-0 bg-[#0b2b1a]/80 backdrop-blur-md flex flex-col items-center justify-center text-white gap-4">
+                       <div className="absolute inset-0 bg-[#5d5f61]/80 backdrop-blur-md flex flex-col items-center justify-center text-white gap-4">
                           <Loader2 className="animate-spin" size={24} />
                           <span className="text-[9px] font-black uppercase tracking-[0.3em]">Syncing Asset...</span>
                        </div>
                     )}
 
-                    <div className="absolute inset-0 bg-[#0b2b1a]/40 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-[2px]">
+                    <div className="absolute inset-0 bg-[#5d5f61]/40 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-[2px]">
                        <button 
                          type="button"
                          onClick={() => fileInputRef.current?.click()}
-                         className="bg-white text-[#0b2b1a] px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl hover:scale-105 active:scale-95 transition-all"
+                         className="bg-white text-[#5d5f61] px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl hover:scale-105 active:scale-95 transition-all"
                        >
                          {formData.image ? "Replace Narrative Cover" : "Select Visual Asset"}
                        </button>
@@ -269,7 +269,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                       type="text" 
                       value={formData.id}
                       onChange={e => setFormData(prev => ({ ...prev, id: e.target.value }))}
-                      className="w-full px-8 py-5 bg-white rounded-2xl border border-gray-100 outline-none font-black text-[#0b2b1a] text-[11px] uppercase tracking-widest shadow-sm"
+                      className="w-full px-8 py-5 bg-white rounded-2xl border border-gray-100 outline-none font-black text-[#5d5f61] text-[11px] uppercase tracking-widest shadow-sm"
                       placeholder="e.g. 05"
                     />
                  </div>
@@ -291,7 +291,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                       type="text" 
                       value={formData.title}
                       onChange={e => setFormData(prev => ({ ...prev, title: e.target.value }))}
-                      className="w-full px-10 py-8 bg-white rounded-[2.5rem] border border-gray-100 outline-none font-black font-playfair text-3xl text-[#0b2b1a] focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-sm"
+                      className="w-full px-10 py-8 bg-white rounded-[2.5rem] border border-gray-100 outline-none font-black font-playfair text-3xl text-[#5d5f61] focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-sm"
                       placeholder="e.g. Fresh Heritage"
                       required
                     />
@@ -302,7 +302,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                       type="text" 
                       value={formData.subtitle}
                       onChange={e => setFormData(prev => ({ ...prev, subtitle: e.target.value }))}
-                      className="w-full px-10 py-6 bg-white rounded-[2rem] border border-gray-100 outline-none font-bold text-[#0b2b1a] shadow-sm italic text-lg"
+                      className="w-full px-10 py-6 bg-white rounded-[2rem] border border-gray-100 outline-none font-bold text-[#5d5f61] shadow-sm italic text-lg"
                       placeholder="e.g. Experience the botanical essence"
                     />
                  </div>
@@ -312,7 +312,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
               <div className="space-y-10 pt-12 border-t border-gray-100/50">
                  <div className="flex items-center gap-4">
                     <div className="w-1 h-8 bg-[#c81c6a] rounded-full" />
-                    <h3 className="text-2xl font-black font-playfair text-[#0b2b1a]">Mobile Architecture</h3>
+                    <h3 className="text-2xl font-black font-playfair text-[#5d5f61]">Mobile Architecture</h3>
                  </div>
                  
                  <div className="space-y-4">
@@ -320,7 +320,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                     <textarea 
                       value={formData.mobileTitle}
                       onChange={e => setFormData(prev => ({ ...prev, mobileTitle: e.target.value }))}
-                      className="w-full px-8 py-6 bg-white rounded-[2rem] border border-gray-100 outline-none font-black text-[#0b2b1a] text-xl focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-sm resize-none"
+                      className="w-full px-8 py-6 bg-white rounded-[2rem] border border-gray-100 outline-none font-black text-[#5d5f61] text-xl focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-sm resize-none"
                       rows={3}
                       placeholder="Pure&#10;botanical&#10;refreshment"
                     />
@@ -361,14 +361,14 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                             <span className="text-[9px] font-black uppercase tracking-[0.3em]">Mobile BG</span>
                           </div>
                         )}
-                        <div className="absolute inset-0 bg-[#0b2b1a]/40 opacity-0 group-hover/mob-hero:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-[2px]">
+                        <div className="absolute inset-0 bg-[#5d5f61]/40 opacity-0 group-hover/mob-hero:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-[2px]">
                           <button 
                             type="button"
                             onClick={() => {
                               (fileInputRef.current as any).pendingType = "mobileHero";
                               fileInputRef.current?.click();
                             }}
-                            className="bg-white text-[#0b2b1a] px-6 py-3 rounded-2xl text-[9px] font-black uppercase tracking-[0.2em] shadow-2xl hover:scale-105 active:scale-95 transition-all"
+                            className="bg-white text-[#5d5f61] px-6 py-3 rounded-2xl text-[9px] font-black uppercase tracking-[0.2em] shadow-2xl hover:scale-105 active:scale-95 transition-all"
                           >
                             Sync Asset
                           </button>
@@ -381,8 +381,8 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
               {/* Desktop Optimization Strategy */}
               <div className="space-y-8 pt-12 border-t border-gray-100/50">
                  <div className="flex items-center gap-4">
-                    <div className="w-1 h-8 bg-[#0b2b1a] rounded-full" />
-                    <h3 className="text-2xl font-black font-playfair text-[#0b2b1a]">Desktop Focal Point</h3>
+                    <div className="w-1 h-8 bg-[#5d5f61] rounded-full" />
+                    <h3 className="text-2xl font-black font-playfair text-[#5d5f61]">Desktop Focal Point</h3>
                  </div>
                  
                  <div className="space-y-4 max-w-md">
@@ -391,7 +391,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                         <select 
                           value={formData.desktopFeaturedProductId}
                           onChange={e => setFormData(prev => ({ ...prev, desktopFeaturedProductId: e.target.value }))}
-                          className="w-full px-8 py-5 bg-white rounded-2xl border border-gray-100 outline-none font-black text-[#0b2b1a] text-[11px] uppercase tracking-widest shadow-sm cursor-pointer appearance-none focus:ring-4 focus:ring-[#c81c6a]/5 transition-all"
+                          className="w-full px-8 py-5 bg-white rounded-2xl border border-gray-100 outline-none font-black text-[#5d5f61] text-[11px] uppercase tracking-widest shadow-sm cursor-pointer appearance-none focus:ring-4 focus:ring-[#c81c6a]/5 transition-all"
                         >
                           <option value="">Default Registry (Alpha)</option>
                           {formData.products.map(p => (
@@ -411,12 +411,12 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                 <div className="flex items-center justify-between">
                    <div className="flex items-center gap-4">
                       <div className="w-1 h-8 bg-emerald-500 rounded-full" />
-                      <h3 className="text-2xl font-black font-playfair text-[#0b2b1a]">Asset Manifest <span className="text-sm font-black text-gray-300 ml-2">({formData.products.length})</span></h3>
+                      <h3 className="text-2xl font-black font-playfair text-[#5d5f61]">Asset Manifest <span className="text-sm font-black text-gray-300 ml-2">({formData.products.length})</span></h3>
                    </div>
                    <button 
                      type="button" 
                      onClick={addProduct}
-                     className="px-8 py-4 bg-[#0b2b1a] text-white rounded-2xl hover:bg-[#c81c6a] transition-all duration-500 flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl shadow-black/5 active:scale-95 group"
+                     className="px-8 py-4 bg-[#5d5f61] text-white rounded-2xl hover:bg-[#c81c6a] transition-all duration-500 flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl shadow-black/5 active:scale-95 group"
                    >
                      <Plus size={16} className="group-hover:rotate-90 transition-transform duration-500" /> New Asset
                    </button>
@@ -443,11 +443,11 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                            ) : (
                              <Camera size={28} strokeWidth={1} />
                            )}
-                           <div className="absolute inset-0 bg-[#0b2b1a]/40 opacity-0 group-hover/img:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-[1px]">
+                           <div className="absolute inset-0 bg-[#5d5f61]/40 opacity-0 group-hover/img:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-[1px]">
                               <Upload size={20} className="text-white" />
                            </div>
                            {productUploadingIdx === idx && (
-                             <div className="absolute inset-0 bg-[#0b2b1a]/80 backdrop-blur-md flex flex-col items-center justify-center text-white gap-2">
+                             <div className="absolute inset-0 bg-[#5d5f61]/80 backdrop-blur-md flex flex-col items-center justify-center text-white gap-2">
                                 <Loader2 className="animate-spin" size={18} />
                                 <span className="text-[7px] font-black uppercase tracking-widest">Syncing</span>
                              </div>
@@ -462,7 +462,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                                newProducts[idx].name = e.target.value;
                                setFormData(prev => ({ ...prev, products: newProducts }));
                              }}
-                             className="w-full bg-transparent border-none p-0 outline-none font-black font-playfair text-2xl text-[#0b2b1a] placeholder:text-gray-100"
+                             className="w-full bg-transparent border-none p-0 outline-none font-black font-playfair text-2xl text-[#5d5f61] placeholder:text-gray-100"
                              placeholder="Asset Identity"
                            />
                            <textarea
@@ -509,7 +509,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
               <button 
                 type="button" 
                 onClick={onClose}
-                className="flex-1 py-6 rounded-[2rem] bg-gray-50 text-gray-400 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-gray-100 hover:text-[#0b2b1a] transition-all duration-500"
+                className="flex-1 py-6 rounded-[2rem] bg-gray-50 text-gray-400 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-gray-100 hover:text-[#5d5f61] transition-all duration-500"
               >
                 Discard Edits
               </button>
@@ -517,7 +517,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                 type="button"
                 onClick={handleSave}
                 disabled={saving || !formData.title}
-                className="flex-[2] py-6 rounded-[2rem] bg-[#0b2b1a] text-white font-black text-[10px] uppercase tracking-[0.4em] shadow-2xl shadow-[#0b2b1a]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-4 transition-all duration-700"
+                className="flex-[2] py-6 rounded-[2rem] bg-[#5d5f61] text-white font-black text-[10px] uppercase tracking-[0.4em] shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-4 transition-all duration-700"
               >
                 {saving ? (
                    <div className="flex items-center gap-4">

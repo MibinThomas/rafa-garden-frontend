@@ -80,7 +80,7 @@ export default function EditProductPage() {
     <div className="space-y-12 pb-24 relative">
       {/* Background Watermark */}
       <div className="absolute top-0 right-0 pointer-events-none opacity-[0.03] select-none -mt-10 -mr-20">
-         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#0b2b1a]">REFINE</h1>
+         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#5d5f61]">REFINE</h1>
       </div>
 
       {/* Editorial Header */}
@@ -100,11 +100,11 @@ export default function EditProductPage() {
           >
             Heritage Refinement
           </motion.p>
-          <h1 className="text-6xl md:text-7xl font-black font-playfair text-[#0b2b1a] tracking-tighter leading-none">
+          <h1 className="text-6xl md:text-7xl font-black font-playfair text-[#5d5f61] tracking-tighter leading-none">
             {product?.name || 'Asset Profile'}
           </h1>
           <p className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em] mt-6 ml-1">
-             Catalogue Identity: <span className="text-[#0b2b1a]">{product?.id || '---'}</span>
+             Catalogue Identity: <span className="text-[#5d5f61]">{product?.id || '---'}</span>
           </p>
         </div>
       </div>

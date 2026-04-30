@@ -33,6 +33,7 @@
   --color-brand-magenta: #9a0c52;
   --color-brand-green: #7fa23f;
   --color-brand-grey: #5d5f61;
+  --color-brand-dark: #5d5f61;
   --color-brand-bg: #f1f1f2;
 
   --font-avant-garde: 'AvantGarde', sans-serif;
@@ -51,7 +52,7 @@ body {
   font-family: var(--font-sans);
   overflow-x: hidden;
   background-color: var(--color-brand-bg);
-  color: #333333;
+  color: #5d5f61;
 }
 
 h1,

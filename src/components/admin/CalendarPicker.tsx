@@ -77,7 +77,7 @@ export function CalendarPicker({ startDate, endDate, onRangeSelect, onClose }: C
   return (
     <div className="p-6 w-full max-w-sm">
       <div className="flex items-center justify-between mb-8">
-        <h4 className="text-sm font-black font-playfair text-[#0b2b1a]">{monthName} {year}</h4>
+        <h4 className="text-sm font-black font-playfair text-[#5d5f61]">{monthName} {year}</h4>
         <div className="flex gap-2">
           <button onClick={handlePrevMonth} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
             <ChevronLeft size={16} />
@@ -109,7 +109,7 @@ export function CalendarPicker({ startDate, endDate, onRangeSelect, onClose }: C
                 "relative h-10 w-10 text-[11px] font-bold rounded-xl transition-all flex items-center justify-center",
                 selected ? "bg-[#c81c6a] text-white shadow-lg" : 
                 range ? "bg-[#c81c6a]/10 text-[#c81c6a]" :
-                "text-[#0b2b1a] hover:bg-gray-50"
+                "text-[#5d5f61] hover:bg-gray-50"
               )}
             >
               {day}
@@ -121,13 +121,13 @@ export function CalendarPicker({ startDate, endDate, onRangeSelect, onClose }: C
       <div className="mt-8 pt-6 border-t border-gray-100 flex items-center justify-between">
         <div>
            <p className="text-[9px] font-black uppercase tracking-widest text-gray-600 mb-1">Selected Range</p>
-           <p className="text-[10px] font-bold text-[#0b2b1a]">
+           <p className="text-[10px] font-bold text-[#5d5f61]">
              {startDate ? startDate : "Select Start"} — {endDate ? endDate : "Select End"}
            </p>
         </div>
         <button 
           onClick={onClose}
-          className="bg-[#0b2b1a] text-white px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#c81c6a] transition-colors"
+          className="bg-[#5d5f61] text-white px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#c81c6a] transition-colors"
         >
           Confirm
         </button>

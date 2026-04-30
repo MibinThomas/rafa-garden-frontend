@@ -142,7 +142,7 @@ export default function ProductsPage() {
     <div className="space-y-12 pb-24 relative">
       {/* Background Watermark */}
       <div className="absolute top-0 right-0 pointer-events-none opacity-[0.03] select-none -mt-10 -mr-20">
-         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#0b2b1a]">ASSETS</h1>
+         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#5d5f61]">ASSETS</h1>
       </div>
 
       {/* Notifications Area */}
@@ -179,7 +179,7 @@ export default function ProductsPage() {
           <motion.h1 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-6xl md:text-7xl font-black font-playfair text-[#0b2b1a] tracking-tighter"
+            className="text-6xl md:text-7xl font-black font-playfair text-[#5d5f61] tracking-tighter"
           >
             Catalog
           </motion.h1>
@@ -195,7 +195,7 @@ export default function ProductsPage() {
             <button 
               onClick={() => handleExport('csv')}
               disabled={loading}
-              className="flex items-center gap-3 px-6 py-4 bg-white text-[#0b2b1a] rounded-[1.5rem] shadow-sm hover:scale-105 active:scale-95 transition-all disabled:opacity-50 group"
+              className="flex items-center gap-3 px-6 py-4 bg-white text-[#5d5f61] rounded-[1.5rem] shadow-sm hover:scale-105 active:scale-95 transition-all disabled:opacity-50 group"
               title="Download as CSV"
             >
               <Download size={16} className="text-[#c81c6a] group-hover:-translate-y-0.5 transition-transform" />
@@ -204,7 +204,7 @@ export default function ProductsPage() {
             <button 
               onClick={() => fileInputRef.current?.click()}
               disabled={bulkProcessing || loading}
-              className="flex items-center gap-4 px-8 py-4 bg-[#0b2b1a] text-white rounded-[1.5rem] shadow-xl hover:bg-[#c81c6a] hover:scale-105 active:scale-95 transition-all disabled:opacity-50"
+              className="flex items-center gap-4 px-8 py-4 bg-[#5d5f61] text-white rounded-[1.5rem] shadow-xl hover:bg-[#c81c6a] hover:scale-105 active:scale-95 transition-all disabled:opacity-50"
             >
               {bulkProcessing ? <Loader2 size={16} className="animate-spin" /> : <Upload size={16} />}
               <span className="text-[10px] font-black uppercase tracking-widest">{bulkProcessing ? "Syncing..." : "Import"}</span>
@@ -239,7 +239,7 @@ export default function ProductsPage() {
             placeholder="Search heritage repository..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-20 pr-10 py-6 bg-transparent outline-none font-bold text-[#0b2b1a] transition-all text-sm placeholder:text-gray-300"
+            className="w-full pl-20 pr-10 py-6 bg-transparent outline-none font-bold text-[#5d5f61] transition-all text-sm placeholder:text-gray-300"
           />
         </div>
         
@@ -251,8 +251,8 @@ export default function ProductsPage() {
               className={cn(
                 "px-8 py-4 rounded-[1.5rem] text-[10px] font-black uppercase tracking-widest transition-all duration-500 whitespace-nowrap",
                 selectedCategory === cat 
-                  ? "bg-[#0b2b1a] text-white shadow-xl shadow-[#0b2b1a]/20 scale-105" 
-                  : "text-gray-400 hover:text-[#0b2b1a] hover:bg-white"
+                  ? "bg-[#5d5f61] text-white shadow-xl shadow-[#5d5f61]/20 scale-105" 
+                  : "text-gray-400 hover:text-[#5d5f61] hover:bg-white"
               )}
             >
               {cat}
@@ -278,7 +278,7 @@ export default function ProductsPage() {
             <div className="w-28 h-28 rounded-full bg-white flex items-center justify-center mb-10 shadow-xl border border-gray-50">
                <Package className="text-gray-200" size={48} />
             </div>
-            <h3 className="text-3xl font-black font-playfair text-[#0b2b1a] mb-3 tracking-tight">No Botanical Assets</h3>
+            <h3 className="text-3xl font-black font-playfair text-[#5d5f61] mb-3 tracking-tight">No Botanical Assets</h3>
             <p className="text-gray-400 text-sm max-w-xs font-bold uppercase tracking-widest leading-loose">Refine your search parameters to explore our legacy collection.</p>
           </div>
         ) : (
@@ -306,12 +306,12 @@ export default function ProductsPage() {
                       <div className="flex items-center gap-8">
                         <div className="w-24 h-28 rounded-[2rem] bg-white border border-gray-100 flex items-center justify-center p-4 relative shadow-sm group-hover:scale-105 group-hover:shadow-2xl group-hover:shadow-black/5 transition-all duration-700">
                           <img src={p.image} alt={p.name} className="w-full h-full object-contain filter drop-shadow-2xl" />
-                          <div className="absolute -top-3 -right-3 w-9 h-9 bg-[#0b2b1a] rounded-xl flex items-center justify-center shadow-lg border-2 border-white">
+                          <div className="absolute -top-3 -right-3 w-9 h-9 bg-[#5d5f61] rounded-xl flex items-center justify-center shadow-lg border-2 border-white">
                              <span className="text-[9px] font-black text-white">{p.id}</span>
                           </div>
                         </div>
                         <div>
-                          <p className="text-2xl font-black font-playfair text-[#0b2b1a] tracking-tight group-hover:text-[#c81c6a] transition-colors duration-500">{p.name}</p>
+                          <p className="text-2xl font-black font-playfair text-[#5d5f61] tracking-tight group-hover:text-[#c81c6a] transition-colors duration-500">{p.name}</p>
                           <p className="text-[11px] font-bold text-[#5d5f61] uppercase tracking-widest mt-2 max-w-[240px] line-clamp-1">{p.description}</p>
                         </div>
                       </div>
@@ -329,7 +329,7 @@ export default function ProductsPage() {
                     </td>
                     <td className="py-10 px-10">
                        <div className="flex flex-col gap-1.5">
-                          <span className="text-[12px] font-black text-[#0b2b1a]">{p.variants?.length || 0} Assets</span>
+                          <span className="text-[12px] font-black text-[#5d5f61]">{p.variants?.length || 0} Assets</span>
                           <span className="text-[10px] font-bold text-[#c81c6a] uppercase tracking-widest">
                             From ₹{p.variants && p.variants.length > 0 ? Math.min(...p.variants.map(v => v.price || 0)) : '0'}
                           </span>
@@ -340,7 +340,7 @@ export default function ProductsPage() {
                           <div className={cn("w-2 h-2 rounded-full animate-pulse", p.active ? "bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" : "bg-gray-500")} />
                           <span className={cn(
                              "text-[10px] font-black uppercase tracking-widest",
-                             p.active ? "text-[#0b2b1a]" : "text-gray-500"
+                             p.active ? "text-[#5d5f61]" : "text-gray-500"
                           )}>
                              {p.active ? "Active Sanctuary" : "Archived"}
                           </span>
@@ -350,7 +350,7 @@ export default function ProductsPage() {
                        <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-500">
                           <Link 
                             href={`/admin/products/${p._id}`}
-                            className="p-4 rounded-2xl bg-white text-[#0b2b1a] hover:bg-[#0b2b1a] hover:text-white shadow-xl shadow-black/5 hover:scale-110 active:scale-95 transition-all duration-500"
+                            className="p-4 rounded-2xl bg-white text-[#5d5f61] hover:bg-[#5d5f61] hover:text-white shadow-xl shadow-black/5 hover:scale-110 active:scale-95 transition-all duration-500"
                           >
                              <Edit2 size={16} />
                           </Link>

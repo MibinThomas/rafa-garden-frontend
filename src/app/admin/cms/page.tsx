@@ -108,13 +108,13 @@ export default function CmsPage() {
           >
             Digital Architecture
           </motion.p>
-          <h1 className="text-6xl md:text-7xl font-black font-playfair text-[#0b2b1a] tracking-tighter">Content Hub</h1>
+          <h1 className="text-6xl md:text-7xl font-black font-playfair text-[#5d5f61] tracking-tighter">Content Hub</h1>
         </div>
 
         {activeTab === "categories" && (
           <button
             onClick={handleCreate}
-            className="flex items-center gap-4 bg-[#0b2b1a] text-white px-10 py-5 rounded-[2rem] font-black text-xs uppercase tracking-[0.2em] shadow-2xl shadow-[#0b2b1a]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-95 transition-all duration-500"
+            className="flex items-center gap-4 bg-[#5d5f61] text-white px-10 py-5 rounded-[2rem] font-black text-xs uppercase tracking-[0.2em] shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-95 transition-all duration-500"
           >
             <Plus size={20} /> New Category
           </button>
@@ -135,8 +135,8 @@ export default function CmsPage() {
             className={cn(
               "flex items-center gap-3 px-8 py-4 rounded-[1.8rem] text-[11px] font-black uppercase tracking-widest transition-all duration-500",
               activeTab === tab.id 
-                ? "bg-[#0b2b1a] text-white shadow-xl shadow-[#0b2b1a]/20 scale-105" 
-                : "text-gray-400 hover:text-[#0b2b1a] hover:bg-white"
+                ? "bg-[#5d5f61] text-white shadow-xl shadow-[#5d5f61]/20 scale-105" 
+                : "text-gray-400 hover:text-[#5d5f61] hover:bg-white"
             )}
           >
             <tab.icon size={16} strokeWidth={activeTab === tab.id ? 2.5 : 2} />
@@ -161,7 +161,7 @@ export default function CmsPage() {
               <input
                 type="text" placeholder="Search heritage repository..." value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-16 pr-8 py-6 bg-transparent rounded-[2.5rem] outline-none text-sm font-bold text-[#0b2b1a] placeholder:text-gray-300"
+                className="w-full pl-16 pr-8 py-6 bg-transparent rounded-[2.5rem] outline-none text-sm font-bold text-[#5d5f61] placeholder:text-gray-300"
               />
             </div>
           </div>
@@ -184,7 +184,7 @@ export default function CmsPage() {
                   )}
                   <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                   <div className="absolute top-6 left-6">
-                     <div className="px-4 py-2 rounded-full bg-white/90 backdrop-blur-md text-[9px] font-black uppercase tracking-widest text-[#0b2b1a] shadow-lg">
+                     <div className="px-4 py-2 rounded-full bg-white/90 backdrop-blur-md text-[9px] font-black uppercase tracking-widest text-[#5d5f61] shadow-lg">
                         {category.id}
                      </div>
                   </div>
@@ -192,12 +192,12 @@ export default function CmsPage() {
                 <div className="flex-1 p-10 flex flex-col relative">
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex gap-2.5">
-                      <button onClick={() => handleEdit(category)} className="p-3.5 rounded-2xl bg-white text-[#0b2b1a] shadow-sm hover:bg-[#0b2b1a] hover:text-white hover:scale-110 transition-all duration-500"><Edit2 size={16} /></button>
+                      <button onClick={() => handleEdit(category)} className="p-3.5 rounded-2xl bg-white text-[#5d5f61] shadow-sm hover:bg-[#5d5f61] hover:text-white hover:scale-110 transition-all duration-500"><Edit2 size={16} /></button>
                       <button onClick={() => handleDelete(category.id)} className="p-3.5 rounded-2xl bg-white text-red-400 shadow-sm hover:bg-red-500 hover:text-white hover:scale-110 transition-all duration-500"><Trash2 size={16} /></button>
                     </div>
                     <div className="w-4 h-4 rounded-full" style={{ backgroundColor: category.color }} />
                   </div>
-                  <h3 className="text-3xl font-black font-playfair text-[#0b2b1a] mb-2 leading-none">{category.title}</h3>
+                  <h3 className="text-3xl font-black font-playfair text-[#5d5f61] mb-2 leading-none">{category.title}</h3>
                   <p className="text-gray-400 text-[11px] font-bold uppercase tracking-widest mb-auto line-clamp-1">{category.subtitle}</p>
                   
                   <div className="flex items-center justify-between pt-6 mt-6 border-t border-gray-100 text-[10px] font-black uppercase tracking-[0.2em]">

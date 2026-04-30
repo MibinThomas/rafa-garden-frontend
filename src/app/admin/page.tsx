@@ -80,7 +80,7 @@ export default function AdminDashboard() {
     <div className="space-y-12 pb-24 relative">
       {/* Background Watermark */}
       <div className="absolute top-0 right-0 pointer-events-none opacity-[0.03] select-none -mt-10 -mr-20">
-         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#0b2b1a]">RAFAH</h1>
+         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#5d5f61]">RAFAH</h1>
       </div>
 
       {/* Dashboard Header */}
@@ -96,7 +96,7 @@ export default function AdminDashboard() {
           <motion.h1 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-6xl md:text-7xl font-black font-playfair text-[#0b2b1a] tracking-tighter"
+            className="text-6xl md:text-7xl font-black font-playfair text-[#5d5f61] tracking-tighter"
           >
             Insights
           </motion.h1>
@@ -111,7 +111,7 @@ export default function AdminDashboard() {
               className="hidden md:flex items-center gap-3 bg-white/50 backdrop-blur-md px-6 py-4 rounded-[2rem] border border-white shadow-xl shadow-black/[0.02] hover:bg-white transition-all active:scale-95"
             >
               <Calendar size={16} className="text-[#c81c6a]" />
-              <span className="text-[11px] font-black text-[#0b2b1a] uppercase tracking-widest">Fiscal Year {fiscalYear}</span>
+              <span className="text-[11px] font-black text-[#5d5f61] uppercase tracking-widest">Fiscal Year {fiscalYear}</span>
             </button>
             
             <AnimatePresence>
@@ -128,7 +128,7 @@ export default function AdminDashboard() {
                       onClick={() => { setFiscalYear(year); setIsYearOpen(false); }}
                       className={cn(
                         "w-full text-left px-8 py-4 text-[10px] font-black uppercase tracking-widest transition-colors",
-                        fiscalYear === year ? "bg-[#c81c6a] text-white" : "text-[#0b2b1a] hover:bg-gray-50"
+                        fiscalYear === year ? "bg-[#c81c6a] text-white" : "text-[#5d5f61] hover:bg-gray-50"
                       )}
                     >
                       FY {year}
@@ -145,8 +145,8 @@ export default function AdminDashboard() {
               onClick={() => setIsFilterOpen(!isFilterOpen)}
               className="flex items-center gap-3 bg-white/50 backdrop-blur-md px-6 py-4 rounded-[2rem] border border-white shadow-xl shadow-black/[0.02] hover:bg-white transition-all active:scale-95"
             >
-               <Filter size={16} className={cn("transition-colors", globalFilter !== "All Time" ? "text-[#c81c6a]" : "text-[#0b2b1a] opacity-40")} />
-               <span className="text-[11px] font-black text-[#0b2b1a] uppercase tracking-widest">{globalFilter}</span>
+               <Filter size={16} className={cn("transition-colors", globalFilter !== "All Time" ? "text-[#c81c6a]" : "text-[#5d5f61] opacity-40")} />
+               <span className="text-[11px] font-black text-[#5d5f61] uppercase tracking-widest">{globalFilter}</span>
             </button>
 
             <AnimatePresence>
@@ -164,7 +164,7 @@ export default function AdminDashboard() {
                         onClick={() => { setGlobalFilter(filter); if (filter !== "Custom Range") setIsFilterOpen(false); }}
                         className={cn(
                           "w-full text-left px-6 py-3 text-[10px] font-black uppercase tracking-widest transition-colors rounded-2xl",
-                          globalFilter === filter ? "bg-[#c81c6a] text-white" : "text-[#0b2b1a] hover:bg-gray-50"
+                          globalFilter === filter ? "bg-[#c81c6a] text-white" : "text-[#5d5f61] hover:bg-gray-50"
                         )}
                       >
                         {filter}
@@ -191,7 +191,7 @@ export default function AdminDashboard() {
             </AnimatePresence>
           </div>
 
-          <button className="bg-[#0b2b1a] text-white p-5 rounded-[2rem] shadow-2xl shadow-[#0b2b1a]/20 hover:bg-[#c81c6a] transition-all duration-500 hover:scale-110 active:scale-95 group">
+          <button className="bg-[#5d5f61] text-white p-5 rounded-[2rem] shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] transition-all duration-500 hover:scale-110 active:scale-95 group">
             <Download size={20} className="group-hover:-translate-y-1 transition-transform" />
           </button>
         </div>
@@ -218,14 +218,14 @@ export default function AdminDashboard() {
           </div>
           
           {/* Quick Actions / Brand Health Card */}
-          <div className="bg-[#0b2b1a] p-10 rounded-[3.5rem] text-white overflow-hidden relative group shadow-2xl shadow-[#0b2b1a]/20">
+          <div className="bg-[#5d5f61] p-10 rounded-[3.5rem] text-white overflow-hidden relative group shadow-2xl shadow-[#5d5f61]/20">
              <div className="relative z-10">
                 <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center mb-8 backdrop-blur-xl border border-white/10">
                    <LayoutDashboard size={24} className="text-[#c81c6a]" />
                 </div>
                 <h3 className="text-3xl font-black font-playfair mb-4 italic leading-tight">Botanical<br/>Growth Strategy</h3>
                 <p className="text-[12px] opacity-60 font-medium leading-relaxed mb-10 max-w-[200px]">Your Heritage collection has seen a 15% increase in engagement. Consider a seasonal spotlight.</p>
-                <button className="bg-white text-[#0b2b1a] w-full py-5 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-[#c81c6a] hover:text-white transition-all duration-500 shadow-xl">
+                <button className="bg-white text-[#5d5f61] w-full py-5 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-[#c81c6a] hover:text-white transition-all duration-500 shadow-xl">
                    Optimize Sanctuary
                 </button>
              </div>

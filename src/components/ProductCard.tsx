@@ -146,7 +146,7 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
           <div className="flex items-center gap-2">
             <button
               onClick={handleAddToCart}
-              className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-[#0b2b1a]/10 flex items-center justify-center text-[#0b2b1a] hover:bg-white hover:border-[#0b2b1a]/30 transition-all active:scale-95"
+              className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-[#5d5f61]/10 flex items-center justify-center text-[#5d5f61] hover:bg-white hover:border-[#5d5f61]/30 transition-all active:scale-95"
               title="Add to Cart"
             >
               <ShoppingBasket size={isDesktop ? 20 : 16} />

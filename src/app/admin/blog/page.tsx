@@ -74,7 +74,7 @@ export default function BlogManagementPage() {
     <div className="space-y-12 pb-24 relative">
       {/* Background Watermark */}
       <div className="absolute top-0 right-0 pointer-events-none opacity-[0.03] select-none -mt-10 -mr-20">
-         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#0b2b1a]">BLOG</h1>
+         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#5d5f61]">BLOG</h1>
       </div>
 
       {/* Blog Header */}
@@ -87,12 +87,12 @@ export default function BlogManagementPage() {
           >
             Editorial Sanctuary
           </motion.p>
-          <h1 className="text-6xl md:text-7xl font-black font-playfair text-[#0b2b1a] tracking-tighter">The Sidebar</h1>
+          <h1 className="text-6xl md:text-7xl font-black font-playfair text-[#5d5f61] tracking-tighter">The Sidebar</h1>
         </div>
 
         <button 
           onClick={handleCreatePost}
-          className="flex items-center gap-4 bg-[#0b2b1a] text-white px-10 py-5 rounded-[2.5rem] font-black text-xs uppercase tracking-[0.2em] shadow-2xl shadow-[#0b2b1a]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-95 transition-all duration-500 group"
+          className="flex items-center gap-4 bg-[#5d5f61] text-white px-10 py-5 rounded-[2.5rem] font-black text-xs uppercase tracking-[0.2em] shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-95 transition-all duration-500 group"
         >
           <Plus size={20} className="group-hover:rotate-90 transition-transform duration-500" /> Draft New Story
         </button>
@@ -115,7 +115,7 @@ export default function BlogManagementPage() {
                 <input 
                   type="text" placeholder="Search the botanical narratives..." value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-16 pr-8 py-6 bg-transparent outline-none text-sm font-bold text-[#0b2b1a] placeholder:text-gray-300"
+                  className="w-full pl-16 pr-8 py-6 bg-transparent outline-none text-sm font-bold text-[#5d5f61] placeholder:text-gray-300"
                 />
               </div>
            </div>
@@ -135,7 +135,7 @@ export default function BlogManagementPage() {
                     <img src={post.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out" alt={post.title} />
                     <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                     <div className="absolute top-6 left-6">
-                       <div className="px-4 py-2 rounded-xl bg-white/90 backdrop-blur-md text-[9px] font-black uppercase tracking-widest text-[#0b2b1a] shadow-lg">
+                       <div className="px-4 py-2 rounded-xl bg-white/90 backdrop-blur-md text-[9px] font-black uppercase tracking-widest text-[#5d5f61] shadow-lg">
                          {post.category}
                        </div>
                     </div>
@@ -144,17 +144,17 @@ export default function BlogManagementPage() {
                     <div className="flex justify-between items-start mb-4">
                        <span className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em]">{post.date}</span>
                        <div className="flex gap-2 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500">
-                          <button onClick={() => handleEditPost(post)} className="p-3.5 rounded-2xl bg-white text-[#0b2b1a] shadow-xl shadow-black/5 hover:bg-[#0b2b1a] hover:text-white transition-all duration-500"><Edit2 size={16}/></button>
+                          <button onClick={() => handleEditPost(post)} className="p-3.5 rounded-2xl bg-white text-[#5d5f61] shadow-xl shadow-black/5 hover:bg-[#5d5f61] hover:text-white transition-all duration-500"><Edit2 size={16}/></button>
                           <button onClick={() => handleDelete(post.id)} className="p-3.5 rounded-2xl bg-white text-red-500 shadow-xl shadow-black/5 hover:bg-red-500 hover:text-white transition-all duration-500"><Trash2 size={16}/></button>
                        </div>
                     </div>
-                    <h3 className="text-2xl font-black font-playfair text-[#0b2b1a] mb-4 leading-tight group-hover:text-[#c81c6a] transition-colors duration-500">{post.title}</h3>
+                    <h3 className="text-2xl font-black font-playfair text-[#5d5f61] mb-4 leading-tight group-hover:text-[#c81c6a] transition-colors duration-500">{post.title}</h3>
                     <p className="text-gray-400 text-[12px] leading-relaxed line-clamp-3 font-medium">{post.excerpt}</p>
                     
                     <div className="mt-auto pt-6 border-t border-gray-100/50 flex items-center justify-between">
                        <div className="flex items-center gap-3">
                           <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                          <span className="text-[9px] font-black text-[#0b2b1a] uppercase tracking-widest">Published</span>
+                          <span className="text-[9px] font-black text-[#5d5f61] uppercase tracking-widest">Published</span>
                        </div>
                        <Link href="/blog" target="_blank" className="text-[10px] font-black text-[#c81c6a] uppercase tracking-widest hover:underline flex items-center gap-2">Read <ExternalLink size={12} /></Link>
                     </div>

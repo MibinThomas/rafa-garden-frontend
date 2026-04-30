@@ -105,15 +105,15 @@ export function Sidebar() {
                     "w-full group flex items-center justify-between px-4 py-3.5 rounded-2xl transition-all duration-500",
                     isAnyChildActive && !isExpanded
                       ? "bg-[#c81c6a]/10 text-[#c81c6a]" 
-                      : "text-[#888888] hover:bg-white hover:text-[#0b2b1a] hover:shadow-xl hover:shadow-black/5"
+                      : "text-[#888888] hover:bg-white hover:text-[#5d5f61] hover:shadow-xl hover:shadow-black/5"
                   )}
                 >
                   <div className="flex items-center gap-4">
-                    <item.icon size={19} strokeWidth={isAnyChildActive ? 2.5 : 2} className={cn("transition-all duration-500", isAnyChildActive && !isExpanded ? "text-[#c81c6a] scale-110" : "opacity-40 group-hover:opacity-100 group-hover:text-[#0b2b1a]")} />
+                    <item.icon size={19} strokeWidth={isAnyChildActive ? 2.5 : 2} className={cn("transition-all duration-500", isAnyChildActive && !isExpanded ? "text-[#c81c6a] scale-110" : "opacity-40 group-hover:opacity-100 group-hover:text-[#5d5f61]")} />
                     <span className="text-[13px] font-black tracking-tight uppercase">{item.label}</span>
                   </div>
                   {isExpanded ? (
-                    <ChevronDown size={14} className="opacity-60 transition-all text-[#0b2b1a]" />
+                    <ChevronDown size={14} className="opacity-60 transition-all text-[#5d5f61]" />
                   ) : (
                     <ChevronRight size={14} className={cn("opacity-20 transition-all", isAnyChildActive ? "opacity-100" : "-translate-x-2 group-hover:opacity-100 group-hover:translate-x-0")} />
                   )}
@@ -132,7 +132,7 @@ export function Sidebar() {
                             "flex items-center gap-3 px-5 py-3 rounded-xl transition-all duration-300",
                             isSubActive
                               ? "bg-white text-[#c81c6a] shadow-lg shadow-black/5 font-black"
-                              : "text-[#aaaaaa] hover:text-[#0b2b1a]"
+                              : "text-[#aaaaaa] hover:text-[#5d5f61]"
                           )}
                         >
                           <subItem.icon size={15} strokeWidth={isSubActive ? 2.5 : 2} className={cn("transition-colors", isSubActive ? "text-[#c81c6a]" : "opacity-40")} />
@@ -157,11 +157,11 @@ export function Sidebar() {
                 "group flex items-center justify-between px-4 py-3.5 rounded-2xl transition-all duration-500",
                 isActive 
                   ? "bg-white text-[#c81c6a] shadow-2xl shadow-black/10 scale-[1.02] z-10" 
-                  : "text-[#888888] hover:bg-white hover:text-[#0b2b1a] hover:shadow-xl hover:shadow-black/5"
+                  : "text-[#888888] hover:bg-white hover:text-[#5d5f61] hover:shadow-xl hover:shadow-black/5"
               )}
             >
               <div className="flex items-center gap-4">
-                <item.icon size={19} strokeWidth={isActive ? 2.5 : 2} className={cn("transition-all duration-500", isActive ? "text-[#c81c6a] scale-110" : "opacity-40 group-hover:opacity-100 group-hover:text-[#0b2b1a]")} />
+                <item.icon size={19} strokeWidth={isActive ? 2.5 : 2} className={cn("transition-all duration-500", isActive ? "text-[#c81c6a] scale-110" : "opacity-40 group-hover:opacity-100 group-hover:text-[#5d5f61]")} />
                 <span className="text-[13px] font-black tracking-tight uppercase">{item.label}</span>
               </div>
               <ChevronRight 
@@ -181,7 +181,7 @@ export function Sidebar() {
         <Link 
           href="/" 
           target="_blank"
-          className="flex items-center justify-between p-6 rounded-[2.5rem] bg-[#0b2b1a] text-white group relative overflow-hidden transition-all duration-700 hover:scale-[1.02] hover:shadow-2xl hover:shadow-[#0b2b1a]/20"
+          className="flex items-center justify-between p-6 rounded-[2.5rem] bg-[#5d5f61] text-white group relative overflow-hidden transition-all duration-700 hover:scale-[1.02] hover:shadow-2xl hover:shadow-[#5d5f61]/20"
         >
           <div className="relative z-10">
             <p className="text-[9px] font-black uppercase tracking-[0.4em] opacity-40 mb-1.5">Live Sanctuary</p>
@@ -206,7 +206,7 @@ export function Sidebar() {
               <div className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-500 border-2 border-white rounded-full shadow-lg" />
             </div>
             <div>
-               <p className="text-[13px] font-black text-[#0b2b1a] leading-tight">Principal Admin</p>
+               <p className="text-[13px] font-black text-[#5d5f61] leading-tight">Principal Admin</p>
                <p className="text-[9px] text-[#aaaaaa] font-black uppercase tracking-widest mt-0.5">Master Key</p>
             </div>
          </div>

@@ -13,12 +13,12 @@ export default function AdminLayout({
   const isLoginPage = pathname === "/admin/login";
 
   return (
-    <div className={`min-h-screen font-sans selection:bg-[#c81c6a] selection:text-white ${isLoginPage ? "bg-[#0b2b1a]" : "bg-[#f1f1f2] flex relative overflow-hidden"}`}>
+    <div className={`min-h-screen font-sans selection:bg-[#c81c6a] selection:text-white ${isLoginPage ? "bg-[#5d5f61]" : "bg-[#f1f1f2] flex relative overflow-hidden"}`}>
       {/* Background Mesh Gradient for Depth */}
       {!isLoginPage && (
         <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
           <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#c81c6a]/5 blur-[120px] rounded-full" />
-          <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#0b2b1a]/5 blur-[120px] rounded-full" />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#5d5f61]/5 blur-[120px] rounded-full" />
         </div>
       )}
 

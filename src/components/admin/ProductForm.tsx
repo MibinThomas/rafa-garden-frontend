@@ -134,9 +134,9 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
               {formData.image ? (
                 <>
                   <img src={formData.image} alt="Preview" className="w-full h-full object-contain p-12 group-hover:scale-105 transition-transform duration-1000 ease-out" />
-                  <div className="absolute inset-0 bg-[#0b2b1a]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px] duration-500">
+                  <div className="absolute inset-0 bg-[#5d5f61]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px] duration-500">
                     <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-2xl scale-75 group-hover:scale-100 transition-transform duration-500">
-                       <Upload size={24} className="text-[#0b2b1a]" />
+                       <Upload size={24} className="text-[#5d5f61]" />
                     </div>
                   </div>
                 </>
@@ -145,7 +145,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
                   <div className="w-20 h-20 rounded-[2rem] bg-[#f1f1f2] flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:scale-110 group-hover:bg-[#c81c6a] group-hover:text-white transition-all duration-700">
                     <Upload size={32} strokeWidth={1.5} />
                   </div>
-                  <p className="text-[11px] font-black text-[#0b2b1a] uppercase tracking-[0.2em]">Upload Asset</p>
+                  <p className="text-[11px] font-black text-[#5d5f61] uppercase tracking-[0.2em]">Upload Asset</p>
                   <p className="text-[9px] text-gray-300 font-bold mt-3 uppercase tracking-widest">PNG / WebP / JPG</p>
                 </div>
               )}
@@ -175,7 +175,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
                 onClick={() => handleChange("active", !formData.active)}
                 className={cn(
                   "relative w-14 h-7 rounded-full transition-all duration-500 shadow-inner",
-                  formData.active ? "bg-[#0b2b1a]" : "bg-gray-200"
+                  formData.active ? "bg-[#5d5f61]" : "bg-gray-200"
                 )}
               >
                 <motion.div 
@@ -191,7 +191,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
                 <select 
                   value={formData.category}
                   onChange={(e) => handleChange("category", e.target.value)}
-                  className="w-full px-8 py-5 bg-white rounded-2xl border border-gray-100 outline-none font-black text-[#0b2b1a] text-[11px] uppercase tracking-widest focus:ring-4 focus:ring-[#c81c6a]/5 transition-all appearance-none cursor-pointer shadow-sm"
+                  className="w-full px-8 py-5 bg-white rounded-2xl border border-gray-100 outline-none font-black text-[#5d5f61] text-[11px] uppercase tracking-widest focus:ring-4 focus:ring-[#c81c6a]/5 transition-all appearance-none cursor-pointer shadow-sm"
                 >
                   {categories.map(cat => (
                     <option key={cat.title} value={cat.title}>{cat.title}</option>
@@ -210,7 +210,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
                 value={formData.id}
                 placeholder="e.g. HER-01"
                 onChange={(e) => handleChange("id", e.target.value)}
-                className="w-full px-8 py-5 bg-white rounded-2xl border border-gray-100 outline-none font-black text-[#0b2b1a] text-[11px] uppercase tracking-widest focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-sm"
+                className="w-full px-8 py-5 bg-white rounded-2xl border border-gray-100 outline-none font-black text-[#5d5f61] text-[11px] uppercase tracking-widest focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-sm"
                 required
               />
             </div>
@@ -223,7 +223,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
           <div className="bg-white/60 backdrop-blur-md p-12 rounded-[4rem] shadow-2xl shadow-black/[0.03] border border-white space-y-12">
             <div className="flex items-center gap-4 border-b border-gray-100/50 pb-8">
                <div className="w-1 h-10 bg-[#c81c6a] rounded-full" />
-               <h3 className="text-3xl font-black font-playfair text-[#0b2b1a]">Narrative Profile</h3>
+               <h3 className="text-3xl font-black font-playfair text-[#5d5f61]">Narrative Profile</h3>
             </div>
             
             <div className="space-y-4">
@@ -233,7 +233,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
                 value={formData.name}
                 placeholder="The Heritage Masterpiece"
                 onChange={(e) => handleChange("name", e.target.value)}
-                className="w-full px-10 py-8 bg-white rounded-[2.5rem] border border-gray-100 outline-none font-black font-playfair text-4xl text-[#0b2b1a] focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-sm"
+                className="w-full px-10 py-8 bg-white rounded-[2.5rem] border border-gray-100 outline-none font-black font-playfair text-4xl text-[#5d5f61] focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-sm"
                 required
               />
             </div>
@@ -245,7 +245,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
                 placeholder="Weave the story of this botanical asset..."
                 onChange={(e) => handleChange("description", e.target.value)}
                 rows={8}
-                className="w-full px-10 py-10 bg-white rounded-[3rem] border border-gray-100 outline-none font-bold text-[#0b2b1a] text-lg leading-relaxed focus:ring-4 focus:ring-[#c81c6a]/5 transition-all resize-none shadow-sm"
+                className="w-full px-10 py-10 bg-white rounded-[3rem] border border-gray-100 outline-none font-bold text-[#5d5f61] text-lg leading-relaxed focus:ring-4 focus:ring-[#c81c6a]/5 transition-all resize-none shadow-sm"
                 required
               />
             </div>
@@ -255,13 +255,13 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
           <div className="bg-white/60 backdrop-blur-md p-12 rounded-[4rem] shadow-2xl shadow-black/[0.03] border border-white space-y-12">
             <div className="flex items-center justify-between border-b border-gray-100/50 pb-8">
                <div className="flex items-center gap-4">
-                  <div className="w-1 h-10 bg-[#0b2b1a] rounded-full" />
-                  <h3 className="text-3xl font-black font-playfair text-[#0b2b1a]">Asset Variations</h3>
+                  <div className="w-1 h-10 bg-[#5d5f61] rounded-full" />
+                  <h3 className="text-3xl font-black font-playfair text-[#5d5f61]">Asset Variations</h3>
                </div>
                <button 
                 type="button" 
                 onClick={addVariant}
-                className="flex items-center gap-4 px-10 py-5 rounded-[2rem] bg-[#0b2b1a] text-white hover:bg-[#c81c6a] transition-all duration-700 text-[10px] font-black uppercase tracking-[0.3em] shadow-2xl shadow-black/5 active:scale-95 group"
+                className="flex items-center gap-4 px-10 py-5 rounded-[2rem] bg-[#5d5f61] text-white hover:bg-[#c81c6a] transition-all duration-700 text-[10px] font-black uppercase tracking-[0.3em] shadow-2xl shadow-black/5 active:scale-95 group"
                >
                  <Plus size={16} className="group-hover:rotate-90 transition-transform duration-700" /> Add Scale
                </button>
@@ -283,7 +283,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
                       value={variant.size}
                       placeholder="500"
                       onChange={(e) => handleVariantChange(index, "size", e.target.value)}
-                      className="w-full px-8 py-5 bg-gray-50/30 rounded-2xl border border-gray-50 outline-none font-black text-[#0b2b1a] text-[12px] uppercase tracking-widest focus:bg-white focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-inner"
+                      className="w-full px-8 py-5 bg-gray-50/30 rounded-2xl border border-gray-50 outline-none font-black text-[#5d5f61] text-[12px] uppercase tracking-widest focus:bg-white focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-inner"
                       required
                     />
                   </div>
@@ -294,7 +294,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
                       value={variant.unit}
                       placeholder="ML"
                       onChange={(e) => handleVariantChange(index, "unit", e.target.value)}
-                      className="w-full px-8 py-5 bg-gray-50/30 rounded-2xl border border-gray-50 outline-none font-black text-[#0b2b1a] text-[12px] uppercase tracking-widest focus:bg-white focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-inner"
+                      className="w-full px-8 py-5 bg-gray-50/30 rounded-2xl border border-gray-50 outline-none font-black text-[#5d5f61] text-[12px] uppercase tracking-widest focus:bg-white focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-inner"
                       required
                     />
                   </div>
@@ -305,7 +305,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
                       value={variant.price || ""}
                       placeholder="0"
                       onChange={(e) => handleVariantChange(index, "price", parseFloat(e.target.value))}
-                      className="w-full px-8 py-5 bg-gray-50/30 rounded-2xl border border-gray-50 outline-none font-black text-[#0b2b1a] text-[12px] uppercase tracking-widest focus:bg-white focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-inner"
+                      className="w-full px-8 py-5 bg-gray-50/30 rounded-2xl border border-gray-50 outline-none font-black text-[#5d5f61] text-[12px] uppercase tracking-widest focus:bg-white focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-inner"
                       required
                     />
                   </div>
@@ -328,7 +328,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
              <button 
               type="submit" 
               disabled={isLoading}
-              className="flex-[3] py-10 rounded-[3rem] bg-[#0b2b1a] text-white font-black text-[14px] uppercase tracking-[0.5em] shadow-2xl shadow-[#0b2b1a]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-8 transition-all duration-1000 relative group/submit"
+              className="flex-[3] py-10 rounded-[3rem] bg-[#5d5f61] text-white font-black text-[14px] uppercase tracking-[0.5em] shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-8 transition-all duration-1000 relative group/submit"
              >
                 {isLoading ? (
                   <div className="flex items-center gap-4">

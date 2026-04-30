@@ -32,7 +32,7 @@ export default function ProfilePage() {
       <div className="max-w-[1400px] mx-auto">
         
         <div className="mb-10">
-          <h1 className="text-4xl md:text-5xl font-black font-playfair text-[#0b2b1a]">
+          <h1 className="text-4xl md:text-5xl font-black font-playfair text-[#5d5f61]">
               My Profile
           </h1>
           <p className="text-gray-500 font-inter mt-2">Manage your account, orders, and premium preferences.</p>
@@ -52,7 +52,7 @@ export default function ProfilePage() {
                    className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl transition-all ${
                      isActive 
                        ? "text-white shadow-md" 
-                       : "text-gray-500 hover:bg-black/5 hover:text-[#0b2b1a]"
+                       : "text-gray-500 hover:bg-black/5 hover:text-[#5d5f61]"
                    }`}
                    style={isActive ? { backgroundColor: activeColor } : {}}
                  >
@@ -83,7 +83,7 @@ export default function ProfilePage() {
                    {/* Overview Tab */}
                    {activeTab === "overview" && (
                      <div className="space-y-8">
-                       <h2 className="text-2xl font-bold font-playfair text-[#0b2b1a] border-b border-black/5 pb-4">
+                       <h2 className="text-2xl font-bold font-playfair text-[#5d5f61] border-b border-black/5 pb-4">
                          Welcome back, Lazim!
                        </h2>
                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -94,12 +94,12 @@ export default function ProfilePage() {
                            </div>
                            <div className="bg-white p-6 rounded-[1.5rem] border border-black/5 shadow-sm">
                               <h3 className="text-sm uppercase tracking-widest text-gray-400 mb-1 font-bold">Account Level</h3>
-                              <p className="text-2xl font-black text-[#0b2b1a] tracking-tight">Premium Member</p>
+                              <p className="text-2xl font-black text-[#5d5f61] tracking-tight">Premium Member</p>
                            </div>
                        </div>
                        
                        <div className="bg-[#f1f1f2]/50 rounded-[1.5rem] p-6 border border-black/5">
-                          <h3 className="font-bold text-[#0b2b1a] mb-4">Personal Details</h3>
+                          <h3 className="font-bold text-[#5d5f61] mb-4">Personal Details</h3>
                           <div className="space-y-3 text-sm">
                             <div className="flex justify-between border-b border-black/5 pb-2">
                                <span className="text-gray-500">Full Name</span>
@@ -124,7 +124,7 @@ export default function ProfilePage() {
                    {/* Orders Tab */}
                    {activeTab === "orders" && (
                      <div className="space-y-6">
-                       <h2 className="text-2xl font-bold font-playfair text-[#0b2b1a] border-b border-black/5 pb-4 mb-6">
+                       <h2 className="text-2xl font-bold font-playfair text-[#5d5f61] border-b border-black/5 pb-4 mb-6">
                          Recent Orders
                        </h2>
                        
@@ -139,7 +139,7 @@ export default function ProfilePage() {
                               <div key={order.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-5 rounded-2xl border border-black/5 bg-white shadow-sm hover:border-brand-pink/30 hover:shadow-md transition-all gap-4">
                                 <div>
                                   <div className="flex items-center gap-3 mb-1">
-                                    <h4 className="font-bold text-[#0b2b1a]">{order.id}</h4>
+                                    <h4 className="font-bold text-[#5d5f61]">{order.id}</h4>
                                     <span className={`px-2 py-0.5 rounded-full text-[10px] uppercase font-bold tracking-widest ${
                                       order.status === 'Delivered' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
                                     }`}>
@@ -165,7 +165,7 @@ export default function ProfilePage() {
                    {(activeTab === "addresses" || activeTab === "settings") && (
                      <div className="py-20 flex flex-col items-center justify-center text-center text-gray-400">
                         <Settings size={48} className="opacity-20 mb-4" />
-                        <h3 className="text-xl font-bold text-[#0b2b1a] mb-2">{TABS.find(t => t.id === activeTab)?.label} coming soon.</h3>
+                        <h3 className="text-xl font-bold text-[#5d5f61] mb-2">{TABS.find(t => t.id === activeTab)?.label} coming soon.</h3>
                         <p className="text-sm">This module is currently under development.</p>
                      </div>
                    )}

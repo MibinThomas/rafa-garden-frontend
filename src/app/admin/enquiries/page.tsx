@@ -183,7 +183,7 @@ export default function EnquiriesPage() {
     <div className="space-y-12 pb-24 relative">
       {/* Background Watermark */}
       <div className="absolute top-0 right-0 pointer-events-none opacity-[0.03] select-none -mt-10 -mr-20">
-         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#0b2b1a]">VOICES</h1>
+         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#5d5f61]">VOICES</h1>
       </div>
 
       {/* Header */}
@@ -196,17 +196,17 @@ export default function EnquiriesPage() {
           >
             Digital Sanctuary
           </motion.p>
-          <h1 className="text-6xl md:text-7xl font-black font-playfair text-[#0b2b1a] tracking-tighter">Enquiries</h1>
+          <h1 className="text-6xl md:text-7xl font-black font-playfair text-[#5d5f61] tracking-tighter">Enquiries</h1>
         </div>
 
         <div className="flex flex-wrap items-center gap-4 bg-white/40 backdrop-blur-md p-2 rounded-[2.5rem] border border-white shadow-xl shadow-black/[0.02]">
           <div className="hidden md:flex items-center gap-3 px-6 py-4">
              <Filter size={16} className="text-[#c81c6a]" />
-             <span className="text-[10px] font-black uppercase tracking-widest text-[#0b2b1a]">All Entries</span>
+             <span className="text-[10px] font-black uppercase tracking-widest text-[#5d5f61]">All Entries</span>
           </div>
           <button 
             onClick={() => exportToExcel("enquiries")}
-            className="bg-[#0b2b1a] text-white px-8 py-4 rounded-[1.8rem] shadow-xl hover:bg-[#c81c6a] transition-all duration-500 flex items-center gap-4 group active:scale-95"
+            className="bg-[#5d5f61] text-white px-8 py-4 rounded-[1.8rem] shadow-xl hover:bg-[#c81c6a] transition-all duration-500 flex items-center gap-4 group active:scale-95"
           >
             <Download size={18} className="group-hover:translate-y-0.5 transition-transform" />
             <span className="text-[10px] font-black uppercase tracking-widest text-white">Export Registry</span>
@@ -226,8 +226,8 @@ export default function EnquiriesPage() {
             className={cn(
               "flex items-center gap-4 px-8 py-4 rounded-[1.8rem] text-[11px] font-black uppercase tracking-widest transition-all duration-500",
               activeTab === tab.id 
-                ? "bg-[#0b2b1a] text-white shadow-xl shadow-[#0b2b1a]/20 scale-105" 
-                : "text-gray-400 hover:text-[#0b2b1a] hover:bg-white"
+                ? "bg-[#5d5f61] text-white shadow-xl shadow-[#5d5f61]/20 scale-105" 
+                : "text-gray-400 hover:text-[#5d5f61] hover:bg-white"
             )}
           >
             <tab.icon size={16} strokeWidth={activeTab === tab.id ? 2.5 : 2} />
@@ -253,7 +253,7 @@ export default function EnquiriesPage() {
               placeholder={activeTab === "enquiries" ? "Search botanical narratives and visions..." : "Search subscriber repository..."}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-18 pr-8 py-6 bg-transparent outline-none text-sm font-bold text-[#0b2b1a] placeholder:text-gray-300"
+              className="w-full pl-18 pr-8 py-6 bg-transparent outline-none text-sm font-bold text-[#5d5f61] placeholder:text-gray-300"
             />
           </div>
         </div>
@@ -291,8 +291,8 @@ export default function EnquiriesPage() {
                       <User size={32} strokeWidth={2.5} />
                     </div>
                     <div>
-                      <h3 className="text-3xl font-black font-playfair text-[#0b2b1a] mb-2 leading-none group-hover:text-[#c81c6a] transition-colors duration-500">{enquiry.name}</h3>
-                      <p className="flex items-center gap-3 text-[11px] font-bold text-gray-400 group-hover:text-[#0b2b1a] transition-colors duration-500 uppercase tracking-widest"><Mail size={14} className="opacity-40" /> {enquiry.email}</p>
+                      <h3 className="text-3xl font-black font-playfair text-[#5d5f61] mb-2 leading-none group-hover:text-[#c81c6a] transition-colors duration-500">{enquiry.name}</h3>
+                      <p className="flex items-center gap-3 text-[11px] font-bold text-gray-400 group-hover:text-[#5d5f61] transition-colors duration-500 uppercase tracking-widest"><Mail size={14} className="opacity-40" /> {enquiry.email}</p>
                     </div>
                     <div className="pt-2">
                        <span className={cn(
@@ -329,7 +329,7 @@ export default function EnquiriesPage() {
                     </button>
                     <button 
                       onClick={() => updateStatus(enquiry._id, "archived")}
-                      className="p-4 rounded-[1.8rem] bg-white text-gray-300 hover:text-[#0b2b1a] hover:scale-110 transition-all duration-500 shadow-xl"
+                      className="p-4 rounded-[1.8rem] bg-white text-gray-300 hover:text-[#5d5f61] hover:scale-110 transition-all duration-500 shadow-xl"
                       title="Archive Narrative"
                     >
                       <Archive size={20} strokeWidth={2.5} />
@@ -351,7 +351,7 @@ export default function EnquiriesPage() {
                  <div className="w-24 h-24 rounded-full bg-white flex items-center justify-center mx-auto mb-10 shadow-xl border border-gray-50">
                     <MessageSquare className="text-gray-200" size={40} />
                  </div>
-                 <h3 className="text-3xl font-black font-playfair text-[#0b2b1a] mb-4">Quiet Sanctuary</h3>
+                 <h3 className="text-3xl font-black font-playfair text-[#5d5f61] mb-4">Quiet Sanctuary</h3>
                  <p className="text-gray-400 font-bold uppercase text-[11px] tracking-[0.4em]">No botanical narratives found in this layer.</p>
               </div>
             )}
@@ -374,7 +374,7 @@ export default function EnquiriesPage() {
                       <Mail size={24} strokeWidth={2.5} />
                     </div>
                     <div>
-                      <h4 className="font-black text-lg text-[#0b2b1a] leading-none mb-2">{subscriber.email}</h4>
+                      <h4 className="font-black text-lg text-[#5d5f61] leading-none mb-2">{subscriber.email}</h4>
                       <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest">Joined {new Date(subscriber.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
                     </div>
                   </div>
@@ -394,7 +394,7 @@ export default function EnquiriesPage() {
                 <div className="w-24 h-24 rounded-full bg-white flex items-center justify-center mx-auto mb-10 shadow-xl border border-gray-50">
                     <Users className="text-gray-200" size={40} />
                  </div>
-                 <h3 className="text-3xl font-black font-playfair text-[#0b2b1a] mb-4">Growing Sanctuary</h3>
+                 <h3 className="text-3xl font-black font-playfair text-[#5d5f61] mb-4">Growing Sanctuary</h3>
                  <p className="text-gray-400 font-bold uppercase text-[11px] tracking-[0.4em]">Your botanical subscriber repository is currently waiting for growth.</p>
               </div>
             )}

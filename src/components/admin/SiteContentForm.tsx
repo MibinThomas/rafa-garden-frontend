@@ -111,7 +111,7 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-[#0b2b1a]/40 backdrop-blur-sm z-[100]"
+            className="fixed inset-0 bg-[#5d5f61]/40 backdrop-blur-sm z-[100]"
           />
 
           <motion.div
@@ -130,13 +130,13 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
                 >
                   Global Registry
                 </motion.p>
-                <h2 className="text-4xl font-black font-playfair text-[#0b2b1a] capitalize">
+                <h2 className="text-4xl font-black font-playfair text-[#5d5f61] capitalize">
                   {group} <span className="italic font-normal">Vault</span>
                 </h2>
               </div>
               <button 
                 onClick={onClose}
-                className="p-4 rounded-2xl bg-white text-gray-300 hover:text-[#0b2b1a] transition-all duration-500 shadow-xl shadow-black/5 hover:scale-110 active:scale-95 border border-gray-50"
+                className="p-4 rounded-2xl bg-white text-gray-300 hover:text-[#5d5f61] transition-all duration-500 shadow-xl shadow-black/5 hover:scale-110 active:scale-95 border border-gray-50"
               >
                 <X size={20} />
               </button>
@@ -189,8 +189,8 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
                         <div className="aspect-[21/9] rounded-[2.5rem] bg-white border border-gray-100 flex items-center justify-center overflow-hidden shadow-2xl shadow-black/[0.02] group-hover:shadow-black/[0.05] transition-all duration-700">
                           {item.value ? (
                             item.type === "font" ? (
-                               <div className="text-center font-bold text-[#0b2b1a] text-xs px-10">
-                                  <span className="bg-[#0b2b1a] text-white px-6 py-3 rounded-2xl break-all inline-block shadow-xl text-[10px] font-black uppercase tracking-widest">
+                               <div className="text-center font-bold text-[#5d5f61] text-xs px-10">
+                                  <span className="bg-[#5d5f61] text-white px-6 py-3 rounded-2xl break-all inline-block shadow-xl text-[10px] font-black uppercase tracking-widest">
                                     {item.value.split('/').pop()}
                                   </span>
                                   <p className="mt-4 text-[10px] font-black text-gray-300 uppercase tracking-widest">Botanical Font Registry Active</p>
@@ -203,20 +203,20 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
                           )}
                           
                           {uploadingKey === item.key && (
-                            <div className="absolute inset-0 bg-[#0b2b1a]/80 backdrop-blur-md flex flex-col items-center justify-center text-white gap-4">
+                            <div className="absolute inset-0 bg-[#5d5f61]/80 backdrop-blur-md flex flex-col items-center justify-center text-white gap-4">
                               <Loader2 className="animate-spin" size={24} />
                               <span className="text-[9px] font-black uppercase tracking-[0.3em]">Syncing Asset...</span>
                             </div>
                           )}
 
-                          <div className="absolute inset-0 bg-[#0b2b1a]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-[2px]">
+                          <div className="absolute inset-0 bg-[#5d5f61]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-[2px]">
                             <button 
                               type="button"
                               onClick={() => {
                                 (fileInputRef.current as any).pendingKey = item.key;
                                 fileInputRef.current?.click();
                               }}
-                              className="bg-white text-[#0b2b1a] px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl hover:scale-105 active:scale-95 transition-all"
+                              className="bg-white text-[#5d5f61] px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl hover:scale-105 active:scale-95 transition-all"
                             >
                               Replace {item.type === "font" ? "Font File" : "Visual Asset"}
                             </button>
@@ -228,14 +228,14 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
                         value={item.value}
                         onChange={e => handleInputChange(item.key, e.target.value)}
                         rows={5}
-                        className="w-full px-8 py-6 bg-white rounded-[2rem] border border-gray-100 outline-none font-bold text-[#0b2b1a] focus:ring-4 focus:ring-[#c81c6a]/5 transition-all resize-none shadow-2xl shadow-black/[0.02] text-sm leading-relaxed"
+                        className="w-full px-8 py-6 bg-white rounded-[2rem] border border-gray-100 outline-none font-bold text-[#5d5f61] focus:ring-4 focus:ring-[#c81c6a]/5 transition-all resize-none shadow-2xl shadow-black/[0.02] text-sm leading-relaxed"
                       />
                     ) : (
                       <input 
                         type="text" 
                         value={item.value}
                         onChange={e => handleInputChange(item.key, e.target.value)}
-                        className="w-full px-8 py-6 bg-white rounded-[2rem] border border-gray-100 outline-none font-bold text-[#0b2b1a] focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-2xl shadow-black/[0.02] text-sm"
+                        className="w-full px-8 py-6 bg-white rounded-[2rem] border border-gray-100 outline-none font-bold text-[#5d5f61] focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-2xl shadow-black/[0.02] text-sm"
                       />
                     )}
                   </motion.div>
@@ -258,7 +258,7 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
               <button 
                 type="button" 
                 onClick={onClose}
-                className="flex-1 py-6 rounded-[2rem] bg-gray-50 text-gray-400 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-gray-100 hover:text-[#0b2b1a] transition-all duration-500"
+                className="flex-1 py-6 rounded-[2rem] bg-gray-50 text-gray-400 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-gray-100 hover:text-[#5d5f61] transition-all duration-500"
               >
                 Discard
               </button>
@@ -266,7 +266,7 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
                 type="button"
                 onClick={handleSave}
                 disabled={saving || loading}
-                className="flex-[2] py-6 rounded-[2rem] bg-[#0b2b1a] text-white font-black text-[10px] uppercase tracking-[0.3em] shadow-2xl shadow-[#0b2b1a]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-4 transition-all duration-500"
+                className="flex-[2] py-6 rounded-[2rem] bg-[#5d5f61] text-white font-black text-[10px] uppercase tracking-[0.3em] shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-4 transition-all duration-500"
               >
                 {saving ? (
                   <>

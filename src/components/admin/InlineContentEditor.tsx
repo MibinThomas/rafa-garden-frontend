@@ -148,7 +148,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
     <div className="bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden">
       <div className="p-10 border-b border-gray-50 flex items-center justify-between bg-gray-50/30">
         <div>
-          <h2 className="text-2xl font-black font-playfair text-[#0b2b1a] capitalize">
+          <h2 className="text-2xl font-black font-playfair text-[#5d5f61] capitalize">
             {group} Content Options
           </h2>
           <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Update values and press save to sync</p>
@@ -156,7 +156,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
         <button 
           onClick={handleSave}
           disabled={saving}
-          className="flex items-center gap-3 bg-[#0b2b1a] text-white px-8 py-3.5 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] shadow-lg hover:brightness-110 active:scale-95 disabled:opacity-50 transition-all"
+          className="flex items-center gap-3 bg-[#5d5f61] text-white px-8 py-3.5 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] shadow-lg hover:brightness-110 active:scale-95 disabled:opacity-50 transition-all"
         >
           {saving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
           {saving ? "Saving..." : "Save Changes"}
@@ -193,7 +193,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
                   <div className="aspect-video rounded-3xl bg-gray-50 border-2 border-dashed border-gray-100 flex items-center justify-center overflow-hidden">
                     {item.value ? (
                       item.type === "font" ? (
-                        <div className="text-center font-bold text-[#0b2b1a] text-xs px-4">
+                        <div className="text-center font-bold text-[#5d5f61] text-xs px-4">
                             <span className="bg-[#c81c6a]/10 text-[#c81c6a] px-3 py-1 rounded-full break-all inline-block">
                               {item.value.split('/').pop()}
                             </span>
@@ -207,7 +207,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
                     )}
                     
                     {uploadingKey === item.key && (
-                      <div className="absolute inset-0 bg-[#0b2b1a]/60 backdrop-blur-sm flex items-center justify-center text-white gap-3">
+                      <div className="absolute inset-0 bg-[#5d5f61]/60 backdrop-blur-sm flex items-center justify-center text-white gap-3">
                         <Loader2 className="animate-spin" size={20} />
                       </div>
                     )}
@@ -220,7 +220,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
                           (fileInputRef.current as any).isCategory = false;
                           fileInputRef.current?.click();
                         }}
-                        className="bg-white text-[#0b2b1a] px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg"
+                        className="bg-white text-[#5d5f61] px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg"
                       >
                         Upload {item.type === "font" ? "Font" : "Image"}
                       </button>
@@ -232,14 +232,14 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
                   value={item.value}
                   onChange={e => handleInputChange(item.key, e.target.value)}
                   rows={4}
-                  className="w-full px-6 py-4 bg-gray-50 rounded-2xl border-none outline-none font-bold text-[#0b2b1a] focus:ring-2 focus:ring-[#c81c6a]/20 transition-all resize-none text-sm"
+                  className="w-full px-6 py-4 bg-gray-50 rounded-2xl border-none outline-none font-bold text-[#5d5f61] focus:ring-2 focus:ring-[#c81c6a]/20 transition-all resize-none text-sm"
                 />
               ) : (
                 <input 
                   type="text" 
                   value={item.value}
                   onChange={e => handleInputChange(item.key, e.target.value)}
-                  className="w-full px-6 py-4 bg-gray-50 rounded-2xl border-none outline-none font-bold text-[#0b2b1a] focus:ring-2 focus:ring-[#c81c6a]/20 transition-all text-sm"
+                  className="w-full px-6 py-4 bg-gray-50 rounded-2xl border-none outline-none font-bold text-[#5d5f61] focus:ring-2 focus:ring-[#c81c6a]/20 transition-all text-sm"
                 />
               )}
             </div>
@@ -250,7 +250,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
         {group === "shop" && categories.length > 0 && (
           <div className="space-y-10 pt-10 border-t border-gray-100">
             <div>
-              <h3 className="text-xl font-black font-playfair text-[#0b2b1a]">Category Specific Overrides</h3>
+              <h3 className="text-xl font-black font-playfair text-[#5d5f61]">Category Specific Overrides</h3>
               <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Customizations for individual heritage collections</p>
             </div>
 
@@ -261,7 +261,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
                     <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[10px] font-black" style={{ color: cat.color, border: `2px solid ${cat.color}20` }}>
                       {cat.id}
                     </div>
-                    <h4 className="font-black text-[#0b2b1a] text-lg">{cat.title}</h4>
+                    <h4 className="font-black text-[#5d5f61] text-lg">{cat.title}</h4>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -279,7 +279,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
                           )}
                           
                           {uploadingKey === `${cat.id}_img` && (
-                            <div className="absolute inset-0 bg-[#0b2b1a]/60 backdrop-blur-sm flex items-center justify-center text-white">
+                            <div className="absolute inset-0 bg-[#5d5f61]/60 backdrop-blur-sm flex items-center justify-center text-white">
                               <Loader2 className="animate-spin" size={16} />
                             </div>
                           )}
@@ -292,7 +292,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
                                 (fileInputRef.current as any).isCategory = true;
                                 fileInputRef.current?.click();
                               }}
-                              className="bg-white text-[#0b2b1a] px-4 py-2 rounded-lg text-[9px] font-black uppercase tracking-widest"
+                              className="bg-white text-[#5d5f61] px-4 py-2 rounded-lg text-[9px] font-black uppercase tracking-widest"
                             >
                               Change Asset
                             </button>
@@ -310,7 +310,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
                             const val = e.target.value;
                             setCategories(prev => prev.map(c => c.id === cat.id ? { ...c, desktopFeaturedProductId: val } : c));
                           }}
-                          className="w-full px-6 py-4 bg-white rounded-xl border border-gray-100 outline-none font-bold text-[#0b2b1a] focus:ring-2 focus:ring-[#c81c6a]/20 transition-all cursor-pointer appearance-none text-sm"
+                          className="w-full px-6 py-4 bg-white rounded-xl border border-gray-100 outline-none font-bold text-[#5d5f61] focus:ring-2 focus:ring-[#c81c6a]/20 transition-all cursor-pointer appearance-none text-sm"
                         >
                           <option value="">Default (First Product)</option>
                           {cat.products?.map((p: any) => (
