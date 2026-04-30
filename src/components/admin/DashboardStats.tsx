@@ -6,10 +6,51 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 
-export function DashboardStats() {
+export function DashboardStats({ orders = [] }: { orders?: any[] }) {
+  const totalRevenue = orders.reduce((sum, o) => sum + (o.totalAmount || 0), 0);
+  const activeOrders = orders.filter(o => o.status === 'pending' || o.status === 'processing').length;
+  // For total assets and reach, we'll keep them somewhat static or derived from order items
+  const uniqueProducts = new Set(orders.flatMap(o => o.items?.map((i: any) => i.productId) || [])).size;
+  const totalQuantity = orders.reduce((sum, o) => sum + (o.items?.reduce((s: number, i: any) => s + (i.quantity || 0), 0) || 0), 0);
+
+  const stats = [
+    { 
+      label: "Total Revenue", 
+      value: `AED ${totalRevenue.toLocaleString()}`, 
+      subtext: "Heritage Inflow", 
+      icon: DollarSign, 
+      color: "text-emerald-500", 
+      bg: "bg-emerald-500" 
+    },
+    { 
+      label: "Active Orders", 
+      value: activeOrders.toString().padStart(2, '0'), 
+      subtext: "Fulfillment Queue", 
+      icon: ShoppingCart, 
+      color: "text-[#c81c6a]", 
+      bg: "bg-[#c81c6a]" 
+    },
+    { 
+      label: "Product Velocity", 
+      value: uniqueProducts.toString().padStart(2, '0'), 
+      subtext: "Curated Catalog", 
+      icon: Package, 
+      color: "text-[#0b2b1a]", 
+      bg: "bg-[#0b2b1a]" 
+    },
+    { 
+      label: "Archive Reach", 
+      value: totalQuantity.toString(), 
+      subtext: "Audience Engagement", 
+      icon: Users, 
+      color: "text-blue-500", 
+      bg: "bg-blue-500" 
+    },
+  ];
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-      {STATS.map((stat, index) => (
+      {stats.map((stat, index) => (
         <motion.div
           key={stat.label}
           initial={{ opacity: 0, y: 20 }}
@@ -42,12 +83,6 @@ export function DashboardStats() {
   );
 }
 
-const STATS = [
-  { label: "Total Revenue", value: "AED 6,499", subtext: "Heritage Inflow", icon: DollarSign, color: "text-emerald-500", bg: "bg-emerald-500" },
-  { label: "Active Orders", value: "05", subtext: "Fulfillment Queue", icon: ShoppingCart, color: "text-[#c81c6a]", bg: "bg-[#c81c6a]" },
-  { label: "Total Assets", value: "08", subtext: "Curated Catalog", icon: Package, color: "text-[#0b2b1a]", bg: "bg-[#0b2b1a]" },
-  { label: "Archive Reach", value: "124", subtext: "Audience Engagement", icon: Users, color: "text-blue-500", bg: "bg-blue-500" },
-];
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

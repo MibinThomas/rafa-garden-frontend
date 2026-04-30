@@ -3,10 +3,79 @@
 import React from "react";
 import { DashboardStats } from "@/components/admin/DashboardStats";
 import { RevenueChart, OrderBreakdown, TopProducts } from "@/components/admin/Charts";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, Filter, Download, LayoutDashboard } from "lucide-react";
+import { CalendarPicker } from "@/components/admin/CalendarPicker";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 export default function AdminDashboard() {
+  const [orders, setOrders] = React.useState<any[]>([]);
+  const [filteredOrders, setFilteredOrders] = React.useState<any[]>([]);
+  const [fiscalYear, setFiscalYear] = React.useState("2026");
+  const [globalFilter, setGlobalFilter] = React.useState("All Time");
+  const [startDate, setStartDate] = React.useState("");
+  const [endDate, setEndDate] = React.useState("");
+  const [isYearOpen, setIsYearOpen] = React.useState(false);
+  const [isFilterOpen, setIsFilterOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch("/api/orders");
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          setOrders(data);
+          setFilteredOrders(data);
+        }
+      } catch (err) {
+        console.error("Dashboard fetch error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchOrders();
+  }, []);
+
+  React.useEffect(() => {
+    let result = [...orders];
+
+    // Fiscal Year Filter
+    if (fiscalYear) {
+      result = result.filter(o => {
+        const date = new Date(o.createdAt);
+        return date.getFullYear().toString() === fiscalYear;
+      });
+    }
+
+    // Global / Date Range Filter
+    if (globalFilter === "Last 7 Days") {
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+      result = result.filter(o => new Date(o.createdAt) >= sevenDaysAgo);
+    } else if (globalFilter === "Last 30 Days") {
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      result = result.filter(o => new Date(o.createdAt) >= thirtyDaysAgo);
+    } else if (globalFilter === "Custom Range" && startDate && endDate) {
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      end.setHours(23, 59, 59, 999);
+      result = result.filter(o => {
+        const date = new Date(o.createdAt);
+        return date >= start && date <= end;
+      });
+    }
+
+    setFilteredOrders(result);
+  }, [orders, fiscalYear, globalFilter, startDate, endDate]);
+
   return (
     <div className="space-y-12 pb-24 relative">
       {/* Background Watermark */}
@@ -15,7 +84,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Dashboard Header */}
-      <div className="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+      <div className="relative z-30 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
         <div>
           <motion.p 
             initial={{ opacity: 0, y: 10 }}
@@ -35,14 +104,93 @@ export default function AdminDashboard() {
 
         {/* Global Controls */}
         <div className="flex items-center gap-4">
-          <div className="hidden md:flex items-center gap-3 bg-white/50 backdrop-blur-md px-6 py-4 rounded-[2rem] border border-white shadow-xl shadow-black/[0.02]">
-            <Calendar size={16} className="text-[#c81c6a]" />
-            <span className="text-[11px] font-black text-[#0b2b1a] uppercase tracking-widest">Fiscal Year 2026</span>
+          {/* Fiscal Year Filter */}
+          <div className="relative">
+            <button 
+              onClick={() => setIsYearOpen(!isYearOpen)}
+              className="hidden md:flex items-center gap-3 bg-white/50 backdrop-blur-md px-6 py-4 rounded-[2rem] border border-white shadow-xl shadow-black/[0.02] hover:bg-white transition-all active:scale-95"
+            >
+              <Calendar size={16} className="text-[#c81c6a]" />
+              <span className="text-[11px] font-black text-[#0b2b1a] uppercase tracking-widest">Fiscal Year {fiscalYear}</span>
+            </button>
+            
+            <AnimatePresence>
+              {isYearOpen && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="absolute top-full mt-4 right-0 w-48 bg-white/80 backdrop-blur-xl rounded-3xl border border-white shadow-2xl z-50 overflow-hidden"
+                >
+                  {["2024", "2025", "2026"].map((year) => (
+                    <button
+                      key={year}
+                      onClick={() => { setFiscalYear(year); setIsYearOpen(false); }}
+                      className={cn(
+                        "w-full text-left px-8 py-4 text-[10px] font-black uppercase tracking-widest transition-colors",
+                        fiscalYear === year ? "bg-[#c81c6a] text-white" : "text-[#0b2b1a] hover:bg-gray-50"
+                      )}
+                    >
+                      FY {year}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-          <div className="flex items-center gap-3 bg-white/50 backdrop-blur-md px-6 py-4 rounded-[2rem] border border-white shadow-xl shadow-black/[0.02]">
-             <Filter size={16} className="text-[#0b2b1a] opacity-40" />
-             <span className="text-[11px] font-black text-[#0b2b1a] uppercase tracking-widest">Global Filter</span>
+
+          {/* Global Filter */}
+          <div className="relative">
+            <button 
+              onClick={() => setIsFilterOpen(!isFilterOpen)}
+              className="flex items-center gap-3 bg-white/50 backdrop-blur-md px-6 py-4 rounded-[2rem] border border-white shadow-xl shadow-black/[0.02] hover:bg-white transition-all active:scale-95"
+            >
+               <Filter size={16} className={cn("transition-colors", globalFilter !== "All Time" ? "text-[#c81c6a]" : "text-[#0b2b1a] opacity-40")} />
+               <span className="text-[11px] font-black text-[#0b2b1a] uppercase tracking-widest">{globalFilter}</span>
+            </button>
+
+            <AnimatePresence>
+              {isFilterOpen && (
+                <motion.div 
+                   initial={{ opacity: 0, y: 10 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   exit={{ opacity: 0, y: 10 }}
+                   className="absolute top-full mt-4 right-0 w-64 bg-white/80 backdrop-blur-xl rounded-3xl border border-white shadow-2xl z-50 overflow-hidden p-2"
+                >
+                  <div className="space-y-1">
+                    {["Last 7 Days", "Last 30 Days", "Last 90 Days", "All Time", "Custom Range"].map((filter) => (
+                      <button
+                        key={filter}
+                        onClick={() => { setGlobalFilter(filter); if (filter !== "Custom Range") setIsFilterOpen(false); }}
+                        className={cn(
+                          "w-full text-left px-6 py-3 text-[10px] font-black uppercase tracking-widest transition-colors rounded-2xl",
+                          globalFilter === filter ? "bg-[#c81c6a] text-white" : "text-[#0b2b1a] hover:bg-gray-50"
+                        )}
+                      >
+                        {filter}
+                      </button>
+                    ))}
+                  </div>
+
+                  {globalFilter === "Custom Range" && (
+                    <motion.div 
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      className="mt-4 border-t border-gray-100"
+                    >
+                      <CalendarPicker 
+                        startDate={startDate}
+                        endDate={endDate}
+                        onRangeSelect={(s, e) => { setStartDate(s); setEndDate(e); }}
+                        onClose={() => setIsFilterOpen(false)}
+                      />
+                    </motion.div>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
+
           <button className="bg-[#0b2b1a] text-white p-5 rounded-[2rem] shadow-2xl shadow-[#0b2b1a]/20 hover:bg-[#c81c6a] transition-all duration-500 hover:scale-110 active:scale-95 group">
             <Download size={20} className="group-hover:-translate-y-1 transition-transform" />
           </button>
@@ -51,22 +199,22 @@ export default function AdminDashboard() {
 
       {/* Main Stats Grid */}
       <div className="relative z-10">
-        <DashboardStats />
+        <DashboardStats orders={filteredOrders} />
       </div>
 
       {/* Analytics Visualization Group */}
       <div className="relative z-10 grid grid-cols-1 xl:grid-cols-3 gap-10">
         <div className="xl:col-span-2 space-y-10">
           <div className="bg-white/40 backdrop-blur-md rounded-[3rem] border border-white p-1 shadow-2xl shadow-black/[0.02]">
-             <RevenueChart />
+             <RevenueChart orders={filteredOrders} />
           </div>
           <div className="bg-white/40 backdrop-blur-md rounded-[3rem] border border-white p-1 shadow-2xl shadow-black/[0.02]">
-             <OrderBreakdown />
+             <OrderBreakdown orders={filteredOrders} />
           </div>
         </div>
         <div className="xl:col-span-1 space-y-10">
           <div className="bg-white/40 backdrop-blur-md rounded-[3rem] border border-white p-1 shadow-2xl shadow-black/[0.02]">
-             <TopProducts />
+             <TopProducts orders={filteredOrders} />
           </div>
           
           {/* Quick Actions / Brand Health Card */}

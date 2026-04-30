@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-export function RevenueChart() {
+export function RevenueChart({ orders = [] }: { orders?: any[] }) {
   return (
     <div className="bg-white/80 backdrop-blur-xl p-10 rounded-[3.5rem] border border-white shadow-2xl shadow-black/[0.02] mb-12 relative overflow-hidden group">
       <div className="absolute top-0 right-0 w-64 h-64 bg-[#c81c6a]/5 rounded-full blur-[5rem] -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-110" />
@@ -75,7 +75,7 @@ export function RevenueChart() {
   );
 }
 
-export function OrderBreakdown() {
+export function OrderBreakdown({ orders = [] }: { orders?: any[] }) {
   const breakdown = [
     { label: "Inventory Velocity", color: "text-[#c81c6a]", border: "border-[#c81c6a]", icon: "Archive" },
     { label: "Liquidity Status", color: "text-emerald-500", border: "border-emerald-500", icon: "Wallet" },
@@ -106,11 +106,31 @@ export function OrderBreakdown() {
   );
 }
 
-export function TopProducts() {
-  const products = [
-    { name: "The Monarch High Back", value: 85, color: "bg-[#0b2b1a]", category: "Heritage Furniture" },
-    { name: "Rafah Secret Reserve", value: 65, color: "bg-[#c81c6a]", category: "Botanical Collection" },
-    { name: "The Emerald Canopy", value: 45, color: "bg-emerald-500", category: "Sanctuary Flora" },
+export function TopProducts({ orders = [] }: { orders?: any[] }) {
+  // Calculate real top products
+  const productDemand: Record<string, { name: string, count: number, category: string }> = {};
+  orders.forEach(o => {
+    o.items?.forEach((i: any) => {
+      if (!productDemand[i.productId]) {
+        productDemand[i.productId] = { name: i.name, count: 0, category: "Sanctuary Asset" };
+      }
+      productDemand[i.productId].count += i.quantity || 0;
+    });
+  });
+
+  const sortedProducts = Object.values(productDemand)
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 3);
+
+  const maxCount = sortedProducts.length > 0 ? sortedProducts[0].count : 1;
+
+  const displayProducts = sortedProducts.length > 0 ? sortedProducts.map(p => ({
+    name: p.name,
+    value: Math.round((p.count / maxCount) * 100),
+    color: p.count === maxCount ? "bg-[#0b2b1a]" : "bg-[#c81c6a]",
+    category: p.category
+  })) : [
+    { name: "No Orders Yet", value: 0, color: "bg-gray-100", category: "System Status" }
   ];
 
   return (
@@ -121,7 +141,7 @@ export function TopProducts() {
       </div>
       
       <div className="space-y-10">
-        {products.map((p, idx) => (
+        {displayProducts.map((p, idx) => (
           <div key={idx} className="group/item">
             <div className="flex justify-between items-end mb-4">
               <div>
