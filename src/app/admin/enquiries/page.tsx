@@ -18,6 +18,12 @@ import {
 } from "lucide-react";
 import { DeleteConfirmDialog } from "@/components/admin/DeleteConfirmDialog";
 import * as XLSX from "xlsx";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 type Tab = "enquiries" | "subscribers";
 
@@ -174,40 +180,42 @@ export default function EnquiriesPage() {
   );
 
   return (
-    <div className="space-y-8 pb-12">
+    <div className="space-y-12 pb-24 relative">
+      {/* Background Watermark */}
+      <div className="absolute top-0 right-0 pointer-events-none opacity-[0.03] select-none -mt-10 -mr-20">
+         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#0b2b1a]">VOICES</h1>
+      </div>
+
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div className="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
         <div>
-          <h1 className="text-5xl font-black font-playfair text-[#0b2b1a] mb-3 tracking-tighter">Enquiries Hub</h1>
-          <p className="text-[#bbbdbf] font-bold text-[10px] uppercase tracking-[0.4em] ml-1">Monitor botanical visions & sanctuary signups</p>
+          <motion.p 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-[#c81c6a] font-black text-[10px] uppercase tracking-[0.5em] mb-4 ml-1"
+          >
+            Digital Sanctuary
+          </motion.p>
+          <h1 className="text-6xl md:text-7xl font-black font-playfair text-[#0b2b1a] tracking-tighter">Enquiries</h1>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="bg-white px-6 py-4 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-4 bg-white/40 backdrop-blur-md p-2 rounded-[2.5rem] border border-white shadow-xl shadow-black/[0.02]">
+          <div className="hidden md:flex items-center gap-3 px-6 py-4">
              <Filter size={16} className="text-[#c81c6a]" />
-             <span className="text-[10px] font-black uppercase tracking-widest text-[#0b2b1a]">All Submissions</span>
+             <span className="text-[10px] font-black uppercase tracking-widest text-[#0b2b1a]">All Entries</span>
           </div>
           <button 
             onClick={() => exportToExcel("enquiries")}
-            className="bg-[#0b2b1a] text-white px-6 py-4 rounded-2xl shadow-xl hover:bg-[#c81c6a] transition-all flex items-center gap-3 group active:scale-95"
-            title="Export Contact Submissions"
+            className="bg-[#0b2b1a] text-white px-8 py-4 rounded-[1.8rem] shadow-xl hover:bg-[#c81c6a] transition-all duration-500 flex items-center gap-4 group active:scale-95"
           >
-            <Download size={16} className="group-hover:translate-y-0.5 transition-transform" />
-            <span className="text-[10px] font-black uppercase tracking-widest">Export Contacts</span>
-          </button>
-          <button 
-            onClick={() => exportToExcel("subscribers")}
-            className="bg-white text-[#0b2b1a] px-6 py-4 rounded-2xl border border-gray-100 shadow-sm hover:border-[#c81c6a] hover:text-[#c81c6a] transition-all flex items-center gap-3 group active:scale-95"
-            title="Export Subscriber Base"
-          >
-            <Download size={16} className="group-hover:translate-y-0.5 transition-transform" />
-            <span className="text-[10px] font-black uppercase tracking-widest">Export Subscribers</span>
+            <Download size={18} className="group-hover:translate-y-0.5 transition-transform" />
+            <span className="text-[10px] font-black uppercase tracking-widest text-white">Export Registry</span>
           </button>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 p-1.5 bg-gray-100/50 rounded-2xl w-fit">
+      <div className="flex gap-3 p-2 bg-white/40 backdrop-blur-md rounded-[2.5rem] border border-white w-fit relative z-10 shadow-xl shadow-black/[0.02]">
         {[
           { id: "enquiries", label: "Botanical Visions", icon: MessageSquare, count: enquiries.length },
           { id: "subscribers", label: "Subscriber Base", icon: Users, count: subscribers.length }
@@ -215,13 +223,19 @@ export default function EnquiriesPage() {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as Tab)}
-            className={`flex items-center gap-3 px-6 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
-              activeTab === tab.id ? "bg-white text-[#0b2b1a] shadow-sm" : "text-gray-400 hover:text-[#0b2b1a]"
-            }`}
+            className={cn(
+              "flex items-center gap-4 px-8 py-4 rounded-[1.8rem] text-[11px] font-black uppercase tracking-widest transition-all duration-500",
+              activeTab === tab.id 
+                ? "bg-[#0b2b1a] text-white shadow-xl shadow-[#0b2b1a]/20 scale-105" 
+                : "text-gray-400 hover:text-[#0b2b1a] hover:bg-white"
+            )}
           >
-            <tab.icon size={14} />
+            <tab.icon size={16} strokeWidth={activeTab === tab.id ? 2.5 : 2} />
             {tab.label}
-            <span className={`ml-1 px-2 py-0.5 rounded-full text-[9px] ${activeTab === tab.id ? "bg-[#c81c6a] text-white" : "bg-gray-200 text-gray-500"}`}>
+            <span className={cn(
+               "ml-2 px-3 py-1 rounded-full text-[10px] transition-colors duration-500",
+               activeTab === tab.id ? "bg-[#c81c6a] text-white shadow-lg" : "bg-gray-100 text-gray-400"
+            )}>
               {tab.count}
             </span>
           </button>
@@ -229,92 +243,103 @@ export default function EnquiriesPage() {
       </div>
 
       {/* Content Area */}
-      <div className="space-y-6">
+      <div className="space-y-10 relative z-10">
         {/* Search Bar */}
-        <div className="bg-white p-4 rounded-[2rem] border border-gray-100 flex items-center gap-4">
+        <div className="bg-white/50 backdrop-blur-md p-2 rounded-[3rem] border border-white shadow-xl shadow-black/[0.02]">
           <div className="flex-1 relative">
-            <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300" size={18} />
+            <Search className="absolute left-8 top-1/2 -translate-y-1/2 text-gray-300" size={20} />
             <input 
               type="text" 
-              placeholder={activeTab === "enquiries" ? "Search visions by name, email or intent..." : "Search subscriber base..."}
+              placeholder={activeTab === "enquiries" ? "Search botanical narratives and visions..." : "Search subscriber repository..."}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-16 pr-6 py-5 bg-gray-50/50 rounded-2xl outline-none text-sm font-bold text-[#0b2b1a] focus:ring-2 focus:ring-[#c81c6a]/10 transition-all placeholder:text-gray-300"
+              className="w-full pl-18 pr-8 py-6 bg-transparent outline-none text-sm font-bold text-[#0b2b1a] placeholder:text-gray-300"
             />
           </div>
         </div>
 
         {loading ? (
-          <div className="py-32 flex flex-col items-center justify-center space-y-4">
-             <Loader2 className="w-10 h-10 text-[#c81c6a] animate-spin" />
-             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-300">Syncing Communications...</p>
+          <div className="py-48 flex flex-col items-center justify-center gap-8">
+             <div className="relative w-20 h-20">
+                <div className="absolute inset-0 border-4 border-gray-100 rounded-full" />
+                <div className="absolute inset-0 border-4 border-[#c81c6a] border-t-transparent rounded-full animate-spin" />
+             </div>
+             <p className="text-[12px] font-black uppercase tracking-[0.4em] text-gray-300 animate-pulse">Syncing Communication Repository...</p>
           </div>
         ) : activeTab === "enquiries" ? (
-          <div className="grid grid-cols-1 gap-6">
-            <AnimatePresence>
-              {filteredEnquiries.map((enquiry) => (
+          <div className="grid grid-cols-1 gap-10">
+            <AnimatePresence mode="popLayout">
+              {filteredEnquiries.map((enquiry, idx) => (
                 <motion.div 
                   key={enquiry._id}
                   layout
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  className={`bg-white rounded-[2.5rem] border ${enquiry.status === "unread" ? "border-[#c81c6a]/20 shadow-[0_20px_40px_rgba(200,28,106,0.05)]" : "border-gray-100"} overflow-hidden p-8 sm:p-10 flex flex-col md:flex-row items-start gap-8 transition-all hover:shadow-xl group`}
+                  transition={{ delay: idx * 0.05 }}
+                  className={cn(
+                    "bg-white/60 backdrop-blur-md rounded-[4rem] border border-white overflow-hidden p-10 flex flex-col md:flex-row items-start gap-12 transition-all duration-700 shadow-2xl shadow-black/[0.03] hover:shadow-black/[0.06] group",
+                    enquiry.status === "unread" ? "ring-2 ring-[#c81c6a]/10" : ""
+                  )}
                 >
-                  {/* Status Indicator Bar */}
-                  <div className={`w-1.5 h-full absolute left-0 top-0 hidden md:block ${enquiry.status === "unread" ? "bg-[#c81c6a]" : "bg-gray-100"}`} />
-
                   {/* Identity Section */}
-                  <div className="md:w-64 space-y-4">
-                    <div className="w-14 h-14 bg-gray-50 rounded-2xl flex items-center justify-center text-[#c81c6a] group-hover:bg-[#c81c6a] group-hover:text-white transition-all duration-500 shadow-sm">
-                      <User size={24} />
+                  <div className="md:w-72 space-y-6 relative">
+                    <div className={cn(
+                       "w-20 h-20 rounded-[2rem] flex items-center justify-center transition-all duration-700 shadow-xl border border-white/50",
+                       enquiry.status === "unread" ? "bg-[#c81c6a] text-white rotate-6" : "bg-white text-gray-300"
+                    )}>
+                      <User size={32} strokeWidth={2.5} />
                     </div>
                     <div>
-                      <h3 className="text-xl font-black font-playfair text-[#0b2b1a] mb-1">{enquiry.name}</h3>
-                      <p className="flex items-center gap-2 text-[11px] font-bold text-gray-400 group-hover:text-[#c81c6a] transition-colors"><Mail size={12}/> {enquiry.email}</p>
+                      <h3 className="text-3xl font-black font-playfair text-[#0b2b1a] mb-2 leading-none group-hover:text-[#c81c6a] transition-colors duration-500">{enquiry.name}</h3>
+                      <p className="flex items-center gap-3 text-[11px] font-bold text-gray-400 group-hover:text-[#0b2b1a] transition-colors duration-500 uppercase tracking-widest"><Mail size={14} className="opacity-40" /> {enquiry.email}</p>
                     </div>
                     <div className="pt-2">
-                       <span className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest ${
-                         enquiry.status === "unread" ? "bg-[#c81c6a] text-white" : "bg-gray-100 text-gray-400"
-                       }`}>
+                       <span className={cn(
+                         "px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-sm",
+                         enquiry.status === "unread" ? "bg-[#c81c6a] text-white shadow-[#c81c6a]/20" : "bg-gray-100 text-gray-400"
+                       )}>
                          {enquiry.status}
                        </span>
                     </div>
                   </div>
 
                   {/* Message Section */}
-                  <div className="flex-1 space-y-4">
+                  <div className="flex-1 space-y-6 border-l border-gray-100 pl-12">
                     <div className="flex items-center gap-3 text-gray-300">
-                       <Clock size={14} />
-                       <span className="text-[10px] font-bold uppercase tracking-widest">{new Date(enquiry.createdAt).toLocaleString('en-US', { month: 'long', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+                       <Clock size={16} className="opacity-40" />
+                       <span className="text-[11px] font-bold uppercase tracking-[0.3em]">{new Date(enquiry.createdAt).toLocaleString('en-US', { month: 'long', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
                     </div>
-                    <p className="text-base text-gray-600 font-inter leading-relaxed italic border-l-2 border-gray-50 pl-6 py-2 group-hover:border-[#c81c6a]/20 transition-all">
+                    <p className="text-lg text-gray-600 font-inter leading-relaxed italic pr-8">
                       "{enquiry.message}"
                     </p>
                   </div>
 
                   {/* Actions Section */}
-                  <div className="flex md:flex-col gap-3">
+                  <div className="flex md:flex-col gap-4 opacity-0 group-hover:opacity-100 translate-x-12 group-hover:translate-x-0 transition-all duration-700">
                     <button 
                       onClick={() => updateStatus(enquiry._id, enquiry.status === "unread" ? "read" : "unread")}
-                      className={`p-3.5 rounded-2xl transition-all shadow-sm ${enquiry.status === "unread" ? "bg-[#c81c6a] text-white hover:brightness-110" : "bg-gray-50 text-gray-400 hover:text-green-500"}`}
+                      className={cn(
+                        "p-4 rounded-[1.8rem] transition-all duration-500 shadow-xl",
+                        enquiry.status === "unread" ? "bg-[#c81c6a] text-white hover:scale-110" : "bg-white text-gray-300 hover:text-emerald-500 hover:scale-110"
+                      )}
                       title={enquiry.status === "unread" ? "Mark as Read" : "Mark as Unread"}
                     >
-                      <CheckCircle size={18} />
+                      <CheckCircle size={20} strokeWidth={2.5} />
                     </button>
                     <button 
                       onClick={() => updateStatus(enquiry._id, "archived")}
-                      className="p-3.5 rounded-2xl bg-gray-50 text-gray-400 hover:text-gray-900 transition-all shadow-sm"
-                      title="Archive Vision"
+                      className="p-4 rounded-[1.8rem] bg-white text-gray-300 hover:text-[#0b2b1a] hover:scale-110 transition-all duration-500 shadow-xl"
+                      title="Archive Narrative"
                     >
-                      <Archive size={18} />
+                      <Archive size={20} strokeWidth={2.5} />
                     </button>
                     <button 
                       onClick={() => handleDelete(enquiry._id)}
-                      className="p-3.5 rounded-2xl bg-red-50 text-red-400 hover:bg-red-500 hover:text-white transition-all shadow-sm"
+                      className="p-4 rounded-[1.8rem] bg-white text-red-300 hover:bg-red-500 hover:text-white hover:scale-110 transition-all duration-500 shadow-xl"
                       title="Discard Entry"
                     >
-                      <Trash2 size={18} />
+                      <Trash2 size={20} strokeWidth={2.5} />
                     </button>
                   </div>
                 </motion.div>
@@ -322,49 +347,55 @@ export default function EnquiriesPage() {
             </AnimatePresence>
 
             {filteredEnquiries.length === 0 && (
-              <div className="py-20 text-center bg-white rounded-[2.5rem] border border-dashed border-gray-200">
-                <p className="text-gray-400 font-bold uppercase text-[10px] tracking-widest">No visions found in this botanical layer.</p>
+              <div className="py-48 text-center bg-white/40 backdrop-blur-md rounded-[4rem] border-2 border-dashed border-gray-100">
+                 <div className="w-24 h-24 rounded-full bg-white flex items-center justify-center mx-auto mb-10 shadow-xl border border-gray-50">
+                    <MessageSquare className="text-gray-200" size={40} />
+                 </div>
+                 <h3 className="text-3xl font-black font-playfair text-[#0b2b1a] mb-4">Quiet Sanctuary</h3>
+                 <p className="text-gray-400 font-bold uppercase text-[11px] tracking-[0.4em]">No botanical narratives found in this layer.</p>
               </div>
             )}
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-4">
-            <AnimatePresence>
-              {filteredSubscribers.map((subscriber) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+            <AnimatePresence mode="popLayout">
+              {filteredSubscribers.map((subscriber, idx) => (
                 <motion.div 
                   key={subscriber._id}
                   layout
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  className="bg-white p-6 rounded-3xl border border-gray-100 flex items-center justify-between hover:shadow-lg transition-all group"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ delay: idx * 0.03 }}
+                  className="bg-white/60 backdrop-blur-md p-8 rounded-[3.5rem] border border-white flex items-center justify-between hover:shadow-2xl hover:shadow-black/5 transition-all duration-700 group"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-400 group-hover:bg-[#c81c6a]/10 group-hover:text-[#c81c6a] transition-all">
-                      <Mail size={18} />
+                  <div className="flex items-center gap-6">
+                    <div className="w-16 h-16 bg-white rounded-3xl flex items-center justify-center text-gray-200 group-hover:bg-[#c81c6a] group-hover:text-white group-hover:rotate-6 transition-all duration-700 shadow-xl border border-gray-50">
+                      <Mail size={24} strokeWidth={2.5} />
                     </div>
                     <div>
-                      <h4 className="font-bold text-[#0b2b1a]">{subscriber.email}</h4>
-                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">Joined {new Date(subscriber.createdAt).toLocaleDateString()}</p>
+                      <h4 className="font-black text-lg text-[#0b2b1a] leading-none mb-2">{subscriber.email}</h4>
+                      <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest">Joined {new Date(subscriber.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-center gap-3">
-                    <span className="px-3 py-1 bg-green-50 text-green-600 text-[9px] font-black uppercase tracking-widest rounded-lg">Active</span>
-                    <button 
-                      onClick={() => handleDelete(subscriber._id)}
-                      className="p-2.5 rounded-xl text-gray-300 hover:text-red-500 hover:bg-red-50 transition-all"
-                    >
-                      <Trash2 size={16} />
-                    </button>
-                  </div>
+                  <button 
+                    onClick={() => handleDelete(subscriber._id)}
+                    className="p-4 rounded-2xl text-gray-200 hover:text-red-500 hover:bg-white hover:shadow-xl transition-all duration-500 opacity-0 group-hover:opacity-100"
+                  >
+                    <Trash2 size={18} strokeWidth={2.5} />
+                  </button>
                 </motion.div>
               ))}
             </AnimatePresence>
 
             {filteredSubscribers.length === 0 && (
-              <div className="py-20 text-center bg-white rounded-[2.5rem] border border-dashed border-gray-200">
-                <p className="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Your garden's subscriber base is currently empty.</p>
+              <div className="col-span-full py-48 text-center bg-white/40 backdrop-blur-md rounded-[4rem] border-2 border-dashed border-gray-100">
+                <div className="w-24 h-24 rounded-full bg-white flex items-center justify-center mx-auto mb-10 shadow-xl border border-gray-50">
+                    <Users className="text-gray-200" size={40} />
+                 </div>
+                 <h3 className="text-3xl font-black font-playfair text-[#0b2b1a] mb-4">Growing Sanctuary</h3>
+                 <p className="text-gray-400 font-bold uppercase text-[11px] tracking-[0.4em]">Your botanical subscriber repository is currently waiting for growth.</p>
               </div>
             )}
           </div>

@@ -121,108 +121,124 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
             className="fixed right-0 top-0 h-screen w-full max-w-2xl bg-white shadow-2xl z-[101] flex flex-col"
           >
-            <div className="p-8 border-b border-gray-50 flex items-center justify-between">
+            <div className="p-10 border-b border-gray-100/50 flex items-center justify-between bg-white/80 backdrop-blur-xl">
               <div>
-                <h2 className="text-3xl font-black font-playfair text-[#0b2b1a] capitalize">
-                  Edit {group} Content
+                <motion.p 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-[#c81c6a] font-black text-[9px] uppercase tracking-[0.4em] mb-2"
+                >
+                  Global Registry
+                </motion.p>
+                <h2 className="text-4xl font-black font-playfair text-[#0b2b1a] capitalize">
+                  {group} <span className="italic font-normal">Vault</span>
                 </h2>
-                <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Manage site-wide assets and text</p>
               </div>
               <button 
                 onClick={onClose}
-                className="p-3 rounded-2xl bg-gray-50 text-gray-400 hover:bg-gray-100 hover:text-[#0b2b1a] transition-all"
+                className="p-4 rounded-2xl bg-white text-gray-300 hover:text-[#0b2b1a] transition-all duration-500 shadow-xl shadow-black/5 hover:scale-110 active:scale-95 border border-gray-50"
               >
                 <X size={20} />
               </button>
             </div>
 
-            <form onSubmit={handleSave} className="flex-1 overflow-y-auto p-10 space-y-10 custom-scrollbar">
+            <form onSubmit={handleSave} className="flex-1 overflow-y-auto p-12 space-y-12 custom-scrollbar bg-[#f1f1f2]/30">
               {loading ? (
-                <div className="py-20 text-center">
-                  <Loader2 className="animate-spin inline-block text-[#c81c6a] mb-4" size={32} />
-                  <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Fetching Content...</p>
+                <div className="py-32 text-center">
+                  <div className="relative inline-block w-16 h-16 mb-6">
+                    <div className="absolute inset-0 border-4 border-gray-100 rounded-full" />
+                    <div className="absolute inset-0 border-4 border-[#c81c6a] border-t-transparent rounded-full animate-spin" />
+                  </div>
+                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#bbbdbf] animate-pulse">Fetching Repository Assets...</p>
                 </div>
               ) : content.length === 0 ? (
-                <div className="py-20 text-center">
-                  <p className="text-gray-400 font-bold">No editable fields found for this group.</p>
+                <div className="py-32 text-center">
+                  <p className="text-gray-300 font-black uppercase tracking-widest text-[11px]">No editable narratives found.</p>
                 </div>
               ) : (
-                content.map((item) => (
-                  <div key={item.key} className="space-y-3">
-                    <div className="flex justify-between items-end">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">
+                content.map((item, idx) => (
+                  <motion.div 
+                    key={item.key} 
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.05 }}
+                    className="space-y-4"
+                  >
+                    <div className="flex justify-between items-end px-1">
+                      <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">
                         {item.label || item.key.split('.').pop()?.replace(/_/g, ' ')}
                       </label>
                       {item.maxLength && (
                         <span className={cn(
-                          "text-[9px] font-bold uppercase tracking-tight mr-1",
-                          item.value.length > item.maxLength ? "text-red-500" : "text-gray-300"
+                          "text-[9px] font-black uppercase tracking-widest",
+                          item.value.length > item.maxLength ? "text-[#c81c6a]" : "text-gray-300"
                         )}>
-                          {item.value.length} / {item.maxLength} chars
+                          {item.value.length} / {item.maxLength}
                         </span>
                       )}
                     </div>
 
                     {item.hint && (
-                      <p className="text-[9px] font-bold text-[#c81c6a] uppercase tracking-wider ml-1 -mt-1 opacity-70">
-                        {item.hint}
+                      <p className="text-[9px] font-bold text-[#c81c6a] uppercase tracking-widest px-1 opacity-60 italic">
+                        * {item.hint}
                       </p>
                     )}
                     
                     {item.type === "image" || item.type === "font" ? (
                       <div className="relative group">
-                        <div className="aspect-video rounded-3xl bg-gray-50 border-2 border-dashed border-gray-100 flex items-center justify-center overflow-hidden">
+                        <div className="aspect-[21/9] rounded-[2.5rem] bg-white border border-gray-100 flex items-center justify-center overflow-hidden shadow-2xl shadow-black/[0.02] group-hover:shadow-black/[0.05] transition-all duration-700">
                           {item.value ? (
                             item.type === "font" ? (
-                               <div className="text-center font-bold text-[#0b2b1a] text-xs">
-                                  <span className="bg-[#c81c6a]/10 text-[#c81c6a] px-3 py-1 rounded-full break-all max-w-[80%] inline-block">
+                               <div className="text-center font-bold text-[#0b2b1a] text-xs px-10">
+                                  <span className="bg-[#0b2b1a] text-white px-6 py-3 rounded-2xl break-all inline-block shadow-xl text-[10px] font-black uppercase tracking-widest">
                                     {item.value.split('/').pop()}
                                   </span>
-                                  <p className="mt-2 text-gray-400">Font Currently Active</p>
+                                  <p className="mt-4 text-[10px] font-black text-gray-300 uppercase tracking-widest">Botanical Font Registry Active</p>
                                </div>
                             ) : (
-                               <img src={item.value} className="w-full h-full object-cover" />
+                               <img src={item.value} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" />
                             )
                           ) : (
-                            <Upload size={24} className="text-gray-200" />
+                            <Upload size={32} strokeWidth={1} className="text-gray-100" />
                           )}
                           
                           {uploadingKey === item.key && (
-                            <div className="absolute inset-0 bg-[#0b2b1a]/60 backdrop-blur-sm flex items-center justify-center text-white gap-3">
-                              <Loader2 className="animate-spin" size={20} />
+                            <div className="absolute inset-0 bg-[#0b2b1a]/80 backdrop-blur-md flex flex-col items-center justify-center text-white gap-4">
+                              <Loader2 className="animate-spin" size={24} />
+                              <span className="text-[9px] font-black uppercase tracking-[0.3em]">Syncing Asset...</span>
                             </div>
                           )}
 
-                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                          <div className="absolute inset-0 bg-[#0b2b1a]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-[2px]">
                             <button 
                               type="button"
                               onClick={() => {
                                 (fileInputRef.current as any).pendingKey = item.key;
                                 fileInputRef.current?.click();
                               }}
-                              className="bg-white text-[#0b2b1a] px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest"
+                              className="bg-white text-[#0b2b1a] px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl hover:scale-105 active:scale-95 transition-all"
                             >
-                              Upload {item.type === "font" ? "Font File" : "Image"}
+                              Replace {item.type === "font" ? "Font File" : "Visual Asset"}
                             </button>
                           </div>
                         </div>
                       </div>
-                    ) : item.value.length > 50 ? (
+                    ) : item.value.length > 80 ? (
                       <textarea 
                         value={item.value}
                         onChange={e => handleInputChange(item.key, e.target.value)}
-                        rows={4}
-                        className="w-full px-6 py-4 bg-gray-50 rounded-2xl border-none outline-none font-bold text-[#0b2b1a] focus:ring-2 focus:ring-[#c81c6a]/20 transition-all resize-none"
+                        rows={5}
+                        className="w-full px-8 py-6 bg-white rounded-[2rem] border border-gray-100 outline-none font-bold text-[#0b2b1a] focus:ring-4 focus:ring-[#c81c6a]/5 transition-all resize-none shadow-2xl shadow-black/[0.02] text-sm leading-relaxed"
                       />
                     ) : (
                       <input 
                         type="text" 
                         value={item.value}
                         onChange={e => handleInputChange(item.key, e.target.value)}
-                        className="w-full px-6 py-4 bg-gray-50 rounded-2xl border-none outline-none font-bold text-[#0b2b1a] focus:ring-2 focus:ring-[#c81c6a]/20 transition-all"
+                        className="w-full px-8 py-6 bg-white rounded-[2rem] border border-gray-100 outline-none font-bold text-[#0b2b1a] focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-2xl shadow-black/[0.02] text-sm"
                       />
                     )}
-                  </div>
+                  </motion.div>
                 ))
               )}
               
@@ -238,27 +254,27 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
               />
             </form>
 
-            <div className="p-8 bg-gray-50/50 border-t border-gray-50 flex gap-4">
+            <div className="p-10 bg-white border-t border-gray-100/50 flex gap-6">
               <button 
                 type="button" 
                 onClick={onClose}
-                className="flex-1 py-5 rounded-2xl bg-white border border-gray-100 text-[#0b2b1a] font-black text-[10px] uppercase tracking-[0.2em] hover:bg-gray-100 transition-all"
+                className="flex-1 py-6 rounded-[2rem] bg-gray-50 text-gray-400 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-gray-100 hover:text-[#0b2b1a] transition-all duration-500"
               >
-                Cancel
+                Discard
               </button>
               <button 
                 type="button"
                 onClick={handleSave}
                 disabled={saving || loading}
-                className="flex-[2] py-5 rounded-2xl bg-[#0b2b1a] text-white font-black text-[10px] uppercase tracking-[0.2em] shadow-xl hover:brightness-110 disabled:opacity-50 flex items-center justify-center gap-3 transition-all"
+                className="flex-[2] py-6 rounded-[2rem] bg-[#0b2b1a] text-white font-black text-[10px] uppercase tracking-[0.3em] shadow-2xl shadow-[#0b2b1a]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-4 transition-all duration-500"
               >
                 {saving ? (
                   <>
-                    <Loader2 className="animate-spin" size={16} /> Saving...
+                    <Loader2 className="animate-spin" size={18} /> Syncing Vault...
                   </>
                 ) : (
                   <>
-                    <Save size={16} /> Update Content
+                    <Save size={18} strokeWidth={2.5} /> Commit Changes
                   </>
                 )}
               </button>

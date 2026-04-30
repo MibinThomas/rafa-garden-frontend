@@ -170,23 +170,34 @@ function ShopContent() {
                 </motion.div>
               </AnimatePresence>
             </div>
-
-            <div className="absolute bottom-[60px] left-8 pointer-events-auto z-50">
-              <h2 className="font-avant-garde font-bold text-[1.8rem] leading-[1.1] mb-2 whitespace-pre-line"
-                style={{ color: settings['shop_mobile_bottom_text_color'] || '#787877' }}
-              >
-                {settings['shop_mobile_heading'] || "Pure\nBotanical\nRefreshment"}
-              </h2>
-              <p className="text-[0.6rem] leading-relaxed font-avant-garde font-bold max-w-[150px]"
-                style={{ color: settings['shop_mobile_bottom_text_color'] || '#787877' }}
-              >
-                {settings['shop_mobile_description'] || "This is a sample product details must be enter here to show the ui ux design minimal stage"}
-              </p>
-            </div>
-
-
           </div>
         </div>
+
+        {/* Category Heading and Description - Center Aligned */}
+        <div className="absolute bottom-[60px] left-1/2 -translate-x-1/2 pointer-events-auto z-50 text-center w-full max-w-4xl px-6">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={"hero-info-" + activeCategory.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+              className="flex flex-col items-center"
+            >
+              <h2 className="font-avant-garde font-bold text-[1.8rem] md:text-[3.2rem] leading-[1.1] mb-1 md:mb-2 uppercase tracking-tighter"
+                style={{ color: activeCategory.color }}
+              >
+                {activeCategory.title}
+              </h2>
+              <p className="text-[0.65rem] md:text-[0.8rem] leading-relaxed font-avant-garde font-bold max-w-[200px] md:max-w-[500px] uppercase tracking-[0.2em]"
+                style={{ color: settings['shop_mobile_bottom_text_color'] || '#787877' }}
+              >
+                {activeCategory.subtitle}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
 
         {/* Mobile Dynamic Category Backdrop (Mobile Only) */}
         <div className="lg:hidden absolute inset-0 z-0 px-8">
@@ -374,28 +385,6 @@ function ShopContent() {
       {/* Active Collection Single View Grid */}
       < section className="max-w-[1700px] mx-auto w-full px-0 md:px-12 pt-16 pb-8" >
 
-        {/* Dynamic Section Header - Hidden on Mobile/Tab as per user request */}
-        < AnimatePresence mode="wait" >
-          <motion.div
-            key={"header-" + activeCategory.id}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-            className="hidden lg:flex mb-10 flex flex-col md:flex-row items-baseline justify-between gap-4 border-b border-white/10 pb-6"
-          >
-            <div>
-              <h2 className="text-3xl md:text-4xl font-black font-playfair tracking-tight text-white mb-2">
-                {activeCategory.title}
-              </h2>
-              <p className="text-base text-white/70 font-inter max-w-md">
-                {activeCategory.subtitle}
-              </p>
-            </div>
-            <span className="text-sm font-bold uppercase tracking-[0.2em] text-gray-300 whitespace-nowrap">
-              {activeCategory.products.length} Products
-            </span>
-          </motion.div>
-        </AnimatePresence >
 
         {/* Product Grid Wrapper with Premium Rounded Container */}
         < AnimatePresence mode="wait" >

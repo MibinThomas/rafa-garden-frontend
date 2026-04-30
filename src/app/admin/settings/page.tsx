@@ -8,40 +8,56 @@ export default function SiteSettingsPage() {
   const [activeGroup, setActiveGroup] = useState<string | null>(null);
 
   return (
-    <div className="p-8 pb-32">
-      <div className="mb-10">
-        <h1 className="text-3xl font-black text-[#0b2b1a] tracking-tight">Site Settings</h1>
-        <p className="text-[#888888] mt-2">Manage global structural elements like header navigation, footer links, and branding.</p>
+    <div className="space-y-12 pb-24 relative">
+      {/* Background Watermark */}
+      <div className="absolute top-0 right-0 pointer-events-none opacity-[0.03] select-none -mt-10 -mr-20">
+         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#0b2b1a]">SITE</h1>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
-        {/* Header Widget */}
-        <div 
-          onClick={() => setActiveGroup("header")}
-          className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all cursor-pointer group flex gap-6 items-center"
+      <div className="relative z-10">
+        <motion.p 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-[#c81c6a] font-black text-[10px] uppercase tracking-[0.5em] mb-4 ml-1"
         >
-          <div className="w-16 h-16 rounded-2xl bg-[#c81c6a]/5 text-[#c81c6a] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-            <PanelTop size={28} />
+          Structural Management
+        </motion.p>
+        <h1 className="text-6xl md:text-7xl font-black font-playfair text-[#0b2b1a] tracking-tighter">Settings</h1>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl relative z-10">
+        {/* Header Widget */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          onClick={() => setActiveGroup("header")}
+          className="bg-white/60 backdrop-blur-md p-10 rounded-[3.5rem] border border-white shadow-2xl shadow-black/[0.03] hover:shadow-black/[0.06] transition-all duration-700 cursor-pointer group flex gap-8 items-center"
+        >
+          <div className="w-20 h-20 rounded-[2rem] bg-white text-[#c81c6a] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-[#c81c6a] group-hover:text-white transition-all duration-700 shadow-xl border border-gray-50">
+            <PanelTop size={32} strokeWidth={2.5} />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-[#0b2b1a]">Header Content</h3>
-            <p className="text-[13px] text-[#888888] mt-1 line-clamp-2">Update top promotional banners, navigation menus, and global logo placement in the site header.</p>
+            <h3 className="text-2xl font-black font-playfair text-[#0b2b1a] group-hover:text-[#c81c6a] transition-colors duration-500">Header Content</h3>
+            <p className="text-[12px] text-gray-400 font-bold uppercase tracking-widest mt-2 leading-relaxed opacity-60">Menus, banners & global branding.</p>
           </div>
-        </div>
+        </motion.div>
 
         {/* Footer Widget */}
-        <div 
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
           onClick={() => setActiveGroup("footer")}
-          className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all cursor-pointer group flex gap-6 items-center"
+          className="bg-white/60 backdrop-blur-md p-10 rounded-[3.5rem] border border-white shadow-2xl shadow-black/[0.03] hover:shadow-black/[0.06] transition-all duration-700 cursor-pointer group flex gap-8 items-center"
         >
-          <div className="w-16 h-16 rounded-2xl bg-[#c81c6a]/5 text-[#c81c6a] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-            <PanelBottom size={28} />
+          <div className="w-20 h-20 rounded-[2rem] bg-white text-[#c81c6a] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-[#c81c6a] group-hover:text-white transition-all duration-700 shadow-xl border border-gray-50">
+            <PanelBottom size={32} strokeWidth={2.5} />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-[#0b2b1a]">Footer Content</h3>
-            <p className="text-[13px] text-[#888888] mt-1 line-clamp-2">Manage company description, quick links, newsletter hook, and layout graphics at the bottom.</p>
+            <h3 className="text-2xl font-black font-playfair text-[#0b2b1a] group-hover:text-[#c81c6a] transition-colors duration-500">Footer Content</h3>
+            <p className="text-[12px] text-gray-400 font-bold uppercase tracking-widest mt-2 leading-relaxed opacity-60">Company info, links & social assets.</p>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       <SiteContentForm 

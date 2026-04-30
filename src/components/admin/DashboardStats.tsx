@@ -2,37 +2,53 @@ import React from "react";
 import { DollarSign, ShoppingCart, Package, Users } from "lucide-react";
 import { motion } from "framer-motion";
 
-const STATS = [
-  { label: "Total Revenue", value: "AED 6,499", subtext: "Avg order: AED 1,300", icon: DollarSign, color: "text-emerald-600", bg: "bg-emerald-50" },
-  { label: "Total Orders", value: "5", subtext: "For selected period", icon: ShoppingCart, color: "text-blue-600", bg: "bg-blue-50" },
-  { label: "Total Products", value: "8", subtext: "8 active variants", icon: Package, color: "text-amber-600", bg: "bg-amber-50" },
-  { label: "Total Users", value: "4", subtext: "4 new this period", icon: Users, color: "text-[#c81c6a]", bg: "bg-[#c81c6a]/5" },
-];
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
 
 export function DashboardStats() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
       {STATS.map((stat, index) => (
         <motion.div
           key={stat.label}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1 }}
-          className="bg-white p-6 rounded-3xl border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.02)] group hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all"
+          transition={{ delay: index * 0.1, duration: 0.8 }}
+          className="relative overflow-hidden bg-white/80 backdrop-blur-xl p-8 rounded-[3rem] border border-white shadow-2xl shadow-black/[0.02] group hover:shadow-black/[0.05] transition-all duration-700"
         >
-          <div className="flex justify-between items-start mb-4">
-            <div className={`p-3 rounded-2xl ${stat.bg} ${stat.color}`}>
-              <stat.icon size={20} />
+          {/* Background Highlight */}
+          <div className={cn("absolute -top-12 -right-12 w-32 h-32 rounded-full opacity-[0.03] transition-transform duration-1000 group-hover:scale-150 group-hover:rotate-12", stat.bg)} />
+
+          <div className="flex justify-between items-start mb-10 relative z-10">
+            <div className={cn("p-4 rounded-[1.5rem] shadow-xl shadow-black/[0.02] bg-white transition-all duration-500 group-hover:scale-110", stat.color)}>
+              <stat.icon size={22} strokeWidth={1.5} />
             </div>
-            <span className="text-[10px] font-black tracking-widest text-[#bbbdbf] uppercase">Live</span>
+            <div className="flex items-center gap-2">
+               <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+               <span className="text-[9px] font-black tracking-[0.3em] text-[#bbbdbf] uppercase">Vitals</span>
+            </div>
           </div>
-          <div>
-            <h3 className="text-[#0b2b1a] text-2xl font-black mb-1 font-playfair">{stat.value}</h3>
-            <p className="text-[11px] font-bold text-gray-400 mb-2 uppercase tracking-wide">{stat.label}</p>
-            <p className="text-[10px] text-gray-300 font-medium">{stat.subtext}</p>
+          <div className="relative z-10">
+            <h3 className="text-[#0b2b1a] text-4xl font-black mb-2 font-playfair tracking-tighter">{stat.value}</h3>
+            <p className="text-[10px] font-black text-gray-400 mb-4 uppercase tracking-[0.2em]">{stat.label}</p>
+            <div className="pt-4 border-t border-gray-100/50">
+               <p className="text-[9px] text-[#bbbdbf] font-black uppercase tracking-widest">{stat.subtext}</p>
+            </div>
           </div>
         </motion.div>
       ))}
     </div>
   );
+}
+
+const STATS = [
+  { label: "Total Revenue", value: "AED 6,499", subtext: "Heritage Inflow", icon: DollarSign, color: "text-emerald-500", bg: "bg-emerald-500" },
+  { label: "Active Orders", value: "05", subtext: "Fulfillment Queue", icon: ShoppingCart, color: "text-[#c81c6a]", bg: "bg-[#c81c6a]" },
+  { label: "Total Assets", value: "08", subtext: "Curated Catalog", icon: Package, color: "text-[#0b2b1a]", bg: "bg-[#0b2b1a]" },
+  { label: "Archive Reach", value: "124", subtext: "Audience Engagement", icon: Users, color: "text-blue-500", bg: "bg-blue-500" },
+];
+
+function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }

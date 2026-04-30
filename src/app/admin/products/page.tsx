@@ -139,7 +139,12 @@ export default function ProductsPage() {
   });
 
   return (
-    <div className="space-y-10 pb-16">
+    <div className="space-y-12 pb-24 relative">
+      {/* Background Watermark */}
+      <div className="absolute top-0 right-0 pointer-events-none opacity-[0.03] select-none -mt-10 -mr-20">
+         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#0b2b1a]">ASSETS</h1>
+      </div>
+
       {/* Notifications Area */}
       <AnimatePresence>
         {notification && (
@@ -148,13 +153,13 @@ export default function ProductsPage() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             className={cn(
-              "fixed top-8 right-8 z-[100] px-8 py-5 rounded-[1.8rem] shadow-2xl flex items-center gap-4 border",
-              notification.type === 'success' ? "bg-emerald-50 border-emerald-100 text-emerald-800" : "bg-red-50 border-red-100 text-red-800"
+              "fixed top-12 right-12 z-[100] px-8 py-5 rounded-[2rem] shadow-2xl flex items-center gap-4 backdrop-blur-xl border",
+              notification.type === 'success' ? "bg-emerald-500 text-white border-emerald-400" : "bg-red-500 text-white border-red-400"
             )}
           >
             {notification.type === 'success' ? <CheckCircle2 size={20} /> : <AlertCircle size={20} />}
             <span className="text-[11px] font-black uppercase tracking-widest">{notification.message}</span>
-            <button onClick={() => setNotification(null)} className="ml-4 opacity-40 hover:opacity-100">
+            <button onClick={() => setNotification(null)} className="ml-4 opacity-60 hover:opacity-100">
                <X size={16} />
             </button>
           </motion.div>
@@ -162,25 +167,21 @@ export default function ProductsPage() {
       </AnimatePresence>
 
       {/* Premium Header Section */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+      <div className="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
         <div>
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-4 mb-4"
+          <motion.p 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-[#c81c6a] font-black text-[10px] uppercase tracking-[0.5em] mb-4 ml-1"
           >
-            <div className="w-12 h-12 rounded-2xl bg-[#0b2b1a] flex items-center justify-center shadow-lg">
-              <Package className="text-white" size={24} />
-            </div>
-            <span className="text-[11px] font-black text-[#bbbdbf] uppercase tracking-[0.4em]">Inventory Hub</span>
-          </motion.div>
+            Heritage Inventory
+          </motion.p>
           <motion.h1 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-6xl font-black font-playfair text-[#0b2b1a] tracking-tighter"
+            className="text-6xl md:text-7xl font-black font-playfair text-[#0b2b1a] tracking-tighter"
           >
-            Product <span className="italic font-normal">Catalog</span>
+            Catalog
           </motion.h1>
         </div>
 
@@ -188,35 +189,25 @@ export default function ProductsPage() {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 }}
-            className="flex items-center gap-3"
+            className="flex items-center gap-3 bg-white/40 backdrop-blur-md p-2 rounded-[2rem] border border-white shadow-xl shadow-black/[0.02]"
           >
             {/* Bulk Actions */}
             <button 
               onClick={() => handleExport('csv')}
               disabled={loading}
-              className="flex items-center gap-3 px-6 py-4 bg-white border border-gray-100 text-[#0b2b1a] rounded-[1.2rem] shadow-sm hover:scale-105 active:scale-95 transition-all disabled:opacity-50"
+              className="flex items-center gap-3 px-6 py-4 bg-white text-[#0b2b1a] rounded-[1.5rem] shadow-sm hover:scale-105 active:scale-95 transition-all disabled:opacity-50 group"
               title="Download as CSV"
             >
-              <Download size={16} className="text-[#c81c6a]" />
+              <Download size={16} className="text-[#c81c6a] group-hover:-translate-y-0.5 transition-transform" />
               <span className="text-[10px] font-black uppercase tracking-widest">CSV</span>
-            </button>
-            <button 
-              onClick={() => handleExport('xlsx')}
-              disabled={loading}
-              className="flex items-center gap-3 px-6 py-4 bg-white border border-gray-100 text-[#0b2b1a] rounded-[1.2rem] shadow-sm hover:scale-105 active:scale-95 transition-all disabled:opacity-50"
-              title="Download as Excel"
-            >
-              <Download size={16} className="text-[#c81c6a]" />
-              <span className="text-[10px] font-black uppercase tracking-widest">Excel</span>
             </button>
             <button 
               onClick={() => fileInputRef.current?.click()}
               disabled={bulkProcessing || loading}
-              className="flex items-center gap-3 px-6 py-4 bg-white border border-gray-100 text-[#0b2b1a] rounded-[1.2rem] shadow-sm hover:scale-105 active:scale-95 transition-all disabled:opacity-50"
+              className="flex items-center gap-4 px-8 py-4 bg-[#0b2b1a] text-white rounded-[1.5rem] shadow-xl hover:bg-[#c81c6a] hover:scale-105 active:scale-95 transition-all disabled:opacity-50"
             >
-              {bulkProcessing ? <Loader2 size={16} className="animate-spin text-[#c81c6a]" /> : <Upload size={16} className="text-[#c81c6a]" />}
-              <span className="text-[10px] font-black uppercase tracking-widest">{bulkProcessing ? "Importing..." : "Import"}</span>
+              {bulkProcessing ? <Loader2 size={16} className="animate-spin" /> : <Upload size={16} />}
+              <span className="text-[10px] font-black uppercase tracking-widest">{bulkProcessing ? "Syncing..." : "Import"}</span>
             </button>
             <input type="file" ref={fileInputRef} onChange={handleImport} accept=".xlsx, .xls, .csv" className="hidden" />
           </motion.div>
@@ -224,14 +215,14 @@ export default function ProductsPage() {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.1 }}
           >
             <Link 
               href="/admin/products/new"
-              className="group flex items-center gap-4 px-10 py-5 bg-[#0b2b1a] text-white rounded-[1.8rem] shadow-2xl hover:bg-[#c81c6a] transition-all duration-500"
+              className="group flex items-center gap-6 px-10 py-5 bg-[#c81c6a] text-white rounded-[2.5rem] shadow-2xl shadow-[#c81c6a]/20 hover:scale-105 active:scale-95 transition-all duration-500"
             >
-              <span className="text-[11px] font-black uppercase tracking-[0.2em]">Add Botanical Asset</span>
-              <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:rotate-90 transition-transform duration-500">
+              <span className="text-[11px] font-black uppercase tracking-[0.2em]">New Asset</span>
+              <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:rotate-90 transition-transform duration-500">
                  <Plus size={18} />
               </div>
             </Link>
@@ -240,28 +231,28 @@ export default function ProductsPage() {
       </div>
 
       {/* Control Bar: Search & Filter */}
-      <div className="flex flex-col lg:flex-row items-center gap-6">
-        <div className="relative flex-1 group w-full">
-          <Search className="absolute left-8 top-1/2 -translate-y-1/2 text-[#bbbdbf] group-focus-within:text-[#c81c6a] transition-colors" size={20} />
+      <div className="relative z-10 flex flex-col lg:flex-row items-center gap-6">
+        <div className="relative flex-1 group w-full bg-white/50 backdrop-blur-md rounded-[2.5rem] border border-white shadow-xl shadow-black/[0.02]">
+          <Search className="absolute left-8 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#c81c6a] transition-colors" size={20} />
           <input 
             type="text"
-            placeholder="Search by botanical name or collection ID..."
+            placeholder="Search heritage repository..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-20 pr-10 py-6 bg-white rounded-[2rem] border-none outline-none shadow-sm font-bold text-[#0b2b1a] focus:ring-2 focus:ring-[#c81c6a]/10 transition-all text-sm placeholder:text-gray-300"
+            className="w-full pl-20 pr-10 py-6 bg-transparent outline-none font-bold text-[#0b2b1a] transition-all text-sm placeholder:text-gray-300"
           />
         </div>
         
-        <div className="flex items-center gap-3 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 scrollbar-hide">
+        <div className="flex items-center gap-3 p-2 bg-white/40 backdrop-blur-md rounded-[2rem] border border-white shadow-xl shadow-black/[0.02]">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
               className={cn(
-                "px-8 py-5 rounded-[1.5rem] text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap",
+                "px-8 py-4 rounded-[1.5rem] text-[10px] font-black uppercase tracking-widest transition-all duration-500 whitespace-nowrap",
                 selectedCategory === cat 
-                  ? "bg-white text-[#c81c6a] shadow-md border-b-2 border-[#c81c6a]" 
-                  : "bg-white/50 text-[#bbbdbf] hover:bg-white hover:text-[#0b2b1a]"
+                  ? "bg-[#0b2b1a] text-white shadow-xl shadow-[#0b2b1a]/20 scale-105" 
+                  : "text-gray-400 hover:text-[#0b2b1a] hover:bg-white"
               )}
             >
               {cat}
@@ -271,60 +262,63 @@ export default function ProductsPage() {
       </div>
 
       {/* Premium Data Table Area */}
-      <div className="bg-white rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.02)] border border-gray-100 overflow-hidden">
+      <div className="relative z-10 bg-white/60 backdrop-blur-xl rounded-[3.5rem] shadow-2xl shadow-black/[0.03] border border-white overflow-hidden">
         {(loading || bulkProcessing) ? (
-          <div className="py-40 flex flex-col items-center justify-center gap-6">
-            <Loader2 className="animate-spin text-[#c81c6a]" size={48} />
-            <p className="text-[11px] font-black text-[#bbbdbf] uppercase tracking-[0.2em]">
-              {bulkProcessing ? "Processing Inventory..." : "Cultivating Data..."}
+          <div className="py-48 flex flex-col items-center justify-center gap-8">
+            <div className="relative w-20 h-20">
+               <div className="absolute inset-0 border-4 border-gray-100 rounded-full" />
+               <div className="absolute inset-0 border-4 border-[#c81c6a] border-t-transparent rounded-full animate-spin" />
+            </div>
+            <p className="text-[12px] font-black text-[#bbbdbf] uppercase tracking-[0.3em] animate-pulse">
+               {bulkProcessing ? "Processing Inventory..." : "Cultivating Data..."}
             </p>
           </div>
         ) : filteredProducts.length === 0 ? (
-          <div className="py-40 flex flex-col items-center justify-center text-center px-10">
-            <div className="w-24 h-24 rounded-full bg-gray-50 flex items-center justify-center mb-8">
-               <Package className="text-gray-200" size={40} />
+          <div className="py-48 flex flex-col items-center justify-center text-center px-10">
+            <div className="w-28 h-28 rounded-full bg-white flex items-center justify-center mb-10 shadow-xl border border-gray-50">
+               <Package className="text-gray-200" size={48} />
             </div>
-            <h3 className="text-2xl font-black font-playfair text-[#0b2b1a] mb-2 tracking-tight">No Botanical Assets Found</h3>
-            <p className="text-gray-400 text-sm max-w-xs font-medium">Try refining your search or filter criteria to discover our heritage collection.</p>
+            <h3 className="text-3xl font-black font-playfair text-[#0b2b1a] mb-3 tracking-tight">No Botanical Assets</h3>
+            <p className="text-gray-400 text-sm max-w-xs font-bold uppercase tracking-widest leading-loose">Refine your search parameters to explore our legacy collection.</p>
           </div>
         ) : (
           <div className="overflow-x-auto custom-scrollbar">
             <table className="w-full border-collapse">
               <thead>
-                <tr className="border-b border-gray-50">
-                  <th className="text-left py-10 px-10 text-[10px] font-black text-[#bbbdbf] uppercase tracking-widest">Product Staging</th>
-                  <th className="text-left py-10 px-8 text-[10px] font-black text-[#bbbdbf] uppercase tracking-widest">Collection</th>
-                  <th className="text-left py-10 px-8 text-[10px] font-black text-[#bbbdbf] uppercase tracking-widest">Variants</th>
-                  <th className="text-left py-10 px-8 text-[10px] font-black text-[#bbbdbf] uppercase tracking-widest">Inventory Status</th>
-                  <th className="text-right py-10 px-10 text-[10px] font-black text-[#bbbdbf] uppercase tracking-widest">Action Hub</th>
+                <tr className="border-b border-gray-100/50">
+                  <th className="text-left py-12 px-12 text-[10px] font-black text-[#bbbdbf] uppercase tracking-widest">Botanical Stage</th>
+                  <th className="text-left py-12 px-10 text-[10px] font-black text-[#bbbdbf] uppercase tracking-widest">Collection</th>
+                  <th className="text-left py-12 px-10 text-[10px] font-black text-[#bbbdbf] uppercase tracking-widest">Inventory</th>
+                  <th className="text-left py-12 px-10 text-[10px] font-black text-[#bbbdbf] uppercase tracking-widest">Status</th>
+                  <th className="text-right py-12 px-12 text-[10px] font-black text-[#bbbdbf] uppercase tracking-widest">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-50">
+              <tbody className="divide-y divide-gray-100/50">
                 {filteredProducts.map((p, idx) => (
                   <motion.tr 
                     key={p._id}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: idx * 0.05 }}
-                    className="group hover:bg-[#f1f1f2]/30 transition-colors"
+                    className="group hover:bg-white/40 transition-all duration-500"
                   >
-                    <td className="py-10 px-10">
-                      <div className="flex items-center gap-6">
-                        <div className="w-20 h-24 rounded-2xl bg-[#f1f1f2] flex items-center justify-center p-3 relative shadow-inner group-hover:scale-105 transition-transform">
-                          <img src={p.image} alt={p.name} className="w-full h-full object-contain drop-shadow-md" />
-                          <div className="absolute -top-2 -right-2 w-7 h-7 bg-white rounded-lg flex items-center justify-center shadow-sm border border-gray-50">
-                             <span className="text-[8px] font-black text-[#0b2b1a]">{p.id}</span>
+                    <td className="py-10 px-12">
+                      <div className="flex items-center gap-8">
+                        <div className="w-24 h-28 rounded-[2rem] bg-white border border-gray-100 flex items-center justify-center p-4 relative shadow-sm group-hover:scale-105 group-hover:shadow-2xl group-hover:shadow-black/5 transition-all duration-700">
+                          <img src={p.image} alt={p.name} className="w-full h-full object-contain filter drop-shadow-2xl" />
+                          <div className="absolute -top-3 -right-3 w-9 h-9 bg-[#0b2b1a] rounded-xl flex items-center justify-center shadow-lg border-2 border-white">
+                             <span className="text-[9px] font-black text-white">{p.id}</span>
                           </div>
                         </div>
                         <div>
-                          <p className="text-lg font-black font-playfair text-[#0b2b1a] tracking-tight group-hover:text-[#c81c6a] transition-colors">{p.name}</p>
-                          <p className="text-[10px] font-bold text-[#bbbdbf] mt-1 max-w-[200px] line-clamp-1">{p.description}</p>
+                          <p className="text-2xl font-black font-playfair text-[#0b2b1a] tracking-tight group-hover:text-[#c81c6a] transition-colors duration-500">{p.name}</p>
+                          <p className="text-[11px] font-bold text-[#bbbdbf] uppercase tracking-widest mt-2 max-w-[240px] line-clamp-1">{p.description}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="py-10 px-8">
+                    <td className="py-10 px-10">
                        <span className={cn(
-                         "px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest",
+                         "px-6 py-2 rounded-full text-[9px] font-black uppercase tracking-[0.2em] shadow-sm",
                          p.category === 'Crush' ? "bg-[#c81c6a]/10 text-[#c81c6a]" :
                          p.category === 'Jams' ? "bg-[#9a0c52]/10 text-[#9a0c52]" :
                          p.category === 'Fruits' ? "bg-emerald-50 text-emerald-600" :
@@ -333,42 +327,39 @@ export default function ProductsPage() {
                          {p.category}
                        </span>
                     </td>
-                    <td className="py-10 px-8">
-                       <div className="flex flex-col gap-1">
-                          <span className="text-[11px] font-black text-[#0b2b1a]">{p.variants?.length || 0} SKU(s)</span>
-                          <span className="text-[9px] font-bold text-[#bbbdbf] uppercase">
+                    <td className="py-10 px-10">
+                       <div className="flex flex-col gap-1.5">
+                          <span className="text-[12px] font-black text-[#0b2b1a]">{p.variants?.length || 0} Assets</span>
+                          <span className="text-[10px] font-bold text-[#c81c6a] uppercase tracking-widest">
                             From ₹{p.variants && p.variants.length > 0 ? Math.min(...p.variants.map(v => v.price || 0)) : '0'}
                           </span>
                        </div>
                     </td>
-                    <td className="py-10 px-8">
+                    <td className="py-10 px-10">
                        <div className="flex items-center gap-3">
-                          <CheckCircle2 size={16} className={p.active ? "text-emerald-500" : "text-gray-200"} />
+                          <div className={cn("w-2 h-2 rounded-full animate-pulse", p.active ? "bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" : "bg-gray-300")} />
                           <span className={cn(
                              "text-[10px] font-black uppercase tracking-widest",
-                             p.active ? "text-emerald-700" : "text-gray-300"
+                             p.active ? "text-[#0b2b1a]" : "text-gray-300"
                           )}>
-                             {p.active ? "Active" : "Archived"}
+                             {p.active ? "Active Sanctuary" : "Archived"}
                           </span>
                        </div>
                     </td>
-                    <td className="py-10 px-10 text-right">
-                       <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <td className="py-10 px-12 text-right">
+                       <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-500">
                           <Link 
                             href={`/admin/products/${p._id}`}
-                            className="p-3 rounded-xl bg-white text-[#0b2b1a] hover:bg-[#0b2b1a] hover:text-white shadow-sm border border-gray-100 transition-all"
+                            className="p-4 rounded-2xl bg-white text-[#0b2b1a] hover:bg-[#0b2b1a] hover:text-white shadow-xl shadow-black/5 hover:scale-110 active:scale-95 transition-all duration-500"
                           >
                              <Edit2 size={16} />
                           </Link>
                           <button 
                             onClick={() => handleDelete(p._id)}
-                            className="p-3 rounded-xl bg-white text-red-500 hover:bg-red-500 hover:text-white shadow-sm border border-gray-100 transition-all"
+                            className="p-4 rounded-2xl bg-white text-red-500 hover:bg-red-500 hover:text-white shadow-xl shadow-black/5 hover:scale-110 active:scale-95 transition-all duration-500"
                           >
                              <Trash2 size={16} />
                           </button>
-                          <div className="w-8 h-8 rounded-full flex items-center justify-center text-gray-200">
-                             <ChevronRight size={20} />
-                          </div>
                        </div>
                     </td>
                   </motion.tr>

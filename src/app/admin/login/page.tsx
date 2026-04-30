@@ -92,82 +92,100 @@ export default function LoginPage() {
           className="bg-white/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-16 shadow-[0_50px_100px_rgba(0,0,0,0.4)] border border-white/20"
         >
           {/* Header */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-16">
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-              className="mb-8 inline-block"
+              transition={{ delay: 0.3, duration: 1 }}
+              className="mb-10 inline-block"
             >
               <Image 
                 src="/images/logo/Rafah logo.webp" 
                 alt="Rafah Garden" 
                 width={200} 
                 height={60} 
-                className="h-12 w-auto object-contain brightness-0"
+                className="h-10 w-auto object-contain brightness-0"
               />
             </motion.div>
-            <h1 className="text-4xl font-black font-playfair text-[#0b2b1a] tracking-tight mb-2">Heritage Vault</h1>
-            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-400">Authenticating Royal Access</p>
+            <motion.p 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="text-[#c81c6a] font-black text-[10px] uppercase tracking-[0.6em] mb-4"
+            >
+              Brand Sanctuary
+            </motion.p>
+            <h1 className="text-5xl font-black font-playfair text-[#0b2b1a] tracking-tighter leading-none">
+              The <span className="italic font-normal">Vault</span>
+            </h1>
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-6">
+          <form onSubmit={handleLogin} className="space-y-8">
             <AnimatePresence mode="wait">
               {error && (
                 <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="bg-red-50 text-red-500 p-4 rounded-2xl text-[10px] font-black uppercase tracking-widest text-center border border-red-100 mb-4"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="bg-red-50/50 backdrop-blur-md text-red-500 p-6 rounded-3xl text-[9px] font-black uppercase tracking-[0.3em] text-center border border-red-100 mb-6 flex items-center justify-center gap-3"
                 >
+                  <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
                   {error}
                 </motion.div>
               )}
             </AnimatePresence>
 
-            <div className="space-y-4">
-              <div className="relative group text-black">
-                <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#c81c6a] transition-colors" size={18} />
+            <div className="space-y-6">
+              <div className="relative group">
+                <Mail className="absolute left-8 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#c81c6a] transition-all duration-500" size={18} strokeWidth={1.5} />
                 <input
                   type="email"
-                  placeholder="Official Email"
+                  placeholder="Official Repository Email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-16 pr-6 py-5 bg-gray-50/50 rounded-2xl outline-none text-sm font-bold text-[#0b2b1a] placeholder:text-gray-300 transition-all border border-transparent focus:border-[#c81c6a]/20 focus:bg-white"
+                  className="w-full pl-20 pr-10 py-7 bg-gray-50/50 rounded-3xl outline-none text-sm font-bold text-[#0b2b1a] placeholder:text-gray-200 transition-all duration-500 border border-transparent focus:border-[#c81c6a]/10 focus:bg-white shadow-sm"
                 />
               </div>
 
-              <div className="relative group text-black">
-                <Lock className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#c81c6a] transition-colors" size={18} />
+              <div className="relative group">
+                <Lock className="absolute left-8 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#c81c6a] transition-all duration-500" size={18} strokeWidth={1.5} />
                 <input
                   type="password"
-                  placeholder="Master Key"
+                  placeholder="Master Encryption Key"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-16 pr-6 py-5 bg-gray-50/50 rounded-2xl outline-none text-sm font-bold text-[#0b2b1a] placeholder:text-gray-300 transition-all border border-transparent focus:border-[#c81c6a]/20 focus:bg-white"
+                  className="w-full pl-20 pr-10 py-7 bg-gray-50/50 rounded-3xl outline-none text-sm font-bold text-[#0b2b1a] placeholder:text-gray-200 transition-all duration-500 border border-transparent focus:border-[#c81c6a]/10 focus:bg-white shadow-sm"
                 />
               </div>
             </div>
 
             <button
               disabled={loading}
-              className="w-full py-6 bg-[#0b2b1a] text-white rounded-2xl font-black text-xs uppercase tracking-[0.3em] flex items-center justify-center gap-4 shadow-2xl hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-50"
+              className="w-full py-8 bg-[#0b2b1a] text-white rounded-3xl font-black text-[10px] uppercase tracking-[0.4em] flex items-center justify-center gap-6 shadow-2xl shadow-[#0b2b1a]/20 hover:bg-[#c81c6a] active:scale-[0.98] transition-all duration-700 disabled:opacity-50 overflow-hidden relative group/btn"
             >
               {loading ? (
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <div className="flex items-center gap-4">
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <span>Decrypting...</span>
+                </div>
               ) : (
                 <>
-                  Connect <ArrowRight size={16} />
+                  <span className="relative z-10">Establish Connection</span>
+                  <ArrowRight size={18} className="relative z-10 group-hover/btn:translate-x-2 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000" />
                 </>
               )}
             </button>
           </form>
 
-          <div className="mt-12 flex items-center justify-center gap-2 text-gray-300">
-             <ShieldCheck size={14} className="text-[#c81c6a]" />
-             <span className="text-[9px] font-black uppercase tracking-[0.2em]">Secured by JWS Environment</span>
+          <div className="mt-16 flex flex-col items-center justify-center gap-4">
+             <div className="flex items-center gap-3 text-gray-300">
+                <ShieldCheck size={16} className="text-[#c81c6a]" />
+                <span className="text-[9px] font-black uppercase tracking-[0.3em]">Sanctuary Security Protocol v4.0</span>
+             </div>
+             <div className="w-8 h-[1px] bg-gray-100 rounded-full" />
           </div>
         </motion.div>
 
