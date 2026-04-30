@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { useCart } from "@/lib/CartContext";
 import { useWishlist } from "@/lib/WishlistContext";
 import { Product } from "@/lib/data";
-import { Heart, Plus, Minus } from "lucide-react";
+import { Heart, Plus, Minus, ShoppingBasket } from "lucide-react";
 import Link from "next/link";
 
 export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { product: Product, accentColor?: string, onSelect?: (product: Product) => void }) {
@@ -143,12 +143,21 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
               ₹{currentPrice.toFixed(0)}
             </span>
           </div>
-          <button
-            onClick={handleAddToCart}
-            className="px-4 md:px-8 py-2 md:py-3 rounded-full bg-[#c21e5c] text-white font-bold text-[13px] md:text-[16px] tracking-wide transition-all hover:bg-[#9c0045] hover:shadow-lg active:scale-95 whitespace-nowrap"
-          >
-            Buy Now
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleAddToCart}
+              className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-[#0b2b1a]/10 flex items-center justify-center text-[#0b2b1a] hover:bg-white hover:border-[#0b2b1a]/30 transition-all active:scale-95"
+              title="Add to Cart"
+            >
+              <ShoppingBasket size={isDesktop ? 20 : 16} />
+            </button>
+            <button
+              onClick={handleAddToCart}
+              className="px-4 md:px-8 py-2 md:py-3 rounded-full bg-[#c21e5c] text-white font-bold text-[13px] md:text-[16px] tracking-wide transition-all hover:bg-[#9c0045] hover:shadow-lg active:scale-95 whitespace-nowrap"
+            >
+              Buy Now
+            </button>
+          </div>
         </div>
       </div>
     </motion.div>
