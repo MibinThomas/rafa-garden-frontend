@@ -269,7 +269,7 @@ export default function ProductsPage() {
                <div className="absolute inset-0 border-4 border-gray-100 rounded-full" />
                <div className="absolute inset-0 border-4 border-[#c81c6a] border-t-transparent rounded-full animate-spin" />
             </div>
-            <p className="text-[12px] font-black text-[#bbbdbf] uppercase tracking-[0.3em] animate-pulse">
+            <p className="text-[12px] font-black text-[#5d5f61] uppercase tracking-[0.3em] animate-pulse">
                {bulkProcessing ? "Processing Inventory..." : "Cultivating Data..."}
             </p>
           </div>
@@ -286,11 +286,11 @@ export default function ProductsPage() {
             <table className="w-full border-collapse">
               <thead>
                 <tr className="border-b border-gray-100/50">
-                  <th className="text-left py-12 px-12 text-[10px] font-black text-[#bbbdbf] uppercase tracking-widest">Botanical Stage</th>
-                  <th className="text-left py-12 px-10 text-[10px] font-black text-[#bbbdbf] uppercase tracking-widest">Collection</th>
-                  <th className="text-left py-12 px-10 text-[10px] font-black text-[#bbbdbf] uppercase tracking-widest">Inventory</th>
-                  <th className="text-left py-12 px-10 text-[10px] font-black text-[#bbbdbf] uppercase tracking-widest">Status</th>
-                  <th className="text-right py-12 px-12 text-[10px] font-black text-[#bbbdbf] uppercase tracking-widest">Actions</th>
+                  <th className="text-left py-12 px-12 text-[10px] font-black text-[#5d5f61] uppercase tracking-widest">Botanical Stage</th>
+                  <th className="text-left py-12 px-10 text-[10px] font-black text-[#5d5f61] uppercase tracking-widest">Collection</th>
+                  <th className="text-left py-12 px-10 text-[10px] font-black text-[#5d5f61] uppercase tracking-widest">Inventory</th>
+                  <th className="text-left py-12 px-10 text-[10px] font-black text-[#5d5f61] uppercase tracking-widest">Status</th>
+                  <th className="text-right py-12 px-12 text-[10px] font-black text-[#5d5f61] uppercase tracking-widest">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100/50">
@@ -312,7 +312,7 @@ export default function ProductsPage() {
                         </div>
                         <div>
                           <p className="text-2xl font-black font-playfair text-[#0b2b1a] tracking-tight group-hover:text-[#c81c6a] transition-colors duration-500">{p.name}</p>
-                          <p className="text-[11px] font-bold text-[#bbbdbf] uppercase tracking-widest mt-2 max-w-[240px] line-clamp-1">{p.description}</p>
+                          <p className="text-[11px] font-bold text-[#5d5f61] uppercase tracking-widest mt-2 max-w-[240px] line-clamp-1">{p.description}</p>
                         </div>
                       </div>
                     </td>
@@ -337,10 +337,10 @@ export default function ProductsPage() {
                     </td>
                     <td className="py-10 px-10">
                        <div className="flex items-center gap-3">
-                          <div className={cn("w-2 h-2 rounded-full animate-pulse", p.active ? "bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" : "bg-gray-300")} />
+                          <div className={cn("w-2 h-2 rounded-full animate-pulse", p.active ? "bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" : "bg-gray-500")} />
                           <span className={cn(
                              "text-[10px] font-black uppercase tracking-widest",
-                             p.active ? "text-[#0b2b1a]" : "text-gray-300"
+                             p.active ? "text-[#0b2b1a]" : "text-gray-500"
                           )}>
                              {p.active ? "Active Sanctuary" : "Archived"}
                           </span>
@@ -372,7 +372,7 @@ export default function ProductsPage() {
 
       {/* Footer Branding */}
       <div className="flex justify-center pt-8">
-         <p className="text-[10px] font-black text-[#bbbdbf] uppercase tracking-[0.5em]">Heritage Management System &bull; Rafah Garden &bull; 2026</p>
+         <p className="text-[10px] font-black text-[#5d5f61] uppercase tracking-[0.5em]">Heritage Management System &bull; Rafah Garden &bull; 2026</p>
       </div>
     </div>
   );

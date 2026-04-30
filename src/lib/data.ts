@@ -93,7 +93,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: "April 01, 2026",
     readingTime: "5 min read",
     category: "Culinary Arts",
-    accentColor: "#bbbdbf"
+    accentColor: "#5d5f61"
   },
   {
     id: "b5",

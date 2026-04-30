@@ -149,7 +149,7 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
                     <div className="absolute inset-0 border-4 border-gray-100 rounded-full" />
                     <div className="absolute inset-0 border-4 border-[#c81c6a] border-t-transparent rounded-full animate-spin" />
                   </div>
-                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#bbbdbf] animate-pulse">Fetching Repository Assets...</p>
+                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#5d5f61] animate-pulse">Fetching Repository Assets...</p>
                 </div>
               ) : content.length === 0 ? (
                 <div className="py-32 text-center">

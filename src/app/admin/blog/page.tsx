@@ -104,7 +104,7 @@ export default function BlogManagementPage() {
              <div className="absolute inset-0 border-4 border-gray-100 rounded-full" />
              <div className="absolute inset-0 border-4 border-[#c81c6a] border-t-transparent rounded-full animate-spin" />
           </div>
-          <p className="text-[12px] font-black uppercase tracking-[0.3em] text-[#bbbdbf] animate-pulse">Syncing Editorial Archive...</p>
+          <p className="text-[12px] font-black uppercase tracking-[0.3em] text-[#5d5f61] animate-pulse">Syncing Editorial Archive...</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 relative z-10">

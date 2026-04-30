@@ -258,11 +258,11 @@ export default function OrdersPage() {
             <table className="w-full border-collapse">
                <thead>
                  <tr className="border-b border-gray-100/50">
-                   <th className="text-left py-12 px-12 text-[10px] font-black text-[#bbbdbf] uppercase tracking-widest">Transaction ID</th>
-                   <th className="text-left py-12 px-10 text-[10px] font-black text-[#bbbdbf] uppercase tracking-widest">Customer Profile</th>
-                   <th className="text-left py-12 px-10 text-[10px] font-black text-[#bbbdbf] uppercase tracking-widest">Vault Value</th>
-                   <th className="text-left py-12 px-10 text-[10px] font-black text-[#bbbdbf] uppercase tracking-widest">Stage Status</th>
-                   <th className="text-right py-12 px-12 text-[10px] font-black text-[#bbbdbf] uppercase tracking-widest">Actions</th>
+                   <th className="text-left py-12 px-12 text-[10px] font-black text-[#5d5f61] uppercase tracking-widest">Transaction ID</th>
+                   <th className="text-left py-12 px-10 text-[10px] font-black text-[#5d5f61] uppercase tracking-widest">Customer Profile</th>
+                   <th className="text-left py-12 px-10 text-[10px] font-black text-[#5d5f61] uppercase tracking-widest">Vault Value</th>
+                   <th className="text-left py-12 px-10 text-[10px] font-black text-[#5d5f61] uppercase tracking-widest">Stage Status</th>
+                   <th className="text-right py-12 px-12 text-[10px] font-black text-[#5d5f61] uppercase tracking-widest">Actions</th>
                  </tr>
                </thead>
                <tbody className="divide-y divide-gray-100/50">

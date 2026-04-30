@@ -156,7 +156,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
                      <div className="absolute inset-0 border-4 border-gray-100 rounded-full" />
                      <div className="absolute inset-0 border-4 border-[#c81c6a] border-t-transparent rounded-full animate-spin" />
                   </div>
-                  <span className="text-[9px] font-black uppercase tracking-[0.3em] text-[#bbbdbf]">Syncing...</span>
+                  <span className="text-[9px] font-black uppercase tracking-[0.3em] text-[#5d5f61]">Syncing...</span>
                 </div>
               )}
             </div>

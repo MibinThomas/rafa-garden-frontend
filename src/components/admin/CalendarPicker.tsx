@@ -90,7 +90,7 @@ export function CalendarPicker({ startDate, endDate, onRangeSelect, onClose }: C
 
       <div className="grid grid-cols-7 gap-1 mb-2">
         {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d, i) => (
-          <div key={`${d}-${i}`} className="text-center text-[10px] font-black text-gray-300 py-2">{d}</div>
+          <div key={`${d}-${i}`} className="text-center text-[10px] font-black text-gray-500 py-2">{d}</div>
         ))}
       </div>
 
@@ -120,7 +120,7 @@ export function CalendarPicker({ startDate, endDate, onRangeSelect, onClose }: C
 
       <div className="mt-8 pt-6 border-t border-gray-100 flex items-center justify-between">
         <div>
-           <p className="text-[9px] font-black uppercase tracking-widest text-gray-400 mb-1">Selected Range</p>
+           <p className="text-[9px] font-black uppercase tracking-widest text-gray-600 mb-1">Selected Range</p>
            <p className="text-[10px] font-bold text-[#0b2b1a]">
              {startDate ? startDate : "Select Start"} — {endDate ? endDate : "Select End"}
            </p>

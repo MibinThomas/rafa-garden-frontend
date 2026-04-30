@@ -67,14 +67,14 @@ export function DashboardStats({ orders = [] }: { orders?: any[] }) {
             </div>
             <div className="flex items-center gap-2">
                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-               <span className="text-[9px] font-black tracking-[0.3em] text-[#bbbdbf] uppercase">Vitals</span>
+               <span className="text-[9px] font-black tracking-[0.3em] text-[#0b2b1a] uppercase">Vitals</span>
             </div>
           </div>
           <div className="relative z-10">
             <h3 className="text-[#0b2b1a] text-4xl font-black mb-2 font-playfair tracking-tighter">{stat.value}</h3>
-            <p className="text-[10px] font-black text-gray-400 mb-4 uppercase tracking-[0.2em]">{stat.label}</p>
+            <p className="text-[10px] font-black text-gray-600 mb-4 uppercase tracking-[0.2em]">{stat.label}</p>
             <div className="pt-4 border-t border-gray-100/50">
-               <p className="text-[9px] text-[#bbbdbf] font-black uppercase tracking-widest">{stat.subtext}</p>
+               <p className="text-[9px] text-[#0b2b1a] font-black uppercase tracking-widest">{stat.subtext}</p>
             </div>
           </div>
         </motion.div>
