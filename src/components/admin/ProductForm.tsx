@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { X, Upload, Save, Loader2, Plus, Trash2, CheckCircle2, AlertCircle } from "lucide-react";
+import { X, Upload, Save, Loader2, Plus, Trash2, CheckCircle2, AlertCircle, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -302,7 +302,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
                     <label className="text-[9px] font-black uppercase tracking-[0.4em] text-gray-300 ml-1">Valuation (₹)</label>
                     <input 
                       type="number"
-                      value={variant.price}
+                      value={variant.price || ""}
                       placeholder="0"
                       onChange={(e) => handleVariantChange(index, "price", parseFloat(e.target.value))}
                       className="w-full px-8 py-5 bg-gray-50/30 rounded-2xl border border-gray-50 outline-none font-black text-[#0b2b1a] text-[12px] uppercase tracking-widest focus:bg-white focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-inner"
