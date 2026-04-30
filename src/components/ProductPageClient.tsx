@@ -28,7 +28,8 @@ export function ProductPageClient({ product, category }: ProductPageClientProps)
     addToCart({
       id: `${product.id}-${selectedVariantIdx}`,
       name: `${product.name} (${selectedVariant.size}${selectedVariant.unit})`.trim(),
-      price: currentPrice
+      price: currentPrice,
+      image: product.image
     }, quantity);
   };
 

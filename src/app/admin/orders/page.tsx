@@ -17,7 +17,8 @@ import {
   MapPin,
   X,
   Loader2,
-  Plus
+  Plus,
+  MessageCircle
 } from "lucide-react";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -116,8 +117,42 @@ export default function OrdersPage() {
     }
   };
 
+  const handleResetLedger = async () => {
+    if (!confirm("CRITICAL ACTION: This will permanently delete ALL order manifests. This cannot be undone. Proceed?")) return;
+    try {
+      const res = await fetch("/api/orders", { method: "DELETE" });
+      if (res.ok) {
+        setOrders([]);
+        setSelectedOrder(null);
+        alert("The Sanctuary Ledger has been reset.");
+      }
+    } catch (error) {
+      console.error("Reset failed:", error);
+    }
+  };
+
   const handlePrint = () => {
     window.print();
+  };
+
+  const handleWhatsAppShare = (order: Order) => {
+    const itemsList = order.items.map(item => 
+      `- ${item.name} (${item.variant.size} ${item.variant.unit}) x ${item.quantity}: ₹${item.variant.price * item.quantity}`
+    ).join('\n');
+
+    const message = `🌿 *Rafah Garden - Order Manifest* 🌿\n\n` +
+      `*Order ID:* ${order.orderId}\n` +
+      `*Date:* ${new Date(order.createdAt).toLocaleDateString()}\n\n` +
+      `*Customer Details:*\n` +
+      `- Name: ${order.customer.name}\n` +
+      `- Phone: ${order.customer.phone}\n` +
+      `- Address: ${order.customer.address}\n\n` +
+      `*Asset Manifest:*\n${itemsList}\n\n` +
+      `*Total Settlement:* ₹${order.totalAmount}\n\n` +
+      `_Sent via Rafah Garden Sanctuary Office_`;
+
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/918550088485?text=${encodedMessage}`, '_blank');
   };
 
   const filteredOrders = orders.filter(o => 
@@ -164,6 +199,14 @@ export default function OrdersPage() {
             Generate Sample Order
           </button>
           
+          <div 
+            onClick={handleResetLedger}
+            className="flex items-center gap-3 bg-red-50 text-red-600 px-8 py-5 rounded-[2.5rem] border border-red-100 hover:bg-red-100 transition-all cursor-pointer"
+          >
+            <Trash2 size={18} />
+            <span className="text-[10px] font-black uppercase tracking-widest">Reset Ledger</span>
+          </div>
+
           <div className="flex items-center gap-3 bg-[#0b2b1a] text-white px-8 py-5 rounded-[2.5rem] shadow-2xl shadow-[#0b2b1a]/20">
             <Download size={18} />
             <span className="text-[10px] font-black uppercase tracking-widest">Export Ledger</span>
@@ -420,6 +463,13 @@ export default function OrdersPage() {
                     className="flex-1 py-6 rounded-[2.5rem] bg-gray-50 text-gray-400 font-black text-[10px] uppercase tracking-[0.4em] hover:bg-gray-100 hover:text-[#0b2b1a] transition-all"
                   >
                      Print Invoice
+                  </button>
+                  <button 
+                    onClick={() => handleWhatsAppShare(selectedOrder)}
+                    className="flex-1 py-6 rounded-[2.5rem] bg-emerald-50 text-emerald-600 font-black text-[10px] uppercase tracking-[0.4em] hover:bg-emerald-100 transition-all flex items-center justify-center gap-3"
+                  >
+                     <MessageCircle size={16} />
+                     WhatsApp
                   </button>
                   <button 
                     onClick={() => setSelectedOrder(null)}

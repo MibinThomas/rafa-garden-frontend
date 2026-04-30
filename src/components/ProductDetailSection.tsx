@@ -32,7 +32,8 @@ export function ProductDetailSection({ product, categoryTitle, categoryColor, on
     addToCart({
       id: `${product.id}-${selectedVariantIdx}`,
       name: `${product.name} (${selectedVariant.size} ${selectedVariant.unit})`.trim(),
-      price: selectedVariant.price || 599
+      price: selectedVariant.price || 599,
+      image: product.image
     }, quantity);
   };
 

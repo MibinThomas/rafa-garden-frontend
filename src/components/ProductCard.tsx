@@ -34,7 +34,8 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
     addToCart({
       id: `${product.id}-${selectedVariantIdx}`,
       name: `${product.name} (${selectedVariant.size} ${selectedVariant.unit})`.trim(),
-      price: currentPrice
+      price: currentPrice,
+      image: product.image
     }, quantity);
   };
 

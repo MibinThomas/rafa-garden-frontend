@@ -21,6 +21,7 @@ export async function POST(request: Request) {
     if (body.sample) {
       const sampleOrder = {
         orderId: `RF-${Math.floor(1000 + Math.random() * 9000)}`,
+        orderNumber: `RF-${Math.floor(1000 + Math.random() * 9000)}`,
         customer: {
           name: "Alexander Zarkov",
           email: "alexander@sanctuary.com",
@@ -52,6 +53,10 @@ export async function POST(request: Request) {
       const order = await Order.create(sampleOrder);
       return NextResponse.json(order);
     }
+    if (!body.orderId) {
+      body.orderId = `RF-${Math.floor(1000 + Math.random() * 9000)}`;
+    }
+    body.orderNumber = body.orderId;
 
     const order = await Order.create(body);
     return NextResponse.json(order);
