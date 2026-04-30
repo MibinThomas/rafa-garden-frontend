@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { SiteContentForm } from "@/components/admin/SiteContentForm";
 import { PanelTop, PanelBottom } from "lucide-react";
 
