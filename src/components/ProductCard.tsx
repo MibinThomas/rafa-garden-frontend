@@ -54,10 +54,10 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="group relative flex flex-col h-full bg-[#e6e7e8] p-4 md:p-6 rounded-[32px] transition-all duration-500 hover:bg-[#f1f1f2] hover:shadow-[0_20px_40px_rgba(0,0,0,0.05)]"
+      className="group relative flex flex-col h-full bg-[#e6e7e8] p-3 md:p-6 rounded-[24px] md:rounded-[32px] transition-all duration-500 hover:bg-[#f1f1f2] hover:shadow-[0_20px_40px_rgba(0,0,0,0.05)]"
     >
       {/* Top: Image Stage with Decorative Frame */}
-      <div className="relative w-full aspect-[4/5] flex items-center justify-center mb-6">
+      <div className="relative w-full aspect-[4/5] flex items-center justify-center mb-4 md:mb-6">
         {/* Custom Decorative SVG Frame - Rounded Rectangle Offset to Left */}
         <div className="absolute inset-0 z-0 pointer-events-none">
            <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-700 group-hover:-translate-x-1">
@@ -68,10 +68,10 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
         {/* Wishlist Heart Icon - Top Right */}
         <button
           onClick={handleWishlist}
-          className="absolute top-0 right-0 z-30 w-12 h-12 rounded-full flex items-center justify-center bg-transparent border border-black/10 transition-all hover:scale-110 active:scale-90"
+          className="absolute top-0 right-0 z-30 w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center bg-transparent border border-black/10 transition-all hover:scale-110 active:scale-90"
         >
           <Heart
-            size={22}
+            size={isDesktop ? 22 : 16}
             fill={isFavorited ? "#c21e5c" : "#b0b0b0"}
             className={isFavorited ? "text-[#c21e5c]" : "text-[#b0b0b0]"}
             strokeWidth={1.5}
@@ -102,12 +102,12 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
       {/* Product Info */}
       <div className="flex flex-col flex-1">
         {/* Title */}
-        <h3 className="text-[24px] md:text-[28px] font-bold text-[#4a4a4a] tracking-tight leading-tight mb-4">
+        <h3 className="text-[16px] md:text-[22px] font-bold text-[#4a4a4a] tracking-tight leading-tight mb-2 md:mb-4">
           {product.name}
         </h3>
 
         {/* Variants Selection */}
-        <div className="flex items-center gap-4 mb-6">
+        <div className="flex items-center gap-2 md:gap-4 mb-4 md:mb-6">
           {product.variants.map((v, idx) => {
             const isActive = selectedVariantIdx === idx;
             return (
@@ -116,11 +116,11 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
                 onClick={(e) => { e.stopPropagation(); setSelectedVariantIdx(idx); }}
                 className="flex items-center gap-2 group/variant"
               >
-                <span className={`text-[14px] font-medium transition-colors ${isActive ? "text-[#4a4a4a]" : "text-[#b0b0b0] group-hover/variant:text-[#888888]"}`}>
+                <span className={`text-[12px] md:text-[14px] font-medium transition-colors ${isActive ? "text-[#4a4a4a]" : "text-[#b0b0b0] group-hover/variant:text-[#888888]"}`}>
                   {v.size}{v.unit}
                 </span>
-                <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${isActive ? "border-[#c21e5c]" : "border-[#e0e0e0] group-hover/variant:border-[#cccccc]"}`}>
-                  {isActive && <div className="w-2 h-2 rounded-full bg-[#c21e5c]" />}
+                <div className={`w-3 h-3 md:w-4 md:h-4 rounded-full border-2 flex items-center justify-center transition-all ${isActive ? "border-[#c21e5c]" : "border-[#e0e0e0] group-hover/variant:border-[#cccccc]"}`}>
+                  {isActive && <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-[#c21e5c]" />}
                 </div>
               </button>
             );
@@ -128,34 +128,34 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
         </div>
 
         {/* Quantity Controls */}
-        <div className="flex items-center gap-4 mb-8">
+        <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-8">
           <button
             onClick={(e) => { e.stopPropagation(); if (quantity > 1) setQuantity(prev => prev - 1); }}
-            className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#f5f5f5] text-[#888888] hover:bg-[#e0e0e0] transition-colors"
+            className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-lg bg-[#f5f5f5] text-[#888888] hover:bg-[#e0e0e0] transition-colors"
           >
-            <Minus size={16} strokeWidth={2.5} />
+            <Minus size={isDesktop ? 16 : 12} strokeWidth={2.5} />
           </button>
-          <span className="text-[18px] font-bold text-[#4a4a4a] min-w-[20px] text-center">
+          <span className="text-[14px] md:text-[18px] font-bold text-[#4a4a4a] min-w-[15px] md:min-w-[20px] text-center">
             {quantity}
           </span>
           <button
             onClick={(e) => { e.stopPropagation(); setQuantity(prev => prev + 1); }}
-            className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#f5f5f5] text-[#888888] hover:bg-[#e0e0e0] transition-colors"
+            className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-lg bg-[#f5f5f5] text-[#888888] hover:bg-[#e0e0e0] transition-colors"
           >
-            <Plus size={16} strokeWidth={2.5} />
+            <Plus size={isDesktop ? 16 : 12} strokeWidth={2.5} />
           </button>
         </div>
 
         {/* Bottom Row: Price & Buy Now */}
         <div className="mt-auto flex items-center justify-between">
           <div className="flex items-start">
-            <span className="text-[32px] md:text-[38px] font-bold text-[#8a8a8a] tracking-tighter leading-none">
+            <span className="text-[20px] md:text-[32px] lg:text-[38px] font-bold text-[#8a8a8a] tracking-tighter leading-none">
               ₹{currentPrice.toFixed(0)}
             </span>
           </div>
           <button
             onClick={handleAddToCart}
-            className="px-8 py-3 rounded-full bg-[#c21e5c] text-white font-bold text-[16px] tracking-wide transition-all hover:bg-[#9c0045] hover:shadow-lg active:scale-95 whitespace-nowrap"
+            className="px-4 md:px-8 py-2 md:py-3 rounded-full bg-[#c21e5c] text-white font-bold text-[13px] md:text-[16px] tracking-wide transition-all hover:bg-[#9c0045] hover:shadow-lg active:scale-95 whitespace-nowrap"
           >
             Buy Now
           </button>
