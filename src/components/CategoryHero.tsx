@@ -24,12 +24,12 @@ export function CategoryHero({ categories }: CategoryHeroProps) {
 
   const getBgColor = (index: number, isHovered: boolean) => {
     if (isHovered) return categories[index].color;
-    const greys = ["#e6e7e8", "#e5e5e7", "#dbdbdd", "#d1d1d3"];
-    return greys[index] || "#e6e7e8";
+    const greys = ["#f1f1f2", "#f1f1f2", "#e5e5e7", "#dbdbdd"];
+    return greys[index] || "#f1f1f2";
   };
 
   return (
-    <section className="relative w-full flex-1 md:px-12 flex flex-col font-sans overflow-hidden bg-[#e6e7e8]">
+    <section className="relative w-full flex-1 md:px-12 flex flex-col font-sans overflow-hidden bg-[#f1f1f2]">
 
       {/* Mobile-Only Full-Screen Swipe Carousel */}
       <div 
@@ -123,7 +123,7 @@ export function CategoryHero({ categories }: CategoryHeroProps) {
 
       {/* Unified Desktop Header */}
       <motion.div
-        className="hidden md:grid w-full flex-1 max-w-[1700px] mx-auto overflow-hidden rounded-[2.5rem] shadow-[0_40px_100px_rgba(0,0,0,0.08)] grid-cols-4 relative bg-white"
+        className="hidden md:grid w-full flex-1 max-w-[1700px] mx-auto overflow-hidden rounded-[2.5rem] grid-cols-4 relative bg-white"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}

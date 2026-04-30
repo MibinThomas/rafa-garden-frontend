@@ -103,7 +103,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#e6e7e8] text-[#1b1c1c] selection:bg-[#c81c6a] selection:text-white overflow-x-hidden" style={{ fontFamily: "inherit" }}>
+    <div className="min-h-screen bg-[#f1f1f2] text-[#1b1c1c] selection:bg-[#c81c6a] selection:text-white overflow-x-hidden" style={{ fontFamily: "inherit" }}>
       
       {/* Top Section */}
       <main className="max-w-[1440px] mx-auto px-6 md:px-12 pt-32 md:pt-40 pb-20 md:pb-32 relative">

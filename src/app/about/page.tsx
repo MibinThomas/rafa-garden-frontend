@@ -37,7 +37,7 @@ export default function AboutPage() {
   const get = (key: string, fallback: string) => content[key] || fallback;
 
   return (
-    <div className="relative min-h-screen bg-[#e6e7e8] font-sans selection:bg-[#c81c6a] selection:text-white pb-32">
+    <div className="relative min-h-screen bg-[#f1f1f2] font-sans selection:bg-[#c81c6a] selection:text-white pb-32">
 
       {/* 1. TOP HERO SECTION */}
       <section className="relative pt-[50px] w-full max-w-[1700px] mx-auto px-6 md:px-12 flex flex-col mb-[115px] z-10 overflow-hidden">

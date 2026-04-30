@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { CategoryHero } from "@/components/CategoryHero";
 import { CategoryDetail } from "@/components/CategoryDetail";
 import { HomeProductSection } from "@/components/HomeProductSection";
+import { CuratedSeriesSection } from "@/components/CuratedSeriesSection";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
 import { CATEGORIES as STATIC_CATEGORIES } from "@/lib/data";
 
@@ -56,7 +57,7 @@ export default function Home() {
   };
 
   return (
-    <main className="relative flex-1 flex flex-col font-sans bg-[#e6e7e8]">
+    <main className="relative flex-1 flex flex-col font-sans bg-[#f1f1f2]">
       <motion.div
         key="hero-content"
         initial={{ opacity: 0 }}
@@ -72,7 +73,7 @@ export default function Home() {
         </div>
 
         {/* Desktop Horizontal Category Navigator */}
-        <div className="hidden md:flex w-full bg-[#e6e7e8] py-16 items-center justify-center relative z-10 border-b border-[#333333]/5">
+        <div className="hidden md:flex w-full bg-[#f1f1f2] py-16 items-center justify-center relative z-10">
           <div className="flex gap-6 items-center">
             {categories.slice(0, 4).map((cat, idx) => (
               <button
@@ -92,7 +93,10 @@ export default function Home() {
         </div>
 
         {/* Dynamic Product Grid Section Below Hero */}
-        <div className="w-full relative z-10 bg-[#e6e7e8]">
+        <div className="w-full relative z-10 bg-[#f1f1f2]">
+          <CuratedSeriesSection 
+            categoryTitle={categories[activeCollectionIndex]?.title || "Collection"} 
+          />
           <HomeProductSection 
             categories={categories}
             categoryIndex={activeCollectionIndex} 

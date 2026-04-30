@@ -44,27 +44,16 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
     toggleWishlist(product.id);
   };
 
-  // Alignment constants
-  // SVG line is at x=12 in 120 viewBox (10%)
-  // Left panel is 45% of card width
-  // Total offset from left = 0.45 * 0.10 = 4.5%
-  const alignMargin = "4.5%";
+
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="group relative flex flex-col h-full bg-[#e6e7e8] p-3 md:p-6 rounded-[24px] md:rounded-[32px] transition-all duration-500 hover:bg-[#f1f1f2] hover:shadow-[0_20px_40px_rgba(0,0,0,0.05)]"
+      className="group relative flex flex-col h-full bg-[#f1f1f2] p-3 md:p-6 rounded-[24px] md:rounded-[32px] transition-all duration-500 hover:bg-[#f1f1f2] hover:shadow-[0_20px_40px_rgba(0,0,0,0.05)]"
     >
-      {/* Top: Image Stage with Decorative Frame */}
+      {/* Top: Image Stage */}
       <div className="relative w-full aspect-[4/5] flex items-center justify-center mb-4 md:mb-6">
-        {/* Custom Decorative SVG Frame - Rounded Rectangle Offset to Left */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-           <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-700 group-hover:-translate-x-1">
-             <rect x="8" y="12" width="48" height="76" rx="10" stroke="#333333" strokeWidth="0.5" strokeOpacity="0.15" fill="none" />
-           </svg>
-        </div>
-
         {/* Wishlist Heart Icon - Top Right */}
         <button
           onClick={handleWishlist}
@@ -84,7 +73,7 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
           className="relative w-full h-full flex items-center justify-center cursor-pointer z-10"
         >
           <motion.div
-            className="relative w-[70%] h-[85%]"
+            className="relative w-[80%] h-[85%]"
             whileHover={{ scale: 1.08, y: -8 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >

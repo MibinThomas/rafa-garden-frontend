@@ -129,7 +129,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
             <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#bbbdbf] ml-1">Product Visual</label>
             <div 
               onClick={() => fileInputRef.current?.click()}
-              className="group relative aspect-[4/5] rounded-[2.5rem] bg-[#e6e7e8] border-2 border-dashed border-[#bbbdbf]/20 flex items-center justify-center overflow-hidden cursor-pointer hover:border-[#c81c6a]/40 transition-all"
+              className="group relative aspect-[4/5] rounded-[2.5rem] bg-[#f1f1f2] border-2 border-dashed border-[#bbbdbf]/20 flex items-center justify-center overflow-hidden cursor-pointer hover:border-[#c81c6a]/40 transition-all"
             >
               {formData.image ? (
                 <>
@@ -149,7 +149,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
               )}
               
               {uploading && (
-                <div className="absolute inset-0 bg-[#e6e7e8]/80 backdrop-blur-md flex items-center justify-center z-50">
+                <div className="absolute inset-0 bg-[#f1f1f2]/80 backdrop-blur-md flex items-center justify-center z-50">
                   <Loader2 className="animate-spin text-[#c81c6a]" size={32} />
                 </div>
               )}

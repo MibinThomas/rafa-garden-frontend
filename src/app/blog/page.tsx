@@ -36,7 +36,7 @@ export default function BlogListingPage() {
   const displayPosts = posts.slice(0, 3);
 
   return (
-    <div className={`min-h-screen bg-[#e6e7e8] text-[#1b1c1c] selection:bg-[#c21e5c] selection:text-[#ffdce1] overflow-x-hidden ${plusJakartaSans.className}`}>
+    <div className={`min-h-screen bg-[#f1f1f2] text-[#1b1c1c] selection:bg-[#c21e5c] selection:text-[#ffdce1] overflow-x-hidden ${plusJakartaSans.className}`}>
       <main className="pb-0 px-[32px] max-w-[1440px] mx-auto pt-12 relative" style={{ fontFamily: "inherit" }}>
         
         {/* Header Section */}
@@ -112,7 +112,7 @@ export default function BlogListingPage() {
         )}
 
         {/* Newsletter Section */}
-        <section className="w-[100vw] relative left-[50%] right-[50%] -ml-[50vw] -mr-[50vw] bg-[#e6e7e8] border-t border-[#d2d2d2] py-24 md:py-32 overflow-hidden z-10 mt-[80px]">
+        <section className="w-[100vw] relative left-[50%] right-[50%] -ml-[50vw] -mr-[50vw] bg-[#f1f1f2] border-t border-[#d2d2d2] py-24 md:py-32 overflow-hidden z-10 mt-[80px]">
           <div className="relative z-10 max-w-4xl mx-auto text-center">
             <h3 className="text-[40px] md:text-[64px] tracking-tight leading-[1.1] font-bold text-[#757575] mb-4" style={{ fontFamily: "inherit" }}>
               Stay Planted in our Garden.

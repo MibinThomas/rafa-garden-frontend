@@ -14,7 +14,7 @@ export function HomeProductSection({ categories, categoryIndex }: HomeProductSec
   if (!category) return null;
 
   return (
-    <section className="bg-[#e6e7e8] py-24 sm:py-32 px-0 md:px-12 relative overflow-hidden min-h-[80vh]">
+    <section className="bg-[#f1f1f2] pt-12 pb-24 sm:pb-32 px-0 md:px-12 relative overflow-hidden min-h-[80vh]">
 
       <div className="max-w-[1600px] mx-auto relative z-10">
         {/* Dynamic Product Grid */}

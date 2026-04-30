@@ -33,7 +33,7 @@ export function ProductPageClient({ product, category }: ProductPageClientProps)
   };
 
   return (
-    <div className="relative min-h-screen bg-[#e6e7e8] overflow-hidden pt-24">
+    <div className="relative min-h-screen bg-[#f1f1f2] overflow-hidden pt-24">
       {/* Background Macro-Typography (Watermark) */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
         <h1 className="text-[30vw] md:text-[23vw] font-dharma-gothic leading-none text-black/[0.03] uppercase tracking-tighter">

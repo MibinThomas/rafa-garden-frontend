@@ -37,7 +37,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[#e6e7e8] text-[#1b1c1c]">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#f1f1f2] text-[#1b1c1c]">
         <Loader2 className="w-12 h-12 text-[#c81c6a] animate-spin mb-6" />
         <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40">Loading Story...</p>
       </div>
@@ -49,7 +49,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
   }
 
   return (
-    <div className="min-h-screen bg-[#e6e7e8] text-[#1b1c1c] selection:bg-[#c81c6a] selection:text-white pb-32 overflow-x-hidden font-inter">
+    <div className="min-h-screen bg-[#f1f1f2] text-[#1b1c1c] selection:bg-[#c81c6a] selection:text-white pb-32 overflow-x-hidden font-inter">
       
       <main className="max-w-[1700px] mx-auto px-6 md:px-12 pt-32 md:pt-40">
         

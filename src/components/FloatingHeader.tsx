@@ -31,7 +31,7 @@ export function FloatingHeader() {
   return (
     <>
       {/* Unified Desktop Header */}
-      <div className={`w-full hidden md:flex items-center pt-8 pb-4 pointer-events-auto select-none transition-all duration-1000 ${isImmersive ? "absolute top-0 left-0 z-50 bg-transparent" : "bg-[#e6e7e8]"}`}>
+      <div className={`w-full hidden md:flex items-center pt-8 pb-4 pointer-events-auto select-none transition-all duration-1000 ${isImmersive ? "absolute top-0 left-0 z-50 bg-transparent" : "bg-[#f1f1f2]"}`}>
         <div className="max-w-[1700px] mx-auto w-full flex items-center px-6 md:px-12">
           
           {/* Logo Section - Flex-1 to balance with Right Section */}
@@ -102,7 +102,7 @@ export function FloatingHeader() {
       </div>
 
       {/* Redesigned Mobile Header - Matching Mockup */}
-      <div className={`w-full flex md:hidden items-center justify-between px-6 py-4 pointer-events-auto transition-all duration-1000 ${isImmersive ? "absolute top-0 left-0 z-50 bg-transparent" : "bg-[#e6e7e8]"}`}>
+      <div className={`w-full flex md:hidden items-center justify-between px-6 py-4 pointer-events-auto transition-all duration-1000 ${isImmersive ? "absolute top-0 left-0 z-50 bg-transparent" : "bg-[#f1f1f2]"}`}>
         
         <div className="flex-none">
           <Link href="/" className="flex items-center">
@@ -172,7 +172,7 @@ export function FloatingHeader() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed top-0 right-0 h-[100dvh] w-[85%] max-w-sm bg-[#e6e7e8] z-[101] shadow-[-20px_0_40px_rgba(0,0,0,0.15)] flex flex-col md:hidden"
+              className="fixed top-0 right-0 h-[100dvh] w-[85%] max-w-sm bg-[#f1f1f2] z-[101] shadow-[-20px_0_40px_rgba(0,0,0,0.15)] flex flex-col md:hidden"
             >
               {/* Header inside drawer */}
               <div className="flex items-center justify-between p-6 pb-2">

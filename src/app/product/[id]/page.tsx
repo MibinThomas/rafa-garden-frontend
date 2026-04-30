@@ -22,7 +22,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
   if (!product || !category) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#e6e7e8]">
+      <div className="min-h-screen flex items-center justify-center bg-[#f1f1f2]">
         <h1 className="text-2xl font-bold opacity-20 uppercase tracking-widest text-black/10">Product Not Found</h1>
       </div>
     );
