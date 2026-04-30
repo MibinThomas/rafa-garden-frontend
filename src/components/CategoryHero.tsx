@@ -31,94 +31,65 @@ export function CategoryHero({ categories }: CategoryHeroProps) {
   return (
     <section className="relative w-full flex-1 md:px-12 flex flex-col font-sans overflow-hidden bg-[#f1f1f2]">
 
-      {/* Mobile-Only Full-Screen Swipe Carousel */}
-      <div 
-        className="flex md:hidden h-full w-full overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth"
-        onScroll={(e) => {
-          const container = e.currentTarget;
-          const slideWidth = container.clientWidth;
-          const newIndex = Math.round(container.scrollLeft / slideWidth);
-          if (newIndex !== hoveredIndex && newIndex >= 0 && newIndex < categories.length) {
-            setHoveredIndex(newIndex);
-          }
-        }}
-      >
-        {categories.slice(0, 4).map((cat, index) => {
-          return (
-            <div
-              key={cat.id || cat._id}
-              className="min-w-full h-full snap-center snap-always relative flex flex-col overflow-hidden transition-colors duration-500"
-              style={{ backgroundColor: cat.color }}
-            >
-              <div className="relative z-10 w-full h-full flex flex-col items-center justify-center px-6 text-center py-8">
-                
-                {/* Image Section */}
-                <div className="relative w-full h-[45%] flex items-center justify-center mb-4">
-                  <motion.div
-                    className="relative w-full h-full"
-                    initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                    viewport={{ amount: 0.5 }}
-                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  >
-                    <Image
-                      src={cat.image}
-                      alt={cat.title}
-                      fill
-                      className="object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,0.3)]"
-                      priority={index === 0}
-                    />
-                  </motion.div>
-                </div>
-
-                {/* Text Content */}
-                <motion.div 
-                  className="flex flex-col items-center w-full z-10"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ amount: 0.5 }}
-                  transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <div
-                    className="bg-number !static !transform-none !mb-[-1.5rem] !leading-none pointer-events-none text-white/10"
-                  >
-                    {cat.id || (index + 1).toString().padStart(2, '0')}
-                  </div>
-
-                  <h2 className="text-5xl font-bold mb-2 tracking-tight font-brand-heading leading-[1.1] text-white z-30">
-                    {cat.title}
-                  </h2>
-
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] mb-4 font-avant-garde text-white/80 z-30">
-                    {cat.subtitle || "Pure Botanical Refreshment"}
-                  </p>
-
-                  <p className="text-sm leading-relaxed font-avant-garde px-4 mb-8 max-w-[300px] text-white/90 z-30">
-                    {cat.mobileActiveDesc || "Handcrafted with botanical integrity to provide a sensory experience like no other."}
-                  </p>
-
-                  <button
-                    onClick={() => router.push(`/shop?cat=${cat.title.toLowerCase()}`)}
-                    className="flex items-center justify-between w-full max-w-[200px] px-8 py-3.5 rounded-full border border-white/40 text-white bg-white/10 hover:bg-white hover:text-black transition-all duration-300 font-avant-garde text-sm font-medium tracking-tight z-30 shadow-lg"
-                  >
-                    <span>Buy Now</span>
-                    <ArrowRight size={16} strokeWidth={1.5} className="ml-2" />
-                  </button>
-                </motion.div>
-              </div>
-
-              {/* Swipe Indicator Overlay (only on first slide) */}
-              {index === 0 && (
-                <div className="absolute bottom-6 left-0 w-full flex justify-center items-center pointer-events-none z-50 animate-pulse opacity-70">
-                  <div className="flex items-center gap-3 text-white font-avant-garde text-[10px] tracking-widest uppercase bg-black/20 px-4 py-2 rounded-full backdrop-blur-sm">
-                    <span>Swipe</span>
-                    <ArrowRight size={12} />
-                  </div>
-                </div>
-              )}
+      {/* Mobile-Only Vertical Flex Section */}
+      <div className="flex md:hidden flex-col h-full w-full">
+        {categories.slice(0, 4).map((cat, index) => (
+          <motion.div
+            key={cat.id || cat._id}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: index * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            onClick={() => router.push(`/shop?cat=${cat.title.toLowerCase()}`)}
+            className="flex-1 relative flex items-center justify-between px-8 border-b border-white/10 overflow-hidden active:scale-[0.98] transition-transform duration-300"
+            style={{ backgroundColor: cat.color }}
+          >
+            {/* Background Number */}
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[120px] font-black text-white/5 pointer-events-none select-none leading-none">
+              {index + 1}
             </div>
-          );
-        })}
+
+            <div className="relative z-10 py-2 max-w-[65%]">
+              <p className="text-[9px] font-black uppercase tracking-[0.4em] text-white/50 mb-2">Collection 0{index + 1}</p>
+              <h2 className="text-4xl font-black text-white font-brand-heading leading-tight tracking-tight mb-2">
+                {cat.title}
+              </h2>
+              <div className="flex items-center gap-3">
+                <button className="flex items-center gap-2 text-[9px] font-black text-white uppercase tracking-[0.2em] bg-white/15 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/10 shadow-xl">
+                  Explore <ArrowRight size={12} strokeWidth={2.5} />
+                </button>
+              </div>
+            </div>
+
+            {/* Product Image */}
+            <div className="absolute right-0 top-0 w-[45%] h-full pointer-events-none z-20">
+              <motion.div 
+                className="relative w-full h-full"
+                animate={{ 
+                  y: [2, -5, 2],
+                  rotate: [10, 12, 10]
+                }}
+                transition={{ 
+                  duration: 4, 
+                  repeat: Infinity, 
+                  ease: "easeInOut",
+                  delay: index * 0.5
+                }}
+              >
+                <Image
+                  src={cat.image}
+                  alt={cat.title}
+                  fill
+                  className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
+                  sizes="40vw"
+                  priority
+                />
+              </motion.div>
+            </div>
+            
+            {/* Glossy Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none" />
+          </motion.div>
+        ))}
       </div>
 
       {/* Unified Desktop Header */}
