@@ -90,9 +90,9 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
       </div>
 
       {/* Product Info */}
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-col flex-1" style={{ fontFamily: 'AvantGarde, sans-serif' }}>
         {/* Title */}
-        <h3 className="text-[16px] md:text-[22px] font-bold text-[#4a4a4a] tracking-tight leading-tight mb-2 md:mb-4">
+        <h3 className="text-[16px] md:text-[22px] font-bold text-[#5d5f61] tracking-tight leading-tight mb-2 md:mb-4">
           {product.name}
         </h3>
 
@@ -139,21 +139,21 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
         {/* Bottom Row: Price & Buy Now */}
         <div className="mt-auto flex items-center justify-between">
           <div className="flex items-start">
-            <span className="text-[20px] md:text-[32px] lg:text-[38px] font-bold text-[#8a8a8a] tracking-tighter leading-none">
+            <span className="text-[20px] md:text-[32px] lg:text-[38px] text-[#8a8a8a] tracking-tighter leading-none">
               ₹{currentPrice.toFixed(0)}
             </span>
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={handleAddToCart}
-              className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-[#5d5f61]/10 flex items-center justify-center text-[#5d5f61] hover:bg-white hover:border-[#5d5f61]/30 transition-all active:scale-95"
+              className="w-8 h-8 md:w-12 md:h-12 rounded-full border border-[#5d5f61]/10 flex items-center justify-center text-[#5d5f61] hover:bg-white hover:border-[#5d5f61]/30 transition-all active:scale-95"
               title="Add to Cart"
             >
-              <ShoppingBasket size={isDesktop ? 20 : 16} />
+              <ShoppingBasket size={isDesktop ? 20 : 14} />
             </button>
             <button
               onClick={handleAddToCart}
-              className="px-4 md:px-8 py-2 md:py-3 rounded-full bg-[#c21e5c] text-white font-bold text-[13px] md:text-[16px] tracking-wide transition-all hover:bg-[#9c0045] hover:shadow-lg active:scale-95 whitespace-nowrap"
+              className="px-3 md:px-8 py-1.5 md:py-3 rounded-full bg-[#c21e5c] text-white font-bold text-[11px] md:text-[16px] tracking-wide transition-all hover:bg-[#9c0045] hover:shadow-lg active:scale-95 whitespace-nowrap"
             >
               Buy Now
             </button>
