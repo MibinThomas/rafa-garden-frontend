@@ -53,7 +53,8 @@ export function CategoryHero({ categories }: CategoryHeroProps) {
             }`}
             style={{ 
               backgroundColor: activeMobileIndex === index ? cat.color : "#f1f1f2",
-              flex: activeMobileIndex === index ? "2.5 1 0%" : "1 1 0%"
+              flex: activeMobileIndex === index ? "2.5 1 0%" : "1 1 0%",
+              borderRadius: activeMobileIndex === index ? "10px" : "5px"
             }}
           >
             {/* Background Number */}
