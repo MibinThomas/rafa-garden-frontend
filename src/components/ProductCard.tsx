@@ -92,7 +92,7 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
       {/* Product Info */}
       <div className="flex flex-col flex-1" style={{ fontFamily: 'AvantGarde, sans-serif' }}>
         {/* Title */}
-        <h3 className="text-[16px] md:text-[22px] font-bold text-[#5d5f61] tracking-tight leading-tight mb-2 md:mb-4">
+        <h3 className="text-[32px] md:text-[44px] font-bold text-[#5d5f61] tracking-tight leading-tight mb-2 md:mb-4">
           {product.name}
         </h3>
 
@@ -117,33 +117,40 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
           })}
         </div>
 
-        {/* Quantity Controls */}
-        <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-8">
-          <button
-            onClick={(e) => { e.stopPropagation(); if (quantity > 1) setQuantity(prev => prev - 1); }}
-            className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-lg bg-[#f5f5f5] text-[#888888] hover:bg-[#e0e0e0] transition-colors"
-          >
-            <Minus size={isDesktop ? 16 : 12} strokeWidth={2.5} />
-          </button>
-          <span className="text-[14px] md:text-[18px] font-bold text-[#4a4a4a] min-w-[15px] md:min-w-[20px] text-center">
-            {quantity}
-          </span>
-          <button
-            onClick={(e) => { e.stopPropagation(); setQuantity(prev => prev + 1); }}
-            className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-lg bg-[#f5f5f5] text-[#888888] hover:bg-[#e0e0e0] transition-colors"
-          >
-            <Plus size={isDesktop ? 16 : 12} strokeWidth={2.5} />
-          </button>
+        {/* Quantity Controls & Price */}
+        <div className="flex items-center gap-6 mb-6 md:mb-8">
+          <div className="flex items-center gap-2 md:gap-4">
+            <button
+              onClick={(e) => { e.stopPropagation(); if (quantity > 1) setQuantity(prev => prev - 1); }}
+              className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-lg bg-[#f5f5f5] text-[#888888] hover:bg-[#e0e0e0] transition-colors"
+            >
+              <Minus size={isDesktop ? 16 : 12} strokeWidth={2.5} />
+            </button>
+            <span className="text-[14px] md:text-[18px] font-bold text-[#4a4a4a] min-w-[15px] md:min-w-[20px] text-center">
+              {quantity}
+            </span>
+            <button
+              onClick={(e) => { e.stopPropagation(); setQuantity(prev => prev + 1); }}
+              className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-lg bg-[#f5f5f5] text-[#888888] hover:bg-[#e0e0e0] transition-colors"
+            >
+              <Plus size={isDesktop ? 16 : 12} strokeWidth={2.5} />
+            </button>
+          </div>
+          <div className="flex items-start md:hidden">
+            <span className="text-[20px] text-[#8a8a8a] tracking-tighter leading-none">
+              ₹{currentPrice.toFixed(0)}
+            </span>
+          </div>
         </div>
 
-        {/* Bottom Row: Price & Buy Now */}
-        <div className="mt-auto flex items-center justify-between">
-          <div className="flex items-start">
+        {/* Bottom Row: Price (Desktop) & Buy Now */}
+        <div className="mt-auto flex items-center justify-between md:justify-end gap-2 w-full md:w-auto">
+          <div className="hidden md:flex items-start mr-auto">
             <span className="text-[20px] md:text-[32px] lg:text-[38px] text-[#8a8a8a] tracking-tighter leading-none">
               ₹{currentPrice.toFixed(0)}
             </span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-between md:justify-end gap-2 w-full md:w-auto">
             <button
               onClick={handleAddToCart}
               className="w-8 h-8 md:w-12 md:h-12 rounded-full border border-[#5d5f61]/10 flex items-center justify-center text-[#5d5f61] hover:bg-white hover:border-[#5d5f61]/30 transition-all active:scale-95"
@@ -153,7 +160,7 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
             </button>
             <button
               onClick={handleAddToCart}
-              className="px-3 md:px-8 py-1.5 md:py-3 rounded-full bg-[#c21e5c] text-white font-bold text-[11px] md:text-[16px] tracking-wide transition-all hover:bg-[#9c0045] hover:shadow-lg active:scale-95 whitespace-nowrap"
+              className="px-3 md:px-8 py-1.5 md:py-3 rounded-full bg-[#c21e5c] text-white font-bold text-[11px] md:text-[16px] tracking-wide transition-all hover:bg-[#9c0045] hover:shadow-lg active:scale-95 whitespace-nowrap flex-1 md:flex-initial text-center justify-center"
             >
               Buy Now
             </button>
