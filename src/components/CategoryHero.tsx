@@ -13,6 +13,7 @@ interface CategoryHeroProps {
 
 export function CategoryHero({ categories }: CategoryHeroProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number>(0);
+  const [activeMobileIndex, setActiveMobileIndex] = useState<number>(0);
   const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
 
@@ -29,48 +30,79 @@ export function CategoryHero({ categories }: CategoryHeroProps) {
   };
 
   return (
-    <section className="relative w-full flex-1 md:px-12 flex flex-col font-sans overflow-hidden bg-[#f1f1f2]">
+    <section className="relative w-full flex-1 p-4 md:p-0 md:px-12 flex flex-col font-sans overflow-hidden bg-[#f1f1f2]">
 
       {/* Mobile-Only Vertical Flex Section */}
-      <div className="flex md:hidden flex-col h-full w-full">
+      <div className="flex md:hidden flex-col h-full w-full rounded-[5px] overflow-hidden" style={{ borderRadius: "5px" }}>
         {categories.slice(0, 4).map((cat, index) => (
           <motion.div
             key={cat.id || cat._id}
+            layout
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            onClick={() => router.push(`/shop?cat=${cat.title.toLowerCase()}`)}
-            className="flex-1 relative flex items-center justify-between px-8 border-b border-white/10 overflow-hidden active:scale-[0.98] transition-transform duration-300"
-            style={{ backgroundColor: cat.color }}
+            transition={{ layout: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }}
+            onClick={(e) => {
+              if (activeMobileIndex === index) {
+                router.push(`/shop?cat=${cat.title.toLowerCase()}`);
+              } else {
+                setActiveMobileIndex(index);
+              }
+            }}
+            className={`relative flex items-center justify-between px-8 border-b transition-all duration-500 cursor-pointer overflow-hidden active:scale-[0.98] ${
+              activeMobileIndex === index ? "border-white/10" : "border-black/10"
+            }`}
+            style={{ 
+              backgroundColor: activeMobileIndex === index ? cat.color : "#f1f1f2",
+              flex: activeMobileIndex === index ? "2.5 1 0%" : "1 1 0%"
+            }}
           >
             {/* Background Number */}
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[120px] font-black text-white/5 pointer-events-none select-none leading-none">
+            <div className={`absolute left-4 top-1/2 -translate-y-1/2 text-[120px] font-black pointer-events-none select-none leading-none transition-colors duration-500 ${
+              activeMobileIndex === index ? "text-white/5" : "text-black/[0.04]"
+            }`}>
               {index + 1}
             </div>
 
             <div className="relative z-10 py-2 max-w-[65%]">
-              <p className="text-[9px] font-black uppercase tracking-[0.4em] text-white/50 mb-2">Collection 0{index + 1}</p>
-              <h2 className="text-4xl font-black text-white font-brand-heading leading-tight tracking-tight mb-2">
+              <p className={`text-[9px] font-black uppercase tracking-[0.4em] mb-2 transition-colors duration-500 ${
+                activeMobileIndex === index ? "text-white/50" : "text-black/40"
+              }`}>Collection 0{index + 1}</p>
+              <h2 className={`text-4xl font-black font-brand-heading leading-tight tracking-tight transition-colors duration-500 ${
+                activeMobileIndex === index ? "text-white" : "text-[#1c1c1c]"
+              }`}>
                 {cat.title}
               </h2>
-              <div className="flex items-center gap-3">
-                <button className="flex items-center gap-2 text-[9px] font-black text-white uppercase tracking-[0.2em] bg-white/15 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/10 shadow-xl">
-                  Explore <ArrowRight size={12} strokeWidth={2.5} />
-                </button>
-              </div>
+              {activeMobileIndex === index && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 0.4 }}
+                  className="flex items-center gap-3 mt-3"
+                >
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      router.push(`/shop?cat=${cat.title.toLowerCase()}`);
+                    }}
+                    className="flex items-center gap-2 text-[10px] font-black text-white uppercase tracking-[0.2em] bg-white/20 backdrop-blur-md px-4 py-2.5 rounded-full border border-white/20 shadow-xl cursor-pointer"
+                  >
+                    Explore <ArrowRight size={12} strokeWidth={2.5} />
+                  </button>
+                </motion.div>
+              )}
             </div>
 
             {/* Product Image */}
             <div className="absolute right-0 top-0 w-[45%] h-full pointer-events-none z-20">
-              <motion.div 
+              <motion.div
                 className="relative w-full h-full"
-                animate={{ 
+                animate={{
                   y: [2, -5, 2],
                   rotate: [10, 12, 10]
                 }}
-                transition={{ 
-                  duration: 4, 
-                  repeat: Infinity, 
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
                   ease: "easeInOut",
                   delay: index * 0.5
                 }}
@@ -85,7 +117,7 @@ export function CategoryHero({ categories }: CategoryHeroProps) {
                 />
               </motion.div>
             </div>
-            
+
             {/* Glossy Overlay */}
             <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none" />
           </motion.div>
@@ -119,7 +151,7 @@ export function CategoryHero({ categories }: CategoryHeroProps) {
                   animate={{
                     opacity: hoveredIndex === index ? 1 : 0,
                     scale: hoveredIndex === index ? 1.2 : 0.8,
-                    y: hoveredIndex === index ? 20 : 40 
+                    y: hoveredIndex === index ? 20 : 40
                   }}
                   transition={{
                     duration: 0.6,
@@ -139,7 +171,7 @@ export function CategoryHero({ categories }: CategoryHeroProps) {
               <motion.div
                 className="flex flex-col items-center w-full z-10"
                 animate={{
-                  y: hoveredIndex === index ? 70 : 0 
+                  y: hoveredIndex === index ? 70 : 0
                 }}
                 transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
               >
