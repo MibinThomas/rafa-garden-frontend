@@ -9,9 +9,10 @@ import { useHeaderColor } from "@/lib/HeaderColorContext";
 
 interface CategoryHeroProps {
   categories: any[];
+  onActiveChange?: (index: number) => void;
 }
 
-export function CategoryHero({ categories }: CategoryHeroProps) {
+export function CategoryHero({ categories, onActiveChange }: CategoryHeroProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number>(0);
   const [activeMobileIndex, setActiveMobileIndex] = useState<number>(0);
   const [isMounted, setIsMounted] = useState(false);
@@ -46,6 +47,7 @@ export function CategoryHero({ categories }: CategoryHeroProps) {
                 router.push(`/shop?cat=${cat.title.toLowerCase()}`);
               } else {
                 setActiveMobileIndex(index);
+                onActiveChange?.(index);
               }
             }}
             className={`relative flex items-center justify-between px-8 border-b transition-all duration-500 cursor-pointer overflow-hidden active:scale-[0.98] ${

@@ -12,6 +12,7 @@ import { CATEGORIES as STATIC_CATEGORIES } from "@/lib/data";
 export default function Home() {
   const [categories, setCategories] = useState<any[]>(STATIC_CATEGORIES);
   const [activeCollectionIndex, setActiveCollectionIndex] = useState(0);
+  const [activeMobileCatIndex, setActiveMobileCatIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const { setHeaderColor, setIsImmersive } = useHeaderColor();
 
@@ -68,8 +69,28 @@ export default function Home() {
         {/* Full Screen Hero Section */}
         <div className="h-[calc(100dvh-70px)] md:h-[calc(100vh-100px)] flex flex-col pt-0 md:pt-4 overflow-hidden">
           <CategoryHero 
-            categories={categories} 
+            categories={categories}
+            onActiveChange={setActiveMobileCatIndex}
           />
+        </div>
+
+        {/* Mobile-Only: Active Category Info Strip */}
+        <div className="flex md:hidden w-full px-6 pt-6 pb-8 bg-[#f1f1f2] z-10">
+          <div key={activeMobileCatIndex} className="flex flex-col gap-2">
+            <p
+              className="text-[10px] font-black uppercase tracking-[0.35em]"
+              style={{ color: categories[activeMobileCatIndex]?.color || "#c81c6a" }}
+            >
+              {categories[activeMobileCatIndex]?.subtitle || "Pure Botanical Refreshment"}
+            </p>
+            <h2 className="text-[2.8rem] font-black font-brand-heading text-[#1c1c1c] leading-none tracking-tight mb-1">
+              {categories[activeMobileCatIndex]?.title || "Crush"}
+            </h2>
+            <p className="text-[13px] text-[#737478] leading-[1.7] font-normal max-w-[340px]">
+              {categories[activeMobileCatIndex]?.mobileActiveDesc ||
+                "Handcrafted with botanical integrity to provide a sensory experience like no other."}
+            </p>
+          </div>
         </div>
 
         {/* Desktop Horizontal Category Navigator */}
