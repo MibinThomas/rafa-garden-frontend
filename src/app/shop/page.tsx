@@ -66,8 +66,8 @@ function ShopContent() {
     // Fetch live categories from database
     const fetchCategories = async () => {
       try {
-        const res = await fetch("/api/categories");
-        if (res.ok) {
+        const res = await fetch("/api/categories").catch(() => null);
+        if (res && res.ok) {
           const contentType = res.headers.get("content-type");
           if (contentType && contentType.includes("application/json")) {
             const data = await res.json();
