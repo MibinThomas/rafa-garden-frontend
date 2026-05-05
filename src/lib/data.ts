@@ -120,7 +120,7 @@ export const CATEGORIES: Category[] = [
     products: [
       {
         id: "c-1",
-        name: "Sample Product 1",
+        name: "Crush 1",
         description: "This is a sample description for product 1.",
         image: "/products/crush_bottle.png",
         variants: [
@@ -130,7 +130,7 @@ export const CATEGORIES: Category[] = [
       },
       {
         id: "c-2",
-        name: "Sample Product 2",
+        name: "Crush 2",
         description: "This is a sample description for product 2.",
         image: "/products/crush_bottle.png",
         variants: [
@@ -140,7 +140,7 @@ export const CATEGORIES: Category[] = [
       },
       {
         id: "c-3",
-        name: "Sample Product 3",
+        name: "Crush 3",
         description: "This is a sample description for product 3.",
         image: "/products/crush_bottle.png",
         variants: [
@@ -149,7 +149,7 @@ export const CATEGORIES: Category[] = [
       },
       {
         id: "c-4",
-        name: "Sample Product 4",
+        name: "Crush 4",
         description: "This is a sample description for product 4.",
         image: "/products/crush_bottle.png",
         variants: [
@@ -159,7 +159,7 @@ export const CATEGORIES: Category[] = [
       },
       {
         id: "c-5",
-        name: "Sample Product 5",
+        name: "Crush 5",
         description: "This is a sample description for product 5.",
         image: "/products/crush_bottle.png",
         variants: [
@@ -178,35 +178,35 @@ export const CATEGORIES: Category[] = [
     products: [
       {
         id: "j-1",
-        name: "Sample Product 1",
+        name: "Jam 1",
         description: "This is a sample description for product 1.",
         image: "/products/jam_premium.png",
         variants: [{ size: "500", unit: "G" }, { size: "250", unit: "G" }]
       },
       {
         id: "j-2",
-        name: "Sample Product 2",
+        name: "Jam 2",
         description: "This is a sample description for product 2.",
         image: "/products/jam_premium.png",
         variants: [{ size: "500", unit: "G" }]
       },
       {
         id: "j-3",
-        name: "Sample Product 3",
+        name: "Jam 3",
         description: "This is a sample description for product 3.",
         image: "/products/jam_premium.png",
         variants: [{ size: "300", unit: "G" }]
       },
       {
         id: "j-4",
-        name: "Sample Product 4",
+        name: "Jam 4",
         description: "This is a sample description for product 4.",
         image: "/products/jam_premium.png",
         variants: [{ size: "400", unit: "G" }]
       },
       {
         id: "j-5",
-        name: "Sample Product 5",
+        name: "Jam 5",
         description: "This is a sample description for product 5.",
         image: "/products/jam_premium.png",
         variants: [{ size: "500", unit: "G" }, { size: "200", unit: "G" }]
@@ -222,35 +222,35 @@ export const CATEGORIES: Category[] = [
     products: [
       {
         id: "f-1",
-        name: "Sample Product 1",
+        name: "Fruit 1",
         description: "This is a sample description for product 1.",
         image: "/products/Dragon fruit png.webp",
         variants: [{ size: "1", unit: "KG" }, { size: "3", unit: "KG" }]
       },
       {
         id: "f-2",
-        name: "Sample Product 2",
+        name: "Fruit 2",
         description: "This is a sample description for product 2.",
         image: "/products/Dragon fruit png.webp",
         variants: [{ size: "1", unit: "KG" }]
       },
       {
         id: "f-3",
-        name: "Sample Product 3",
+        name: "Fruit 3",
         description: "This is a sample description for product 3.",
         image: "/products/Dragon fruit png.webp",
         variants: [{ size: "500", unit: "G" }]
       },
       {
         id: "f-4",
-        name: "Sample Product 4",
+        name: "Fruit 4",
         description: "This is a sample description for product 4.",
         image: "/products/Dragon fruit png.webp",
         variants: [{ size: "1", unit: "KG" }]
       },
       {
         id: "f-5",
-        name: "Sample Product 5",
+        name: "Fruit 5",
         description: "This is a sample description for product 5.",
         image: "/products/Dragon fruit png.webp",
         variants: [{ size: "250", unit: "G" }, { size: "500", unit: "G" }]
@@ -266,35 +266,35 @@ export const CATEGORIES: Category[] = [
     products: [
       {
         id: "p-1",
-        name: "Sample Product 1",
+        name: "Plant 1",
         description: "This is a sample description for product 1.",
         image: "/images/hero/Plant.webp",
         variants: [{ size: "Medium", unit: "Pot" }]
       },
       {
         id: "p-2",
-        name: "Sample Product 2",
+        name: "Plant 2",
         description: "This is a sample description for product 2.",
         image: "/images/hero/Plant.webp",
         variants: [{ size: "Large", unit: "Pot" }]
       },
       {
         id: "p-3",
-        name: "Sample Product 3",
+        name: "Plant 3",
         description: "This is a sample description for product 3.",
         image: "/images/hero/Plant.webp",
         variants: [{ size: "Small", unit: "Pot" }, { size: "Medium", unit: "Pot" }]
       },
       {
         id: "p-4",
-        name: "Sample Product 4",
+        name: "Plant 4",
         description: "This is a sample description for product 4.",
         image: "/images/hero/Plant.webp",
         variants: [{ size: "Large", unit: "Pot" }]
       },
       {
         id: "p-5",
-        name: "Sample Product 5",
+        name: "Plant 5",
         description: "This is a sample description for product 5.",
         image: "/images/hero/Plant.webp",
         variants: [{ size: "Medium", unit: "Pot" }]
