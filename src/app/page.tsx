@@ -35,8 +35,11 @@ export default function Home() {
           setHeaderColor(data[activeCollectionIndex]?.color || data[0].color);
         }
       }
-    } catch (err) {
-      console.error("Failed to fetch live categories:", err);
+    } catch (err: any) {
+      // Only log if it's a persistent issue, not a transient network interrupt during reload
+      if (err.name !== 'TypeError' || !err.message.includes('fetch')) {
+        console.error("Failed to fetch live categories:", err);
+      }
     } finally {
       setLoading(false);
     }

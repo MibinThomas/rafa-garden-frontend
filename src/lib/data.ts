@@ -171,7 +171,7 @@ export const CATEGORIES: Category[] = [
   },
   {
     id: "02",
-    title: "jams",
+    title: "Jams",
     subtitle: "Deliciously Thick & Natural",
     image: "/images/hero/jam_premium.png",
     color: "#9a0c52",

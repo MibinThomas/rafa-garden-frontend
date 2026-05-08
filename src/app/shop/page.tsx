@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef, Suspense } from "react";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { CATEGORIES, Product, ProductVariant, Category } from "@/lib/data";
 import { ProductCard } from "@/components/ProductCard";
@@ -16,6 +16,7 @@ function ShopContent() {
   const { settings } = useSiteSettings();
   const heroRef = useRef<HTMLElement>(null);
   const searchParams = useSearchParams();
+  const router = useRouter();
 
 
   // Dynamic State for categories
@@ -125,15 +126,18 @@ function ShopContent() {
           <div className="relative w-full h-full px-6 py-12">
 
             {/* Top Category Selection (Mobile Mockup Style) */}
-            <div className="absolute top-[30px] left-0 w-full pointer-events-auto">
-              <div className="flex gap-2.5 px-6 justify-center overflow-x-auto scrollbar-hide py-2">
+            <div className="absolute top-[100px] left-0 w-full pointer-events-auto z-50">
+              <div className="flex gap-2.5 px-6 justify-start overflow-x-auto scrollbar-hide py-2 flex-nowrap">
                 {categories.map((cat, idx) => {
                   const isActive = activeCategoryIndex === idx;
                   return (
                     <button
                       key={cat.id}
-                      onClick={() => setActiveCategoryIndex(idx)}
-                      className="px-5 py-2 rounded-full border transition-all duration-300 font-bold uppercase tracking-widest text-[8.5px] whitespace-nowrap"
+                      onClick={() => {
+                        setActiveCategoryIndex(idx);
+                        router.push(`/shop?cat=${cat.title.toLowerCase()}`, { scroll: false });
+                      }}
+                      className="px-5 py-2 rounded-full border transition-all duration-300 font-bold uppercase tracking-widest text-[10px] whitespace-nowrap flex-shrink-0"
                       style={{
                         borderColor: cat.color,
                         color: isActive ? cat.color : '#666c75',
@@ -149,7 +153,7 @@ function ShopContent() {
             </div>
 
             {/* Top Left Title Block (Mobile) */}
-            <div className="absolute top-[110px] left-8 pointer-events-none">
+            <div className="absolute top-[180px] left-8 pointer-events-none">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={"title-mob-" + activeCategory.id}
