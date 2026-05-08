@@ -1,22 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Lock, Mail, ArrowRight, ShieldCheck, Leaf } from "lucide-react";
-import Image from "next/image";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useHeaderColor } from "@/lib/HeaderColorContext";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [mounted, setMounted] = useState(false);
   const router = useRouter();
+  const { setIsImmersive, setHeaderColor } = useHeaderColor();
 
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => {
+    setIsImmersive(false);
+    setHeaderColor("#1b1c1c");
+  }, [setIsImmersive, setHeaderColor]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,182 +32,132 @@ export default function LoginPage() {
       });
 
       if (res.ok) {
-        // Success animation could go here
-        router.push("/admin");
+        // Successful login
+        setTimeout(() => {
+          router.push("/admin");
+        }, 800); // give time for success animation if we wanted one
       } else {
         const data = await res.json();
         setError(data.error || "Authentication failed. Access denied.");
+        setLoading(false);
       }
     } catch (err) {
       setError("A connection error occurred. Please try again.");
-    } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-[#5d5f61] flex items-center justify-center p-6 selection:bg-[#c81c6a] selection:text-white">
-      {/* Immersive Botanical Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Animated Bokeh / Spores */}
-        {mounted && [...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{ 
-              opacity: 0, 
-              x: Math.random() * 100 + "%", 
-              y: Math.random() * 100 + "%",
-              scale: Math.random() * 0.5 + 0.5
-            }}
-            animate={{ 
-              opacity: [0, 0.2, 0],
-              y: ["-10%", "110%"],
-              x: ["-5%", "5%"]
-            }}
-            transition={{ 
-              duration: Math.random() * 20 + 20, 
-              repeat: Infinity, 
-              delay: Math.random() * 20,
-              ease: "linear"
-            }}
-            className="absolute w-2 h-2 bg-white rounded-full blur-[2px]"
-          />
-        ))}
-
-        {/* Brand Watermark Detail */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 0.03, scale: 1 }}
-          transition={{ duration: 2 }}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] flex items-center justify-center pointer-events-none"
-        >
-          <Leaf size={800} strokeWidth={0.5} className="text-white rotate-12" />
-        </motion.div>
-      </div>
-
-      <div className="relative z-10 w-full max-w-xl">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] as const }}
-          className="bg-white/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-16 shadow-[0_50px_100px_rgba(0,0,0,0.4)] border border-white/20"
-        >
-          {/* Header */}
-          <div className="text-center mb-16">
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.3, duration: 1 }}
-              className="mb-10 inline-block"
-            >
-              <Image 
-                src="/images/logo/Rafah logo.webp" 
-                alt="Rafah Garden" 
-                width={200} 
-                height={60} 
-                className="h-10 w-auto object-contain brightness-0"
-              />
-            </motion.div>
-            <motion.p 
+    <div className="min-h-screen bg-[#f1f1f2] text-[#1b1c1c] selection:bg-[#c81c6a] selection:text-white overflow-x-hidden" style={{ fontFamily: "inherit" }}>
+      
+      <main className="max-w-[1440px] mx-auto px-6 md:px-12 pt-32 md:pt-40 pb-20 md:pb-32 relative min-h-screen flex items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 w-full">
+          
+          {/* Left Column: Typography */}
+          <div className="flex flex-col justify-start">
+            <span className="text-[14px] md:text-[16px] text-[#a3a3a3] font-medium mb-4">
+              Brand Sanctuary
+            </span>
+            <motion.h1 
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="text-[#c81c6a] font-black text-[10px] uppercase tracking-[0.6em] mb-4"
+              transition={{ duration: 0.3 }}
+              className="text-[140px] md:text-[200px] leading-[0.8] tracking-tight text-[#b5b5b5] select-none mb-8" 
+              style={{ fontFamily: "'DharmaGothic', sans-serif", fontWeight: 700 }}
             >
-              Brand Sanctuary
+              Admin<br />Vault.
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+              className="text-[14px] md:text-[15px] text-[#a3a3a3] max-w-[380px] font-medium leading-relaxed mt-4"
+            >
+              Access the master repository. Secure authentication is required to modify sanctuary data.
             </motion.p>
-            <h1 className="text-5xl font-black font-playfair text-[#5d5f61] tracking-tighter leading-none">
-              The <span className="italic font-normal">Vault</span>
-            </h1>
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-8">
-            <AnimatePresence mode="wait">
-              {error && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="bg-red-50/50 backdrop-blur-md text-red-500 p-6 rounded-3xl text-[9px] font-black uppercase tracking-[0.3em] text-center border border-red-100 mb-6 flex items-center justify-center gap-3"
-                >
-                  <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                  {error}
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            <div className="space-y-6">
-              <div className="relative group">
-                <Mail className="absolute left-8 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#c81c6a] transition-all duration-500" size={18} strokeWidth={1.5} />
-                <input
-                  type="email"
-                  placeholder="Official Repository Email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-20 pr-10 py-7 bg-gray-50/50 rounded-3xl outline-none text-sm font-bold text-[#5d5f61] placeholder:text-gray-200 transition-all duration-500 border border-transparent focus:border-[#c81c6a]/10 focus:bg-white shadow-sm"
-                />
-              </div>
-
-              <div className="relative group">
-                <Lock className="absolute left-8 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#c81c6a] transition-all duration-500" size={18} strokeWidth={1.5} />
-                <input
-                  type="password"
-                  placeholder="Master Encryption Key"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-20 pr-10 py-7 bg-gray-50/50 rounded-3xl outline-none text-sm font-bold text-[#5d5f61] placeholder:text-gray-200 transition-all duration-500 border border-transparent focus:border-[#c81c6a]/10 focus:bg-white shadow-sm"
-                />
-              </div>
-            </div>
-
-            <button
-              disabled={loading}
-              className="w-full py-8 bg-[#5d5f61] text-white rounded-3xl font-black text-[10px] uppercase tracking-[0.4em] flex items-center justify-center gap-6 shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] active:scale-[0.98] transition-all duration-700 disabled:opacity-50 overflow-hidden relative group/btn"
+          {/* Right Column: Form */}
+          <div className="flex flex-col justify-center pt-8 lg:pt-0 lg:pl-10">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4 }}
             >
-              {loading ? (
-                <div className="flex items-center gap-4">
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  <span>Decrypting...</span>
+              <h2 className="text-[32px] md:text-[40px] font-light text-[#555555] mb-2">
+                Establish Connection.
+              </h2>
+              <p className="text-[14px] text-[#888888] mb-12">
+                Provide your official repository credentials.
+              </p>
+
+              <form onSubmit={handleLogin} className="space-y-8">
+                <AnimatePresence mode="wait">
+                  {error && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="bg-red-50 text-red-500 p-4 rounded-[16px] text-[13px] font-medium border border-red-100 flex items-center gap-3"
+                    >
+                      <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                      {error}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <div className="relative group">
+                  <label className="text-[13px] font-medium text-[#888888] mb-1 block">Official Repository Email</label>
+                  <input 
+                    required
+                    type="email" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="admin@rafahgarden.com" 
+                    className="w-full bg-transparent border-b border-[#cccccc] py-2 focus:border-[#a3a3a3] focus:outline-none transition-all text-[14px] text-[#555555] placeholder-[#c0c0c0]"
+                  />
                 </div>
-              ) : (
-                <>
-                  <span className="relative z-10">Establish Connection</span>
-                  <ArrowRight size={18} className="relative z-10 group-hover/btn:translate-x-2 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000" />
-                </>
-              )}
-            </button>
-          </form>
 
-          <div className="mt-16 flex flex-col items-center justify-center gap-4">
-             <div className="flex items-center gap-3 text-gray-300">
-                <ShieldCheck size={16} className="text-[#c81c6a]" />
-                <span className="text-[9px] font-black uppercase tracking-[0.3em]">Sanctuary Security Protocol v4.0</span>
-             </div>
-             <div className="w-8 h-[1px] bg-gray-100 rounded-full" />
+                <div className="relative group">
+                  <div className="flex justify-between items-center mb-1">
+                    <label className="text-[13px] font-medium text-[#888888] block">Master Encryption Key</label>
+                  </div>
+                  <input 
+                    required
+                    type="password" 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••" 
+                    className="w-full bg-transparent border-b border-[#cccccc] py-2 focus:border-[#a3a3a3] focus:outline-none transition-all text-[14px] text-[#555555] placeholder-[#c0c0c0]"
+                  />
+                </div>
+
+                <div className="flex flex-col items-center gap-6 pt-6 w-full">
+                  <button 
+                    type="submit"
+                    disabled={loading}
+                    className="w-full h-14 rounded-full bg-[#c81c6a] text-white font-medium text-[16px] hover:bg-[#a8195a] transition-colors flex items-center justify-between px-8 disabled:opacity-50 shrink-0 shadow-md"
+                  >
+                    <span className="mx-auto">{loading ? "Decrypting..." : "Authenticate"}</span> 
+                    {loading ? (
+                       <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin shrink-0" />
+                    ) : (
+                       <ArrowRight size={20} strokeWidth={1.5} className="shrink-0" />
+                    )}
+                  </button>
+                </div>
+              </form>
+
+              <div className="mt-12 text-center">
+                 <div className="flex items-center justify-center gap-3 text-[#a3a3a3]">
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em]">Sanctuary Security Protocol v4.0</span>
+                 </div>
+              </div>
+            </motion.div>
           </div>
-        </motion.div>
 
-        {/* Decorative elements outside the card */}
-        <motion.div 
-          animate={{ 
-            rotate: [0, 360],
-          }}
-          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-          className="absolute -top-12 -right-12 w-24 h-24 border border-white/5 rounded-full pointer-events-none"
-        />
-        <motion.div 
-          animate={{ 
-            rotate: [360, 0],
-          }}
-          transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-          className="absolute -bottom-8 -left-8 w-16 h-16 border border-white/10 rounded-full pointer-events-none flex items-center justify-center"
-        >
-           <div className="w-1 h-1 bg-white/20 rounded-full" />
-        </motion.div>
-      </div>
+        </div>
+      </main>
     </div>
   );
 }

@@ -1,214 +1,187 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, User, Mail, Lock, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
-  const { setIsImmersive, setHeaderColor, headerColor } = useHeaderColor();
-  const activeColor = headerColor || "#c81c6a";
+  const [formState, setFormState] = useState<"idle" | "submitting" | "success">("idle");
+  const { setIsImmersive, setHeaderColor } = useHeaderColor();
 
   useEffect(() => {
     setIsImmersive(false);
-    setHeaderColor("#5d5f61"); // Deep forest green for auth context
+    setHeaderColor("#1b1c1c");
   }, [setIsImmersive, setHeaderColor]);
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormState("submitting");
+    // Simulate submission
+    setTimeout(() => {
+      setFormState("success");
+    }, 1500);
+  };
+
   return (
-    <div className="min-h-screen w-full flex flex-col md:flex-row bg-[#f1f1f2] font-sans overflow-hidden">
+    <div className="min-h-screen bg-[#f1f1f2] text-[#1b1c1c] selection:bg-[#c81c6a] selection:text-white overflow-x-hidden" style={{ fontFamily: "inherit" }}>
       
       {/* Mobile Back Button */}
       <Link href="/" className="md:hidden absolute top-6 left-6 z-50 text-[#5d5f61] flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] bg-white/80 backdrop-blur-md px-4 py-2 rounded-full shadow-sm">
         <ArrowLeft size={14} /> Back
       </Link>
 
-      {/* Left Side: Cinematic Presentation Area */}
-      <div className="hidden md:flex w-[45%] lg:w-[40%] relative bg-[#5d5f61] flex-col justify-between p-12 lg:p-20 overflow-hidden">
-        {/* Dynamic Background Texture */}
-        <div className="absolute inset-0 z-0">
-           <div className="absolute inset-0 bg-[url('/images/hero/plants_premium.png')] bg-cover bg-center opacity-10 mix-blend-overlay grayscale" />
-           <motion.div 
-             animate={{ 
-               scale: [1, 1.2, 1],
-               opacity: [0.2, 0.4, 0.2]
-             }}
-             transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-             className="absolute -top-[10%] -left-[10%] w-[120%] h-[120%] rounded-full blur-[120px]"
-             style={{ background: `radial-gradient(circle, ${activeColor} 0%, transparent 60%)` }}
-           />
-           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
-        </div>
-
-        {/* Brand Logo or Indicator */}
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="relative z-20"
-        >
-          <Link href="/" className="group flex items-center gap-4">
-             <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:bg-white group-hover:text-[#5d5f61] transition-all">
-                <ArrowLeft size={18} />
-             </div>
-             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60">Rafah Garden</span>
-          </Link>
-        </motion.div>
-
-        {/* Floating Hero Product Graphic */}
-        <div className="absolute inset-0 z-10 flex items-center justify-center p-12">
-           <AnimatePresence mode="wait">
-              <motion.div 
-                key={isLogin ? "login-img" : "reg-img"}
-                initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
-                animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                exit={{ opacity: 0, scale: 1.1, rotate: 5 }}
-                transition={{ duration: 0.8, ease: "circOut" }}
-                className="relative w-full h-full max-h-[500px]"
+      <main className="max-w-[1440px] mx-auto px-6 md:px-12 pt-32 md:pt-40 pb-20 md:pb-32 relative min-h-screen flex items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 w-full">
+          
+          {/* Left Column: Typography */}
+          <div className="flex flex-col justify-start">
+            <span className="text-[14px] md:text-[16px] text-[#a3a3a3] font-medium mb-4">
+              Authentication
+            </span>
+            <AnimatePresence mode="wait">
+              <motion.h1 
+                key={isLogin ? "login" : "register"}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="text-[140px] md:text-[200px] leading-[0.8] tracking-tight text-[#b5b5b5] select-none mb-8" 
+                style={{ fontFamily: "'DharmaGothic', sans-serif", fontWeight: 700 }}
               >
-                  <Image
-                    src={isLogin ? "/images/hero/crush_bottle.png" : "/images/hero/plants_premium.png"}
-                    alt="Heritage Asset"
-                    fill
-                    className="object-contain drop-shadow-[0_40px_100px_rgba(0,0,0,0.6)]"
-                    priority
-                  />
-              </motion.div>
-           </AnimatePresence>
-        </div>
-
-        {/* Content Reveal */}
-        <div className="relative z-20 mt-auto">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={isLogin ? "login-txt" : "reg-txt"}
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 30 }}
-              transition={{ duration: 0.5, ease: "circOut" }}
-            >
-              <h2 className="text-5xl lg:text-7xl font-black font-playfair text-white leading-[0.9] mb-6 tracking-tight">
-                {isLogin ? "Access the" : "Join the"} <br/>
-                <span className="italic font-light opacity-60">Heritage.</span>
-              </h2>
-              <p className="text-white/50 font-inter text-sm lg:text-base max-w-sm leading-relaxed font-light">
-                 {isLogin 
-                   ? "Return to your botanical journey. Your personalized Rafah Garden collection awaits." 
-                   : "Become part of our legacy. Experience the true essence of botanical luxury and care."}
-              </p>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </div>
-
-      {/* Right Side: Interactive Auth Form */}
-      <div className="w-full md:w-[55%] lg:w-[60%] flex items-center justify-center px-6 py-20 lg:p-24 min-h-screen relative overflow-y-auto">
-        
-        {/* Abstract Background Blur on Form Side */}
-        <div className="absolute inset-0 pointer-events-none opacity-20 overflow-hidden">
-             <div 
-               className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-[140px] -translate-y-1/2 translate-x-1/4" 
-               style={{ background: activeColor }}
-             />
-             <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#5d5f61]/10 blur-[100px]" />
-        </div>
-
-        <div className="w-full max-w-lg relative z-10">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={isLogin ? "login-form" : "reg-form"}
-              initial={{ opacity: 0, scale: 0.98, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 1.02, y: -10 }}
-              transition={{ duration: 0.4 }}
-              className="bg-white/40 backdrop-blur-3xl p-8 lg:p-14 rounded-[3rem] border border-white/60 shadow-[0_40px_100px_rgba(0,0,0,0.03)]"
-            >
-              
-              <div className="mb-12">
-                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-400 mb-4 block">Authentication</span>
-                <h1 className="text-5xl font-black font-playfair text-[#5d5f61] mb-4 tracking-tighter">
-                  {isLogin ? "Welcome Back" : "New Heritage"}
-                </h1>
-                <p className="text-gray-500 font-inter text-sm font-medium opacity-70">
-                  {isLogin 
-                    ? "Manage your premium garden and orders with ease." 
-                    : "Create an account to start your premium botanical collection."}
-                </p>
-              </div>
-
-              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-                
-                {!isLogin && (
-                  <motion.div 
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    className="space-y-2"
-                  >
-                    <label className="text-[10px] font-black uppercase tracking-widest text-[#5d5f61] ml-4 opacity-40">Full Name</label>
-                    <div className="relative group">
-                       <User className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#5d5f61] transition-colors" size={18} />
-                       <input 
-                         type="text" 
-                         placeholder="e.g. Alexander Garden" 
-                         className="w-full pl-14 pr-6 py-5 rounded-2xl bg-white border border-gray-100 focus:border-gray-300 outline-none transition-all shadow-sm font-bold text-[#5d5f61] placeholder:text-gray-200 placeholder:font-normal" 
-                       />
-                    </div>
-                  </motion.div>
+                {isLogin ? (
+                  <>Sign<br />In.</>
+                ) : (
+                  <>Join<br />Us.</>
                 )}
+              </motion.h1>
+            </AnimatePresence>
+            <AnimatePresence mode="wait">
+              <motion.p 
+                key={isLogin ? "login-desc" : "register-desc"}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="text-[14px] md:text-[15px] text-[#a3a3a3] max-w-[380px] font-medium leading-relaxed mt-4"
+              >
+                {isLogin 
+                  ? "Return to your botanical journey. Your personalized Rafah Garden collection awaits." 
+                  : "Become part of our legacy. Experience the true essence of botanical luxury and care."}
+              </motion.p>
+            </AnimatePresence>
+          </div>
 
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-[#5d5f61] ml-4 opacity-40">Email Identity</label>
-                  <div className="relative group">
-                     <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#5d5f61] transition-colors" size={18} />
-                     <input 
-                       type="email" 
-                       placeholder="your@email.com" 
-                       className="w-full pl-14 pr-6 py-5 rounded-2xl bg-white border border-gray-100 focus:border-gray-300 outline-none transition-all shadow-sm font-bold text-[#5d5f61] placeholder:text-gray-200 placeholder:font-normal" 
-                     />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex justify-between items-end mr-4">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-[#5d5f61] ml-4 opacity-40">Security Key</label>
-                    {isLogin && <a href="#" className="text-[9px] uppercase font-black tracking-widest text-gray-400 hover:text-[#5d5f61] transition-colors">Recover?</a>}
-                  </div>
-                  <div className="relative group">
-                     <Lock className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#5d5f61] transition-colors" size={18} />
-                     <input 
-                       type="password" 
-                       placeholder="••••••••" 
-                       className="w-full pl-14 pr-6 py-5 rounded-2xl bg-white border border-gray-100 focus:border-gray-300 outline-none transition-all shadow-sm font-bold text-[#5d5f61] placeholder:text-gray-200 placeholder:font-normal" 
-                     />
-                  </div>
-                </div>
-
-                <button 
-                  className="w-full py-6 mt-6 text-white font-black tracking-[0.3em] uppercase text-xs rounded-2xl transition-all shadow-2xl active:scale-[0.98] flex items-center justify-center gap-4 hover:brightness-110"
-                  style={{ backgroundColor: "#5d5f61" }}
+          {/* Right Column: Form */}
+          <div className="flex flex-col justify-center pt-8 lg:pt-0 lg:pl-10">
+            <AnimatePresence mode="wait">
+              {formState !== "success" ? (
+                <motion.div
+                  key="form"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0, y: -20 }}
                 >
-                  {isLogin ? "Sign In" : "Register"}
-                  <CheckCircle2 size={18} className="opacity-40" />
-                </button>
-              </form>
+                  <h2 className="text-[32px] md:text-[40px] font-light text-[#555555] mb-2">
+                    {isLogin ? "Welcome Back." : "New Heritage."}
+                  </h2>
+                  <p className="text-[14px] text-[#888888] mb-12">
+                    {isLogin 
+                      ? "Enter your credentials to continue." 
+                      : "Create an account to start your collection."}
+                  </p>
 
-              <div className="mt-12 text-center pt-8 border-t border-gray-100/50">
-                <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">
-                  {isLogin ? "Member status: Not found" : "Member status: Existing"}{" "}
-                  <button 
-                    onClick={() => setIsLogin(!isLogin)}
-                    className="text-[#5d5f61] ml-2 underline underline-offset-4 decoration-2 decoration-brand-pink/30 hover:decoration-brand-pink transition-all"
-                  >
-                    {isLogin ? "Apply Now" : "Sign In"}
-                  </button>
-                </p>
-              </div>
+                  <form onSubmit={handleSubmit} className="space-y-8">
+                    <AnimatePresence>
+                      {!isLogin && (
+                        <motion.div 
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="relative group overflow-hidden"
+                        >
+                          <label className="text-[13px] font-medium text-[#888888] mb-1 block">Full Name</label>
+                          <input 
+                            name="name"
+                            type="text" 
+                            placeholder="e.g. Alexander Garden" 
+                            className="w-full bg-transparent border-b border-[#cccccc] py-2 focus:border-[#a3a3a3] focus:outline-none transition-all text-[14px] text-[#555555] placeholder-[#c0c0c0]"
+                          />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
 
-            </motion.div>
-          </AnimatePresence>
+                    <div className="relative group">
+                      <label className="text-[13px] font-medium text-[#888888] mb-1 block">Email Address</label>
+                      <input 
+                        required
+                        name="email"
+                        type="email" 
+                        placeholder="your@email.com" 
+                        className="w-full bg-transparent border-b border-[#cccccc] py-2 focus:border-[#a3a3a3] focus:outline-none transition-all text-[14px] text-[#555555] placeholder-[#c0c0c0]"
+                      />
+                    </div>
+
+                    <div className="relative group">
+                      <div className="flex justify-between items-center mb-1">
+                        <label className="text-[13px] font-medium text-[#888888] block">Password</label>
+                        {isLogin && <a href="#" className="text-[11px] font-medium text-[#c81c6a] hover:underline">Forgot?</a>}
+                      </div>
+                      <input 
+                        required
+                        name="password"
+                        type="password" 
+                        placeholder="••••••••" 
+                        className="w-full bg-transparent border-b border-[#cccccc] py-2 focus:border-[#a3a3a3] focus:outline-none transition-all text-[14px] text-[#555555] placeholder-[#c0c0c0]"
+                      />
+                    </div>
+
+                    <div className="flex flex-col items-center gap-6 pt-6 w-full">
+                      <button 
+                        type="submit"
+                        disabled={formState === "submitting"}
+                        className="w-full h-14 rounded-full bg-[#c81c6a] text-white font-medium text-[16px] hover:bg-[#a8195a] transition-colors flex items-center justify-between px-8 disabled:opacity-50 shrink-0 shadow-md"
+                      >
+                        <span className="mx-auto">{formState === "submitting" ? "Authenticating..." : (isLogin ? "Sign In" : "Create Account")}</span> 
+                        <ArrowRight size={20} strokeWidth={1.5} className="shrink-0" />
+                      </button>
+                    </div>
+                  </form>
+
+                  <div className="mt-8 text-center">
+                    <p className="text-[13px] text-[#888888]">
+                      {isLogin ? "Don't have an account?" : "Already part of our legacy?"}{" "}
+                      <button 
+                        type="button"
+                        onClick={() => setIsLogin(!isLogin)}
+                        className="font-medium text-[#c81c6a] hover:underline"
+                      >
+                        {isLogin ? "Create one" : "Sign in"}
+                      </button>
+                    </p>
+                  </div>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex flex-col items-center justify-center py-20 text-center"
+                >
+                  <div className="w-20 h-20 bg-[#c81c6a] rounded-full flex items-center justify-center text-white mb-8 shadow-lg">
+                    <CheckCircle2 size={40} strokeWidth={1.5} />
+                  </div>
+                  <h2 className="text-[32px] font-light text-[#555555] mb-2">Authenticated.</h2>
+                  <p className="text-[14px] text-[#888888] mb-8 max-w-sm">Welcome to your personalized Rafah Garden experience.</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
         </div>
-      </div>
+      </main>
     </div>
   );
 }
