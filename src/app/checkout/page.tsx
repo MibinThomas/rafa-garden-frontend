@@ -112,10 +112,6 @@ export default function CheckoutPage() {
   return (
     <div className="min-h-screen bg-[#f1f1f2] text-[#1b1c1c] selection:bg-[#c81c6a] selection:text-white overflow-x-hidden" style={{ fontFamily: "inherit" }}>
       
-      {/* Mobile Back Button */}
-      <Link href="/shop" className="md:hidden absolute top-6 left-6 z-50 text-[#5d5f61] flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] bg-white/80 backdrop-blur-md px-4 py-2 rounded-full shadow-sm">
-        <ArrowLeft size={14} /> Back to Shop
-      </Link>
 
       <main className="max-w-[1440px] mx-auto px-6 md:px-12 pt-32 md:pt-40 pb-20 md:pb-32 relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
@@ -135,14 +131,7 @@ export default function CheckoutPage() {
               Provide your details to establish the settlement manifest. Your botanical assets will be reserved upon WhatsApp confirmation.
             </p>
 
-            {/* Desktop Back Button */}
-            <Link 
-              href="/shop" 
-              className="hidden lg:flex items-center gap-3 text-[12px] font-bold uppercase tracking-[0.3em] text-[#888888] hover:text-[#c81c6a] transition-colors mt-20 group"
-            >
-              <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-              Return to Sanctuary
-            </Link>
+
           </div>
 
           {/* Right Column: Form & Summary */}

@@ -28,10 +28,6 @@ export default function AuthPage() {
   return (
     <div className="min-h-screen bg-[#f1f1f2] text-[#1b1c1c] selection:bg-[#c81c6a] selection:text-white overflow-x-hidden" style={{ fontFamily: "inherit" }}>
       
-      {/* Mobile Back Button */}
-      <Link href="/" className="md:hidden absolute top-6 left-6 z-50 text-[#5d5f61] flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] bg-white/80 backdrop-blur-md px-4 py-2 rounded-full shadow-sm">
-        <ArrowLeft size={14} /> Back
-      </Link>
 
       <main className="max-w-[1440px] mx-auto px-6 md:px-12 pt-32 md:pt-40 pb-20 md:pb-32 relative min-h-screen flex items-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 w-full">
