@@ -18,7 +18,21 @@ export function HomeProductSection({ categories, categoryIndex }: HomeProductSec
   if (!category) return null;
 
   const products = category.products || [];
-  const itemsPerPage = 3;
+  const [itemsPerPage, setItemsPerPage] = useState(1);
+
+  useEffect(() => {
+    const updateItemsPerPage = () => {
+      if (window.innerWidth >= 1024) {
+        setItemsPerPage(3);
+      } else if (window.innerWidth >= 0) {
+        setItemsPerPage(2);
+      }
+    };
+    updateItemsPerPage();
+    window.addEventListener('resize', updateItemsPerPage);
+    return () => window.removeEventListener('resize', updateItemsPerPage);
+  }, []);
+
   const maxIndex = Math.max(0, products.length - itemsPerPage);
 
   const handleNext = () => {
@@ -32,10 +46,10 @@ export function HomeProductSection({ categories, categoryIndex }: HomeProductSec
   // Reset scroll position when category changes
   useEffect(() => {
     setScrollIndex(0);
-  }, [categoryIndex]);
+  }, [categoryIndex, itemsPerPage]);
 
   return (
-    <section className="bg-[#f1f1f2] pt-12 pb-24 sm:pb-32 px-6 md:px-12 lg:px-24 relative overflow-hidden min-h-[70vh]">
+    <section className="bg-[#f1f1f2] pt-8 pb-8 px-6 md:px-12 lg:px-24 relative overflow-hidden">
       <div className="max-w-[1600px] mx-auto relative z-10">
         
         {/* Header with Navigation Arrows on the right */}
@@ -72,7 +86,7 @@ export function HomeProductSection({ categories, categoryIndex }: HomeProductSec
             {products.map((product: any) => (
               <div 
                 key={product.id || product._id} 
-                className="flex-shrink-0 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-21.33px)]"
+                className="flex-shrink-0 w-[calc(50%-8px)] md:w-[calc(50%-12px)] lg:w-[calc(33.333%-21.33px)]"
               >
                 <ProductCard
                   product={product}

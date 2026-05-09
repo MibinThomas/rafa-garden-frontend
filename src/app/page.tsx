@@ -80,7 +80,7 @@ export default function Home() {
         {/* Dynamic Product Grid Section Below Hero - Now showing all categories stacked */}
         <div className="w-full relative z-10 bg-[#f1f1f2]">
           {categories.map((cat, idx) => (
-            <div key={cat.id || cat._id || idx} className="mb-16 md:mb-24 last:mb-0">
+            <div key={cat.id || cat._id || idx} className="mb-0 last:mb-0">
               <CuratedSeriesSection 
                 categoryTitle={cat.title || "Collection"} 
               />
