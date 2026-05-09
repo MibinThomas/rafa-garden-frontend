@@ -96,7 +96,7 @@ export function ProductDetailSection({ product, categoryTitle, categoryColor, on
         {/* Right: Product Details */}
         <div className="flex flex-col justify-center">
           <span className="text-xs font-bold uppercase tracking-[0.4em] text-gray-400 mb-3" style={{ color: categoryColor }}>{categoryTitle} Heritage</span>
-          <h2 className="text-4xl md:text-5xl font-black font-playfair text-[#5d5f61] mb-6 leading-tight">
+          <h2 className="text-4xl md:text-6xl font-semibold text-[#5d5f61] mb-6 leading-[0.95] uppercase" style={{ fontFamily: 'AvantGarde, sans-serif' }}>
             {product.name}
           </h2>
 

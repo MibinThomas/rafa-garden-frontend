@@ -1,7 +1,9 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ProductCard } from "./ProductCard";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface HomeProductSectionProps {
   categories: any[];
@@ -10,32 +12,76 @@ interface HomeProductSectionProps {
 
 export function HomeProductSection({ categories, categoryIndex }: HomeProductSectionProps) {
   const category = categories[categoryIndex] || categories[0];
+  const [scrollIndex, setScrollIndex] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   if (!category) return null;
 
-  return (
-    <section className="bg-[#f1f1f2] pt-12 pb-24 sm:pb-32 px-0 md:px-12 relative overflow-hidden min-h-[80vh]">
+  const products = category.products || [];
+  const itemsPerPage = 3;
+  const maxIndex = Math.max(0, products.length - itemsPerPage);
 
+  const handleNext = () => {
+    setScrollIndex((prev) => Math.min(prev + 1, maxIndex));
+  };
+
+  const handlePrev = () => {
+    setScrollIndex((prev) => Math.max(prev - 1, 0));
+  };
+
+  // Reset scroll position when category changes
+  useEffect(() => {
+    setScrollIndex(0);
+  }, [categoryIndex]);
+
+  return (
+    <section className="bg-[#f1f1f2] pt-12 pb-24 sm:pb-32 px-6 md:px-12 lg:px-24 relative overflow-hidden min-h-[70vh]">
       <div className="max-w-[1600px] mx-auto relative z-10">
-        {/* Dynamic Product Grid */}
-        <AnimatePresence mode="wait">
+        
+        {/* Header with Navigation Arrows on the right */}
+        <div className="flex items-center justify-end mb-10">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={handlePrev}
+              disabled={scrollIndex === 0}
+              className={`w-12 h-12 rounded-full border border-black/10 flex items-center justify-center transition-all ${
+                scrollIndex === 0 ? "opacity-30 cursor-not-allowed" : "hover:bg-white hover:shadow-md active:scale-90"
+              }`}
+            >
+              <ChevronLeft size={24} className="text-[#5d5f61]" />
+            </button>
+            <button
+              onClick={handleNext}
+              disabled={scrollIndex === maxIndex}
+              className={`w-12 h-12 rounded-full border border-black/10 flex items-center justify-center transition-all ${
+                scrollIndex === maxIndex ? "opacity-30 cursor-not-allowed" : "hover:bg-white hover:shadow-md active:scale-90"
+              }`}
+            >
+              <ChevronRight size={24} className="text-[#5d5f61]" />
+            </button>
+          </div>
+        </div>
+
+        {/* Carousel Track */}
+        <div className="relative overflow-hidden">
           <motion.div
-            key={(category.id || category._id) + "-grid"}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
-            className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 lg:gap-10"
+            animate={{ x: `-${scrollIndex * (100 / itemsPerPage)}%` }}
+            transition={{ type: "spring", stiffness: 200, damping: 25 }}
+            className="flex gap-4 md:gap-6 lg:gap-8"
           >
-            {(category.products || []).map((product: any) => (
-              <ProductCard
-                key={product.id || product._id}
-                product={product}
-                accentColor={category.color}
-              />
+            {products.map((product: any) => (
+              <div 
+                key={product.id || product._id} 
+                className="flex-shrink-0 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-21.33px)]"
+              >
+                <ProductCard
+                  product={product}
+                  accentColor={category.color}
+                />
+              </div>
             ))}
           </motion.div>
-        </AnimatePresence>
+        </div>
       </div>
     </section>
   );

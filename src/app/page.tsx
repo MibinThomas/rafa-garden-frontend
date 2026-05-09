@@ -77,86 +77,19 @@ export default function Home() {
           />
         </div>
 
-        {/* Mobile-Only: Active Category Info Strip */}
-        <div className="flex md:hidden w-full px-6 pt-6 pb-2 bg-[#f1f1f2] z-10">
-          <div key={activeMobileCatIndex} className="flex flex-col gap-2">
-            <p
-              className="text-[10px] font-black uppercase tracking-[0.35em]"
-              style={{ color: categories[activeMobileCatIndex]?.color || "#c81c6a" }}
-            >
-              {categories[activeMobileCatIndex]?.subtitle || "Pure Botanical Refreshment"}
-            </p>
-            <h2 className="text-[2.8rem] font-black font-brand-heading text-[#1c1c1c] leading-none tracking-tight mb-1">
-              {categories[activeMobileCatIndex]?.title || "Crush"}
-            </h2>
-            <p className="text-[13px] text-[#737478] leading-[1.7] font-normal max-w-[340px]">
-              {categories[activeMobileCatIndex]?.mobileActiveDesc ||
-                "Handcrafted with botanical integrity to provide a sensory experience like no other."}
-            </p>
-          </div>
-        </div>
-
-        {/* Mobile-Only: Category Pill Selector */}
-        <div className="flex md:hidden w-full px-6 py-5 bg-[#f1f1f2] z-10 overflow-x-auto scrollbar-hide">
-          <div className="flex gap-3 items-center">
-            {categories.slice(0, 4).map((cat, idx) => (
-              <button
-                key={cat.id || cat._id}
-                onClick={() => setActiveMobileCatIndex(idx)}
-                className="flex-shrink-0 px-5 py-2 rounded-full border text-[11px] font-bold tracking-[0.15em] uppercase transition-all duration-300 font-avant-garde"
-                style={{
-                  color: activeMobileCatIndex === idx ? "#ffffff" : "#666c75",
-                  backgroundColor: activeMobileCatIndex === idx ? (cat.color || "#c81c6a") : "transparent",
-                  borderColor: activeMobileCatIndex === idx ? (cat.color || "#c81c6a") : "rgba(51,51,51,0.2)",
-                }}
-              >
-                {cat.title}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Desktop Horizontal Category Navigator */}
-        <div className="hidden md:flex w-full bg-[#f1f1f2] py-16 items-center justify-center relative z-10">
-          <div className="flex gap-6 items-center">
-            {categories.slice(0, 4).map((cat, idx) => (
-              <button
-                key={cat.id || cat._id}
-                onClick={() => handleCategorySelect(idx)}
-                className="px-8 py-3 rounded-full border border-[#333333]/20 transition-all duration-500 font-avant-garde text-[0.7rem] font-bold tracking-[0.15em] uppercase whitespace-nowrap overflow-hidden relative group"
-                style={{ 
-                   color: activeCollectionIndex === idx ? cat.color : "#666c75",
-                   backgroundColor: "#f1f1f2",
-                   borderColor: "rgba(51, 51, 51, 0.2)"
-                }}
-              >
-                <span className="relative z-10">{cat.title}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Dynamic Product Grid Section Below Hero */}
+        {/* Dynamic Product Grid Section Below Hero - Now showing all categories stacked */}
         <div className="w-full relative z-10 bg-[#f1f1f2]">
-          {/* Mobile uses activeMobileCatIndex, desktop uses activeCollectionIndex */}
-          <div className="block md:hidden">
-            <CuratedSeriesSection 
-              categoryTitle={categories[activeMobileCatIndex]?.title || "Collection"} 
-            />
-            <HomeProductSection 
-              categories={categories}
-              categoryIndex={activeMobileCatIndex} 
-            />
-          </div>
-          <div className="hidden md:block">
-            <CuratedSeriesSection 
-              categoryTitle={categories[activeCollectionIndex]?.title || "Collection"} 
-            />
-            <HomeProductSection 
-              categories={categories}
-              categoryIndex={activeCollectionIndex} 
-            />
-          </div>
+          {categories.map((cat, idx) => (
+            <div key={cat.id || cat._id || idx} className="mb-16 md:mb-24 last:mb-0">
+              <CuratedSeriesSection 
+                categoryTitle={cat.title || "Collection"} 
+              />
+              <HomeProductSection 
+                categories={categories}
+                categoryIndex={idx} 
+              />
+            </div>
+          ))}
         </div>
       </motion.div>
     </main>

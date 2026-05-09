@@ -6,10 +6,10 @@ import { motion } from "framer-motion";
 import { useCart } from "@/lib/CartContext";
 import { useWishlist } from "@/lib/WishlistContext";
 import { Product } from "@/lib/data";
-import { Heart, Plus, Minus, ShoppingBasket } from "lucide-react";
+import { Heart, Plus, Minus } from "lucide-react";
 import Link from "next/link";
 
-export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { product: Product, accentColor?: string, onSelect?: (product: Product) => void }) {
+export function ProductCard({ product, accentColor = "#d11e6d", onSelect }: { product: Product, accentColor?: string, onSelect?: (product: Product) => void }) {
   const { addToCart } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
   const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
@@ -45,129 +45,131 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
     toggleWishlist(product.id);
   };
 
-
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="group relative flex flex-col h-full bg-[#f1f1f2] p-3 md:p-6 rounded-[24px] md:rounded-[32px] transition-all duration-500 hover:bg-[#f1f1f2] hover:shadow-[0_20px_40px_rgba(0,0,0,0.05)]"
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="group relative flex flex-col bg-[#f2f2f2] p-4 md:p-6 lg:p-8 rounded-[32px] md:rounded-[40px] transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.05)] h-fit"
+      style={{ fontFamily: 'AvantGarde, sans-serif' }}
     >
-      {/* Top: Image Stage */}
-      <div className="relative w-full aspect-[4/5] flex items-center justify-center mb-4 md:mb-6">
-        {/* Wishlist Heart Icon - Top Right */}
-        <button
-          onClick={handleWishlist}
-          className="absolute top-0 right-0 z-30 w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center bg-transparent border border-black/10 transition-all hover:scale-110 active:scale-90"
-        >
-          <Heart
-            size={isDesktop ? 22 : 16}
-            fill={isFavorited ? "#c21e5c" : "#b0b0b0"}
-            className={isFavorited ? "text-[#c21e5c]" : "text-[#b0b0b0]"}
-            strokeWidth={1.5}
-          />
-        </button>
-
-        {/* Product Image */}
-        <Link
-          href={`/product/${product.id}`}
-          className="relative w-full h-full flex items-center justify-center cursor-pointer z-10"
-        >
-          <motion.div
-            className="relative w-[80%] h-[85%]"
-            whileHover={{ scale: 1.08, y: -8 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      {/* Top Section: Horizontal Split (Image & Info) */}
+      <div className="flex flex-row gap-4 md:gap-6 lg:gap-8">
+        
+        {/* Left Side: Product Image & Wishlist */}
+        <div className="relative flex-1 aspect-[3/5] flex items-center justify-center">
+          {/* Wishlist Heart Icon - Top Left */}
+          <button
+            onClick={handleWishlist}
+            className="absolute top-0 left-0 z-30 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center bg-transparent border border-black/10 transition-all hover:scale-110 active:scale-90 shadow-sm"
           >
-            <Image
-              src={product.image}
-              alt={product.name}
-              fill
-              className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.12)]"
-              priority
+            <Heart
+              size={isDesktop ? 20 : 16}
+              fill={isFavorited ? "#d11e6d" : "transparent"}
+              className={isFavorited ? "text-[#d11e6d]" : "text-[#707072] opacity-40"}
+              strokeWidth={1.5}
             />
-          </motion.div>
-        </Link>
-      </div>
+          </button>
 
-      {/* Product Info */}
-      <div className="flex flex-col flex-1" style={{ fontFamily: 'AvantGarde, sans-serif' }}>
-        {/* Title */}
-        <h3 className="text-[32px] md:text-[44px] font-bold text-[#5d5f61] tracking-tight leading-tight mb-2 md:mb-4">
-          {product.name}
-        </h3>
-
-        {/* Variants Selection */}
-        <div className="flex items-center gap-2 md:gap-4 mb-4 md:mb-6">
-          {product.variants.map((v, idx) => {
-            const isActive = selectedVariantIdx === idx;
-            return (
-              <button
-                key={idx}
-                onClick={(e) => { e.stopPropagation(); setSelectedVariantIdx(idx); }}
-                className="flex items-center gap-2 group/variant"
-              >
-                <span className={`text-[12px] md:text-[14px] font-medium transition-colors ${isActive ? "text-[#4a4a4a]" : "text-[#b0b0b0] group-hover/variant:text-[#888888]"}`}>
-                  {v.size}{v.unit}
-                </span>
-                <div className={`w-3 h-3 md:w-4 md:h-4 rounded-full border-2 flex items-center justify-center transition-all ${isActive ? "border-[#c21e5c]" : "border-[#e0e0e0] group-hover/variant:border-[#cccccc]"}`}>
-                  {isActive && <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-[#c21e5c]" />}
-                </div>
-              </button>
-            );
-          })}
+          {/* Product Image */}
+          <Link
+            href={`/product/${product.id}`}
+            className="relative w-full h-full flex items-center justify-center cursor-pointer z-10"
+          >
+            <motion.div
+              className="relative w-full h-[90%]"
+              whileHover={{ scale: 1.05, y: -5 }}
+              transition={{ type: "spring", stiffness: 200, damping: 15 }}
+            >
+              <Image
+                src={product.image}
+                alt={product.name}
+                fill
+                className="object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.1)]"
+                priority
+              />
+            </motion.div>
+          </Link>
         </div>
 
-        {/* Quantity Controls & Price */}
-        <div className="flex items-center gap-6 mb-6 md:mb-8">
-          <div className="flex items-center gap-2 md:gap-4">
+        {/* Right Side: Product Details */}
+        <div className="flex-1 flex flex-col justify-center">
+          {/* Title - Multi-line if needed */}
+          <h3 className="text-[20px] md:text-[28px] lg:text-[36px] font-semibold text-[#5d5f61] tracking-tight leading-[1.1] mb-4">
+            {product.name.split(' ').map((word, i) => (
+              <span key={i} className="block">{word}</span>
+            ))}
+          </h3>
+
+          {/* Price & Taxes */}
+          <div className="flex items-baseline gap-2 mb-6">
+            <span className="text-[18px] md:text-[24px] lg:text-[32px] font-normal text-[#5d5f61]">
+              ₹{currentPrice.toFixed(0)}
+            </span>
+            <span className="text-[8px] md:text-[10px] text-[#b0b0b0] font-medium tracking-tight">
+              inclusive all taxes
+            </span>
+          </div>
+
+          {/* Quantity Selector */}
+          <div className="flex items-center gap-3 mb-6">
             <button
               onClick={(e) => { e.stopPropagation(); if (quantity > 1) setQuantity(prev => prev - 1); }}
-              className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-lg bg-[#f5f5f5] text-[#888888] hover:bg-[#e0e0e0] transition-colors"
+              className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded-[10px] border border-black/10 text-[#707072] hover:bg-white transition-all"
             >
-              <Minus size={isDesktop ? 16 : 12} strokeWidth={2.5} />
+              <Minus size={14} strokeWidth={1.5} />
             </button>
-            <span className="text-[14px] md:text-[18px] font-bold text-[#4a4a4a] min-w-[15px] md:min-w-[20px] text-center">
+            <span className="text-[16px] md:text-[18px] font-medium text-[#707072] min-w-[16px] text-center">
               {quantity}
             </span>
             <button
               onClick={(e) => { e.stopPropagation(); setQuantity(prev => prev + 1); }}
-              className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-lg bg-[#f5f5f5] text-[#888888] hover:bg-[#e0e0e0] transition-colors"
+              className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded-[10px] border border-black/10 text-[#707072] hover:bg-white transition-all"
             >
-              <Plus size={isDesktop ? 16 : 12} strokeWidth={2.5} />
+              <Plus size={14} strokeWidth={1.5} />
             </button>
           </div>
-          <div className="flex items-start md:hidden">
-            <span className="text-[20px] text-[#8a8a8a] tracking-tighter leading-none">
-              ₹{currentPrice.toFixed(0)}
-            </span>
-          </div>
-        </div>
 
-        {/* Bottom Row: Price (Desktop) & Buy Now */}
-        <div className="mt-auto flex items-center justify-between md:justify-end gap-2 w-full md:w-auto">
-          <div className="hidden md:flex items-start mr-auto">
-            <span className="text-[20px] md:text-[32px] lg:text-[38px] text-[#8a8a8a] tracking-tighter leading-none">
-              ₹{currentPrice.toFixed(0)}
-            </span>
-          </div>
-          <div className="flex items-center justify-between md:justify-end gap-2 w-full md:w-auto">
-            <button
-              onClick={handleAddToCart}
-              className="w-8 h-8 md:w-12 md:h-12 rounded-full border border-[#5d5f61]/10 flex items-center justify-center text-[#5d5f61] hover:bg-white hover:border-[#5d5f61]/30 transition-all active:scale-95"
-              title="Add to Cart"
-            >
-              <ShoppingBasket size={isDesktop ? 20 : 14} />
-            </button>
-            <button
-              onClick={handleAddToCart}
-              className="px-3 md:px-8 py-1.5 md:py-3 rounded-full bg-[#c21e5c] text-white font-bold text-[11px] md:text-[16px] tracking-wide transition-all hover:bg-[#9c0045] hover:shadow-lg active:scale-95 whitespace-nowrap flex-1 md:flex-initial text-center justify-center"
-            >
-              Buy Now
-            </button>
+          {/* Variants Selection */}
+          <div className="flex items-center gap-4 mt-auto">
+            {product.variants.map((v, idx) => {
+              const isActive = selectedVariantIdx === idx;
+              return (
+                <button
+                  key={idx}
+                  onClick={(e) => { e.stopPropagation(); setSelectedVariantIdx(idx); }}
+                  className="flex items-center gap-2 group/variant"
+                >
+                  <span className={`text-[12px] md:text-[14px] font-medium transition-colors ${isActive ? "text-[#5d5f61]" : "text-[#b0b0b0]"}`}>
+                    {v.size}{v.unit}
+                  </span>
+                  <div className={`w-4 h-4 md:w-5 md:h-5 rounded-full border-2 flex items-center justify-center transition-all ${isActive ? "border-[#d11e6d]" : "border-[#d0d0d0]"}`}>
+                    {isActive && <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-[#d11e6d]" />}
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
+      </div>
+
+      {/* Bottom Section: Action Buttons */}
+      <div className="mt-8 flex items-center gap-3 w-full">
+        <button
+          onClick={handleAddToCart}
+          className="flex-1 py-3 md:py-4 rounded-full bg-[#d11e6d] text-white font-bold text-[12px] md:text-[14px] tracking-wide transition-all hover:bg-[#b0185a] hover:shadow-lg active:scale-95 text-center"
+        >
+          Add to cart
+        </button>
+        <button
+          onClick={handleAddToCart}
+          className="flex-1 py-3 md:py-4 rounded-full bg-[#707072] text-white font-bold text-[12px] md:text-[14px] tracking-wide transition-all hover:bg-[#5a5a5c] hover:shadow-lg active:scale-95 text-center"
+        >
+          Buy Now
+        </button>
       </div>
     </motion.div>
   );
 }
+
 
