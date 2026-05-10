@@ -9,6 +9,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { ProductDetailSection } from "@/components/ProductDetailSection";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
 import { useSiteSettings } from "@/lib/SiteSettingsContext";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 
 function ShopContent() {
@@ -21,6 +22,7 @@ function ShopContent() {
 
   // Dynamic State for categories
   const [categories, setCategories] = useState<Category[]>(CATEGORIES);
+  const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
   const [loading, setLoading] = useState(true);
 
   // Initial category from query param or settings
@@ -35,10 +37,44 @@ function ShopContent() {
     }
   }, [searchParams, settings]);
 
-  // State for active category
-  const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
-
   const activeCategory = categories[activeCategoryIndex] || CATEGORIES[0];
+  const products = activeCategory.products || [];
+
+  // Carousel/Sliding State (Home Page Style)
+  const [scrollIndex, setScrollIndex] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(1);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const updateItemsPerPage = () => {
+      const width = window.innerWidth;
+      setIsDesktop(width >= 768);
+      if (width >= 1024) {
+        setItemsPerPage(3);
+      } else {
+        setItemsPerPage(2);
+      }
+    };
+    updateItemsPerPage();
+    window.addEventListener('resize', updateItemsPerPage);
+    return () => window.removeEventListener('resize', updateItemsPerPage);
+  }, []);
+
+  const maxScrollIndex = Math.max(0, products.length - itemsPerPage);
+
+  const handleNextScroll = () => {
+    setScrollIndex((prev) => Math.min(prev + 1, maxScrollIndex));
+  };
+
+  const handlePrevScroll = () => {
+    setScrollIndex((prev) => Math.max(prev - 1, 0));
+  };
+
+  // Reset scroll position when category changes
+  useEffect(() => {
+    setScrollIndex(0);
+  }, [activeCategoryIndex, itemsPerPage]);
+
 
   // State for spotlight featured product
   const [activeProductIndex, setActiveProductIndex] = useState(0);
@@ -386,48 +422,66 @@ function ShopContent() {
 
       {/* Mobile Category Selection Bar removed as per user request to use Top Pills only */}
 
-      {/* Active Collection Single View Grid */}
-      < section className="max-w-[1700px] mx-auto w-full px-0 md:px-12 pt-16 pb-8" >
+      {/* Active Collection Carousel View (Home Page Style) */}
+      <section className="max-w-[1700px] mx-auto w-full px-0 md:px-12 pt-16 pb-8">
+        <div className="relative z-10">
+          
+          {/* Header with Navigation Arrows on the right */}
+          <div className="flex items-center justify-end mb-10 px-6 md:px-0">
+            <div className="flex items-center gap-4">
+              <button
+                onClick={handlePrevScroll}
+                disabled={scrollIndex === 0}
+                className={`w-8 h-8 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center transition-all ${
+                  scrollIndex === 0 ? "opacity-30 cursor-not-allowed" : "hover:bg-white hover:shadow-md active:scale-90"
+                }`}
+              >
+                <ChevronLeft size={isDesktop ? 24 : 16} className="text-[#5d5f61]" />
+              </button>
+              <button
+                onClick={handleNextScroll}
+                disabled={scrollIndex === maxScrollIndex}
+                className={`w-8 h-8 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center transition-all ${
+                  scrollIndex === maxScrollIndex ? "opacity-30 cursor-not-allowed" : "hover:bg-white hover:shadow-md active:scale-90"
+                }`}
+              >
+                <ChevronRight size={isDesktop ? 24 : 16} className="text-[#5d5f61]" />
+              </button>
+            </div>
+          </div>
 
-
-        {/* Product Grid Wrapper with Premium Rounded Container */}
-        < AnimatePresence mode="wait" >
-          <motion.div
-            key={"grid-container-" + activeCategory.id}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }}
-            className="relative p-0 sm:p-12 md:p-16 lg:p-20 rounded-[20px] sm:rounded-[31px] overflow-hidden"
-          >
-            {/* Fixed Background Color */}
-            <div
-              className="absolute inset-0 bg-[#f1f1f2]"
-            />
-            {/* Subtle Inner Glow */}
-            <div className="absolute inset-0 border border-white/20 rounded-[inherit] pointer-events-none" />
-
-            {activeCategory.products && activeCategory.products.length > 0 ? (
-              <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-x-2 md:gap-x-8 gap-y-12 sm:gap-y-24 items-start">
-                {activeCategory.products.map((product: Product) => (
+          {/* Carousel Track */}
+          <div className="relative overflow-hidden px-4 md:px-0">
+            <motion.div
+              animate={{ x: `-${scrollIndex * (100 / itemsPerPage)}%` }}
+              transition={{ type: "spring", stiffness: 200, damping: 25 }}
+              className="flex gap-4 md:gap-6 lg:gap-8"
+            >
+              {products.map((product: Product) => (
+                <div 
+                  key={product.id} 
+                  className="flex-shrink-0 w-[calc(50%-8px)] md:w-[calc(50%-12px)] lg:w-[calc(33.333%-21.33px)]"
+                >
                   <ProductCard
-                    key={product.id}
                     product={product}
                     accentColor={activeCategory.color}
                     onSelect={(p) => setSelectedGridProduct(p)}
                   />
-                ))}
-              </div>
-            ) : (
-              <div className="relative z-10 w-full py-32 flex items-center justify-center bg-white/5 backdrop-blur-xl rounded-[3rem] border border-white/10">
-                <p className="text-xl text-white/40 font-bold uppercase tracking-widest">Collection arriving soon...</p>
+                </div>
+              ))}
+            </motion.div>
+
+            {products.length === 0 && !loading && (
+              <div className="w-full py-32 flex items-center justify-center bg-white/5 backdrop-blur-xl rounded-[3rem] border border-white/10">
+                <p className="text-xl text-black/20 font-bold uppercase tracking-widest">Collection arriving soon...</p>
               </div>
             )}
-          </motion.div>
-        </AnimatePresence >
+          </div>
+        </div>
+      </section>
 
         {/* Inline Product Detail Section */}
-        < AnimatePresence mode="wait" >
+        <AnimatePresence mode="wait">
           {selectedGridProduct && (
             <div className="mt-8">
               <ProductDetailSection
@@ -439,10 +493,9 @@ function ShopContent() {
             </div>
           )
           }
-        </AnimatePresence >
-      </section >
-    </div >
-  );
+        </AnimatePresence>
+      </div>
+    );
 }
 
 export default function ShopPage() {
