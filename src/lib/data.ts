@@ -7,9 +7,12 @@ export interface ProductVariant {
 export interface Product {
   id: string;
   name: string;
+  subtitle?: string;
   description: string;
   image: string;
+  category?: string;
   variants: ProductVariant[];
+  active?: boolean;
 }
 
 export interface Category {

@@ -95,14 +95,16 @@ export function ProductCard({ product, accentColor = "#d11e6d", onSelect }: { pr
         {/* Product Details */}
         <div className="flex-1 flex flex-col justify-center">
           {/* Title */}
-          <h3 className="text-[16px] md:text-[28px] lg:text-[36px] font-semibold text-[#5d5f61] tracking-tight leading-[1.1] mb-2 md:mb-4">
-            <span className="md:hidden">{product.name}</span>
-            <span className="hidden md:block">
-              {product.name.split(' ').map((word, i) => (
-                <span key={i} className="block">{word}</span>
-              ))}
-            </span>
-          </h3>
+          <Link href={`/product/${product.id}`} className="group/title block cursor-pointer">
+            <h3 className="text-[16px] md:text-[28px] lg:text-[36px] font-semibold text-[#5d5f61] tracking-tight leading-[1.1] mb-2 md:mb-4 group-hover/title:text-[#d11e6d] transition-colors">
+              <span className="md:hidden">{product.name}</span>
+              <span className="hidden md:block">
+                {product.name.split(' ').map((word, i) => (
+                  <span key={i} className="block">{word}</span>
+                ))}
+              </span>
+            </h3>
+          </Link>
 
           {/* Price & Taxes */}
           <div className="flex items-baseline gap-1 md:gap-2 mb-3 md:mb-6">

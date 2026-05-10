@@ -20,6 +20,7 @@ interface Product {
   _id?: string;
   id: string;
   name: string;
+  subtitle?: string;
   description: string;
   image: string;
   category: string;
@@ -37,6 +38,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
   const [formData, setFormData] = useState<Product>(initialData || {
     id: "",
     name: "",
+    subtitle: "",
     description: "",
     image: "",
     category: "Crush",
@@ -235,6 +237,17 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
                 onChange={(e) => handleChange("name", e.target.value)}
                 className="w-full px-10 py-8 bg-white rounded-[2.5rem] border border-gray-100 outline-none font-black font-playfair text-4xl text-[#5d5f61] focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-sm"
                 required
+              />
+            </div>
+
+            <div className="space-y-4">
+              <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 ml-1">Heritage Subtitle</label>
+              <input 
+                type="text"
+                value={formData.subtitle || ""}
+                placeholder="Nature's Sweetness In Every Drink"
+                onChange={(e) => handleChange("subtitle", e.target.value)}
+                className="w-full px-10 py-6 bg-white rounded-2xl border border-gray-100 outline-none font-black text-[#5d5f61] text-[12px] uppercase tracking-widest focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-sm"
               />
             </div>
 
