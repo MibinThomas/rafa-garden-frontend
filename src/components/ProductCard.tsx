@@ -160,16 +160,16 @@ export function ProductCard({ product, accentColor = "#d11e6d", onSelect }: { pr
       </div>
 
       {/* Bottom Section: Action Buttons */}
-      <div className="mt-4 md:mt-8 flex flex-col md:flex-row items-center gap-2 md:gap-3 w-full">
+      <div className="mt-4 md:mt-8 flex flex-row items-center gap-2 md:gap-3 w-full">
         <button
           onClick={handleAddToCart}
-          className="w-full md:flex-1 py-2 md:py-4 rounded-full bg-[#d11e6d] text-white font-bold text-[10px] md:text-[14px] tracking-wide transition-all hover:bg-[#b0185a] hover:shadow-lg active:scale-95 text-center"
+          className="flex-1 py-2 md:py-4 rounded-full bg-[#d11e6d] text-white font-bold text-[9px] md:text-[14px] tracking-wide transition-all hover:bg-[#b0185a] hover:shadow-lg active:scale-95 text-center"
         >
           Add to cart
         </button>
         <button
           onClick={handleAddToCart}
-          className="w-full md:flex-1 py-2 md:py-4 rounded-full bg-[#707072] text-white font-bold text-[10px] md:text-[14px] tracking-wide transition-all hover:bg-[#5a5a5c] hover:shadow-lg active:scale-95 text-center"
+          className="flex-1 py-2 md:py-4 rounded-full bg-[#707072] text-white font-bold text-[9px] md:text-[14px] tracking-wide transition-all hover:bg-[#5a5a5c] hover:shadow-lg active:scale-95 text-center"
         >
           Buy Now
         </button>

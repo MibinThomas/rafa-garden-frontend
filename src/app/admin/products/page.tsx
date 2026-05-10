@@ -141,8 +141,8 @@ export default function ProductsPage() {
   return (
     <div className="space-y-12 pb-24 relative">
       {/* Background Watermark */}
-      <div className="absolute top-0 right-0 pointer-events-none opacity-[0.03] select-none -mt-10 -mr-20">
-         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#5d5f61]">ASSETS</h1>
+      <div className="absolute top-0 right-0 pointer-events-none opacity-[0.03] select-none -mt-10 -mr-10 md:-mr-20">
+         <h1 className="text-[120px] md:text-[250px] font-black tracking-tighter leading-none text-[#5d5f61]">ASSETS</h1>
       </div>
 
       {/* Notifications Area */}
@@ -172,14 +172,14 @@ export default function ProductsPage() {
           <motion.p 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-[#c81c6a] font-black text-[10px] uppercase tracking-[0.5em] mb-4 ml-1"
+            className="text-[#c81c6a] font-black text-[10px] uppercase tracking-[0.5em] mb-2 md:mb-4 ml-1"
           >
             Heritage Inventory
           </motion.p>
           <motion.h1 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-6xl md:text-7xl font-black font-playfair text-[#5d5f61] tracking-tighter"
+            className="text-4xl md:text-7xl font-black font-playfair text-[#5d5f61] tracking-tighter"
           >
             Catalog
           </motion.h1>
@@ -243,21 +243,23 @@ export default function ProductsPage() {
           />
         </div>
         
-        <div className="flex items-center gap-3 p-2 bg-white/40 backdrop-blur-md rounded-[2rem] border border-white shadow-xl shadow-black/[0.02]">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={cn(
-                "px-8 py-4 rounded-[1.5rem] text-[10px] font-black uppercase tracking-widest transition-all duration-500 whitespace-nowrap",
-                selectedCategory === cat 
-                  ? "bg-[#5d5f61] text-white shadow-xl shadow-[#5d5f61]/20 scale-105" 
-                  : "text-gray-400 hover:text-[#5d5f61] hover:bg-white"
-              )}
-            >
-              {cat}
-            </button>
-          ))}
+        <div className="flex items-center gap-3 p-2 bg-white/40 backdrop-blur-md rounded-[2rem] border border-white shadow-xl shadow-black/[0.02] overflow-x-auto scrollbar-hide max-w-full">
+          <div className="flex items-center gap-3">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={cn(
+                  "px-6 md:px-8 py-3 md:py-4 rounded-[1.5rem] text-[9px] md:text-[10px] font-black uppercase tracking-widest transition-all duration-500 whitespace-nowrap",
+                  selectedCategory === cat 
+                    ? "bg-[#5d5f61] text-white shadow-xl shadow-[#5d5f61]/20 scale-105" 
+                    : "text-gray-400 hover:text-[#5d5f61] hover:bg-white"
+                )}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 

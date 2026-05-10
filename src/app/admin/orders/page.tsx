@@ -172,8 +172,8 @@ export default function OrdersPage() {
   return (
     <div className="space-y-12 pb-24 relative">
       {/* Background Watermark */}
-      <div className="absolute top-0 right-0 pointer-events-none opacity-[0.03] select-none -mt-10 -mr-20">
-         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#5d5f61]">EXCHANGE</h1>
+      <div className="absolute top-0 right-0 pointer-events-none opacity-[0.03] select-none -mt-10 -mr-10 md:-mr-20">
+         <h1 className="text-[120px] md:text-[250px] font-black tracking-tighter leading-none text-[#5d5f61]">EXCHANGE</h1>
       </div>
 
       {/* Header */}
@@ -182,21 +182,21 @@ export default function OrdersPage() {
           <motion.p 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-[#c81c6a] font-black text-[10px] uppercase tracking-[0.5em] mb-4 ml-1"
+            className="text-[#c81c6a] font-black text-[10px] uppercase tracking-[0.5em] mb-2 md:mb-4 ml-1"
           >
             Transaction Sanctuary
           </motion.p>
-          <h1 className="text-6xl md:text-7xl font-black font-playfair text-[#5d5f61] tracking-tighter">Orders</h1>
+          <h1 className="text-4xl md:text-7xl font-black font-playfair text-[#5d5f61] tracking-tighter">Orders</h1>
         </div>
 
         <div className="flex flex-wrap items-center gap-4">
           <button 
             onClick={createSampleOrder}
             disabled={creatingSample}
-            className="flex items-center gap-4 bg-white/80 backdrop-blur-md px-10 py-5 rounded-[2.5rem] border border-white font-black text-xs uppercase tracking-[0.2em] text-[#5d5f61] shadow-2xl shadow-black/[0.02] hover:bg-[#5d5f61] hover:text-white transition-all duration-500 disabled:opacity-50"
+            className="flex-1 sm:flex-none flex items-center justify-center gap-4 bg-white/80 backdrop-blur-md px-6 md:px-10 py-4 md:py-5 rounded-[2rem] md:rounded-[2.5rem] border border-white font-black text-[10px] md:text-xs uppercase tracking-[0.2em] text-[#5d5f61] shadow-2xl shadow-black/[0.02] hover:bg-[#5d5f61] hover:text-white transition-all duration-500 disabled:opacity-50"
           >
             {creatingSample ? <Loader2 size={18} className="animate-spin" /> : <Plus size={18} />}
-            Generate Sample Order
+            <span className="whitespace-nowrap">Generate Sample</span>
           </button>
           
           <div 
@@ -344,10 +344,10 @@ export default function OrdersPage() {
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
               className="fixed right-0 top-0 h-screen w-full max-w-2xl bg-white shadow-2xl z-[101] flex flex-col"
             >
-               <div className="p-10 border-b border-gray-100 flex items-center justify-between">
+               <div className="p-6 md:p-10 border-b border-gray-100 flex items-center justify-between">
                   <div>
                     <p className="text-[#c81c6a] font-black text-[9px] uppercase tracking-[0.4em] mb-2">Manifest Identity</p>
-                    <h2 className="text-4xl font-black font-playfair text-[#5d5f61]">Order <span className="italic font-normal">{selectedOrder.orderId}</span></h2>
+                    <h2 className="text-2xl md:text-4xl font-black font-playfair text-[#5d5f61]">Order <span className="italic font-normal">{selectedOrder.orderId}</span></h2>
                   </div>
                   <button 
                     onClick={() => setSelectedOrder(null)}
@@ -508,63 +508,63 @@ export default function OrdersPage() {
             </div>
 
             {/* Bill To / Ship To */}
-            <div className="grid grid-cols-2 gap-32">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-32">
               <div className="space-y-6">
-                <p className="text-[11px] font-black uppercase tracking-[0.5em] text-[#c81c6a]">Consignee Details</p>
+                <p className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.5em] text-[#c81c6a]">Consignee Details</p>
                 <div className="text-sm font-bold space-y-2">
-                  <p className="text-3xl font-black font-playfair">{selectedOrder.customer.name}</p>
-                  <div className="space-y-1 text-gray-500">
+                  <p className="text-2xl md:text-3xl font-black font-playfair">{selectedOrder.customer.name}</p>
+                  <div className="space-y-1 text-gray-500 text-[13px] md:text-base">
                     <p>{selectedOrder.customer.email}</p>
                     <p>{selectedOrder.customer.phone}</p>
                   </div>
-                  <div className="pt-6 text-gray-600 max-w-sm leading-[1.8] border-t border-gray-50 mt-4">
+                  <div className="pt-6 text-gray-600 max-w-sm leading-[1.8] border-t border-gray-50 mt-4 text-[13px] md:text-base">
                     {selectedOrder.customer.address}
                   </div>
                 </div>
               </div>
-              <div className="space-y-8 text-right">
+              <div className="space-y-8 md:text-right">
                 <div className="space-y-4">
-                  <p className="text-[11px] font-black uppercase tracking-[0.5em] text-[#c81c6a]">Settlement Method</p>
-                  <div className="inline-flex items-center gap-4 bg-gray-50 px-8 py-4 rounded-2xl border border-gray-100 shadow-sm">
+                  <p className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.5em] text-[#c81c6a]">Settlement Method</p>
+                  <div className="inline-flex items-center gap-4 bg-gray-50 px-6 md:px-8 py-3 md:py-4 rounded-2xl border border-gray-100 shadow-sm">
                     <CreditCard size={16} className="text-gray-300" />
-                    <span className="text-xs font-black uppercase tracking-[0.2em]">{selectedOrder.paymentMethod}</span>
+                    <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em]">{selectedOrder.paymentMethod}</span>
                   </div>
                 </div>
                 <div className="space-y-2">
-                   <p className="text-[10px] font-black uppercase tracking-widest text-gray-300">Transaction Status</p>
-                   <p className="text-sm font-black uppercase tracking-[0.2em] text-emerald-600">Confimed & {selectedOrder.paymentStatus}</p>
+                   <p className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-300">Transaction Status</p>
+                   <p className="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-emerald-600">Confimed & {selectedOrder.paymentStatus}</p>
                 </div>
               </div>
             </div>
 
             {/* Items Table */}
-            <div className="pt-12">
-              <table className="w-full border-collapse">
+            <div className="pt-12 overflow-x-auto scrollbar-hide">
+              <table className="w-full border-collapse min-w-[600px] md:min-w-0">
                 <thead>
                   <tr className="border-b-2 border-[#5d5f61]">
-                    <th className="text-left py-6 text-[11px] font-black uppercase tracking-[0.3em]">Asset Description</th>
-                    <th className="text-center py-6 text-[11px] font-black uppercase tracking-[0.3em]">Qty</th>
-                    <th className="text-right py-6 text-[11px] font-black uppercase tracking-[0.3em]">Unit Price</th>
-                    <th className="text-right py-6 text-[11px] font-black uppercase tracking-[0.3em]">Line Settlement</th>
+                    <th className="text-left py-6 text-[10px] md:text-[11px] font-black uppercase tracking-[0.3em]">Asset Description</th>
+                    <th className="text-center py-6 text-[10px] md:text-[11px] font-black uppercase tracking-[0.3em]">Qty</th>
+                    <th className="text-right py-6 text-[10px] md:text-[11px] font-black uppercase tracking-[0.3em]">Unit Price</th>
+                    <th className="text-right py-6 text-[10px] md:text-[11px] font-black uppercase tracking-[0.3em]">Line Settlement</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
                   {selectedOrder.items.map((item, idx) => (
                     <tr key={idx}>
-                      <td className="py-10 pr-6">
-                        <div className="flex items-center gap-8">
-                           <div className="w-24 h-24 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center p-2 overflow-hidden shrink-0">
+                      <td className="py-6 md:py-10 pr-6">
+                        <div className="flex items-center gap-4 md:gap-8">
+                           <div className="w-16 h-16 md:w-24 md:h-24 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center p-2 overflow-hidden shrink-0">
                               <img src={item.image} className="w-full h-full object-contain" alt={item.name} />
                            </div>
                            <div>
-                              <p className="text-2xl font-black font-playfair mb-2">{item.name}</p>
-                              <p className="text-[10px] font-black text-[#c81c6a] uppercase tracking-[0.3em]">Ref: {item.variant.size} {item.variant.unit}</p>
+                              <p className="text-lg md:text-2xl font-black font-playfair mb-1 md:mb-2 leading-tight">{item.name}</p>
+                              <p className="text-[9px] md:text-[10px] font-black text-[#c81c6a] uppercase tracking-[0.3em]">Ref: {item.variant.size} {item.variant.unit}</p>
                            </div>
                         </div>
                       </td>
-                      <td className="py-10 text-center font-black text-lg">{item.quantity}</td>
-                      <td className="py-10 text-right font-bold text-lg">₹{item.variant.price}</td>
-                      <td className="py-10 text-right font-black text-xl text-[#5d5f61]">₹{item.variant.price * item.quantity}</td>
+                      <td className="py-6 md:py-10 text-center font-black text-base md:text-lg">{item.quantity}</td>
+                      <td className="py-6 md:py-10 text-right font-bold text-base md:text-lg">₹{item.variant.price}</td>
+                      <td className="py-6 md:py-10 text-right font-black text-lg md:text-xl text-[#5d5f61]">₹{item.variant.price * item.quantity}</td>
                     </tr>
                   ))}
                 </tbody>

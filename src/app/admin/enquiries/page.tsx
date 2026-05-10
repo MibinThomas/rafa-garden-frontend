@@ -182,8 +182,8 @@ export default function EnquiriesPage() {
   return (
     <div className="space-y-12 pb-24 relative">
       {/* Background Watermark */}
-      <div className="absolute top-0 right-0 pointer-events-none opacity-[0.03] select-none -mt-10 -mr-20">
-         <h1 className="text-[250px] font-black tracking-tighter leading-none text-[#5d5f61]">VOICES</h1>
+      <div className="absolute top-0 right-0 pointer-events-none opacity-[0.03] select-none -mt-10 -mr-10 md:-mr-20">
+         <h1 className="text-[120px] md:text-[250px] font-black tracking-tighter leading-none text-[#5d5f61]">VOICES</h1>
       </div>
 
       {/* Header */}
@@ -192,11 +192,11 @@ export default function EnquiriesPage() {
           <motion.p 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-[#c81c6a] font-black text-[10px] uppercase tracking-[0.5em] mb-4 ml-1"
+            className="text-[#c81c6a] font-black text-[10px] uppercase tracking-[0.5em] mb-2 md:mb-4 ml-1"
           >
             Digital Sanctuary
           </motion.p>
-          <h1 className="text-6xl md:text-7xl font-black font-playfair text-[#5d5f61] tracking-tighter">Enquiries</h1>
+          <h1 className="text-4xl md:text-7xl font-black font-playfair text-[#5d5f61] tracking-tighter">Enquiries</h1>
         </div>
 
         <div className="flex flex-wrap items-center gap-4 bg-white/40 backdrop-blur-md p-2 rounded-[2.5rem] border border-white shadow-xl shadow-black/[0.02]">
@@ -215,31 +215,34 @@ export default function EnquiriesPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-3 p-2 bg-white/40 backdrop-blur-md rounded-[2.5rem] border border-white w-fit relative z-10 shadow-xl shadow-black/[0.02]">
-        {[
-          { id: "enquiries", label: "Botanical Visions", icon: MessageSquare, count: enquiries.length },
-          { id: "subscribers", label: "Subscriber Base", icon: Users, count: subscribers.length }
-        ].map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id as Tab)}
-            className={cn(
-              "flex items-center gap-4 px-8 py-4 rounded-[1.8rem] text-[11px] font-black uppercase tracking-widest transition-all duration-500",
-              activeTab === tab.id 
-                ? "bg-[#5d5f61] text-white shadow-xl shadow-[#5d5f61]/20 scale-105" 
-                : "text-gray-400 hover:text-[#5d5f61] hover:bg-white"
-            )}
-          >
-            <tab.icon size={16} strokeWidth={activeTab === tab.id ? 2.5 : 2} />
-            {tab.label}
-            <span className={cn(
-               "ml-2 px-3 py-1 rounded-full text-[10px] transition-colors duration-500",
-               activeTab === tab.id ? "bg-[#c81c6a] text-white shadow-lg" : "bg-gray-100 text-gray-400"
-            )}>
-              {tab.count}
-            </span>
-          </button>
-        ))}
+      <div className="flex gap-3 p-2 bg-white/40 backdrop-blur-md rounded-[2.5rem] border border-white w-fit max-w-full overflow-x-auto scrollbar-hide relative z-10 shadow-xl shadow-black/[0.02]">
+        <div className="flex gap-3">
+          {[
+            { id: "enquiries", label: "Botanical Visions", icon: MessageSquare, count: enquiries.length },
+            { id: "subscribers", label: "Subscriber Base", icon: Users, count: subscribers.length }
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as Tab)}
+              className={cn(
+                "flex items-center gap-4 px-6 md:px-8 py-3 md:py-4 rounded-[1.5rem] md:rounded-[1.8rem] text-[9px] md:text-[11px] font-black uppercase tracking-widest transition-all duration-500 whitespace-nowrap",
+                activeTab === tab.id 
+                  ? "bg-[#5d5f61] text-white shadow-xl shadow-[#5d5f61]/20 scale-105" 
+                  : "text-gray-400 hover:text-[#5d5f61] hover:bg-white"
+              )}
+            >
+              <tab.icon size={16} strokeWidth={activeTab === tab.id ? 2.5 : 2} />
+              <span className="hidden sm:inline">{tab.label}</span>
+              <span className="sm:hidden">{tab.id === "enquiries" ? "Visions" : "Base"}</span>
+              <span className={cn(
+                 "ml-2 px-3 py-1 rounded-full text-[10px] transition-colors duration-500",
+                 activeTab === tab.id ? "bg-[#c81c6a] text-white shadow-lg" : "bg-gray-100 text-gray-400"
+              )}>
+                {tab.count}
+              </span>
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Content Area */}
@@ -283,18 +286,28 @@ export default function EnquiriesPage() {
                   )}
                 >
                   {/* Identity Section */}
-                  <div className="md:w-72 space-y-6 relative">
-                    <div className={cn(
-                       "w-20 h-20 rounded-[2rem] flex items-center justify-center transition-all duration-700 shadow-xl border border-white/50",
-                       enquiry.status === "unread" ? "bg-[#c81c6a] text-white rotate-6" : "bg-white text-gray-300"
-                    )}>
-                      <User size={32} strokeWidth={2.5} />
+                  <div className="w-full md:w-72 space-y-6 relative">
+                    <div className="flex items-center justify-between md:block">
+                      <div className={cn(
+                         "w-16 h-16 md:w-20 md:h-20 rounded-[1.5rem] md:rounded-[2rem] flex items-center justify-center transition-all duration-700 shadow-xl border border-white/50",
+                         enquiry.status === "unread" ? "bg-[#c81c6a] text-white rotate-6" : "bg-white text-gray-300"
+                      )}>
+                        <User size={28} strokeWidth={2.5} className="md:w-8 md:h-8" />
+                      </div>
+                      <div className="md:hidden">
+                        <span className={cn(
+                          "px-6 py-2 rounded-full text-[9px] font-black uppercase tracking-[0.2em] shadow-sm",
+                          enquiry.status === "unread" ? "bg-[#c81c6a] text-white shadow-[#c81c6a]/20" : "bg-gray-100 text-gray-400"
+                        )}>
+                          {enquiry.status}
+                        </span>
+                      </div>
                     </div>
                     <div>
-                      <h3 className="text-3xl font-black font-playfair text-[#5d5f61] mb-2 leading-none group-hover:text-[#c81c6a] transition-colors duration-500">{enquiry.name}</h3>
-                      <p className="flex items-center gap-3 text-[11px] font-bold text-gray-400 group-hover:text-[#5d5f61] transition-colors duration-500 uppercase tracking-widest"><Mail size={14} className="opacity-40" /> {enquiry.email}</p>
+                      <h3 className="text-2xl md:text-3xl font-black font-playfair text-[#5d5f61] mb-2 leading-none group-hover:text-[#c81c6a] transition-colors duration-500">{enquiry.name}</h3>
+                      <p className="flex items-center gap-3 text-[10px] md:text-[11px] font-bold text-gray-400 group-hover:text-[#5d5f61] transition-colors duration-500 uppercase tracking-widest"><Mail size={14} className="opacity-40" /> {enquiry.email}</p>
                     </div>
-                    <div className="pt-2">
+                    <div className="hidden md:block pt-2">
                        <span className={cn(
                          "px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-sm",
                          enquiry.status === "unread" ? "bg-[#c81c6a] text-white shadow-[#c81c6a]/20" : "bg-gray-100 text-gray-400"
@@ -305,22 +318,22 @@ export default function EnquiriesPage() {
                   </div>
 
                   {/* Message Section */}
-                  <div className="flex-1 space-y-6 border-l border-gray-100 pl-12">
+                  <div className="flex-1 space-y-6 md:border-l border-gray-100 md:pl-12 w-full">
                     <div className="flex items-center gap-3 text-gray-300">
                        <Clock size={16} className="opacity-40" />
-                       <span className="text-[11px] font-bold uppercase tracking-[0.3em]">{new Date(enquiry.createdAt).toLocaleString('en-US', { month: 'long', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+                       <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em]">{new Date(enquiry.createdAt).toLocaleString('en-US', { month: 'long', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
                     </div>
-                    <p className="text-lg text-gray-600 font-inter leading-relaxed italic pr-8">
+                    <p className="text-base md:text-lg text-gray-600 font-inter leading-relaxed italic md:pr-8">
                       "{enquiry.message}"
                     </p>
                   </div>
 
                   {/* Actions Section */}
-                  <div className="flex md:flex-col gap-4 opacity-0 group-hover:opacity-100 translate-x-12 group-hover:translate-x-0 transition-all duration-700">
+                  <div className="flex md:flex-col gap-4 opacity-100 md:opacity-0 group-hover:opacity-100 md:translate-x-12 group-hover:translate-x-0 transition-all duration-700 w-full md:w-auto justify-end">
                     <button 
                       onClick={() => updateStatus(enquiry._id, enquiry.status === "unread" ? "read" : "unread")}
                       className={cn(
-                        "p-4 rounded-[1.8rem] transition-all duration-500 shadow-xl",
+                        "p-4 rounded-[1.5rem] md:rounded-[1.8rem] transition-all duration-500 shadow-xl",
                         enquiry.status === "unread" ? "bg-[#c81c6a] text-white hover:scale-110" : "bg-white text-gray-300 hover:text-emerald-500 hover:scale-110"
                       )}
                       title={enquiry.status === "unread" ? "Mark as Read" : "Mark as Unread"}
@@ -329,14 +342,14 @@ export default function EnquiriesPage() {
                     </button>
                     <button 
                       onClick={() => updateStatus(enquiry._id, "archived")}
-                      className="p-4 rounded-[1.8rem] bg-white text-gray-300 hover:text-[#5d5f61] hover:scale-110 transition-all duration-500 shadow-xl"
+                      className="p-4 rounded-[1.5rem] md:rounded-[1.8rem] bg-white text-gray-300 hover:text-[#5d5f61] hover:scale-110 transition-all duration-500 shadow-xl"
                       title="Archive Narrative"
                     >
                       <Archive size={20} strokeWidth={2.5} />
                     </button>
                     <button 
                       onClick={() => handleDelete(enquiry._id)}
-                      className="p-4 rounded-[1.8rem] bg-white text-red-300 hover:bg-red-500 hover:text-white hover:scale-110 transition-all duration-500 shadow-xl"
+                      className="p-4 rounded-[1.5rem] md:rounded-[1.8rem] bg-white text-red-300 hover:bg-red-500 hover:text-white hover:scale-110 transition-all duration-500 shadow-xl"
                       title="Discard Entry"
                     >
                       <Trash2 size={20} strokeWidth={2.5} />

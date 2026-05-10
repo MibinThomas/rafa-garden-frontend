@@ -274,48 +274,48 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className="grid grid-cols-12 gap-8 items-end bg-white p-10 rounded-[3rem] border border-gray-100 shadow-sm group hover:shadow-2xl hover:shadow-black/[0.02] transition-all duration-1000 relative overflow-hidden"
+                  className="grid grid-cols-1 sm:grid-cols-12 gap-6 md:gap-8 items-end bg-white p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] border border-gray-100 shadow-sm group hover:shadow-2xl hover:shadow-black/[0.02] transition-all duration-1000 relative overflow-hidden"
                 >
-                  <div className="col-span-4 space-y-4">
+                  <div className="col-span-full sm:col-span-4 space-y-4">
                     <label className="text-[9px] font-black uppercase tracking-[0.4em] text-gray-300 ml-1">Dimensions</label>
                     <input 
                       type="text"
                       value={variant.size}
                       placeholder="500"
                       onChange={(e) => handleVariantChange(index, "size", e.target.value)}
-                      className="w-full px-8 py-5 bg-gray-50/30 rounded-2xl border border-gray-50 outline-none font-black text-[#5d5f61] text-[12px] uppercase tracking-widest focus:bg-white focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-inner"
+                      className="w-full px-6 md:px-8 py-4 md:py-5 bg-gray-50/30 rounded-2xl border border-gray-50 outline-none font-black text-[#5d5f61] text-[11px] md:text-[12px] uppercase tracking-widest focus:bg-white focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-inner"
                       required
                     />
                   </div>
-                  <div className="col-span-3 space-y-4">
+                  <div className="col-span-full sm:col-span-3 space-y-4">
                     <label className="text-[9px] font-black uppercase tracking-[0.4em] text-gray-300 ml-1">Unit</label>
                     <input 
                       type="text"
                       value={variant.unit}
                       placeholder="ML"
                       onChange={(e) => handleVariantChange(index, "unit", e.target.value)}
-                      className="w-full px-8 py-5 bg-gray-50/30 rounded-2xl border border-gray-50 outline-none font-black text-[#5d5f61] text-[12px] uppercase tracking-widest focus:bg-white focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-inner"
+                      className="w-full px-6 md:px-8 py-4 md:py-5 bg-gray-50/30 rounded-2xl border border-gray-50 outline-none font-black text-[#5d5f61] text-[11px] md:text-[12px] uppercase tracking-widest focus:bg-white focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-inner"
                       required
                     />
                   </div>
-                  <div className="col-span-4 space-y-4">
+                  <div className="col-span-9 sm:col-span-4 space-y-4">
                     <label className="text-[9px] font-black uppercase tracking-[0.4em] text-gray-300 ml-1">Valuation (₹)</label>
                     <input 
                       type="number"
                       value={variant.price || ""}
                       placeholder="0"
                       onChange={(e) => handleVariantChange(index, "price", parseFloat(e.target.value))}
-                      className="w-full px-8 py-5 bg-gray-50/30 rounded-2xl border border-gray-50 outline-none font-black text-[#5d5f61] text-[12px] uppercase tracking-widest focus:bg-white focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-inner"
+                      className="w-full px-6 md:px-8 py-4 md:py-5 bg-gray-50/30 rounded-2xl border border-gray-50 outline-none font-black text-[#5d5f61] text-[11px] md:text-[12px] uppercase tracking-widest focus:bg-white focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-inner"
                       required
                     />
                   </div>
-                  <div className="col-span-1 flex justify-center pb-2">
+                  <div className="col-span-3 sm:col-span-1 flex justify-center pb-2">
                     <button 
                       type="button"
                       onClick={() => removeVariant(index)}
-                      className="p-5 text-gray-200 hover:text-red-500 hover:bg-red-50 rounded-3xl transition-all duration-700 opacity-0 group-hover:opacity-100"
+                      className="p-4 md:p-5 text-gray-200 hover:text-red-500 hover:bg-red-50 rounded-2xl md:rounded-3xl transition-all duration-700 opacity-100 sm:opacity-0 group-hover:opacity-100"
                     >
-                      <Trash2 size={22} strokeWidth={1.5} />
+                      <Trash2 size={20} md:size={22} strokeWidth={1.5} />
                     </button>
                   </div>
                 </motion.div>

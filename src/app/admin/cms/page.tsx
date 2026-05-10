@@ -104,11 +104,11 @@ export default function CmsPage() {
           <motion.p 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-[#c81c6a] font-black text-[10px] uppercase tracking-[0.5em] mb-4 ml-1"
+            className="text-[#c81c6a] font-black text-[10px] uppercase tracking-[0.5em] mb-2 md:mb-4 ml-1"
           >
             Digital Architecture
           </motion.p>
-          <h1 className="text-6xl md:text-7xl font-black font-playfair text-[#5d5f61] tracking-tighter">Content Hub</h1>
+          <h1 className="text-4xl md:text-7xl font-black font-playfair text-[#5d5f61] tracking-tighter">Content Hub</h1>
         </div>
 
         {activeTab === "categories" && (
@@ -122,27 +122,29 @@ export default function CmsPage() {
       </div>
 
       {/* Tabs Navigation */}
-      <div className="flex flex-wrap gap-3 p-2 bg-white/40 backdrop-blur-md rounded-[2.5rem] border border-white w-fit relative z-10 shadow-xl shadow-black/[0.02]">
-        {[
-          { id: "categories", label: "Heritage", icon: Layout },
-          { id: "shop", label: "Shop Page", icon: ShoppingBag },
-          { id: "about", label: "About Page", icon: SettingsIcon },
-          { id: "global", label: "Global Settings", icon: Globe }
-        ].map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id as Tab)}
-            className={cn(
-              "flex items-center gap-3 px-8 py-4 rounded-[1.8rem] text-[11px] font-black uppercase tracking-widest transition-all duration-500",
-              activeTab === tab.id 
-                ? "bg-[#5d5f61] text-white shadow-xl shadow-[#5d5f61]/20 scale-105" 
-                : "text-gray-400 hover:text-[#5d5f61] hover:bg-white"
-            )}
-          >
-            <tab.icon size={16} strokeWidth={activeTab === tab.id ? 2.5 : 2} />
-            {tab.label}
-          </button>
-        ))}
+      <div className="flex gap-3 p-2 bg-white/40 backdrop-blur-md rounded-[2.5rem] border border-white w-fit max-w-full overflow-x-auto scrollbar-hide relative z-10 shadow-xl shadow-black/[0.02]">
+        <div className="flex gap-3">
+          {[
+            { id: "categories", label: "Heritage", icon: Layout },
+            { id: "shop", label: "Shop Page", icon: ShoppingBag },
+            { id: "about", label: "About Page", icon: SettingsIcon },
+            { id: "global", label: "Global Settings", icon: Globe }
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as Tab)}
+              className={cn(
+                "flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 rounded-[1.5rem] md:rounded-[1.8rem] text-[9px] md:text-[11px] font-black uppercase tracking-widest transition-all duration-500 whitespace-nowrap",
+                activeTab === tab.id 
+                  ? "bg-[#5d5f61] text-white shadow-xl shadow-[#5d5f61]/20 scale-105" 
+                  : "text-gray-400 hover:text-[#5d5f61] hover:bg-white"
+              )}
+            >
+              <tab.icon size={16} strokeWidth={activeTab === tab.id ? 2.5 : 2} />
+              {tab.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {loading ? (
