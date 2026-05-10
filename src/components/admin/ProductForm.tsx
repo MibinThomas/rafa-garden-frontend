@@ -315,7 +315,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
                       onClick={() => removeVariant(index)}
                       className="p-4 md:p-5 text-gray-200 hover:text-red-500 hover:bg-red-50 rounded-2xl md:rounded-3xl transition-all duration-700 opacity-100 sm:opacity-0 group-hover:opacity-100"
                     >
-                      <Trash2 size={20} md:size={22} strokeWidth={1.5} />
+                      <Trash2 size={20} strokeWidth={1.5} />
                     </button>
                   </div>
                 </motion.div>
