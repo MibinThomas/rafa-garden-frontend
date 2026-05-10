@@ -35,36 +35,25 @@ export function ProductPageClient({ product, category }: ProductPageClientProps)
 
   return (
     <div className="relative min-h-screen bg-[#f1f1f2] overflow-hidden pt-12 md:pt-24 font-sans">
-      {/* Background Macro-Typography (Watermark) */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0 overflow-hidden">
-        <div className="flex gap-[20vw] opacity-[0.04]">
-           <h1 className="text-[40vw] font-black leading-none text-[#5d5f61] uppercase tracking-tighter rotate-[-90deg] md:rotate-0">
-             {category.title.toLowerCase().includes('crush') ? 'rush' : category.title}
-           </h1>
-           <h1 className="hidden md:block text-[40vw] font-black leading-none text-[#5d5f61] uppercase tracking-tighter">
-             {category.title.toLowerCase().includes('crush') ? 'ush' : category.title}
-           </h1>
-        </div>
-      </div>
+      {/* Background Watermark - Removed as requested */}
 
       <div className="relative z-10 max-w-[1600px] mx-auto px-6 md:px-12 lg:px-24 pb-12 md:pb-24">
         
-        {/* Navigation / Back Button - Minimalist */}
-        <Link 
-          href="/shop" 
-          className="inline-flex items-center gap-3 text-[#5d5f61]/40 hover:text-[#c81c6a] transition-all mb-12 md:mb-20 group"
-        >
-          <div className="w-10 h-10 rounded-full border border-black/5 flex items-center justify-center group-hover:border-[#c81c6a]/20 group-hover:bg-white transition-all">
-            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-          </div>
-          <span className="text-[11px] font-black uppercase tracking-[0.4em]">Heritage Collection</span>
-        </Link>
+        {/* Navigation - Removed as requested */}
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
           
           {/* Left Side: Cinematic Product Stage */}
           <div className="lg:col-span-7 flex flex-col items-center">
             <div className="relative w-full aspect-square md:aspect-[4/5] flex justify-center items-center">
+              {/* Wishlist Heart Icon - Top Left as requested */}
+              <button 
+                onClick={() => toggleWishlist(product.id)}
+                className={`absolute top-4 left-4 z-30 w-12 h-12 rounded-full border flex items-center justify-center transition-all ${isFavorited ? "bg-[#c81c6a] border-transparent text-white shadow-xl shadow-[#c81c6a]/30" : "bg-white/80 backdrop-blur-md border-black/5 text-gray-300 hover:text-[#c81c6a] hover:border-[#c81c6a]/20 shadow-xl shadow-black/[0.05]"} active:scale-90`}
+              >
+                <Heart size={20} fill={isFavorited ? "currentColor" : "none"} strokeWidth={2.5} />
+              </button>
+
               {/* Decorative Botanical Elements - Removed as requested */}
               <div className="absolute inset-0 z-0" />
 
@@ -181,12 +170,6 @@ export function ProductPageClient({ product, category }: ProductPageClientProps)
                 className="flex-1 px-12 py-6 rounded-full bg-[#707072] text-white font-black uppercase text-[11px] tracking-[0.4em] transition-all hover:scale-[1.02] hover:bg-[#5d5f61] active:scale-95 shadow-2xl shadow-black/10"
               >
                 Buy Now
-              </button>
-              <button 
-                onClick={() => toggleWishlist(product.id)}
-                className={`w-16 h-16 rounded-full border flex items-center justify-center transition-all shrink-0 ${isFavorited ? "bg-[#c81c6a] border-transparent text-white" : "bg-white border-black/5 text-gray-300 hover:text-[#c81c6a] hover:border-[#c81c6a]/20 shadow-xl shadow-black/[0.02]"}`}
-              >
-                <Heart size={20} fill={isFavorited ? "currentColor" : "none"} strokeWidth={2.5} />
               </button>
             </div>
 
