@@ -97,7 +97,7 @@ export function ProductPageClient({ product, category }: ProductPageClientProps)
             <h2 className="text-5xl md:text-7xl font-black font-playfair tracking-tighter text-[#5d5f61] leading-none mb-6">
               {product.name}
             </h2>
-            <p className="text-[#5d5f61] font-black text-[11px] md:text-[13px] uppercase tracking-[0.3em] mb-12 opacity-60">
+            <p className="text-[#5d5f61] font-black text-[11px] md:text-[13px] capitalize tracking-[0.3em] mb-12 opacity-60">
               {product.subtitle || "Nature's Sweetness In Every Drink"}
             </p>
 
@@ -113,7 +113,7 @@ export function ProductPageClient({ product, category }: ProductPageClientProps)
                       onClick={() => setSelectedVariantIdx(idx)}
                       className="flex items-center gap-4 group transition-all"
                     >
-                      <span className={`text-[12px] md:text-[14px] font-black uppercase tracking-widest transition-colors ${isActive ? "text-[#5d5f61]" : "text-gray-300 group-hover:text-gray-400"}`}>
+                      <span className={`text-[12px] md:text-[14px] font-black capitalize tracking-widest transition-colors ${isActive ? "text-[#5d5f61]" : "text-gray-300 group-hover:text-gray-400"}`}>
                         {v.size}{v.unit}
                       </span>
                       <div className={`w-5 h-5 rounded-full border-2 transition-all flex items-center justify-center ${isActive ? "border-[#c81c6a] bg-white" : "border-gray-200 group-hover:border-gray-300 bg-white"}`}>
@@ -144,7 +144,7 @@ export function ProductPageClient({ product, category }: ProductPageClientProps)
 
             {/* Description Block - Editorial Layout */}
             <div className="space-y-8 mb-16 max-w-lg">
-              <p className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.3em] text-[#5d5f61]/40 mb-4">
+              <p className="text-[10px] md:text-[11px] font-black capitalize tracking-[0.3em] text-[#5d5f61]/40 mb-4">
                 {product.subtitle || "Nature's Sweetness In Every Drink"}
               </p>
               <p className="text-[#5d5f61] text-[12px] md:text-[13px] font-bold leading-[2] tracking-wide opacity-50">
@@ -155,19 +155,19 @@ export function ProductPageClient({ product, category }: ProductPageClientProps)
             {/* Price Staging */}
             <div className="flex items-baseline gap-6 mb-12 border-t border-black/5 pt-12">
               <span className="text-5xl md:text-7xl font-black font-playfair text-[#5d5f61] tracking-tighter">₹{currentPrice}</span>
-              <span className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.4em] text-gray-300">Inclusive taxes</span>
+              <span className="text-[10px] md:text-[11px] font-black capitalize tracking-[0.4em] text-gray-300">Inclusive taxes</span>
             </div>
 
             {/* Actions */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <button
                 onClick={handleAddToCart}
-                className="flex-1 px-12 py-6 rounded-full bg-[#c81c6a] text-white font-black uppercase text-[11px] tracking-[0.4em] transition-all hover:scale-[1.02] hover:bg-[#b0185a] active:scale-95 shadow-2xl shadow-[#c81c6a]/20"
+                className="flex-1 px-12 py-6 rounded-full bg-[#c81c6a] text-white font-black capitalize text-[11px] tracking-[0.4em] transition-all hover:scale-[1.02] hover:bg-[#b0185a] active:scale-95 shadow-2xl shadow-[#c81c6a]/20"
               >
                 Add to cart
               </button>
               <button
-                className="flex-1 px-12 py-6 rounded-full bg-[#707072] text-white font-black uppercase text-[11px] tracking-[0.4em] transition-all hover:scale-[1.02] hover:bg-[#5d5f61] active:scale-95 shadow-2xl shadow-black/10"
+                className="flex-1 px-12 py-6 rounded-full bg-[#707072] text-white font-black capitalize text-[11px] tracking-[0.4em] transition-all hover:scale-[1.02] hover:bg-[#5d5f61] active:scale-95 shadow-2xl shadow-black/10"
               >
                 Buy Now
               </button>

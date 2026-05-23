@@ -26,12 +26,12 @@ export function CategoryHero({ categories, onActiveChange }: CategoryHeroProps) 
 
   const getBgColor = (index: number, isHovered: boolean) => {
     if (isHovered) return categories[index].color;
-    const greys = ["#f1f1f2", "#f1f1f2", "#e5e5e7", "#dbdbdd"];
-    return greys[index] || "#f1f1f2";
+    const greys = ["#ebebeb", "#e2e2e2", "#dadada", "#d2d2d2"];
+    return greys[index] || "#ebebeb";
   };
 
   return (
-    <section className="relative w-full flex-1 p-4 md:p-0 md:px-12 flex flex-col font-sans overflow-hidden bg-[#f1f1f2]">
+    <section className="relative w-full flex-1 p-4 md:p-6 lg:p-12 flex flex-col font-sans overflow-hidden bg-transparent">
 
       {/* Mobile-Only Vertical Flex Section */}
       <div className="flex md:hidden flex-col h-full w-full rounded-[5px] overflow-hidden" style={{ borderRadius: "5px" }}>
@@ -67,7 +67,7 @@ export function CategoryHero({ categories, onActiveChange }: CategoryHeroProps) 
             </div>
 
             <div className="relative z-10 py-2 max-w-[65%]">
-              <p className={`text-[9px] font-black uppercase tracking-[0.4em] mb-2 transition-colors duration-500 ${
+              <p className={`text-[9px] font-black capitalize tracking-[0.4em] mb-2 transition-colors duration-500 ${
                 activeMobileIndex === index ? "text-white/50" : "text-black/40"
               }`}>Collection 0{index + 1}</p>
               <h2 className={`text-4xl font-black font-brand-heading leading-tight tracking-tight transition-colors duration-500 ${
@@ -87,7 +87,7 @@ export function CategoryHero({ categories, onActiveChange }: CategoryHeroProps) 
                       e.stopPropagation();
                       router.push(`/shop?cat=${cat.title.toLowerCase()}`);
                     }}
-                    className="flex items-center gap-2 text-[10px] font-black text-white uppercase tracking-[0.2em] bg-white/20 backdrop-blur-md px-4 py-2.5 rounded-full border border-white/20 shadow-xl cursor-pointer"
+                    className="flex items-center gap-2 text-[10px] font-black text-white capitalize tracking-[0.2em] bg-white/20 backdrop-blur-md px-4 py-2.5 rounded-full border border-white/20 shadow-xl cursor-pointer"
                   >
                     Explore <ArrowRight size={12} strokeWidth={2.5} />
                   </button>
@@ -129,7 +129,7 @@ export function CategoryHero({ categories, onActiveChange }: CategoryHeroProps) 
 
       {/* Unified Desktop Header */}
       <motion.div
-        className="hidden md:grid w-full flex-1 max-w-[1700px] mx-auto overflow-hidden rounded-[2.5rem] grid-cols-4 relative bg-white"
+        className="hidden md:flex w-full flex-1 max-w-[1700px] mx-auto overflow-hidden rounded-[24px] relative bg-transparent shadow-[0_20px_40px_rgba(0,0,0,0.03)]"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -139,22 +139,23 @@ export function CategoryHero({ categories, onActiveChange }: CategoryHeroProps) 
             key={cat.id || cat._id}
             onMouseEnter={() => setHoveredIndex(index)}
             onClick={() => router.push(`/shop?cat=${cat.title.toLowerCase()}`)}
-            className="relative h-full flex flex-col cursor-pointer overflow-hidden border-r border-black/5 last:border-none group min-h-[600px] md:min-h-[720px]"
+            className="relative h-full flex flex-col cursor-pointer overflow-hidden group"
             animate={{
-              backgroundColor: getBgColor(index, hoveredIndex === index)
+              backgroundColor: getBgColor(index, hoveredIndex === index),
+              flex: hoveredIndex === index ? 1.8 : 1
             }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="relative z-10 w-full h-full flex flex-col items-center justify-center px-4 md:px-8 text-center py-10">
 
-              <div className="absolute top-[12%] w-full h-[32%] flex items-center justify-center pointer-events-none" style={{ zIndex: 20 }}>
+              <div className="absolute top-[8%] w-full h-[45%] flex items-center justify-center pointer-events-none" style={{ zIndex: 20 }}>
                 <motion.div
                   className="relative w-full h-full"
                   initial={false}
                   animate={{
                     opacity: hoveredIndex === index ? 1 : 0,
-                    scale: hoveredIndex === index ? 1.2 : 0.8,
-                    y: hoveredIndex === index ? 20 : 40
+                    scale: hoveredIndex === index ? 1 : 0.9,
+                    y: hoveredIndex === index ? 0 : 20
                   }}
                   transition={{
                     duration: 0.6,
@@ -174,7 +175,7 @@ export function CategoryHero({ categories, onActiveChange }: CategoryHeroProps) 
               <motion.div
                 className="flex flex-col items-center w-full z-10"
                 animate={{
-                  y: hoveredIndex === index ? 70 : 0
+                  y: hoveredIndex === index ? 100 : 0
                 }}
                 transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
               >
@@ -203,7 +204,7 @@ export function CategoryHero({ categories, onActiveChange }: CategoryHeroProps) 
                 </motion.h2>
 
                 <motion.p
-                  className="text-[0.6rem] md:text-[0.65rem] font-bold uppercase tracking-[0.2em] mb-3 font-avant-garde z-30"
+                  className="text-[0.6rem] md:text-[0.65rem] font-bold capitalize tracking-[0.2em] mb-3 font-avant-garde z-30"
                   animate={{
                     color: hoveredIndex === index ? "rgba(255,255,255,0.8)" : "#666666"
                   }}
@@ -227,14 +228,14 @@ export function CategoryHero({ categories, onActiveChange }: CategoryHeroProps) 
                     e.stopPropagation();
                     router.push(`/shop?cat=${cat.title.toLowerCase()}`);
                   }}
-                  className={`flex items-center justify-between w-full max-w-[170px] md:max-w-[180px] px-6 md:px-8 py-3 rounded-full border transition-all duration-300 font-avant-garde text-[0.7rem] md:text-[0.75rem] font-medium tracking-tight z-30
+                  className={`flex items-center justify-between w-full max-w-[170px] md:max-w-[180px] px-6 md:px-8 py-3 rounded-full border transition-all duration-300 font-avant-garde text-[0.7rem] md:text-[0.75rem] font-medium tracking-tight whitespace-nowrap z-30
                     ${hoveredIndex === index
                       ? "border-white/40 text-white bg-transparent hover:bg-white/10"
                       : "border-black/10 text-[#6f7074] hover:bg-black/5"}
                   `}
                 >
                   <span>{hoveredIndex === index ? "Buy Now" : "View More"}</span>
-                  <ArrowRight size={16} strokeWidth={1.5} className="ml-2" />
+                  <ArrowRight size={16} strokeWidth={1.5} className="ml-2 flex-shrink-0" />
                 </motion.button>
               </motion.div>
             </div>

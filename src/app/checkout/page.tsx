@@ -252,7 +252,7 @@ export default function CheckoutPage() {
                     <ArrowRight size={20} strokeWidth={1.5} className="group-hover:translate-x-1 transition-transform" />
                   )}
                 </button>
-                <p className="text-[11px] text-[#a3a3a3] text-center mt-6 uppercase tracking-[0.2em] font-medium">No payment required until confirmation.</p>
+                <p className="text-[11px] text-[#a3a3a3] text-center mt-6 capitalize tracking-[0.2em] font-medium">No payment required until confirmation.</p>
               </div>
 
             </form>

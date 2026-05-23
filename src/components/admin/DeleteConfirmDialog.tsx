@@ -69,7 +69,7 @@ export function DeleteConfirmDialog({
                 <button
                   onClick={onConfirm}
                   disabled={loading}
-                  className="w-full py-5 bg-[#c81c6a] text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-xl hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+                  className="w-full py-5 bg-[#c81c6a] text-white rounded-2xl font-black text-xs capitalize tracking-[0.2em] shadow-xl hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-50"
                 >
                   {loading ? (
                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -82,7 +82,7 @@ export function DeleteConfirmDialog({
                 <button
                   onClick={onClose}
                   disabled={loading}
-                  className="w-full py-5 bg-gray-50 text-[#5d5f61] rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-gray-100 transition-all disabled:opacity-50"
+                  className="w-full py-5 bg-gray-50 text-[#5d5f61] rounded-2xl font-black text-xs capitalize tracking-[0.2em] hover:bg-gray-100 transition-all disabled:opacity-50"
                 >
                   Keep it for now
                 </button>

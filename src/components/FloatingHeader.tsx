@@ -176,7 +176,7 @@ export function FloatingHeader() {
             >
               {/* Header inside drawer */}
               <div className="flex items-center justify-between p-6 pb-2">
-                <span className="font-avant-garde font-bold text-[#333333]/40 text-[0.65rem] tracking-[0.2em] uppercase">Navigation</span>
+                <span className="font-avant-garde font-bold text-[#333333]/40 text-[0.65rem] tracking-[0.2em] capitalize">Navigation</span>
                 <button 
                   onClick={() => setIsMenuOpen(false)}
                   className="w-10 h-10 flex items-center justify-center rounded-full bg-[#333333]/5 text-[#333333]/60 hover:bg-[#333333]/10 hover:text-[#333333] transition-all"
@@ -207,7 +207,7 @@ export function FloatingHeader() {
 
               {/* Bottom Drawer Footer Info */}
               <div className="mt-auto p-8 pt-8 border-t border-[#333333]/10 bg-white/30 backdrop-blur-sm">
-                <p className="text-[0.65rem] text-[#333333]/50 font-medium font-avant-garde uppercase tracking-[0.15em] leading-relaxed">
+                <p className="text-[0.65rem] text-[#333333]/50 font-medium font-avant-garde capitalize tracking-[0.15em] leading-relaxed">
                   Heritage Dragon Fruit<br />
                   Harvested with Care
                 </p>

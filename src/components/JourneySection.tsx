@@ -52,7 +52,7 @@ export function JourneySection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-[10px] sm:text-xs font-black uppercase tracking-[0.5em] text-[#c81c6a] mb-4 block"
+            className="text-[10px] sm:text-xs font-black capitalize tracking-[0.5em] text-[#c81c6a] mb-4 block"
           >
             The Botanical Sequence
           </motion.span>
@@ -107,7 +107,7 @@ export function JourneySection() {
                     transition={{ duration: 0.8, delay: 0.2 }}
                   >
                     <h3
-                      className="text-sm font-bold uppercase tracking-[0.3em] mb-4"
+                      className="text-sm font-bold capitalize tracking-[0.3em] mb-4"
                       style={{ color: step.color }}
                     >
                       {step.subtitle}
@@ -137,7 +137,7 @@ export function JourneySection() {
         >
           <div className="inline-block p-1 rounded-full bg-gradient-to-r from-[#c81c6a] to-orange-500 mb-8">
             <div className="bg-[#0b1612] px-10 py-4 rounded-full">
-              <span className="text-white font-bold tracking-widest text-[10px] uppercase">Experience the Legacy</span>
+              <span className="text-white font-bold tracking-widest text-[10px] capitalize">Experience the Legacy</span>
             </div>
           </div>
           <h2 className="text-5xl md:text-8xl font-black font-playfair text-white tracking-tighter mb-12">
@@ -145,7 +145,7 @@ export function JourneySection() {
           </h2>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="px-12 py-5 rounded-2xl bg-white text-black font-bold tracking-[0.2em] uppercase text-xs hover:bg-[#c81c6a] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-2xl"
+            className="px-12 py-5 rounded-2xl bg-white text-black font-bold tracking-[0.2em] capitalize text-xs hover:bg-[#c81c6a] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-2xl"
           >
             Discover Now
           </button>

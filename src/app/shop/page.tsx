@@ -1,507 +1,190 @@
 "use client";
 
-import { useEffect, useState, useRef, Suspense } from "react";
-import Image from "next/image";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CATEGORIES, Product, ProductVariant, Category } from "@/lib/data";
+import { CATEGORIES, Product, Category } from "@/lib/data";
 import { ProductCard } from "@/components/ProductCard";
-import { ProductDetailSection } from "@/components/ProductDetailSection";
-import { useHeaderColor } from "@/lib/HeaderColorContext";
-import { useSiteSettings } from "@/lib/SiteSettingsContext";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Search, SlidersHorizontal, LayoutGrid, List } from "lucide-react";
 
-
-function ShopContent() {
-  const { setIsImmersive, setHeaderColor } = useHeaderColor();
-  const { settings } = useSiteSettings();
-  const heroRef = useRef<HTMLElement>(null);
-  const searchParams = useSearchParams();
-  const router = useRouter();
-
-
-  // Dynamic State for categories
+export default function AllProductsPage() {
   const [categories, setCategories] = useState<Category[]>(CATEGORIES);
-  const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
   const [loading, setLoading] = useState(true);
-
-  // Initial category from query param or settings
-  useEffect(() => {
-    const catParam = searchParams.get("cat");
-    if (catParam) {
-      const idx = CATEGORIES.findIndex(c => c.title.toLowerCase() === catParam.toLowerCase());
-      if (idx !== -1) setActiveCategoryIndex(idx);
-    } else if (settings['shop_default_category_index']) {
-      const idx = parseInt(settings['shop_default_category_index']);
-      if (!isNaN(idx)) setActiveCategoryIndex(idx);
-    }
-  }, [searchParams, settings]);
-
-  const activeCategory = categories[activeCategoryIndex] || CATEGORIES[0];
-  const products = activeCategory.products || [];
-
-  // Carousel/Sliding State (Home Page Style)
-  const [scrollIndex, setScrollIndex] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(1);
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   useEffect(() => {
-    const updateItemsPerPage = () => {
-      const width = window.innerWidth;
-      setIsDesktop(width >= 768);
-      if (width >= 1024) {
-        setItemsPerPage(3);
-      } else {
-        setItemsPerPage(2);
-      }
-    };
-    updateItemsPerPage();
-    window.addEventListener('resize', updateItemsPerPage);
-    return () => window.removeEventListener('resize', updateItemsPerPage);
-  }, []);
-
-  const maxScrollIndex = Math.max(0, products.length - itemsPerPage);
-
-  const handleNextScroll = () => {
-    setScrollIndex((prev) => Math.min(prev + 1, maxScrollIndex));
-  };
-
-  const handlePrevScroll = () => {
-    setScrollIndex((prev) => Math.max(prev - 1, 0));
-  };
-
-  // Reset scroll position when category changes
-  useEffect(() => {
-    setScrollIndex(0);
-  }, [activeCategoryIndex, itemsPerPage]);
-
-
-  // State for spotlight featured product
-  const [activeProductIndex, setActiveProductIndex] = useState(0);
-  const featuredProduct = activeCategory.products[activeProductIndex] || activeCategory.products[0];
-
-  // State for inline details section
-  const [selectedGridProduct, setSelectedGridProduct] = useState<Product | null>(null);
-
-  // State for quantity selection
-  const [quantity, setQuantity] = useState(2);
-  // State for selected size
-  const [selectedSize, setSelectedSize] = useState("500ml");
-
-  useEffect(() => {
-    // Update active category if query param changes
-    const cat = searchParams.get("cat");
-    if (cat !== null) {
-      const idx = categories.findIndex(c => c.title.toLowerCase() === cat.toLowerCase());
-      if (idx !== -1) {
-        setActiveCategoryIndex(idx);
-      }
-    }
-  }, [searchParams, categories]);
-
-  useEffect(() => {
-    // Fetch live categories from database
     const fetchCategories = async () => {
       try {
-        const res = await fetch("/api/categories").catch(() => null);
-        if (res && res.ok) {
-          const contentType = res.headers.get("content-type");
-          if (contentType && contentType.includes("application/json")) {
-            const data = await res.json();
-            if (data && data.length > 0) {
-              setCategories(data);
-            }
-          }
+        const res = await fetch("/api/categories");
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.length > 0) setCategories(data);
         }
       } catch (err) {
-        console.error("Failed to load dynamic categories:", err);
+        console.error("Failed to fetch categories:", err);
       } finally {
         setLoading(false);
       }
     };
     fetchCategories();
+  }, []);
 
-    // Disable immersive hero specific behaviors globally for the shop page
-    setIsImmersive(true);
-    // Dynamically lock header color to active category
-    setHeaderColor(activeCategory.color);
-    // Reset product index when category changes based on featured product setting
-    if (activeCategory.desktopFeaturedProductId) {
-      const featIdx = activeCategory.products.findIndex((p: any) => p.id === activeCategory.desktopFeaturedProductId);
-      if (featIdx !== -1) setActiveProductIndex(featIdx);
-      else setActiveProductIndex(0);
-    } else {
-      setActiveProductIndex(0);
-    }
+  const allProducts = categories.flatMap(cat => 
+    cat.products.map(p => ({ 
+      ...p, 
+      categoryColor: cat.color, 
+      categoryTitle: cat.title 
+    }))
+  );
 
-    setSelectedGridProduct(null);
-    return () => setIsImmersive(false);
-  }, [setIsImmersive, setHeaderColor, activeCategory.color, activeCategory.desktopFeaturedProductId, activeCategory.products]);
+  const filteredProducts = allProducts.filter(p => {
+    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                         p.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory === "All" || p.categoryTitle === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
-
-  // Carousel product switching logic
-  const nextProduct = () => {
-    setActiveProductIndex((prev) => (prev + 1) % activeCategory.products.length);
-  };
-
-  const prevProduct = () => {
-    setActiveProductIndex((prev) => (prev - 1 + activeCategory.products.length) % activeCategory.products.length);
-  };
+  const uniqueCategoryTitles = ["All", ...new Set(categories.map(c => c.title))];
 
   return (
-    <div
-      className="relative min-h-screen font-sans pb-24 transition-colors duration-1000 ease-in-out bg-[#f1f1f2]"
-    >
-      {/* Editorial Hero Section - High-Fidelity Product Spotlight */}
-      <motion.section
-        ref={heroRef}
-        className="relative w-full h-[100dvh] flex flex-col overflow-hidden z-10 mt-[50px]"
-      >
-        {/* Mobile-Only Elements - Hidden on Desktop */}
-        <div className="lg:hidden absolute inset-0 z-40 pointer-events-none">
-          <div className="relative w-full h-full px-6 py-12">
+    <div className="min-h-screen bg-[#f1f1f2] font-sans">
+      <main className="pt-32 pb-24 px-6 md:px-12 lg:px-24 max-w-[1600px] mx-auto">
+        {/* Editorial Header */}
+        <div className="relative mb-16 md:mb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="relative z-10"
+          >
+            <span className="text-[10px] font-black capitalize tracking-[0.5em] text-[#c81c6a] mb-4 block">
+              The Botanical Archive
+            </span>
+            <h1 className="text-5xl md:text-8xl font-black font-playfair text-[#5d5f61] tracking-tighter leading-none mb-8">
+              Full Collection
+            </h1>
+            <p className="max-w-2xl text-[#5d5f61]/60 text-sm md:text-lg font-medium leading-relaxed">
+              Explore our complete sanctuary of heritage botanical products. From cold-pressed crushes to artisanal jams, 
+              each asset is cultivated with cinematic precision and ancient wisdom.
+            </p>
+          </motion.div>
 
-            {/* Top Category Selection (Mobile Mockup Style) */}
-            <div className="absolute top-[100px] left-0 w-full pointer-events-auto z-50">
-              <div className="flex gap-2.5 px-6 justify-start overflow-x-auto scrollbar-hide py-2 flex-nowrap">
-                {categories.map((cat, idx) => {
-                  const isActive = activeCategoryIndex === idx;
-                  return (
-                    <button
-                      key={cat.id}
-                      onClick={() => {
-                        setActiveCategoryIndex(idx);
-                        router.push(`/shop?cat=${cat.title.toLowerCase()}`, { scroll: false });
-                      }}
-                      className="px-5 py-2 rounded-full border transition-all duration-300 font-bold uppercase tracking-widest text-[10px] whitespace-nowrap flex-shrink-0"
-                      style={{
-                        borderColor: cat.color,
-                        color: isActive ? cat.color : '#666c75',
-                        backgroundColor: '#f1f1f2',
-                        opacity: isActive ? 1 : 0.8
-                      }}
-                    >
-                      {cat.title}
-                    </button>
-                  );
-                })}
-              </div>
+          {/* Background Watermark */}
+          <div className="absolute top-0 right-0 pointer-events-none opacity-[0.03] select-none -mt-12 hidden md:block">
+            <h1 className="text-[200px] font-black tracking-tighter leading-none text-[#5d5f61]">ARCHIVE</h1>
+          </div>
+        </div>
+
+        {/* Toolbar: Search & Filter */}
+        <div className="flex flex-col md:flex-row gap-8 items-center justify-between mb-16 relative z-10 py-6 border-b border-black/5">
+          {/* Category Pills */}
+          <div className="flex items-center gap-3 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 no-scrollbar">
+            {uniqueCategoryTitles.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-6 py-3 rounded-full text-[10px] font-black capitalize tracking-widest transition-all whitespace-nowrap ${
+                  selectedCategory === cat 
+                    ? "bg-[#5d5f61] text-white shadow-lg" 
+                    : "bg-white text-[#5d5f61] border border-black/5 hover:border-[#c81c6a]/30"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-6 w-full md:w-auto">
+            {/* Search Bar */}
+            <div className="relative flex-1 md:w-64 group">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#c81c6a] transition-colors" size={16} />
+              <input 
+                type="text"
+                placeholder="Search Archive..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-12 pr-6 py-3.5 bg-white rounded-full border border-black/5 outline-none text-[11px] font-bold capitalize tracking-widest focus:ring-4 focus:ring-[#c81c6a]/5 transition-all"
+              />
             </div>
 
-            {/* Top Left Title Block (Mobile) */}
-            <div className="absolute top-[180px] left-8 pointer-events-none">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={"title-mob-" + activeCategory.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <h1 className="font-avant-garde text-[2.52rem] leading-[1.05] tracking-tight drop-shadow-sm font-bold"
-                    style={{ color: settings['shop_mobile_title_color'] || '#6C6D71' }}
-                  >
-                    {settings['shop_hero_heading_prefix'] || "Dragon"}<br />
-                    <span style={{ color: activeCategory.color }}>{activeCategory.title}</span>
-                  </h1>
-
-                  <p className="text-[0.65rem] font-bold tracking-widest text-black/40 uppercase mt-2 font-avant-garde">
-                    {activeCategory.subtitle || "This is a sample product details must"}
-                  </p>
-                </motion.div>
-              </AnimatePresence>
+            {/* View Mode Toggle */}
+            <div className="hidden md:flex items-center bg-white rounded-full border border-black/5 p-1">
+              <button 
+                onClick={() => setViewMode("grid")}
+                className={`p-2.5 rounded-full transition-all ${viewMode === "grid" ? "bg-[#5d5f61] text-white shadow-md" : "text-gray-300 hover:text-[#5d5f61]"}`}
+              >
+                <LayoutGrid size={18} />
+              </button>
+              <button 
+                onClick={() => setViewMode("list")}
+                className={`p-2.5 rounded-full transition-all ${viewMode === "list" ? "bg-[#5d5f61] text-white shadow-md" : "text-gray-300 hover:text-[#5d5f61]"}`}
+              >
+                <List size={18} />
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Category Heading and Description - Center Aligned */}
-        <div className="absolute bottom-[60px] left-1/2 -translate-x-1/2 pointer-events-auto z-50 text-center w-full max-w-4xl px-6">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={"hero-info-" + activeCategory.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-              className="flex flex-col items-center"
-            >
-              <h2 className="font-avant-garde font-bold text-[1.8rem] md:text-[3.2rem] leading-[1.1] mb-1 md:mb-2 uppercase tracking-tighter"
-                style={{ color: activeCategory.color }}
-              >
-                {activeCategory.title}
-              </h2>
-              <p className="text-[0.65rem] md:text-[0.8rem] leading-relaxed font-avant-garde font-bold max-w-[200px] md:max-w-[500px] uppercase tracking-[0.2em]"
-                style={{ color: settings['shop_mobile_bottom_text_color'] || '#787877' }}
-              >
-                {activeCategory.subtitle}
-              </p>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-
-        {/* Mobile Dynamic Category Backdrop (Mobile Only) */}
-        <div className="lg:hidden absolute inset-0 z-0 px-8">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={"bg-" + activeCategory.title}
+        {/* Product Grid/List */}
+        <AnimatePresence mode="wait">
+          {loading ? (
+            <motion.div 
+              key="loading"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-              className="relative w-full h-full"
+              className="py-32 text-center"
             >
-              <Image
-                src={
-                  (activeCategory as any).mobileHeroImage || (
-                    activeCategory.title.toLowerCase() === 'crush' ? "/images/hero/shopherocrush.webp" :
-                      activeCategory.title.toLowerCase() === 'jams' ? "/images/hero/jam_premium.png" :
-                        activeCategory.title.toLowerCase() === 'fruits' ? "/products/Dragon fruit png.webp" :
-                          activeCategory.title.toLowerCase() === 'plants' ? "/images/hero/Plant.webp" :
-                            "/images/hero/shopherocrush.webp" // Default
-                  )
-                }
-
-                alt={`${activeCategory.title} backdrop`}
-                fill
-                className="object-contain" // Using contain to maintain aspect ratio without cropping away from the text areas
-                priority
-              />
+              <div className="w-12 h-12 border-4 border-gray-100 border-t-[#c81c6a] rounded-full animate-spin mx-auto mb-6" />
+              <p className="text-[10px] font-black capitalize tracking-[0.4em] text-gray-400">Syncing with Garden Database...</p>
             </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Background Watermark (Dharma Gothic) - Properly Hidden on Mobile */}
-        <div className="hidden lg:flex absolute inset-0 z-0 items-center justify-center pointer-events-none overflow-hidden">
-          <AnimatePresence mode="wait">
-            <motion.h1
-              key={activeCategory.title}
-              initial={{ opacity: 0, scale: 0.9, y: 100, x: -100 }}
-              animate={{ opacity: 0.1, scale: 1.1, y: 0, x: -100 }}
-              exit={{ opacity: 0, scale: 1.2, y: -100, x: -100 }}
-              transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-[150px] sm:text-[200px] md:text-[300px] lg:text-[400px] leading-none text-[#333333] tracking-normal lowercase whitespace-nowrap opacity-5"
-              style={{ fontFamily: "'DharmaGothic', sans-serif", fontWeight: 700 }}
+          ) : filteredProducts.length > 0 ? (
+            <motion.div 
+              key={viewMode + selectedCategory}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={viewMode === "grid" 
+                ? "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 lg:gap-12" 
+                : "flex flex-col gap-8"
+              }
             >
-              {activeCategory.title}
-            </motion.h1>
-          </AnimatePresence>
-        </div>
-
-        {/* Global Alignment Container (Syncs with Header) */}
-        <div className="absolute inset-x-0 top-0 bottom-0 z-40 pointer-events-none">
-          <div className="max-w-[1700px] mx-auto w-full h-full relative px-6 md:px-12">
-
-            {/* Category Navigation - Aligned Top Right - Hidden on Mobile */}
-            <div className="hidden lg:flex absolute top-[88px] right-[124px] md:right-[148px] pointer-events-auto">
-              <div className="flex gap-3">
-                {categories.map((cat, idx) => {
-                  const displayTitle = cat.title;
-                  const isActive = activeCategoryIndex === idx;
-                  return (
-                    <button
-                      key={cat.id}
-                      onClick={() => setActiveCategoryIndex(idx)}
-                      className={`px-7 py-2 rounded-full border transition-all duration-300 font-avant-garde text-[0.7rem] font-bold tracking-[0.15em] uppercase whitespace-nowrap
-                        ${isActive
-                          ? "shadow-sm"
-                          : "hover:bg-white/5"}
-                      `}
-                      style={{
-                        borderColor: cat.color,
-                        color: isActive ? cat.color : '#666c75',
-                        backgroundColor: '#f1f1f2',
-                        opacity: isActive ? 1 : 0.8
-                      }}
-                    >
-                      {displayTitle}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        {/* Central Spotlight Area - Desktop View */}
-        <div className="hidden lg:flex flex-1 relative w-full items-center justify-center px-6 md:px-12">
-
-          {/* Navigation Arrows */}
-          <button
-            onClick={prevProduct}
-            className="hidden lg:flex absolute left-4 md:left-12 p-3.5 rounded-full border border-[#333333]/15 text-[#333333]/40 hover:text-[#333333] hover:bg-white/20 transition-all z-50 group items-center justify-center"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 md:w-5 md:h-5 group-active:scale-90 transition-transform"><polyline points="15 18 9 12 15 6"></polyline></svg>
-          </button>
-
-          <button
-            onClick={nextProduct}
-            className="hidden lg:flex absolute right-4 md:right-12 p-3.5 rounded-full border border-[#333333]/15 text-[#333333]/40 hover:text-[#333333] hover:bg-white/20 transition-all z-50 group items-center justify-center"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 md:w-5 md:h-5 group-active:scale-90 transition-transform"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </button>
-
-          {/* Main Product Container */}
-          <div className="relative flex items-center justify-center w-full max-w-6xl h-full py-12">
-
-            {/* Product Centerpiece - Shifted 100px Left on Desktop */}
-            <div className="relative z-20 w-[200px] h-[260px] sm:w-[250px] sm:h-[350px] md:w-[338px] md:h-[52.5vh] max-h-[562px] flex justify-center items-center lg:-translate-x-[100px]">
-
-              {/* Decorative Vertical Text - Bottom aligned parallel lines */}
-              <div className="hidden lg:flex absolute bottom-[0px] right-[-260px] flex flex-row items-end gap-1.5 opacity-30 select-none pointer-events-none">
-                <span className="text-[14px] font-bold uppercase tracking-[0.3em] [writing-mode:vertical-rl] rotate-180 font-avant-garde whitespace-nowrap">Pure</span>
-                <span className="text-[14px] font-bold uppercase tracking-[0.3em] [writing-mode:vertical-rl] rotate-180 font-avant-garde whitespace-nowrap">Botanical</span>
-                <span className="text-[14px] font-bold uppercase tracking-[0.3em] [writing-mode:vertical-rl] rotate-180 font-avant-garde whitespace-nowrap">Refreshment</span>
-              </div>
-
-              <AnimatePresence mode="wait">
-                {/* Decorative Pitayas - Crush Category Only */}
-                {activeCategory.title === 'Crush' && (
-                  <>
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="absolute -bottom-10 -left-10 w-[115px] h-[115px] z-10"
-                    >
-                      <Image src="/images/hero/floatingpitaya.png" alt="" fill className="object-contain" />
-                    </motion.div>
-                    <motion.div
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="absolute -bottom-4 right-10 w-[96px] h-[96px] z-10 rotate-45"
-                    >
-                      <Image src="/images/hero/floatingpitaya.png" alt="" fill className="object-contain" />
-                    </motion.div>
-                    <motion.div
-                      key={"pitaya-1"}
-                      animate={{ y: [0, -15, 0], rotate: [0, 5, 0] }}
-                      transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                      className="absolute -left-24 top-1/4 w-[77px] h-[77px] z-10"
-                    >
-                      <Image src="/images/hero/floatingpitaya.png" alt="" fill className="object-contain" />
-                    </motion.div>
-                    <motion.div
-                      key={"pitaya-2"}
-                      animate={{ y: [0, 15, 0], rotate: [0, -8, 0] }}
-                      transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                      className="absolute -right-20 bottom-1/3 w-[86px] h-[86px] z-10"
-                    >
-                      <Image src="/images/hero/floatingpitaya.png" alt="" fill className="object-contain" />
-                    </motion.div>
-                  </>
-                )}
-
-                {/* Main Image */}
-                <motion.div
-                  key={featuredProduct.id}
-                  initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                  animate={{ opacity: 1, scale: 1.05, y: 0 }}
-                  exit={{ opacity: 0, scale: 1.1 }}
-                  transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative w-full h-full z-10"
-                >
-                  <Image
-                    src={featuredProduct.image}
-                    alt={featuredProduct.name}
-                    fill
-                    className="object-contain drop-shadow-[0_45px_100px_rgba(0,0,0,0.3)]"
-                  />
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </div>
-        </div>
-
-        {/* Central Spotlight Area - Mobile View removed centerpiece as per user request */}
-        <div className="lg:hidden flex-1 relative w-full flex items-center justify-center px-6">
-          {/* Front product images removed on mobile */}
-        </div>
-
-
-      </motion.section>
-
-      {/* Mobile Category Selection Bar removed as per user request to use Top Pills only */}
-
-      {/* Active Collection Carousel View (Home Page Style) */}
-      <section className="max-w-[1700px] mx-auto w-full px-0 md:px-12 pt-16 pb-8">
-        <div className="relative z-10">
-          
-          {/* Header with Navigation Arrows on the right */}
-          <div className="flex items-center justify-end mb-10 px-6 md:px-0">
-            <div className="flex items-center gap-4">
-              <button
-                onClick={handlePrevScroll}
-                disabled={scrollIndex === 0}
-                className={`w-8 h-8 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center transition-all ${
-                  scrollIndex === 0 ? "opacity-30 cursor-not-allowed" : "hover:bg-white hover:shadow-md active:scale-90"
-                }`}
-              >
-                <ChevronLeft size={isDesktop ? 24 : 16} className="text-[#5d5f61]" />
-              </button>
-              <button
-                onClick={handleNextScroll}
-                disabled={scrollIndex === maxScrollIndex}
-                className={`w-8 h-8 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center transition-all ${
-                  scrollIndex === maxScrollIndex ? "opacity-30 cursor-not-allowed" : "hover:bg-white hover:shadow-md active:scale-90"
-                }`}
-              >
-                <ChevronRight size={isDesktop ? 24 : 16} className="text-[#5d5f61]" />
-              </button>
-            </div>
-          </div>
-
-          {/* Carousel Track */}
-          <div className="relative overflow-hidden px-4 md:px-0">
-            <motion.div
-              animate={{ x: `-${scrollIndex * (100 / itemsPerPage)}%` }}
-              transition={{ type: "spring", stiffness: 200, damping: 25 }}
-              className="flex gap-4 md:gap-6 lg:gap-8"
-            >
-              {products.map((product: Product) => (
-                <div 
-                  key={product.id} 
-                  className="flex-shrink-0 w-[calc(50%-8px)] md:w-[calc(50%-12px)] lg:w-[calc(33.333%-21.33px)]"
-                >
-                  <ProductCard
-                    product={product}
-                    accentColor={activeCategory.color}
-                    onSelect={(p) => setSelectedGridProduct(p)}
-                  />
+              {filteredProducts.map((product) => (
+                <div key={product.id} className={viewMode === "list" ? "max-w-4xl mx-auto w-full" : ""}>
+                   <ProductCard 
+                     product={product} 
+                     accentColor={product.categoryColor}
+                   />
                 </div>
               ))}
             </motion.div>
-
-            {products.length === 0 && !loading && (
-              <div className="w-full py-32 flex items-center justify-center bg-white/5 backdrop-blur-xl rounded-[3rem] border border-white/10">
-                <p className="text-xl text-black/20 font-bold uppercase tracking-widest">Collection arriving soon...</p>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-
-        {/* Inline Product Detail Section */}
-        <AnimatePresence mode="wait">
-          {selectedGridProduct && (
-            <div className="mt-8">
-              <ProductDetailSection
-                product={selectedGridProduct}
-                categoryTitle={activeCategory.title}
-                categoryColor={activeCategory.color}
-                onClose={() => setSelectedGridProduct(null)}
-              />
-            </div>
-          )
-          }
+          ) : (
+            <motion.div 
+              key="empty"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="py-32 text-center bg-white/40 rounded-[4rem] border border-dashed border-gray-200"
+            >
+              <Search size={48} className="mx-auto mb-6 text-gray-200" strokeWidth={1} />
+              <h3 className="text-xl font-bold text-[#5d5f61] mb-2 capitalize tracking-tight">No botanical assets found</h3>
+              <p className="text-[10px] font-black capitalize tracking-widest text-gray-400">Try refining your search or selecting a different category</p>
+            </motion.div>
+          )}
         </AnimatePresence>
-      </div>
-    );
-}
 
-export default function ShopPage() {
-  return (
-    <Suspense fallback={<div className="min-h-screen bg-[#f1f1f2] flex items-center justify-center">Loading Shop...</div>}>
-      <ShopContent />
-    </Suspense>
+        {/* Floating Background Elements */}
+        <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+           <motion.div 
+             animate={{ rotate: 360 }}
+             transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+             className="absolute -top-[10%] -right-[5%] w-[40vw] h-[40vw] bg-[#c81c6a]/5 rounded-full blur-[120px]"
+           />
+           <motion.div 
+             animate={{ rotate: -360 }}
+             transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+             className="absolute top-[40%] -left-[10%] w-[30vw] h-[30vw] bg-[#7fa23f]/5 rounded-full blur-[100px]"
+           />
+        </div>
+      </main>
+    </div>
   );
 }

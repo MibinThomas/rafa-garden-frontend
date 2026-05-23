@@ -92,7 +92,7 @@ export default function ProfilePage() {
                   {tab.label.replace('.', '')}
                 </button>
               ))}
-              <button className="text-[14px] font-bold uppercase tracking-[0.3em] text-[#888888] hover:text-red-500 transition-colors mt-8 flex items-center gap-3">
+              <button className="text-[14px] font-bold capitalize tracking-[0.3em] text-[#888888] hover:text-red-500 transition-colors mt-8 flex items-center gap-3">
                 <LogOut size={16} /> Logout System
               </button>
             </div>
@@ -166,7 +166,7 @@ export default function ProfilePage() {
                         <div className="flex flex-col gap-1">
                           <div className="flex items-center gap-3">
                             <span className="text-[18px] font-medium text-[#555555]">{order.id}</span>
-                            <span className={`text-[10px] uppercase font-black tracking-widest px-3 py-1 rounded-full ${order.status === 'Delivered' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'}`}>
+                            <span className={`text-[10px] capitalize font-black tracking-widest px-3 py-1 rounded-full ${order.status === 'Delivered' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'}`}>
                               {order.status}
                             </span>
                           </div>

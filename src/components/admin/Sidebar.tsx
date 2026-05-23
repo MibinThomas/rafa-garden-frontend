@@ -104,7 +104,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
             />
             <div className="flex items-center gap-2 mt-1">
                <div className="w-1 h-1 rounded-full bg-[#c81c6a] animate-pulse" />
-               <p className="text-[#888888] text-[9px] font-black uppercase tracking-[0.3em]">Sanctuary Office</p>
+               <p className="text-[#888888] text-[9px] font-black capitalize tracking-[0.3em]">Sanctuary Office</p>
             </div>
           </Link>
           
@@ -138,7 +138,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                   >
                     <div className="flex items-center gap-4">
                       <item.icon size={19} strokeWidth={isAnyChildActive ? 2.5 : 2} className={cn("transition-all duration-500", isAnyChildActive && !isExpanded ? "text-[#c81c6a] scale-110" : "opacity-40 group-hover:opacity-100 group-hover:text-[#5d5f61]")} />
-                      <span className="text-[13px] font-black tracking-tight uppercase">{item.label}</span>
+                      <span className="text-[13px] font-black tracking-tight capitalize">{item.label}</span>
                     </div>
                     {isExpanded ? (
                       <ChevronDown size={14} className="opacity-60 transition-all text-[#5d5f61]" />
@@ -192,7 +192,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
               >
                 <div className="flex items-center gap-4">
                   <item.icon size={19} strokeWidth={isActive ? 2.5 : 2} className={cn("transition-all duration-500", isActive ? "text-[#c81c6a] scale-110" : "opacity-40 group-hover:opacity-100 group-hover:text-[#5d5f61]")} />
-                  <span className="text-[13px] font-black tracking-tight uppercase">{item.label}</span>
+                  <span className="text-[13px] font-black tracking-tight capitalize">{item.label}</span>
                 </div>
                 <ChevronRight 
                   size={14} 
@@ -214,7 +214,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
             className="flex items-center justify-between p-6 rounded-[2.5rem] bg-[#5d5f61] text-white group relative overflow-hidden transition-all duration-700 hover:scale-[1.02] hover:shadow-2xl hover:shadow-[#5d5f61]/20"
           >
             <div className="relative z-10">
-              <p className="text-[9px] font-black uppercase tracking-[0.4em] opacity-40 mb-1.5">Live Sanctuary</p>
+              <p className="text-[9px] font-black capitalize tracking-[0.4em] opacity-40 mb-1.5">Live Sanctuary</p>
               <p className="text-[13px] font-black font-playfair tracking-tight flex items-center gap-2">
                 Storefront <span className="italic font-normal opacity-60">Preview</span>
               </p>
@@ -237,7 +237,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
               </div>
               <div className="hidden xs:block">
                  <p className="text-[13px] font-black text-[#5d5f61] leading-tight">Principal Admin</p>
-                 <p className="text-[9px] text-[#aaaaaa] font-black uppercase tracking-widest mt-0.5">Master Key</p>
+                 <p className="text-[9px] text-[#aaaaaa] font-black capitalize tracking-widest mt-0.5">Master Key</p>
               </div>
            </div>
            <button className="w-10 h-10 rounded-xl flex items-center justify-center text-gray-200 hover:text-red-500 hover:bg-red-50 transition-all duration-500 group">

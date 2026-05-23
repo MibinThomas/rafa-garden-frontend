@@ -199,7 +199,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                 <motion.p 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="text-[#c81c6a] font-black text-[9px] uppercase tracking-[0.4em] mb-2"
+                  className="text-[#c81c6a] font-black text-[9px] capitalize tracking-[0.4em] mb-2"
                 >
                   Curated Collection
                 </motion.p>
@@ -220,7 +220,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
               
               {/* Image Hero Section */}
               <div className="space-y-4">
-                <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 ml-1">Editorial Cover</label>
+                <label className="text-[10px] font-black capitalize tracking-[0.3em] text-gray-400 ml-1">Editorial Cover</label>
                 <div className="relative group">
                   <div className="aspect-[21/9] rounded-[3rem] bg-white overflow-hidden relative border border-gray-100 shadow-2xl shadow-black/[0.02] group-hover:shadow-black/[0.05] transition-all duration-1000">
                     {formData.image ? (
@@ -230,14 +230,14 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                            <div className="w-20 h-20 rounded-[2.5rem] bg-gray-50 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-700">
                              <Upload size={32} strokeWidth={1} />
                            </div>
-                           <span className="text-[10px] font-black uppercase tracking-[0.3em]">Botanical Cover Asset</span>
+                           <span className="text-[10px] font-black capitalize tracking-[0.3em]">Botanical Cover Asset</span>
                         </div>
                     )}
                     
                     {uploading && (
                        <div className="absolute inset-0 bg-[#5d5f61]/80 backdrop-blur-md flex flex-col items-center justify-center text-white gap-4">
                           <Loader2 className="animate-spin" size={24} />
-                          <span className="text-[9px] font-black uppercase tracking-[0.3em]">Syncing Asset...</span>
+                          <span className="text-[9px] font-black capitalize tracking-[0.3em]">Syncing Asset...</span>
                        </div>
                     )}
 
@@ -245,7 +245,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                        <button 
                          type="button"
                          onClick={() => fileInputRef.current?.click()}
-                         className="bg-white text-[#5d5f61] px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl hover:scale-105 active:scale-95 transition-all"
+                         className="bg-white text-[#5d5f61] px-8 py-4 rounded-2xl text-[10px] font-black capitalize tracking-[0.2em] shadow-2xl hover:scale-105 active:scale-95 transition-all"
                        >
                          {formData.image ? "Replace Narrative Cover" : "Select Visual Asset"}
                        </button>
@@ -264,17 +264,17 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
               {/* Core Info */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                  <div className="space-y-4">
-                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 ml-1">Registry Index</label>
+                    <label className="text-[10px] font-black capitalize tracking-[0.3em] text-gray-400 ml-1">Registry Index</label>
                     <input 
                       type="text" 
                       value={formData.id}
                       onChange={e => setFormData(prev => ({ ...prev, id: e.target.value }))}
-                      className="w-full px-8 py-5 bg-white rounded-2xl border border-gray-100 outline-none font-black text-[#5d5f61] text-[11px] uppercase tracking-widest shadow-sm"
+                      className="w-full px-8 py-5 bg-white rounded-2xl border border-gray-100 outline-none font-black text-[#5d5f61] text-[11px] capitalize tracking-widest shadow-sm"
                       placeholder="e.g. 05"
                     />
                  </div>
                  <div className="space-y-4">
-                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 ml-1">Signature Hue</label>
+                    <label className="text-[10px] font-black capitalize tracking-[0.3em] text-gray-400 ml-1">Signature Hue</label>
                     <div className="flex gap-4 items-center bg-white px-6 py-4 rounded-2xl border border-gray-100 shadow-sm">
                        <input 
                          type="color" 
@@ -282,11 +282,11 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                          onChange={e => setFormData(prev => ({ ...prev, color: e.target.value }))}
                          className="w-10 h-10 rounded-xl border-none p-0 cursor-pointer shadow-sm"
                        />
-                       <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest">{formData.color}</span>
+                       <span className="text-[11px] font-black text-gray-400 capitalize tracking-widest">{formData.color}</span>
                     </div>
                  </div>
                  <div className="md:col-span-2 space-y-4">
-                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 ml-1">Heritage Identity</label>
+                    <label className="text-[10px] font-black capitalize tracking-[0.3em] text-gray-400 ml-1">Heritage Identity</label>
                     <input 
                       type="text" 
                       value={formData.title}
@@ -297,7 +297,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                     />
                  </div>
                  <div className="md:col-span-2 space-y-4">
-                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 ml-1">Collection Narrative</label>
+                    <label className="text-[10px] font-black capitalize tracking-[0.3em] text-gray-400 ml-1">Collection Narrative</label>
                     <input 
                       type="text" 
                       value={formData.subtitle}
@@ -316,7 +316,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                  </div>
                  
                  <div className="space-y-4">
-                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-[#c81c6a] ml-1">Editorial Tagline (Headline)</label>
+                    <label className="text-[10px] font-black capitalize tracking-[0.3em] text-[#c81c6a] ml-1">Editorial Tagline (Headline)</label>
                     <textarea 
                       value={formData.mobileTitle}
                       onChange={e => setFormData(prev => ({ ...prev, mobileTitle: e.target.value }))}
@@ -328,7 +328,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                  
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-4">
-                        <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 ml-1">Abstract Summary</label>
+                        <label className="text-[10px] font-black capitalize tracking-[0.3em] text-gray-400 ml-1">Abstract Summary</label>
                         <textarea 
                           value={formData.mobileShortDesc}
                           onChange={e => setFormData(prev => ({ ...prev, mobileShortDesc: e.target.value }))}
@@ -338,7 +338,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                         />
                     </div>
                     <div className="space-y-4">
-                        <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 ml-1">Active Exposition</label>
+                        <label className="text-[10px] font-black capitalize tracking-[0.3em] text-gray-400 ml-1">Active Exposition</label>
                         <textarea 
                           value={formData.mobileActiveDesc}
                           onChange={e => setFormData(prev => ({ ...prev, mobileActiveDesc: e.target.value }))}
@@ -350,7 +350,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                  </div>
 
                   <div className="space-y-4">
-                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-[#c81c6a] ml-1">Mobile Heritage Backdrop</label>
+                    <label className="text-[10px] font-black capitalize tracking-[0.3em] text-[#c81c6a] ml-1">Mobile Heritage Backdrop</label>
                     <div className="relative group/mob-hero">
                       <div className="aspect-[3/4] max-w-[240px] rounded-[3rem] bg-white overflow-hidden relative border border-gray-100 shadow-2xl shadow-black/[0.02] group-hover/mob-hero:shadow-black/[0.05] transition-all duration-1000">
                         {formData.mobileHeroImage ? (
@@ -358,7 +358,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                         ) : (
                           <div className="w-full h-full flex flex-col items-center justify-center gap-4 text-gray-200">
                             <Upload size={32} strokeWidth={1} />
-                            <span className="text-[9px] font-black uppercase tracking-[0.3em]">Mobile BG</span>
+                            <span className="text-[9px] font-black capitalize tracking-[0.3em]">Mobile BG</span>
                           </div>
                         )}
                         <div className="absolute inset-0 bg-[#5d5f61]/40 opacity-0 group-hover/mob-hero:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-[2px]">
@@ -368,7 +368,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                               (fileInputRef.current as any).pendingType = "mobileHero";
                               fileInputRef.current?.click();
                             }}
-                            className="bg-white text-[#5d5f61] px-6 py-3 rounded-2xl text-[9px] font-black uppercase tracking-[0.2em] shadow-2xl hover:scale-105 active:scale-95 transition-all"
+                            className="bg-white text-[#5d5f61] px-6 py-3 rounded-2xl text-[9px] font-black capitalize tracking-[0.2em] shadow-2xl hover:scale-105 active:scale-95 transition-all"
                           >
                             Sync Asset
                           </button>
@@ -386,12 +386,12 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                  </div>
                  
                  <div className="space-y-4 max-w-md">
-                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 ml-1">Featured Showcase Asset</label>
+                    <label className="text-[10px] font-black capitalize tracking-[0.3em] text-gray-400 ml-1">Featured Showcase Asset</label>
                     <div className="relative group">
                         <select 
                           value={formData.desktopFeaturedProductId}
                           onChange={e => setFormData(prev => ({ ...prev, desktopFeaturedProductId: e.target.value }))}
-                          className="w-full px-8 py-5 bg-white rounded-2xl border border-gray-100 outline-none font-black text-[#5d5f61] text-[11px] uppercase tracking-widest shadow-sm cursor-pointer appearance-none focus:ring-4 focus:ring-[#c81c6a]/5 transition-all"
+                          className="w-full px-8 py-5 bg-white rounded-2xl border border-gray-100 outline-none font-black text-[#5d5f61] text-[11px] capitalize tracking-widest shadow-sm cursor-pointer appearance-none focus:ring-4 focus:ring-[#c81c6a]/5 transition-all"
                         >
                           <option value="">Default Registry (Alpha)</option>
                           {formData.products.map(p => (
@@ -416,7 +416,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                    <button 
                      type="button" 
                      onClick={addProduct}
-                     className="px-8 py-4 bg-[#5d5f61] text-white rounded-2xl hover:bg-[#c81c6a] transition-all duration-500 flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl shadow-black/5 active:scale-95 group"
+                     className="px-8 py-4 bg-[#5d5f61] text-white rounded-2xl hover:bg-[#c81c6a] transition-all duration-500 flex items-center gap-4 text-[10px] font-black capitalize tracking-[0.2em] shadow-2xl shadow-black/5 active:scale-95 group"
                    >
                      <Plus size={16} className="group-hover:rotate-90 transition-transform duration-500" /> New Asset
                    </button>
@@ -449,7 +449,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                            {productUploadingIdx === idx && (
                              <div className="absolute inset-0 bg-[#5d5f61]/80 backdrop-blur-md flex flex-col items-center justify-center text-white gap-2">
                                 <Loader2 className="animate-spin" size={18} />
-                                <span className="text-[7px] font-black uppercase tracking-widest">Syncing</span>
+                                <span className="text-[7px] font-black capitalize tracking-widest">Syncing</span>
                              </div>
                            )}
                         </div>
@@ -477,7 +477,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                              placeholder="Describe the botanical essence..."
                            />
                            <div className="flex items-center gap-4">
-                             <p className="text-[9px] text-[#c81c6a] font-black uppercase tracking-[0.3em] bg-[#c81c6a]/5 px-4 py-2 rounded-full border border-[#c81c6a]/10">ID: {p.id}</p>
+                             <p className="text-[9px] text-[#c81c6a] font-black capitalize tracking-[0.3em] bg-[#c81c6a]/5 px-4 py-2 rounded-full border border-[#c81c6a]/10">ID: {p.id}</p>
                            </div>
                         </div>
                         <div className="flex flex-col items-center justify-center">
@@ -509,7 +509,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
               <button 
                 type="button" 
                 onClick={onClose}
-                className="flex-1 py-6 rounded-[2rem] bg-gray-50 text-gray-400 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-gray-100 hover:text-[#5d5f61] transition-all duration-500"
+                className="flex-1 py-6 rounded-[2rem] bg-gray-50 text-gray-400 font-black text-[10px] capitalize tracking-[0.3em] hover:bg-gray-100 hover:text-[#5d5f61] transition-all duration-500"
               >
                 Discard Edits
               </button>
@@ -517,7 +517,7 @@ export function CmsForm({ isOpen, onClose, category, onSave }: CmsFormProps) {
                 type="button"
                 onClick={handleSave}
                 disabled={saving || !formData.title}
-                className="flex-[2] py-6 rounded-[2rem] bg-[#5d5f61] text-white font-black text-[10px] uppercase tracking-[0.4em] shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-4 transition-all duration-700"
+                className="flex-[2] py-6 rounded-[2rem] bg-[#5d5f61] text-white font-black text-[10px] capitalize tracking-[0.4em] shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-4 transition-all duration-700"
               >
                 {saving ? (
                    <div className="flex items-center gap-4">

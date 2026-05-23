@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Inter, Playfair_Display, Outfit, Montserrat } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/lib/CartContext";
 import { HeaderColorProvider } from "@/lib/HeaderColorContext";
@@ -8,6 +9,15 @@ import { RootLayoutWrapper } from "@/components/RootLayoutWrapper";
 
 import dbConnect from "@/lib/mongodb";
 import SiteContent from "@/models/SiteContent";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
+const montserrat = Montserrat({ 
+  subsets: ["latin"], 
+  weight: ["600", "700"],
+  variable: "--font-montserrat" 
+});
 
 export const metadata: Metadata = {
   title: "Rafah Garden | Heritage Pitaya Sanctuary",
@@ -32,8 +42,10 @@ export default async function RootLayout({
     console.error("Failed to fetch custom fonts:", error);
   }
 
+  const fontClasses = `${inter.variable} ${playfair.variable} ${outfit.variable} ${montserrat.variable}`;
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={fontClasses}>
       <head>
         <style dangerouslySetInnerHTML={{ __html: `
           ${primaryFont ? `
@@ -60,17 +72,19 @@ export default async function RootLayout({
           ` : ''}
         `}} />
       </head>
-      <HeaderColorProvider>
-        <SiteSettingsProvider>
-          <CartProvider>
-            <WishlistProvider>
-              <RootLayoutWrapper>
-                {children}
-              </RootLayoutWrapper>
-            </WishlistProvider>
-          </CartProvider>
-        </SiteSettingsProvider>
-      </HeaderColorProvider>
+      <body className="text-[#5d5f61] antialiased font-sans min-h-screen flex flex-col">
+        <HeaderColorProvider>
+          <SiteSettingsProvider>
+            <CartProvider>
+              <WishlistProvider>
+                <RootLayoutWrapper>
+                  {children}
+                </RootLayoutWrapper>
+              </WishlistProvider>
+            </CartProvider>
+          </SiteSettingsProvider>
+        </HeaderColorProvider>
+      </body>
     </html>
   );
 }

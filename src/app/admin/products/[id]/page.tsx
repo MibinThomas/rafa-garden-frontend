@@ -71,7 +71,7 @@ export default function EditProductPage() {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center gap-6">
         <Loader2 className="animate-spin text-[#c81c6a]" size={48} />
-        <p className="text-[11px] font-black text-[#bbbdbf] uppercase tracking-[0.2em]">Retrieving Botanical Profile...</p>
+        <p className="text-[11px] font-black text-[#bbbdbf] capitalize tracking-[0.2em]">Retrieving Botanical Profile...</p>
       </div>
     );
   }
@@ -88,7 +88,7 @@ export default function EditProductPage() {
         <div>
           <Link 
             href="/admin/products"
-            className="group flex items-center gap-3 mb-6 md:mb-8 text-[11px] font-black uppercase tracking-[0.4em] text-gray-400 hover:text-[#c81c6a] transition-all duration-500"
+            className="group flex items-center gap-3 mb-6 md:mb-8 text-[11px] font-black capitalize tracking-[0.4em] text-gray-400 hover:text-[#c81c6a] transition-all duration-500"
           >
             <ChevronLeft size={18} className="group-hover:-translate-x-2 transition-transform duration-500" />
             Botanical Archive
@@ -96,14 +96,14 @@ export default function EditProductPage() {
           <motion.p 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-[#c81c6a] font-black text-[10px] uppercase tracking-[0.5em] mb-2 md:mb-4 ml-1"
+            className="text-[#c81c6a] font-black text-[10px] capitalize tracking-[0.5em] mb-2 md:mb-4 ml-1"
           >
             Heritage Refinement
           </motion.p>
           <h1 className="text-4xl md:text-7xl font-black font-playfair text-[#5d5f61] tracking-tighter leading-none">
             {product?.name || 'Asset Profile'}
           </h1>
-          <p className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em] mt-4 md:mt-6 ml-1">
+          <p className="text-[10px] font-black text-gray-300 capitalize tracking-[0.3em] mt-4 md:mt-6 ml-1">
              Catalogue Identity: <span className="text-[#5d5f61]">{product?.id || '---'}</span>
           </p>
         </div>

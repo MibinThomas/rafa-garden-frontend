@@ -192,7 +192,7 @@ export default function EnquiriesPage() {
           <motion.p 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-[#c81c6a] font-black text-[10px] uppercase tracking-[0.5em] mb-2 md:mb-4 ml-1"
+            className="text-[#c81c6a] font-black text-[10px] capitalize tracking-[0.5em] mb-2 md:mb-4 ml-1"
           >
             Digital Sanctuary
           </motion.p>
@@ -202,14 +202,14 @@ export default function EnquiriesPage() {
         <div className="flex flex-wrap items-center gap-4 bg-white/40 backdrop-blur-md p-2 rounded-[2.5rem] border border-white shadow-xl shadow-black/[0.02]">
           <div className="hidden md:flex items-center gap-3 px-6 py-4">
              <Filter size={16} className="text-[#c81c6a]" />
-             <span className="text-[10px] font-black uppercase tracking-widest text-[#5d5f61]">All Entries</span>
+             <span className="text-[10px] font-black capitalize tracking-widest text-[#5d5f61]">All Entries</span>
           </div>
           <button 
             onClick={() => exportToExcel("enquiries")}
             className="bg-[#5d5f61] text-white px-8 py-4 rounded-[1.8rem] shadow-xl hover:bg-[#c81c6a] transition-all duration-500 flex items-center gap-4 group active:scale-95"
           >
             <Download size={18} className="group-hover:translate-y-0.5 transition-transform" />
-            <span className="text-[10px] font-black uppercase tracking-widest text-white">Export Registry</span>
+            <span className="text-[10px] font-black capitalize tracking-widest text-white">Export Registry</span>
           </button>
         </div>
       </div>
@@ -225,7 +225,7 @@ export default function EnquiriesPage() {
               key={tab.id}
               onClick={() => setActiveTab(tab.id as Tab)}
               className={cn(
-                "flex items-center gap-4 px-6 md:px-8 py-3 md:py-4 rounded-[1.5rem] md:rounded-[1.8rem] text-[9px] md:text-[11px] font-black uppercase tracking-widest transition-all duration-500 whitespace-nowrap",
+                "flex items-center gap-4 px-6 md:px-8 py-3 md:py-4 rounded-[1.5rem] md:rounded-[1.8rem] text-[9px] md:text-[11px] font-black capitalize tracking-widest transition-all duration-500 whitespace-nowrap",
                 activeTab === tab.id 
                   ? "bg-[#5d5f61] text-white shadow-xl shadow-[#5d5f61]/20 scale-105" 
                   : "text-gray-400 hover:text-[#5d5f61] hover:bg-white"
@@ -267,7 +267,7 @@ export default function EnquiriesPage() {
                 <div className="absolute inset-0 border-4 border-gray-100 rounded-full" />
                 <div className="absolute inset-0 border-4 border-[#c81c6a] border-t-transparent rounded-full animate-spin" />
              </div>
-             <p className="text-[12px] font-black uppercase tracking-[0.4em] text-gray-300 animate-pulse">Syncing Communication Repository...</p>
+             <p className="text-[12px] font-black capitalize tracking-[0.4em] text-gray-300 animate-pulse">Syncing Communication Repository...</p>
           </div>
         ) : activeTab === "enquiries" ? (
           <div className="grid grid-cols-1 gap-10">
@@ -296,7 +296,7 @@ export default function EnquiriesPage() {
                       </div>
                       <div className="md:hidden">
                         <span className={cn(
-                          "px-6 py-2 rounded-full text-[9px] font-black uppercase tracking-[0.2em] shadow-sm",
+                          "px-6 py-2 rounded-full text-[9px] font-black capitalize tracking-[0.2em] shadow-sm",
                           enquiry.status === "unread" ? "bg-[#c81c6a] text-white shadow-[#c81c6a]/20" : "bg-gray-100 text-gray-400"
                         )}>
                           {enquiry.status}
@@ -305,11 +305,11 @@ export default function EnquiriesPage() {
                     </div>
                     <div>
                       <h3 className="text-2xl md:text-3xl font-black font-playfair text-[#5d5f61] mb-2 leading-none group-hover:text-[#c81c6a] transition-colors duration-500">{enquiry.name}</h3>
-                      <p className="flex items-center gap-3 text-[10px] md:text-[11px] font-bold text-gray-400 group-hover:text-[#5d5f61] transition-colors duration-500 uppercase tracking-widest"><Mail size={14} className="opacity-40" /> {enquiry.email}</p>
+                      <p className="flex items-center gap-3 text-[10px] md:text-[11px] font-bold text-gray-400 group-hover:text-[#5d5f61] transition-colors duration-500 capitalize tracking-widest"><Mail size={14} className="opacity-40" /> {enquiry.email}</p>
                     </div>
                     <div className="hidden md:block pt-2">
                        <span className={cn(
-                         "px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-sm",
+                         "px-6 py-2 rounded-full text-[10px] font-black capitalize tracking-[0.2em] shadow-sm",
                          enquiry.status === "unread" ? "bg-[#c81c6a] text-white shadow-[#c81c6a]/20" : "bg-gray-100 text-gray-400"
                        )}>
                          {enquiry.status}
@@ -321,7 +321,7 @@ export default function EnquiriesPage() {
                   <div className="flex-1 space-y-6 md:border-l border-gray-100 md:pl-12 w-full">
                     <div className="flex items-center gap-3 text-gray-300">
                        <Clock size={16} className="opacity-40" />
-                       <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em]">{new Date(enquiry.createdAt).toLocaleString('en-US', { month: 'long', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+                       <span className="text-[10px] md:text-[11px] font-bold capitalize tracking-[0.3em]">{new Date(enquiry.createdAt).toLocaleString('en-US', { month: 'long', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
                     </div>
                     <p className="text-base md:text-lg text-gray-600 font-inter leading-relaxed italic md:pr-8">
                       "{enquiry.message}"
@@ -365,7 +365,7 @@ export default function EnquiriesPage() {
                     <MessageSquare className="text-gray-200" size={40} />
                  </div>
                  <h3 className="text-3xl font-black font-playfair text-[#5d5f61] mb-4">Quiet Sanctuary</h3>
-                 <p className="text-gray-400 font-bold uppercase text-[11px] tracking-[0.4em]">No botanical narratives found in this layer.</p>
+                 <p className="text-gray-400 font-bold capitalize text-[11px] tracking-[0.4em]">No botanical narratives found in this layer.</p>
               </div>
             )}
           </div>
@@ -388,7 +388,7 @@ export default function EnquiriesPage() {
                     </div>
                     <div>
                       <h4 className="font-black text-lg text-[#5d5f61] leading-none mb-2">{subscriber.email}</h4>
-                      <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest">Joined {new Date(subscriber.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
+                      <p className="text-[10px] font-black text-gray-300 capitalize tracking-widest">Joined {new Date(subscriber.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
                     </div>
                   </div>
                   
@@ -408,7 +408,7 @@ export default function EnquiriesPage() {
                     <Users className="text-gray-200" size={40} />
                  </div>
                  <h3 className="text-3xl font-black font-playfair text-[#5d5f61] mb-4">Growing Sanctuary</h3>
-                 <p className="text-gray-400 font-bold uppercase text-[11px] tracking-[0.4em]">Your botanical subscriber repository is currently waiting for growth.</p>
+                 <p className="text-gray-400 font-bold capitalize text-[11px] tracking-[0.4em]">Your botanical subscriber repository is currently waiting for growth.</p>
               </div>
             )}
           </div>

@@ -150,7 +150,7 @@ export default function LoginPage() {
 
               <div className="mt-12 text-center">
                  <div className="flex items-center justify-center gap-3 text-[#a3a3a3]">
-                    <span className="text-[10px] font-black uppercase tracking-[0.3em]">Sanctuary Security Protocol v4.0</span>
+                    <span className="text-[10px] font-black capitalize tracking-[0.3em]">Sanctuary Security Protocol v4.0</span>
                  </div>
               </div>
             </motion.div>

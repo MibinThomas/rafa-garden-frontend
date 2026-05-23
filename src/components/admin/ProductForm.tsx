@@ -128,7 +128,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
         <div className="xl:col-span-1 space-y-12">
           {/* Image Upload Area */}
           <div className="space-y-6">
-            <label className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-400 ml-1">Botanical Visual</label>
+            <label className="text-[10px] font-black capitalize tracking-[0.4em] text-gray-400 ml-1">Botanical Visual</label>
             <div 
               onClick={() => fileInputRef.current?.click()}
               className="group relative aspect-[4/5] rounded-[3.5rem] bg-white border border-gray-100 flex items-center justify-center overflow-hidden cursor-pointer shadow-2xl shadow-black/[0.02] hover:shadow-black/[0.05] transition-all duration-700"
@@ -147,8 +147,8 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
                   <div className="w-20 h-20 rounded-[2rem] bg-[#f1f1f2] flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:scale-110 group-hover:bg-[#c81c6a] group-hover:text-white transition-all duration-700">
                     <Upload size={32} strokeWidth={1.5} />
                   </div>
-                  <p className="text-[11px] font-black text-[#5d5f61] uppercase tracking-[0.2em]">Upload Asset</p>
-                  <p className="text-[9px] text-gray-300 font-bold mt-3 uppercase tracking-widest">PNG / WebP / JPG</p>
+                  <p className="text-[11px] font-black text-[#5d5f61] capitalize tracking-[0.2em]">Upload Asset</p>
+                  <p className="text-[9px] text-gray-300 font-bold mt-3 capitalize tracking-widest">PNG / WebP / JPG</p>
                 </div>
               )}
               
@@ -158,7 +158,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
                      <div className="absolute inset-0 border-4 border-gray-100 rounded-full" />
                      <div className="absolute inset-0 border-4 border-[#c81c6a] border-t-transparent rounded-full animate-spin" />
                   </div>
-                  <span className="text-[9px] font-black uppercase tracking-[0.3em] text-[#5d5f61]">Syncing...</span>
+                  <span className="text-[9px] font-black capitalize tracking-[0.3em] text-[#5d5f61]">Syncing...</span>
                 </div>
               )}
             </div>
@@ -170,7 +170,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                  <div className={cn("w-2 h-2 rounded-full", formData.active ? "bg-emerald-500 animate-pulse" : "bg-gray-300")} />
-                 <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Sanctuary Status</label>
+                 <label className="text-[10px] font-black capitalize tracking-[0.3em] text-gray-400">Sanctuary Status</label>
               </div>
               <button 
                 type="button"
@@ -188,12 +188,12 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
             </div>
 
             <div className="space-y-4">
-              <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 ml-1">Heritage Collection</label>
+              <label className="text-[10px] font-black capitalize tracking-[0.3em] text-gray-400 ml-1">Heritage Collection</label>
               <div className="relative group">
                 <select 
                   value={formData.category}
                   onChange={(e) => handleChange("category", e.target.value)}
-                  className="w-full px-8 py-5 bg-white rounded-2xl border border-gray-100 outline-none font-black text-[#5d5f61] text-[11px] uppercase tracking-widest focus:ring-4 focus:ring-[#c81c6a]/5 transition-all appearance-none cursor-pointer shadow-sm"
+                  className="w-full px-8 py-5 bg-white rounded-2xl border border-gray-100 outline-none font-black text-[#5d5f61] text-[11px] capitalize tracking-widest focus:ring-4 focus:ring-[#c81c6a]/5 transition-all appearance-none cursor-pointer shadow-sm"
                 >
                   {categories.map(cat => (
                     <option key={cat.title} value={cat.title}>{cat.title}</option>
@@ -206,13 +206,13 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
             </div>
             
             <div className="space-y-4">
-               <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 ml-1">Archive Registry (ID)</label>
+               <label className="text-[10px] font-black capitalize tracking-[0.3em] text-gray-400 ml-1">Archive Registry (ID)</label>
                <input 
                 type="text"
                 value={formData.id}
                 placeholder="e.g. HER-01"
                 onChange={(e) => handleChange("id", e.target.value)}
-                className="w-full px-8 py-5 bg-white rounded-2xl border border-gray-100 outline-none font-black text-[#5d5f61] text-[11px] uppercase tracking-widest focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-sm"
+                className="w-full px-8 py-5 bg-white rounded-2xl border border-gray-100 outline-none font-black text-[#5d5f61] text-[11px] capitalize tracking-widest focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-sm"
                 required
               />
             </div>
@@ -229,7 +229,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
             </div>
             
             <div className="space-y-4">
-              <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 ml-1">Botanical Identity</label>
+              <label className="text-[10px] font-black capitalize tracking-[0.3em] text-gray-400 ml-1">Botanical Identity</label>
               <input 
                 type="text"
                 value={formData.name}
@@ -241,18 +241,18 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
             </div>
 
             <div className="space-y-4">
-              <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 ml-1">Heritage Subtitle</label>
+              <label className="text-[10px] font-black capitalize tracking-[0.3em] text-gray-400 ml-1">Heritage Subtitle</label>
               <input 
                 type="text"
                 value={formData.subtitle || ""}
                 placeholder="Nature's Sweetness In Every Drink"
                 onChange={(e) => handleChange("subtitle", e.target.value)}
-                className="w-full px-10 py-6 bg-white rounded-2xl border border-gray-100 outline-none font-black text-[#5d5f61] text-[12px] uppercase tracking-widest focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-sm"
+                className="w-full px-10 py-6 bg-white rounded-2xl border border-gray-100 outline-none font-black text-[#5d5f61] text-[12px] capitalize tracking-widest focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-sm"
               />
             </div>
 
             <div className="space-y-4">
-              <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 ml-1 flex items-center gap-2">Cinematic Description</label>
+              <label className="text-[10px] font-black capitalize tracking-[0.3em] text-gray-400 ml-1 flex items-center gap-2">Cinematic Description</label>
               <textarea 
                 value={formData.description}
                 placeholder="Weave the story of this botanical asset..."
@@ -274,7 +274,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
                <button 
                 type="button" 
                 onClick={addVariant}
-                className="flex items-center gap-4 px-10 py-5 rounded-[2rem] bg-[#5d5f61] text-white hover:bg-[#c81c6a] transition-all duration-700 text-[10px] font-black uppercase tracking-[0.3em] shadow-2xl shadow-black/5 active:scale-95 group"
+                className="flex items-center gap-4 px-10 py-5 rounded-[2rem] bg-[#5d5f61] text-white hover:bg-[#c81c6a] transition-all duration-700 text-[10px] font-black capitalize tracking-[0.3em] shadow-2xl shadow-black/5 active:scale-95 group"
                >
                  <Plus size={16} className="group-hover:rotate-90 transition-transform duration-700" /> Add Scale
                </button>
@@ -290,35 +290,35 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
                   className="grid grid-cols-1 sm:grid-cols-12 gap-6 md:gap-8 items-end bg-white p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] border border-gray-100 shadow-sm group hover:shadow-2xl hover:shadow-black/[0.02] transition-all duration-1000 relative overflow-hidden"
                 >
                   <div className="col-span-full sm:col-span-4 space-y-4">
-                    <label className="text-[9px] font-black uppercase tracking-[0.4em] text-gray-300 ml-1">Dimensions</label>
+                    <label className="text-[9px] font-black capitalize tracking-[0.4em] text-gray-300 ml-1">Dimensions</label>
                     <input 
                       type="text"
                       value={variant.size}
                       placeholder="500"
                       onChange={(e) => handleVariantChange(index, "size", e.target.value)}
-                      className="w-full px-6 md:px-8 py-4 md:py-5 bg-gray-50/30 rounded-2xl border border-gray-50 outline-none font-black text-[#5d5f61] text-[11px] md:text-[12px] uppercase tracking-widest focus:bg-white focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-inner"
+                      className="w-full px-6 md:px-8 py-4 md:py-5 bg-gray-50/30 rounded-2xl border border-gray-50 outline-none font-black text-[#5d5f61] text-[11px] md:text-[12px] capitalize tracking-widest focus:bg-white focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-inner"
                       required
                     />
                   </div>
                   <div className="col-span-full sm:col-span-3 space-y-4">
-                    <label className="text-[9px] font-black uppercase tracking-[0.4em] text-gray-300 ml-1">Unit</label>
+                    <label className="text-[9px] font-black capitalize tracking-[0.4em] text-gray-300 ml-1">Unit</label>
                     <input 
                       type="text"
                       value={variant.unit}
                       placeholder="ML"
                       onChange={(e) => handleVariantChange(index, "unit", e.target.value)}
-                      className="w-full px-6 md:px-8 py-4 md:py-5 bg-gray-50/30 rounded-2xl border border-gray-50 outline-none font-black text-[#5d5f61] text-[11px] md:text-[12px] uppercase tracking-widest focus:bg-white focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-inner"
+                      className="w-full px-6 md:px-8 py-4 md:py-5 bg-gray-50/30 rounded-2xl border border-gray-50 outline-none font-black text-[#5d5f61] text-[11px] md:text-[12px] capitalize tracking-widest focus:bg-white focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-inner"
                       required
                     />
                   </div>
                   <div className="col-span-9 sm:col-span-4 space-y-4">
-                    <label className="text-[9px] font-black uppercase tracking-[0.4em] text-gray-300 ml-1">Valuation (₹)</label>
+                    <label className="text-[9px] font-black capitalize tracking-[0.4em] text-gray-300 ml-1">Valuation (₹)</label>
                     <input 
                       type="number"
                       value={variant.price || ""}
                       placeholder="0"
                       onChange={(e) => handleVariantChange(index, "price", parseFloat(e.target.value))}
-                      className="w-full px-6 md:px-8 py-4 md:py-5 bg-gray-50/30 rounded-2xl border border-gray-50 outline-none font-black text-[#5d5f61] text-[11px] md:text-[12px] uppercase tracking-widest focus:bg-white focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-inner"
+                      className="w-full px-6 md:px-8 py-4 md:py-5 bg-gray-50/30 rounded-2xl border border-gray-50 outline-none font-black text-[#5d5f61] text-[11px] md:text-[12px] capitalize tracking-widest focus:bg-white focus:ring-4 focus:ring-[#c81c6a]/5 transition-all shadow-inner"
                       required
                     />
                   </div>
@@ -341,7 +341,7 @@ export function ProductForm({ initialData, onSubmit, isLoading = false }: Produc
              <button 
               type="submit" 
               disabled={isLoading}
-              className="flex-[3] py-10 rounded-[3rem] bg-[#5d5f61] text-white font-black text-[14px] uppercase tracking-[0.5em] shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-8 transition-all duration-1000 relative group/submit"
+              className="flex-[3] py-10 rounded-[3rem] bg-[#5d5f61] text-white font-black text-[14px] capitalize tracking-[0.5em] shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-8 transition-all duration-1000 relative group/submit"
              >
                 {isLoading ? (
                   <div className="flex items-center gap-4">

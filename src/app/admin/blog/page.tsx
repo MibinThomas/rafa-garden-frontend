@@ -83,7 +83,7 @@ export default function BlogManagementPage() {
           <motion.p 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-[#c81c6a] font-black text-[10px] uppercase tracking-[0.5em] mb-2 md:mb-4 ml-1"
+            className="text-[#c81c6a] font-black text-[10px] capitalize tracking-[0.5em] mb-2 md:mb-4 ml-1"
           >
             Editorial Sanctuary
           </motion.p>
@@ -92,7 +92,7 @@ export default function BlogManagementPage() {
 
         <button 
           onClick={handleCreatePost}
-          className="flex items-center gap-4 bg-[#5d5f61] text-white px-10 py-5 rounded-[2.5rem] font-black text-xs uppercase tracking-[0.2em] shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-95 transition-all duration-500 group"
+          className="flex items-center gap-4 bg-[#5d5f61] text-white px-10 py-5 rounded-[2.5rem] font-black text-xs capitalize tracking-[0.2em] shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-95 transition-all duration-500 group"
         >
           <Plus size={20} className="group-hover:rotate-90 transition-transform duration-500" /> Draft New Story
         </button>
@@ -104,7 +104,7 @@ export default function BlogManagementPage() {
              <div className="absolute inset-0 border-4 border-gray-100 rounded-full" />
              <div className="absolute inset-0 border-4 border-[#c81c6a] border-t-transparent rounded-full animate-spin" />
           </div>
-          <p className="text-[12px] font-black uppercase tracking-[0.3em] text-[#5d5f61] animate-pulse">Syncing Editorial Archive...</p>
+          <p className="text-[12px] font-black capitalize tracking-[0.3em] text-[#5d5f61] animate-pulse">Syncing Editorial Archive...</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 relative z-10">
@@ -135,14 +135,14 @@ export default function BlogManagementPage() {
                     <img src={post.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out" alt={post.title} />
                     <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                     <div className="absolute top-6 left-6">
-                       <div className="px-4 py-2 rounded-xl bg-white/90 backdrop-blur-md text-[9px] font-black uppercase tracking-widest text-[#5d5f61] shadow-lg">
+                       <div className="px-4 py-2 rounded-xl bg-white/90 backdrop-blur-md text-[9px] font-black capitalize tracking-widest text-[#5d5f61] shadow-lg">
                          {post.category}
                        </div>
                     </div>
                   </div>
                   <div className="p-10 flex-1 flex flex-col relative">
                     <div className="flex justify-between items-start mb-4">
-                       <span className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em]">{post.date}</span>
+                       <span className="text-[10px] font-black text-gray-300 capitalize tracking-[0.3em]">{post.date}</span>
                        <div className="flex gap-2 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500">
                           <button onClick={() => handleEditPost(post)} className="p-3.5 rounded-2xl bg-white text-[#5d5f61] shadow-xl shadow-black/5 hover:bg-[#5d5f61] hover:text-white transition-all duration-500"><Edit2 size={16}/></button>
                           <button onClick={() => handleDelete(post.id)} className="p-3.5 rounded-2xl bg-white text-red-500 shadow-xl shadow-black/5 hover:bg-red-500 hover:text-white transition-all duration-500"><Trash2 size={16}/></button>
@@ -154,9 +154,9 @@ export default function BlogManagementPage() {
                     <div className="mt-auto pt-6 border-t border-gray-100/50 flex items-center justify-between">
                        <div className="flex items-center gap-3">
                           <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                          <span className="text-[9px] font-black text-[#5d5f61] uppercase tracking-widest">Published</span>
+                          <span className="text-[9px] font-black text-[#5d5f61] capitalize tracking-widest">Published</span>
                        </div>
-                       <Link href="/blog" target="_blank" className="text-[10px] font-black text-[#c81c6a] uppercase tracking-widest hover:underline flex items-center gap-2">Read <ExternalLink size={12} /></Link>
+                       <Link href="/blog" target="_blank" className="text-[10px] font-black text-[#c81c6a] capitalize tracking-widest hover:underline flex items-center gap-2">Read <ExternalLink size={12} /></Link>
                     </div>
                   </div>
                </motion.div>

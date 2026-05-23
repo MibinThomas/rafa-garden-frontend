@@ -19,7 +19,7 @@ export default function SiteSettingsPage() {
         <motion.p 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-[#c81c6a] font-black text-[10px] uppercase tracking-[0.5em] mb-2 md:mb-4 ml-1"
+          className="text-[#c81c6a] font-black text-[10px] capitalize tracking-[0.5em] mb-2 md:mb-4 ml-1"
         >
           Structural Management
         </motion.p>
@@ -39,7 +39,7 @@ export default function SiteSettingsPage() {
           </div>
           <div>
             <h3 className="text-2xl font-black font-playfair text-[#5d5f61] group-hover:text-[#c81c6a] transition-colors duration-500">Header Content</h3>
-            <p className="text-[12px] text-gray-400 font-bold uppercase tracking-widest mt-2 leading-relaxed opacity-60">Menus, banners & global branding.</p>
+            <p className="text-[12px] text-gray-400 font-bold capitalize tracking-widest mt-2 leading-relaxed opacity-60">Menus, banners & global branding.</p>
           </div>
         </motion.div>
 
@@ -56,7 +56,7 @@ export default function SiteSettingsPage() {
           </div>
           <div>
             <h3 className="text-2xl font-black font-playfair text-[#5d5f61] group-hover:text-[#c81c6a] transition-colors duration-500">Footer Content</h3>
-            <p className="text-[12px] text-gray-400 font-bold uppercase tracking-widest mt-2 leading-relaxed opacity-60">Company info, links & social assets.</p>
+            <p className="text-[12px] text-gray-400 font-bold capitalize tracking-widest mt-2 leading-relaxed opacity-60">Company info, links & social assets.</p>
           </div>
         </motion.div>
       </div>

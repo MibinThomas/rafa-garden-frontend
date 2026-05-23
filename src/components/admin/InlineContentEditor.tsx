@@ -130,7 +130,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
     return (
       <div className="bg-white rounded-[2.5rem] border border-gray-100 p-20 text-center shadow-sm">
         <Loader2 className="animate-spin inline-block text-[#c81c6a] mb-4" size={32} />
-        <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Syncing repository...</p>
+        <p className="text-[10px] font-black capitalize tracking-widest text-gray-400">Syncing repository...</p>
       </div>
     );
   }
@@ -151,12 +151,12 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
           <h2 className="text-2xl font-black font-playfair text-[#5d5f61] capitalize">
             {group} Content Options
           </h2>
-          <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Update values and press save to sync</p>
+          <p className="text-[10px] font-black capitalize tracking-widest text-gray-400">Update values and press save to sync</p>
         </div>
         <button 
           onClick={handleSave}
           disabled={saving}
-          className="flex items-center gap-3 bg-[#5d5f61] text-white px-8 py-3.5 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] shadow-lg hover:brightness-110 active:scale-95 disabled:opacity-50 transition-all"
+          className="flex items-center gap-3 bg-[#5d5f61] text-white px-8 py-3.5 rounded-xl font-black text-[10px] capitalize tracking-[0.2em] shadow-lg hover:brightness-110 active:scale-95 disabled:opacity-50 transition-all"
         >
           {saving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
           {saving ? "Saving..." : "Save Changes"}
@@ -169,12 +169,12 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
           {content.map((item) => (
             <div key={item.key} className="space-y-3">
               <div className="flex justify-between items-end">
-                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">
+                <label className="text-[10px] font-black capitalize tracking-widest text-gray-400 ml-1">
                   {item.label || item.key.split('.').pop()?.replace(/_/g, ' ')}
                 </label>
                 {item.maxLength && (
                   <span className={cn(
-                    "text-[9px] font-bold uppercase tracking-tight mr-1",
+                    "text-[9px] font-bold capitalize tracking-tight mr-1",
                     item.value.length > (item.maxLength || 0) ? "text-red-500" : "text-gray-300"
                   )}>
                     {item.value.length} / {item.maxLength} chars
@@ -183,7 +183,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
               </div>
 
               {item.hint && (
-                <p className="text-[9px] font-bold text-[#c81c6a] uppercase tracking-wider ml-1 -mt-1 opacity-70">
+                <p className="text-[9px] font-bold text-[#c81c6a] capitalize tracking-wider ml-1 -mt-1 opacity-70">
                   {item.hint}
                 </p>
               )}
@@ -220,7 +220,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
                           (fileInputRef.current as any).isCategory = false;
                           fileInputRef.current?.click();
                         }}
-                        className="bg-white text-[#5d5f61] px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg"
+                        className="bg-white text-[#5d5f61] px-5 py-2.5 rounded-xl text-[9px] font-black capitalize tracking-widest shadow-lg"
                       >
                         Upload {item.type === "font" ? "Font" : "Image"}
                       </button>
@@ -251,7 +251,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
           <div className="space-y-10 pt-10 border-t border-gray-100">
             <div>
               <h3 className="text-xl font-black font-playfair text-[#5d5f61]">Category Specific Overrides</h3>
-              <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Customizations for individual heritage collections</p>
+              <p className="text-[10px] font-black capitalize tracking-widest text-gray-400">Customizations for individual heritage collections</p>
             </div>
 
             <div className="grid grid-cols-1 gap-8">
@@ -266,7 +266,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-3">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Mobile Hero Background Asset</label>
+                      <label className="text-[10px] font-black capitalize tracking-widest text-gray-400 ml-1">Mobile Hero Background Asset</label>
                       <div className="relative group/mob-hero max-w-[240px]">
                         <div className="aspect-[3/4] rounded-2xl bg-white border-2 border-dashed border-gray-200 group-hover/mob-hero:border-[#c81c6a]/30 transition-colors overflow-hidden relative">
                           {cat.mobileHeroImage ? (
@@ -274,7 +274,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
                           ) : (
                             <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-gray-300">
                               <Upload size={20} />
-                              <span className="text-[8px] font-black uppercase tracking-widest text-center px-4 leading-tight">Drop Mobile<br/>Background</span>
+                              <span className="text-[8px] font-black capitalize tracking-widest text-center px-4 leading-tight">Drop Mobile<br/>Background</span>
                             </div>
                           )}
                           
@@ -292,7 +292,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
                                 (fileInputRef.current as any).isCategory = true;
                                 fileInputRef.current?.click();
                               }}
-                              className="bg-white text-[#5d5f61] px-4 py-2 rounded-lg text-[9px] font-black uppercase tracking-widest"
+                              className="bg-white text-[#5d5f61] px-4 py-2 rounded-lg text-[9px] font-black capitalize tracking-widest"
                             >
                               Change Asset
                             </button>
@@ -303,7 +303,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
 
                     <div className="space-y-6">
                       <div className="space-y-3">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Hero Featured Product</label>
+                        <label className="text-[10px] font-black capitalize tracking-widest text-gray-400 ml-1">Hero Featured Product</label>
                         <select 
                           value={cat.desktopFeaturedProductId || ""}
                           onChange={e => {
@@ -319,7 +319,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
                         </select>
                       </div>
                       <div className="p-5 bg-white rounded-2xl border border-gray-100">
-                         <p className="text-[8px] font-black uppercase tracking-[0.1em] text-gray-300 mb-2">Category Overview</p>
+                         <p className="text-[8px] font-black capitalize tracking-[0.1em] text-gray-300 mb-2">Category Overview</p>
                          <p className="text-[10px] font-bold text-gray-500 leading-relaxed italic">
                            "{cat.subtitle || "No subtitle provided"}"
                          </p>

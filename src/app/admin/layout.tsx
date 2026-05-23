@@ -30,7 +30,7 @@ export default function AdminLayout({
             <div className="w-8 h-8 rounded-lg bg-[#c81c6a] flex items-center justify-center">
               <div className="w-4 h-0.5 bg-white rounded-full relative after:absolute after:top-1.5 after:left-0 after:w-2 after:h-0.5 after:bg-white after:rounded-full before:absolute before:-top-1.5 before:left-0 before:w-3 before:h-0.5 before:bg-white before:rounded-full" />
             </div>
-            <p className="text-[11px] font-black uppercase tracking-widest text-[#5d5f61]">Office</p>
+            <p className="text-[11px] font-black capitalize tracking-widest text-[#5d5f61]">Office</p>
           </div>
           <button 
             onClick={() => setIsSidebarOpen(true)}

@@ -6,6 +6,8 @@ import { CategoryHero } from "@/components/CategoryHero";
 import { CategoryDetail } from "@/components/CategoryDetail";
 import { HomeProductSection } from "@/components/HomeProductSection";
 import { CuratedSeriesSection } from "@/components/CuratedSeriesSection";
+import { FeaturedCarousel } from "@/components/FeaturedCarousel";
+import { TrustBadges } from "@/components/TrustBadges";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
 import { CATEGORIES as STATIC_CATEGORIES } from "@/lib/data";
 
@@ -77,7 +79,11 @@ export default function Home() {
           />
         </div>
 
+        {/* Trust Badges Section */}
+        <TrustBadges />
+
         {/* Dynamic Product Grid Section Below Hero - Now showing all categories stacked */}
+
         <div className="w-full relative z-10 bg-[#f1f1f2]">
           {categories.map((cat, idx) => (
             <div key={cat.id || cat._id || idx} className="mb-0 last:mb-0">
@@ -91,6 +97,9 @@ export default function Home() {
             </div>
           ))}
         </div>
+
+        {/* Featured Carousel above Footer */}
+        <FeaturedCarousel categories={categories} />
       </motion.div>
     </main>
   );

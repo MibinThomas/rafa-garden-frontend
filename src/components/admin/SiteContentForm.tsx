@@ -126,7 +126,7 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
                 <motion.p 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="text-[#c81c6a] font-black text-[9px] uppercase tracking-[0.4em] mb-2"
+                  className="text-[#c81c6a] font-black text-[9px] capitalize tracking-[0.4em] mb-2"
                 >
                   Global Registry
                 </motion.p>
@@ -149,11 +149,11 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
                     <div className="absolute inset-0 border-4 border-gray-100 rounded-full" />
                     <div className="absolute inset-0 border-4 border-[#c81c6a] border-t-transparent rounded-full animate-spin" />
                   </div>
-                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#5d5f61] animate-pulse">Fetching Repository Assets...</p>
+                  <p className="text-[10px] font-black capitalize tracking-[0.3em] text-[#5d5f61] animate-pulse">Fetching Repository Assets...</p>
                 </div>
               ) : content.length === 0 ? (
                 <div className="py-32 text-center">
-                  <p className="text-gray-300 font-black uppercase tracking-widest text-[11px]">No editable narratives found.</p>
+                  <p className="text-gray-300 font-black capitalize tracking-widest text-[11px]">No editable narratives found.</p>
                 </div>
               ) : (
                 content.map((item, idx) => (
@@ -165,12 +165,12 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
                     className="space-y-4"
                   >
                     <div className="flex justify-between items-end px-1">
-                      <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">
+                      <label className="text-[10px] font-black capitalize tracking-[0.3em] text-gray-400">
                         {item.label || item.key.split('.').pop()?.replace(/_/g, ' ')}
                       </label>
                       {item.maxLength && (
                         <span className={cn(
-                          "text-[9px] font-black uppercase tracking-widest",
+                          "text-[9px] font-black capitalize tracking-widest",
                           item.value.length > item.maxLength ? "text-[#c81c6a]" : "text-gray-300"
                         )}>
                           {item.value.length} / {item.maxLength}
@@ -179,7 +179,7 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
                     </div>
 
                     {item.hint && (
-                      <p className="text-[9px] font-bold text-[#c81c6a] uppercase tracking-widest px-1 opacity-60 italic">
+                      <p className="text-[9px] font-bold text-[#c81c6a] capitalize tracking-widest px-1 opacity-60 italic">
                         * {item.hint}
                       </p>
                     )}
@@ -190,10 +190,10 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
                           {item.value ? (
                             item.type === "font" ? (
                                <div className="text-center font-bold text-[#5d5f61] text-xs px-10">
-                                  <span className="bg-[#5d5f61] text-white px-6 py-3 rounded-2xl break-all inline-block shadow-xl text-[10px] font-black uppercase tracking-widest">
+                                  <span className="bg-[#5d5f61] text-white px-6 py-3 rounded-2xl break-all inline-block shadow-xl text-[10px] font-black capitalize tracking-widest">
                                     {item.value.split('/').pop()}
                                   </span>
-                                  <p className="mt-4 text-[10px] font-black text-gray-300 uppercase tracking-widest">Botanical Font Registry Active</p>
+                                  <p className="mt-4 text-[10px] font-black text-gray-300 capitalize tracking-widest">Botanical Font Registry Active</p>
                                </div>
                             ) : (
                                <img src={item.value} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" />
@@ -205,7 +205,7 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
                           {uploadingKey === item.key && (
                             <div className="absolute inset-0 bg-[#5d5f61]/80 backdrop-blur-md flex flex-col items-center justify-center text-white gap-4">
                               <Loader2 className="animate-spin" size={24} />
-                              <span className="text-[9px] font-black uppercase tracking-[0.3em]">Syncing Asset...</span>
+                              <span className="text-[9px] font-black capitalize tracking-[0.3em]">Syncing Asset...</span>
                             </div>
                           )}
 
@@ -216,7 +216,7 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
                                 (fileInputRef.current as any).pendingKey = item.key;
                                 fileInputRef.current?.click();
                               }}
-                              className="bg-white text-[#5d5f61] px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl hover:scale-105 active:scale-95 transition-all"
+                              className="bg-white text-[#5d5f61] px-8 py-4 rounded-2xl text-[10px] font-black capitalize tracking-[0.2em] shadow-2xl hover:scale-105 active:scale-95 transition-all"
                             >
                               Replace {item.type === "font" ? "Font File" : "Visual Asset"}
                             </button>
@@ -258,7 +258,7 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
               <button 
                 type="button" 
                 onClick={onClose}
-                className="flex-1 py-6 rounded-[2rem] bg-gray-50 text-gray-400 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-gray-100 hover:text-[#5d5f61] transition-all duration-500"
+                className="flex-1 py-6 rounded-[2rem] bg-gray-50 text-gray-400 font-black text-[10px] capitalize tracking-[0.3em] hover:bg-gray-100 hover:text-[#5d5f61] transition-all duration-500"
               >
                 Discard
               </button>
@@ -266,7 +266,7 @@ export function SiteContentForm({ isOpen, onClose, group, onSave }: SiteContentF
                 type="button"
                 onClick={handleSave}
                 disabled={saving || loading}
-                className="flex-[2] py-6 rounded-[2rem] bg-[#5d5f61] text-white font-black text-[10px] uppercase tracking-[0.3em] shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-4 transition-all duration-500"
+                className="flex-[2] py-6 rounded-[2rem] bg-[#5d5f61] text-white font-black text-[10px] capitalize tracking-[0.3em] shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-4 transition-all duration-500"
               >
                 {saving ? (
                   <>

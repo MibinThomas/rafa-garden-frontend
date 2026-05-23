@@ -158,7 +158,7 @@ export default function ProductsPage() {
             )}
           >
             {notification.type === 'success' ? <CheckCircle2 size={20} /> : <AlertCircle size={20} />}
-            <span className="text-[11px] font-black uppercase tracking-widest">{notification.message}</span>
+            <span className="text-[11px] font-black capitalize tracking-widest">{notification.message}</span>
             <button onClick={() => setNotification(null)} className="ml-4 opacity-60 hover:opacity-100">
                <X size={16} />
             </button>
@@ -172,7 +172,7 @@ export default function ProductsPage() {
           <motion.p 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-[#c81c6a] font-black text-[10px] uppercase tracking-[0.5em] mb-2 md:mb-4 ml-1"
+            className="text-[#c81c6a] font-black text-[10px] capitalize tracking-[0.5em] mb-2 md:mb-4 ml-1"
           >
             Heritage Inventory
           </motion.p>
@@ -199,7 +199,7 @@ export default function ProductsPage() {
               title="Download as CSV"
             >
               <Download size={16} className="text-[#c81c6a] group-hover:-translate-y-0.5 transition-transform" />
-              <span className="text-[10px] font-black uppercase tracking-widest">CSV</span>
+              <span className="text-[10px] font-black capitalize tracking-widest">CSV</span>
             </button>
             <button 
               onClick={() => fileInputRef.current?.click()}
@@ -207,7 +207,7 @@ export default function ProductsPage() {
               className="flex items-center gap-4 px-8 py-4 bg-[#5d5f61] text-white rounded-[1.5rem] shadow-xl hover:bg-[#c81c6a] hover:scale-105 active:scale-95 transition-all disabled:opacity-50"
             >
               {bulkProcessing ? <Loader2 size={16} className="animate-spin" /> : <Upload size={16} />}
-              <span className="text-[10px] font-black uppercase tracking-widest">{bulkProcessing ? "Syncing..." : "Import"}</span>
+              <span className="text-[10px] font-black capitalize tracking-widest">{bulkProcessing ? "Syncing..." : "Import"}</span>
             </button>
             <input type="file" ref={fileInputRef} onChange={handleImport} accept=".xlsx, .xls, .csv" className="hidden" />
           </motion.div>
@@ -221,7 +221,7 @@ export default function ProductsPage() {
               href="/admin/products/new"
               className="group flex items-center gap-6 px-10 py-5 bg-[#c81c6a] text-white rounded-[2.5rem] shadow-2xl shadow-[#c81c6a]/20 hover:scale-105 active:scale-95 transition-all duration-500"
             >
-              <span className="text-[11px] font-black uppercase tracking-[0.2em]">New Asset</span>
+              <span className="text-[11px] font-black capitalize tracking-[0.2em]">New Asset</span>
               <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:rotate-90 transition-transform duration-500">
                  <Plus size={18} />
               </div>
@@ -250,7 +250,7 @@ export default function ProductsPage() {
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
                 className={cn(
-                  "px-6 md:px-8 py-3 md:py-4 rounded-[1.5rem] text-[9px] md:text-[10px] font-black uppercase tracking-widest transition-all duration-500 whitespace-nowrap",
+                  "px-6 md:px-8 py-3 md:py-4 rounded-[1.5rem] text-[9px] md:text-[10px] font-black capitalize tracking-widest transition-all duration-500 whitespace-nowrap",
                   selectedCategory === cat 
                     ? "bg-[#5d5f61] text-white shadow-xl shadow-[#5d5f61]/20 scale-105" 
                     : "text-gray-400 hover:text-[#5d5f61] hover:bg-white"
@@ -271,7 +271,7 @@ export default function ProductsPage() {
                <div className="absolute inset-0 border-4 border-gray-100 rounded-full" />
                <div className="absolute inset-0 border-4 border-[#c81c6a] border-t-transparent rounded-full animate-spin" />
             </div>
-            <p className="text-[12px] font-black text-[#5d5f61] uppercase tracking-[0.3em] animate-pulse">
+            <p className="text-[12px] font-black text-[#5d5f61] capitalize tracking-[0.3em] animate-pulse">
                {bulkProcessing ? "Processing Inventory..." : "Cultivating Data..."}
             </p>
           </div>
@@ -281,18 +281,18 @@ export default function ProductsPage() {
                <Package className="text-gray-200" size={48} />
             </div>
             <h3 className="text-3xl font-black font-playfair text-[#5d5f61] mb-3 tracking-tight">No Botanical Assets</h3>
-            <p className="text-gray-400 text-sm max-w-xs font-bold uppercase tracking-widest leading-loose">Refine your search parameters to explore our legacy collection.</p>
+            <p className="text-gray-400 text-sm max-w-xs font-bold capitalize tracking-widest leading-loose">Refine your search parameters to explore our legacy collection.</p>
           </div>
         ) : (
           <div className="overflow-x-auto custom-scrollbar">
             <table className="w-full border-collapse">
               <thead>
                 <tr className="border-b border-gray-100/50">
-                  <th className="text-left py-12 px-12 text-[10px] font-black text-[#5d5f61] uppercase tracking-widest">Botanical Stage</th>
-                  <th className="text-left py-12 px-10 text-[10px] font-black text-[#5d5f61] uppercase tracking-widest">Collection</th>
-                  <th className="text-left py-12 px-10 text-[10px] font-black text-[#5d5f61] uppercase tracking-widest">Inventory</th>
-                  <th className="text-left py-12 px-10 text-[10px] font-black text-[#5d5f61] uppercase tracking-widest">Status</th>
-                  <th className="text-right py-12 px-12 text-[10px] font-black text-[#5d5f61] uppercase tracking-widest">Actions</th>
+                  <th className="text-left py-12 px-12 text-[10px] font-black text-[#5d5f61] capitalize tracking-widest">Botanical Stage</th>
+                  <th className="text-left py-12 px-10 text-[10px] font-black text-[#5d5f61] capitalize tracking-widest">Collection</th>
+                  <th className="text-left py-12 px-10 text-[10px] font-black text-[#5d5f61] capitalize tracking-widest">Inventory</th>
+                  <th className="text-left py-12 px-10 text-[10px] font-black text-[#5d5f61] capitalize tracking-widest">Status</th>
+                  <th className="text-right py-12 px-12 text-[10px] font-black text-[#5d5f61] capitalize tracking-widest">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100/50">
@@ -314,13 +314,13 @@ export default function ProductsPage() {
                         </div>
                         <div>
                           <p className="text-2xl font-black font-playfair text-[#5d5f61] tracking-tight group-hover:text-[#c81c6a] transition-colors duration-500">{p.name}</p>
-                          <p className="text-[11px] font-bold text-[#5d5f61] uppercase tracking-widest mt-2 max-w-[240px] line-clamp-1">{p.description}</p>
+                          <p className="text-[11px] font-bold text-[#5d5f61] capitalize tracking-widest mt-2 max-w-[240px] line-clamp-1">{p.description}</p>
                         </div>
                       </div>
                     </td>
                     <td className="py-10 px-10">
                        <span className={cn(
-                         "px-6 py-2 rounded-full text-[9px] font-black uppercase tracking-[0.2em] shadow-sm",
+                         "px-6 py-2 rounded-full text-[9px] font-black capitalize tracking-[0.2em] shadow-sm",
                          p.category === 'Crush' ? "bg-[#c81c6a]/10 text-[#c81c6a]" :
                          p.category === 'Jams' ? "bg-[#9a0c52]/10 text-[#9a0c52]" :
                          p.category === 'Fruits' ? "bg-emerald-50 text-emerald-600" :
@@ -332,7 +332,7 @@ export default function ProductsPage() {
                     <td className="py-10 px-10">
                        <div className="flex flex-col gap-1.5">
                           <span className="text-[12px] font-black text-[#5d5f61]">{p.variants?.length || 0} Assets</span>
-                          <span className="text-[10px] font-bold text-[#c81c6a] uppercase tracking-widest">
+                          <span className="text-[10px] font-bold text-[#c81c6a] capitalize tracking-widest">
                             From ₹{p.variants && p.variants.length > 0 ? Math.min(...p.variants.map(v => v.price || 0)) : '0'}
                           </span>
                        </div>
@@ -341,7 +341,7 @@ export default function ProductsPage() {
                        <div className="flex items-center gap-3">
                           <div className={cn("w-2 h-2 rounded-full animate-pulse", p.active ? "bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" : "bg-gray-500")} />
                           <span className={cn(
-                             "text-[10px] font-black uppercase tracking-widest",
+                             "text-[10px] font-black capitalize tracking-widest",
                              p.active ? "text-[#5d5f61]" : "text-gray-500"
                           )}>
                              {p.active ? "Active Sanctuary" : "Archived"}
@@ -374,7 +374,7 @@ export default function ProductsPage() {
 
       {/* Footer Branding */}
       <div className="flex justify-center pt-8">
-         <p className="text-[10px] font-black text-[#5d5f61] uppercase tracking-[0.5em]">Heritage Management System &bull; Rafah Garden &bull; 2026</p>
+         <p className="text-[10px] font-black text-[#5d5f61] capitalize tracking-[0.5em]">Heritage Management System &bull; Rafah Garden &bull; 2026</p>
       </div>
     </div>
   );

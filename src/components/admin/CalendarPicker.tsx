@@ -120,14 +120,14 @@ export function CalendarPicker({ startDate, endDate, onRangeSelect, onClose }: C
 
       <div className="mt-8 pt-6 border-t border-gray-100 flex items-center justify-between">
         <div>
-           <p className="text-[9px] font-black uppercase tracking-widest text-gray-600 mb-1">Selected Range</p>
+           <p className="text-[9px] font-black capitalize tracking-widest text-gray-600 mb-1">Selected Range</p>
            <p className="text-[10px] font-bold text-[#5d5f61]">
              {startDate ? startDate : "Select Start"} — {endDate ? endDate : "Select End"}
            </p>
         </div>
         <button 
           onClick={onClose}
-          className="bg-[#5d5f61] text-white px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#c81c6a] transition-colors"
+          className="bg-[#5d5f61] text-white px-6 py-3 rounded-xl text-[10px] font-black capitalize tracking-widest hover:bg-[#c81c6a] transition-colors"
         >
           Confirm
         </button>

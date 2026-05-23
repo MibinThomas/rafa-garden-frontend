@@ -104,7 +104,7 @@ export default function CmsPage() {
           <motion.p 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-[#c81c6a] font-black text-[10px] uppercase tracking-[0.5em] mb-2 md:mb-4 ml-1"
+            className="text-[#c81c6a] font-black text-[10px] capitalize tracking-[0.5em] mb-2 md:mb-4 ml-1"
           >
             Digital Architecture
           </motion.p>
@@ -114,7 +114,7 @@ export default function CmsPage() {
         {activeTab === "categories" && (
           <button
             onClick={handleCreate}
-            className="flex items-center gap-4 bg-[#5d5f61] text-white px-10 py-5 rounded-[2rem] font-black text-xs uppercase tracking-[0.2em] shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-95 transition-all duration-500"
+            className="flex items-center gap-4 bg-[#5d5f61] text-white px-10 py-5 rounded-[2rem] font-black text-xs capitalize tracking-[0.2em] shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] hover:scale-105 active:scale-95 transition-all duration-500"
           >
             <Plus size={20} /> New Category
           </button>
@@ -134,7 +134,7 @@ export default function CmsPage() {
               key={tab.id}
               onClick={() => setActiveTab(tab.id as Tab)}
               className={cn(
-                "flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 rounded-[1.5rem] md:rounded-[1.8rem] text-[9px] md:text-[11px] font-black uppercase tracking-widest transition-all duration-500 whitespace-nowrap",
+                "flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 rounded-[1.5rem] md:rounded-[1.8rem] text-[9px] md:text-[11px] font-black capitalize tracking-widest transition-all duration-500 whitespace-nowrap",
                 activeTab === tab.id 
                   ? "bg-[#5d5f61] text-white shadow-xl shadow-[#5d5f61]/20 scale-105" 
                   : "text-gray-400 hover:text-[#5d5f61] hover:bg-white"
@@ -153,7 +153,7 @@ export default function CmsPage() {
              <div className="absolute inset-0 border-4 border-gray-100 rounded-full" />
              <div className="absolute inset-0 border-4 border-[#c81c6a] border-t-transparent rounded-full animate-spin" />
           </div>
-          <p className="text-[12px] font-black uppercase tracking-[0.3em] text-[#5d5f61] animate-pulse">Syncing Repository...</p>
+          <p className="text-[12px] font-black capitalize tracking-[0.3em] text-[#5d5f61] animate-pulse">Syncing Repository...</p>
         </div>
       ) : activeTab === "categories" ? (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 relative z-10">
@@ -186,7 +186,7 @@ export default function CmsPage() {
                   )}
                   <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                   <div className="absolute top-6 left-6">
-                     <div className="px-4 py-2 rounded-full bg-white/90 backdrop-blur-md text-[9px] font-black uppercase tracking-widest text-[#5d5f61] shadow-lg">
+                     <div className="px-4 py-2 rounded-full bg-white/90 backdrop-blur-md text-[9px] font-black capitalize tracking-widest text-[#5d5f61] shadow-lg">
                         {category.id}
                      </div>
                   </div>
@@ -200,9 +200,9 @@ export default function CmsPage() {
                     <div className="w-4 h-4 rounded-full" style={{ backgroundColor: category.color }} />
                   </div>
                   <h3 className="text-3xl font-black font-playfair text-[#5d5f61] mb-2 leading-none">{category.title}</h3>
-                  <p className="text-gray-400 text-[11px] font-bold uppercase tracking-widest mb-auto line-clamp-1">{category.subtitle}</p>
+                  <p className="text-gray-400 text-[11px] font-bold capitalize tracking-widest mb-auto line-clamp-1">{category.subtitle}</p>
                   
-                  <div className="flex items-center justify-between pt-6 mt-6 border-t border-gray-100 text-[10px] font-black uppercase tracking-[0.2em]">
+                  <div className="flex items-center justify-between pt-6 mt-6 border-t border-gray-100 text-[10px] font-black capitalize tracking-[0.2em]">
                     <span className="flex items-center gap-2" style={{ color: category.color }}>
                        <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: category.color }} />
                        {category.products?.length || 0} Products

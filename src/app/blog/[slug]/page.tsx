@@ -39,7 +39,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-[#f1f1f2] text-[#1b1c1c]">
         <Loader2 className="w-12 h-12 text-[#c81c6a] animate-spin mb-6" />
-        <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40">Loading Story...</p>
+        <p className="text-[10px] font-black capitalize tracking-[0.4em] opacity-40">Loading Story...</p>
       </div>
     );
   }
@@ -92,7 +92,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
             transition={{ duration: 0.8, delay: 0.3 }}
             className="hidden lg:flex flex-col items-center justify-center gap-8 px-2"
           >
-            <span className="text-[10px] uppercase font-bold tracking-[0.3em] text-[#a3a3a3] vertical-text">Share</span>
+            <span className="text-[10px] capitalize font-bold tracking-[0.3em] text-[#a3a3a3] vertical-text">Share</span>
             <div className="w-[1px] h-12 bg-[#cccccc] opacity-50" />
             
             <button className="w-12 h-12 rounded-full border border-[#cccccc] flex items-center justify-center text-[#888888] hover:text-white hover:bg-[#c81c6a] hover:border-[#c81c6a] transition-all shadow-sm">
@@ -108,7 +108,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
 
           {/* Mobile Social Share (Horizontal) */}
           <div className="flex lg:hidden items-center justify-center gap-6 mt-4">
-            <span className="text-[10px] uppercase font-bold tracking-widest text-[#a3a3a3]">Share:</span>
+            <span className="text-[10px] capitalize font-bold tracking-widest text-[#a3a3a3]">Share:</span>
             <button className="w-10 h-10 rounded-full border border-[#cccccc] flex items-center justify-center text-[#888888] hover:text-[#c81c6a]">
               <Instagram size={16} />
             </button>

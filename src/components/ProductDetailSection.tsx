@@ -95,14 +95,14 @@ export function ProductDetailSection({ product, categoryTitle, categoryColor, on
 
         {/* Right: Product Details */}
         <div className="flex flex-col justify-center">
-          <span className="text-xs font-bold uppercase tracking-[0.4em] text-gray-400 mb-3" style={{ color: categoryColor }}>{categoryTitle} Heritage</span>
-          <h2 className="text-4xl md:text-6xl font-semibold text-[#5d5f61] mb-6 leading-[0.95] uppercase" style={{ fontFamily: 'AvantGarde, sans-serif' }}>
+          <span className="text-xs font-bold capitalize tracking-[0.4em] text-gray-400 mb-3" style={{ color: categoryColor }}>{categoryTitle} Heritage</span>
+          <h2 className="text-4xl md:text-6xl font-semibold text-[#5d5f61] mb-6 leading-[0.95] capitalize" style={{ fontFamily: 'AvantGarde, sans-serif' }}>
             {product.name}
           </h2>
 
           <div className="flex items-baseline gap-4 mb-8">
             <span className="text-4xl font-black tabular-nums text-[#5d5f61]">₹{selectedVariant.price || 599}</span>
-            <span className="text-sm font-bold uppercase tracking-widest text-gray-400 line-through">₹{Math.floor((selectedVariant.price || 599) * 1.5)}</span>
+            <span className="text-sm font-bold capitalize tracking-widest text-gray-400 line-through">₹{Math.floor((selectedVariant.price || 599) * 1.5)}</span>
           </div>
 
           <p className="text-base text-gray-500 font-inter leading-relaxed mb-10 max-w-lg">
@@ -112,7 +112,7 @@ export function ProductDetailSection({ product, categoryTitle, categoryColor, on
           <div className="space-y-8 mb-10">
             {/* Variants */}
             <div>
-              <h3 className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-3">Select Variation</h3>
+              <h3 className="text-[10px] font-bold capitalize tracking-widest text-gray-400 mb-3">Select Variation</h3>
               <div className="flex flex-wrap gap-2">
                 {product.variants.map((v: ProductVariant, idx: number) => (
                   <button
@@ -132,7 +132,7 @@ export function ProductDetailSection({ product, categoryTitle, categoryColor, on
 
             {/* Quantity */}
             <div className="flex items-center gap-6">
-              <h3 className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Quantity</h3>
+              <h3 className="text-[10px] font-bold capitalize tracking-widest text-gray-400">Quantity</h3>
               <div className="flex items-center border border-gray-200 rounded-xl p-1 bg-gray-50">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -150,7 +150,7 @@ export function ProductDetailSection({ product, categoryTitle, categoryColor, on
           {/* Add to cart */}
           <button
             onClick={handleAddToCart}
-            className="w-full py-5 rounded-2xl text-white font-black tracking-widest uppercase text-xs flex items-center justify-center gap-3 active:scale-[0.98] transition-transform shadow-xl mb-10"
+            className="w-full py-5 rounded-2xl text-white font-black tracking-widest capitalize text-xs flex items-center justify-center gap-3 active:scale-[0.98] transition-transform shadow-xl mb-10"
             style={{ backgroundColor: categoryColor }}
           >
             <ShoppingBasket size={18} /> Add to Cart
@@ -162,19 +162,19 @@ export function ProductDetailSection({ product, categoryTitle, categoryColor, on
               <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-600">
                 <ShieldCheck size={18} />
               </div>
-              <span className="text-[9px] font-bold uppercase tracking-widest text-gray-400">Authentic</span>
+              <span className="text-[9px] font-bold capitalize tracking-widest text-gray-400">Authentic</span>
             </div>
             <div className="flex flex-col items-center text-center gap-2">
               <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
                 <Truck size={18} />
               </div>
-              <span className="text-[9px] font-bold uppercase tracking-widest text-gray-400">Fast Express</span>
+              <span className="text-[9px] font-bold capitalize tracking-widest text-gray-400">Fast Express</span>
             </div>
             <div className="flex flex-col items-center text-center gap-2">
               <div className="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center text-orange-600">
                 <RefreshCcw size={18} />
               </div>
-              <span className="text-[9px] font-bold uppercase tracking-widest text-gray-400">7-Day Return</span>
+              <span className="text-[9px] font-bold capitalize tracking-widest text-gray-400">7-Day Return</span>
             </div>
           </div>
         </div>

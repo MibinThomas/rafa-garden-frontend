@@ -150,7 +150,7 @@ export function RevenueChart({ orders = [] }: { orders?: any[] }) {
       
       <div className="flex flex-col xl:flex-row xl:items-end justify-between mb-12 gap-8 relative z-10">
         <div>
-          <p className="text-[#c81c6a] text-[10px] font-black uppercase tracking-[0.5em] mb-3">Analytics Vault</p>
+          <p className="text-[#c81c6a] text-[10px] font-black capitalize tracking-[0.5em] mb-3">Analytics Vault</p>
           <h3 className="text-[#5d5f61] text-4xl font-black font-playfair tracking-tighter leading-none">Market Dynamics</h3>
         </div>
         
@@ -161,7 +161,7 @@ export function RevenueChart({ orders = [] }: { orders?: any[] }) {
                 key={t}
                 onClick={() => setTimeframe(t)}
                 className={cn(
-                  "px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all duration-300 relative",
+                  "px-5 py-2.5 rounded-xl text-[9px] font-black capitalize tracking-widest transition-all duration-300 relative",
                   timeframe === t ? "text-white" : "text-[#5d5f61] opacity-40 hover:opacity-100"
                 )}
               >
@@ -176,11 +176,11 @@ export function RevenueChart({ orders = [] }: { orders?: any[] }) {
           <div className="flex gap-8 bg-gray-50/50 backdrop-blur-sm p-4 rounded-2xl border border-gray-100">
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 rounded-full bg-[#c81c6a] shadow-[0_0_10px_rgba(200,28,106,0.3)]" />
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#5d5f61]">Revenue Flow</span>
+              <span className="text-[10px] font-black capitalize tracking-[0.2em] text-[#5d5f61]">Revenue Flow</span>
             </div>
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 rounded-full bg-[#5d5f61] shadow-[0_0_10px_rgba(11,43,26,0.3)]" />
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#5d5f61]">Order Volume</span>
+              <span className="text-[10px] font-black capitalize tracking-[0.2em] text-[#5d5f61]">Order Volume</span>
             </div>
           </div>
         </div>
@@ -278,14 +278,14 @@ export function RevenueChart({ orders = [] }: { orders?: any[] }) {
                 transform: hoveredIndex >= aggregatedData.length - 2 ? 'translateX(-100%) translateX(-20px)' : hoveredIndex <= 1 ? 'translateX(0%) translateX(20px)' : 'translateX(-50%)',
               }}
             >
-              <p className="text-[8px] font-black uppercase tracking-[0.2em] opacity-60 mb-1">{aggregatedData[hoveredIndex].fullLabel}</p>
+              <p className="text-[8px] font-black capitalize tracking-[0.2em] opacity-60 mb-1">{aggregatedData[hoveredIndex].fullLabel}</p>
               <div className="flex justify-between items-end gap-4">
                  <div>
-                   <span className="text-[10px] block opacity-40 uppercase font-black">Revenue</span>
+                   <span className="text-[10px] block opacity-40 capitalize font-black">Revenue</span>
                    <span className="text-xl font-black font-playfair tracking-tighter">${aggregatedData[hoveredIndex].revenue.toLocaleString()}</span>
                  </div>
                  <div className="text-right">
-                   <span className="text-[10px] block opacity-40 uppercase font-black">Orders</span>
+                   <span className="text-[10px] block opacity-40 capitalize font-black">Orders</span>
                    <span className="text-xl font-black font-playfair tracking-tighter">{aggregatedData[hoveredIndex].volume}</span>
                  </div>
               </div>
@@ -315,12 +315,12 @@ export function OrderBreakdown({ orders = [] }: { orders?: any[] }) {
           transition={{ delay: idx * 0.1, duration: 0.8 }}
           className="bg-white/80 backdrop-blur-xl p-10 rounded-[3.5rem] border border-white shadow-2xl shadow-black/[0.02] flex flex-col items-center group hover:shadow-black/[0.05] transition-all duration-700"
         >
-          <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-[#5d5f61] mb-8">{item.label}</h4>
+          <h4 className="text-[10px] font-black capitalize tracking-[0.4em] text-[#5d5f61] mb-8">{item.label}</h4>
           <div className={cn("w-44 h-44 rounded-full border-[1.5rem] flex items-center justify-center relative transition-transform duration-1000 group-hover:rotate-12", item.border, "border-opacity-10 shadow-inner")}>
              <div className={cn("absolute inset-0 border-[1.5rem] rounded-full border-t-transparent border-r-transparent", item.border)} />
              <div className="text-center relative z-10">
                <span className={cn("block text-4xl font-black font-playfair tracking-tighter leading-none mb-1", item.color)}>94%</span>
-               <span className="block text-[9px] font-black text-gray-500 uppercase tracking-[0.3em]">Operational</span>
+               <span className="block text-[9px] font-black text-gray-500 capitalize tracking-[0.3em]">Operational</span>
              </div>
           </div>
         </motion.div>
@@ -368,7 +368,7 @@ export function TopProducts({ orders = [] }: { orders?: any[] }) {
           <div key={idx} className="group/item">
             <div className="flex justify-between items-end mb-4">
               <div>
-                <p className="text-[9px] font-black text-[#5d5f61] uppercase tracking-[0.3em] mb-1">{p.category}</p>
+                <p className="text-[9px] font-black text-[#5d5f61] capitalize tracking-[0.3em] mb-1">{p.category}</p>
                 <span className="text-lg font-black text-[#5d5f61] font-playfair tracking-tight">{p.name}</span>
               </div>
               <span className="text-[11px] font-black text-[#5d5f61] tracking-widest">{p.value}%</span>
@@ -388,7 +388,7 @@ export function TopProducts({ orders = [] }: { orders?: any[] }) {
       </div>
       
       <div className="mt-12 pt-8 border-t border-gray-100/50 flex justify-center">
-         <button className="text-[10px] font-black uppercase tracking-[0.4em] text-[#c81c6a] hover:tracking-[0.6em] transition-all duration-500">
+         <button className="text-[10px] font-black capitalize tracking-[0.4em] text-[#c81c6a] hover:tracking-[0.6em] transition-all duration-500">
            Expand Full Inventory Analytics
          </button>
       </div>

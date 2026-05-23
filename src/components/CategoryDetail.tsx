@@ -55,7 +55,7 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
           className="flex items-center gap-3 px-5 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white hover:bg-white hover:text-black transition-all duration-300 group shadow-xl"
         >
           <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-          <span className="text-[0.65rem] font-bold uppercase tracking-[0.2em] translate-y-[0.5px]">Back to Collection</span>
+          <span className="text-[0.65rem] font-bold capitalize tracking-[0.2em] translate-y-[0.5px]">Back to Collection</span>
         </button>
       </motion.div>
 
@@ -159,7 +159,7 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.9 }}
             onClick={() => router.push(`/shop?cat=${cat.title.toLowerCase()}`)}
-            className="px-6 py-2.5 bg-white text-black font-bold rounded-full text-xs uppercase tracking-widest hover:bg-black hover:text-white transition-colors shadow-xl"
+            className="px-6 py-2.5 bg-white text-black font-bold rounded-full text-xs capitalize tracking-widest hover:bg-black hover:text-white transition-colors shadow-xl"
           >
             Buy Now
           </motion.button>
@@ -181,7 +181,7 @@ export function CategoryDetail({ categoryIndex, onBack }: CategoryDetailProps) {
               <ArrowRight size={24} />
             </motion.div>
           </div>
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] opacity-80">Explore More</span>
+          <span className="text-[10px] font-bold capitalize tracking-[0.3em] opacity-80">Explore More</span>
         </motion.div>
       </footer>
     </motion.section>

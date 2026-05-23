@@ -182,7 +182,7 @@ export default function OrdersPage() {
           <motion.p 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-[#c81c6a] font-black text-[10px] uppercase tracking-[0.5em] mb-2 md:mb-4 ml-1"
+            className="text-[#c81c6a] font-black text-[10px] capitalize tracking-[0.5em] mb-2 md:mb-4 ml-1"
           >
             Transaction Sanctuary
           </motion.p>
@@ -193,7 +193,7 @@ export default function OrdersPage() {
           <button 
             onClick={createSampleOrder}
             disabled={creatingSample}
-            className="flex-1 sm:flex-none flex items-center justify-center gap-4 bg-white/80 backdrop-blur-md px-6 md:px-10 py-4 md:py-5 rounded-[2rem] md:rounded-[2.5rem] border border-white font-black text-[10px] md:text-xs uppercase tracking-[0.2em] text-[#5d5f61] shadow-2xl shadow-black/[0.02] hover:bg-[#5d5f61] hover:text-white transition-all duration-500 disabled:opacity-50"
+            className="flex-1 sm:flex-none flex items-center justify-center gap-4 bg-white/80 backdrop-blur-md px-6 md:px-10 py-4 md:py-5 rounded-[2rem] md:rounded-[2.5rem] border border-white font-black text-[10px] md:text-xs capitalize tracking-[0.2em] text-[#5d5f61] shadow-2xl shadow-black/[0.02] hover:bg-[#5d5f61] hover:text-white transition-all duration-500 disabled:opacity-50"
           >
             {creatingSample ? <Loader2 size={18} className="animate-spin" /> : <Plus size={18} />}
             <span className="whitespace-nowrap">Generate Sample</span>
@@ -204,12 +204,12 @@ export default function OrdersPage() {
             className="flex items-center gap-3 bg-red-50 text-red-600 px-8 py-5 rounded-[2.5rem] border border-red-100 hover:bg-red-100 transition-all cursor-pointer"
           >
             <Trash2 size={18} />
-            <span className="text-[10px] font-black uppercase tracking-widest">Reset Ledger</span>
+            <span className="text-[10px] font-black capitalize tracking-widest">Reset Ledger</span>
           </div>
 
           <div className="flex items-center gap-3 bg-[#5d5f61] text-white px-8 py-5 rounded-[2.5rem] shadow-2xl shadow-[#5d5f61]/20">
             <Download size={18} />
-            <span className="text-[10px] font-black uppercase tracking-widest">Export Ledger</span>
+            <span className="text-[10px] font-black capitalize tracking-widest">Export Ledger</span>
           </div>
         </div>
       </div>
@@ -230,7 +230,7 @@ export default function OrdersPage() {
         <div className="flex items-center gap-4 bg-white/40 backdrop-blur-md p-2 rounded-[2rem] border border-white shadow-xl">
            <div className="px-6 py-4 flex items-center gap-3">
               <Filter size={16} className="text-[#c81c6a]" />
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#5d5f61]">Filter Stage</span>
+              <span className="text-[10px] font-black capitalize tracking-widest text-[#5d5f61]">Filter Stage</span>
            </div>
         </div>
       </div>
@@ -243,7 +243,7 @@ export default function OrdersPage() {
                 <div className="absolute inset-0 border-4 border-gray-100 rounded-full" />
                 <div className="absolute inset-0 border-4 border-[#c81c6a] border-t-transparent rounded-full animate-spin" />
              </div>
-             <p className="text-[12px] font-black uppercase tracking-[0.4em] text-gray-300 animate-pulse">Analyzing Ledger Archive...</p>
+             <p className="text-[12px] font-black capitalize tracking-[0.4em] text-gray-300 animate-pulse">Analyzing Ledger Archive...</p>
           </div>
         ) : filteredOrders.length === 0 ? (
           <div className="py-48 flex flex-col items-center justify-center text-center px-10">
@@ -251,18 +251,18 @@ export default function OrdersPage() {
                <ShoppingBag className="text-gray-100" size={48} />
             </div>
             <h3 className="text-3xl font-black font-playfair text-[#5d5f61] mb-3 tracking-tight">Vault Empty</h3>
-            <p className="text-gray-400 text-[11px] font-bold uppercase tracking-[0.4em] max-w-xs leading-relaxed">No transactions have been recorded in this editorial cycle.</p>
+            <p className="text-gray-400 text-[11px] font-bold capitalize tracking-[0.4em] max-w-xs leading-relaxed">No transactions have been recorded in this editorial cycle.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
                <thead>
                  <tr className="border-b border-gray-100/50">
-                   <th className="text-left py-12 px-12 text-[10px] font-black text-[#5d5f61] uppercase tracking-widest">Transaction ID</th>
-                   <th className="text-left py-12 px-10 text-[10px] font-black text-[#5d5f61] uppercase tracking-widest">Customer Profile</th>
-                   <th className="text-left py-12 px-10 text-[10px] font-black text-[#5d5f61] uppercase tracking-widest">Vault Value</th>
-                   <th className="text-left py-12 px-10 text-[10px] font-black text-[#5d5f61] uppercase tracking-widest">Stage Status</th>
-                   <th className="text-right py-12 px-12 text-[10px] font-black text-[#5d5f61] uppercase tracking-widest">Actions</th>
+                   <th className="text-left py-12 px-12 text-[10px] font-black text-[#5d5f61] capitalize tracking-widest">Transaction ID</th>
+                   <th className="text-left py-12 px-10 text-[10px] font-black text-[#5d5f61] capitalize tracking-widest">Customer Profile</th>
+                   <th className="text-left py-12 px-10 text-[10px] font-black text-[#5d5f61] capitalize tracking-widest">Vault Value</th>
+                   <th className="text-left py-12 px-10 text-[10px] font-black text-[#5d5f61] capitalize tracking-widest">Stage Status</th>
+                   <th className="text-right py-12 px-12 text-[10px] font-black text-[#5d5f61] capitalize tracking-widest">Actions</th>
                  </tr>
                </thead>
                <tbody className="divide-y divide-gray-100/50">
@@ -277,7 +277,7 @@ export default function OrdersPage() {
                      <td className="py-10 px-12">
                         <div className="flex flex-col gap-1">
                            <span className="text-lg font-black font-playfair text-[#5d5f61] group-hover:text-[#c81c6a] transition-colors">{order.orderId}</span>
-                           <span className="text-[10px] font-black text-gray-300 uppercase tracking-widest">{new Date(order.createdAt).toLocaleDateString()}</span>
+                           <span className="text-[10px] font-black text-gray-300 capitalize tracking-widest">{new Date(order.createdAt).toLocaleDateString()}</span>
                         </div>
                      </td>
                      <td className="py-10 px-10">
@@ -296,7 +296,7 @@ export default function OrdersPage() {
                      </td>
                      <td className="py-10 px-10">
                         <span className={cn(
-                          "px-6 py-2 rounded-full text-[9px] font-black uppercase tracking-widest border",
+                          "px-6 py-2 rounded-full text-[9px] font-black capitalize tracking-widest border",
                           statusColors[order.status] || "bg-gray-50 text-gray-400"
                         )}>
                           {order.status}
@@ -346,7 +346,7 @@ export default function OrdersPage() {
             >
                <div className="p-6 md:p-10 border-b border-gray-100 flex items-center justify-between">
                   <div>
-                    <p className="text-[#c81c6a] font-black text-[9px] uppercase tracking-[0.4em] mb-2">Manifest Identity</p>
+                    <p className="text-[#c81c6a] font-black text-[9px] capitalize tracking-[0.4em] mb-2">Manifest Identity</p>
                     <h2 className="text-2xl md:text-4xl font-black font-playfair text-[#5d5f61]">Order <span className="italic font-normal">{selectedOrder.orderId}</span></h2>
                   </div>
                   <button 
@@ -361,7 +361,7 @@ export default function OrdersPage() {
                   {/* Status Grid */}
                   <div className="grid grid-cols-2 gap-8">
                      <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-xl shadow-black/[0.02]">
-                        <p className="text-[9px] font-black text-gray-300 uppercase tracking-widest mb-4">Stage Status</p>
+                        <p className="text-[9px] font-black text-gray-300 capitalize tracking-widest mb-4">Stage Status</p>
                         <select 
                           value={selectedOrder.status}
                           onChange={(e) => updateOrderStatus(selectedOrder._id, e.target.value)}
@@ -375,10 +375,10 @@ export default function OrdersPage() {
                         </select>
                      </div>
                      <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-xl shadow-black/[0.02]">
-                        <p className="text-[9px] font-black text-gray-300 uppercase tracking-widest mb-4">Payment Status</p>
+                        <p className="text-[9px] font-black text-gray-300 capitalize tracking-widest mb-4">Payment Status</p>
                         <div className="flex items-center gap-3">
                            <div className={cn("w-2 h-2 rounded-full", selectedOrder.paymentStatus === 'paid' ? "bg-emerald-500" : "bg-amber-500")} />
-                           <span className="text-lg font-black text-[#5d5f61] uppercase">{selectedOrder.paymentStatus}</span>
+                           <span className="text-lg font-black text-[#5d5f61] capitalize">{selectedOrder.paymentStatus}</span>
                         </div>
                      </div>
                   </div>
@@ -393,25 +393,25 @@ export default function OrdersPage() {
                      </div>
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                         <div className="space-y-1">
-                           <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest">Name</p>
+                           <p className="text-[10px] font-black text-gray-300 capitalize tracking-widest">Name</p>
                            <p className="font-bold text-[#5d5f61]">{selectedOrder.customer.name}</p>
                         </div>
                         <div className="space-y-1">
-                           <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest">Email</p>
+                           <p className="text-[10px] font-black text-gray-300 capitalize tracking-widest">Email</p>
                            <p className="font-bold text-[#5d5f61]">{selectedOrder.customer.email}</p>
                         </div>
                         <div className="space-y-1">
-                           <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest">Phone</p>
+                           <p className="text-[10px] font-black text-gray-300 capitalize tracking-widest">Phone</p>
                            <p className="font-bold text-[#5d5f61]">{selectedOrder.customer.phone}</p>
                         </div>
                         <div className="space-y-1">
-                           <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest">Payment</p>
+                           <p className="text-[10px] font-black text-gray-300 capitalize tracking-widest">Payment</p>
                            <div className="flex items-center gap-2 font-bold text-[#5d5f61]">
                               <CreditCard size={14} className="opacity-40" /> {selectedOrder.paymentMethod}
                            </div>
                         </div>
                         <div className="col-span-full space-y-2">
-                           <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest">Destination Address</p>
+                           <p className="text-[10px] font-black text-gray-300 capitalize tracking-widest">Destination Address</p>
                            <div className="flex gap-4 p-5 bg-gray-50 rounded-2xl border border-gray-100">
                               <MapPin size={18} className="text-[#c81c6a] shrink-0 mt-1" />
                               <p className="text-[13px] font-medium leading-relaxed text-[#5d5f61]">{selectedOrder.customer.address}</p>
@@ -436,7 +436,7 @@ export default function OrdersPage() {
                               </div>
                               <div className="flex-1">
                                  <p className="text-lg font-black font-playfair text-[#5d5f61]">{item.name}</p>
-                                 <p className="text-[10px] font-black text-[#c81c6a] uppercase tracking-widest mt-1">{item.variant.size} {item.variant.unit}</p>
+                                 <p className="text-[10px] font-black text-[#c81c6a] capitalize tracking-widest mt-1">{item.variant.size} {item.variant.unit}</p>
                               </div>
                               <div className="text-right">
                                  <p className="text-[13px] font-black text-[#5d5f61]">₹{item.variant.price} &times; {item.quantity}</p>
@@ -446,7 +446,7 @@ export default function OrdersPage() {
                         ))}
                         <div className="pt-8 border-t border-gray-100 flex justify-between items-end">
                            <div>
-                              <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest mb-1">Vault Settlement</p>
+                              <p className="text-[10px] font-black text-gray-300 capitalize tracking-widest mb-1">Vault Settlement</p>
                               <p className="text-[11px] font-bold text-gray-400">Total assets excluding botanical surcharges.</p>
                            </div>
                            <div className="text-right">
@@ -460,20 +460,20 @@ export default function OrdersPage() {
                <div className="p-10 border-t border-gray-100 flex gap-6 print:hidden">
                   <button 
                     onClick={handlePrint}
-                    className="flex-1 py-6 rounded-[2.5rem] bg-gray-50 text-gray-400 font-black text-[10px] uppercase tracking-[0.4em] hover:bg-gray-100 hover:text-[#5d5f61] transition-all"
+                    className="flex-1 py-6 rounded-[2.5rem] bg-gray-50 text-gray-400 font-black text-[10px] capitalize tracking-[0.4em] hover:bg-gray-100 hover:text-[#5d5f61] transition-all"
                   >
                      Print Invoice
                   </button>
                   <button 
                     onClick={() => handleWhatsAppShare(selectedOrder)}
-                    className="flex-1 py-6 rounded-[2.5rem] bg-emerald-50 text-emerald-600 font-black text-[10px] uppercase tracking-[0.4em] hover:bg-emerald-100 transition-all flex items-center justify-center gap-3"
+                    className="flex-1 py-6 rounded-[2.5rem] bg-emerald-50 text-emerald-600 font-black text-[10px] capitalize tracking-[0.4em] hover:bg-emerald-100 transition-all flex items-center justify-center gap-3"
                   >
                      <MessageCircle size={16} />
                      WhatsApp
                   </button>
                   <button 
                     onClick={() => setSelectedOrder(null)}
-                    className="flex-1 py-6 rounded-[2.5rem] bg-[#5d5f61] text-white font-black text-[10px] uppercase tracking-[0.4em] shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] transition-all"
+                    className="flex-1 py-6 rounded-[2.5rem] bg-[#5d5f61] text-white font-black text-[10px] capitalize tracking-[0.4em] shadow-2xl shadow-[#5d5f61]/20 hover:bg-[#c81c6a] transition-all"
                   >
                      Close Manifest
                   </button>
@@ -491,7 +491,7 @@ export default function OrdersPage() {
             <div className="flex justify-between items-start border-b-2 border-[#5d5f61] pb-12">
               <div className="space-y-6">
                 <img src="/images/logo/Rafah logo.webp" alt="Rafah Garden" className="h-20 w-auto brightness-0" />
-                <div className="text-[11px] font-black uppercase tracking-widest leading-loose">
+                <div className="text-[11px] font-black capitalize tracking-widest leading-loose">
                   <p className="text-gray-400">Merchant Details</p>
                   <p>Rafah Garden Farms</p>
                   <p>Kasaragod, Kerala, India</p>
@@ -499,8 +499,8 @@ export default function OrdersPage() {
                 </div>
               </div>
               <div className="text-right space-y-4">
-                <h1 className="text-6xl font-black font-playfair uppercase tracking-tighter">Invoice</h1>
-                <div className="text-[12px] font-black uppercase tracking-[0.3em] text-gray-400 space-y-1">
+                <h1 className="text-6xl font-black font-playfair capitalize tracking-tighter">Invoice</h1>
+                <div className="text-[12px] font-black capitalize tracking-[0.3em] text-gray-400 space-y-1">
                   <p>Manifest No: <span className="text-[#5d5f61] ml-2">{selectedOrder.orderId}</span></p>
                   <p>Issue Date: <span className="text-[#5d5f61] ml-2">{new Date(selectedOrder.createdAt).toLocaleDateString()}</span></p>
                 </div>
@@ -510,7 +510,7 @@ export default function OrdersPage() {
             {/* Bill To / Ship To */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-32">
               <div className="space-y-6">
-                <p className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.5em] text-[#c81c6a]">Consignee Details</p>
+                <p className="text-[10px] md:text-[11px] font-black capitalize tracking-[0.5em] text-[#c81c6a]">Consignee Details</p>
                 <div className="text-sm font-bold space-y-2">
                   <p className="text-2xl md:text-3xl font-black font-playfair">{selectedOrder.customer.name}</p>
                   <div className="space-y-1 text-gray-500 text-[13px] md:text-base">
@@ -524,15 +524,15 @@ export default function OrdersPage() {
               </div>
               <div className="space-y-8 md:text-right">
                 <div className="space-y-4">
-                  <p className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.5em] text-[#c81c6a]">Settlement Method</p>
+                  <p className="text-[10px] md:text-[11px] font-black capitalize tracking-[0.5em] text-[#c81c6a]">Settlement Method</p>
                   <div className="inline-flex items-center gap-4 bg-gray-50 px-6 md:px-8 py-3 md:py-4 rounded-2xl border border-gray-100 shadow-sm">
                     <CreditCard size={16} className="text-gray-300" />
-                    <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em]">{selectedOrder.paymentMethod}</span>
+                    <span className="text-[10px] md:text-xs font-black capitalize tracking-[0.2em]">{selectedOrder.paymentMethod}</span>
                   </div>
                 </div>
                 <div className="space-y-2">
-                   <p className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-300">Transaction Status</p>
-                   <p className="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-emerald-600">Confimed & {selectedOrder.paymentStatus}</p>
+                   <p className="text-[9px] md:text-[10px] font-black capitalize tracking-widest text-gray-300">Transaction Status</p>
+                   <p className="text-xs md:text-sm font-black capitalize tracking-[0.2em] text-emerald-600">Confimed & {selectedOrder.paymentStatus}</p>
                 </div>
               </div>
             </div>
@@ -542,10 +542,10 @@ export default function OrdersPage() {
               <table className="w-full border-collapse min-w-[600px] md:min-w-0">
                 <thead>
                   <tr className="border-b-2 border-[#5d5f61]">
-                    <th className="text-left py-6 text-[10px] md:text-[11px] font-black uppercase tracking-[0.3em]">Asset Description</th>
-                    <th className="text-center py-6 text-[10px] md:text-[11px] font-black uppercase tracking-[0.3em]">Qty</th>
-                    <th className="text-right py-6 text-[10px] md:text-[11px] font-black uppercase tracking-[0.3em]">Unit Price</th>
-                    <th className="text-right py-6 text-[10px] md:text-[11px] font-black uppercase tracking-[0.3em]">Line Settlement</th>
+                    <th className="text-left py-6 text-[10px] md:text-[11px] font-black capitalize tracking-[0.3em]">Asset Description</th>
+                    <th className="text-center py-6 text-[10px] md:text-[11px] font-black capitalize tracking-[0.3em]">Qty</th>
+                    <th className="text-right py-6 text-[10px] md:text-[11px] font-black capitalize tracking-[0.3em]">Unit Price</th>
+                    <th className="text-right py-6 text-[10px] md:text-[11px] font-black capitalize tracking-[0.3em]">Line Settlement</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
@@ -558,7 +558,7 @@ export default function OrdersPage() {
                            </div>
                            <div>
                               <p className="text-lg md:text-2xl font-black font-playfair mb-1 md:mb-2 leading-tight">{item.name}</p>
-                              <p className="text-[9px] md:text-[10px] font-black text-[#c81c6a] uppercase tracking-[0.3em]">Ref: {item.variant.size} {item.variant.unit}</p>
+                              <p className="text-[9px] md:text-[10px] font-black text-[#c81c6a] capitalize tracking-[0.3em]">Ref: {item.variant.size} {item.variant.unit}</p>
                            </div>
                         </div>
                       </td>
@@ -574,16 +574,16 @@ export default function OrdersPage() {
             {/* Totals */}
             <div className="flex justify-end pt-12 border-t-2 border-[#5d5f61]">
               <div className="w-full max-w-sm space-y-6">
-                <div className="flex justify-between text-xs font-black uppercase tracking-[0.2em] text-gray-400">
+                <div className="flex justify-between text-xs font-black capitalize tracking-[0.2em] text-gray-400">
                   <span>Subtotal</span>
                   <span>₹{selectedOrder.totalAmount}</span>
                 </div>
-                <div className="flex justify-between text-xs font-black uppercase tracking-[0.2em] text-gray-400">
+                <div className="flex justify-between text-xs font-black capitalize tracking-[0.2em] text-gray-400">
                   <span>Botanical Surcharge (0%)</span>
                   <span>₹0</span>
                 </div>
                 <div className="flex justify-between items-center pt-8 border-t border-gray-100">
-                  <span className="text-[12px] font-black uppercase tracking-[0.5em] text-[#c81c6a]">Grand Total</span>
+                  <span className="text-[12px] font-black capitalize tracking-[0.5em] text-[#c81c6a]">Grand Total</span>
                   <span className="text-5xl font-black font-playfair tracking-tighter">₹{selectedOrder.totalAmount}</span>
                 </div>
               </div>
@@ -592,14 +592,14 @@ export default function OrdersPage() {
             {/* Footer Note */}
             <div className="pt-32 grid grid-cols-2 gap-32 border-t border-gray-50">
                <div className="space-y-6">
-                  <p className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-300">Sanctuary Seal</p>
+                  <p className="text-[10px] font-black capitalize tracking-[0.4em] text-gray-300">Sanctuary Seal</p>
                   <div className="h-24 w-64 border border-dashed border-gray-200 rounded-[2rem] flex items-center justify-center italic text-gray-200 text-sm">
                      Official Digital Signature
                   </div>
                </div>
                <div className="text-right flex flex-col justify-end italic text-gray-400 text-sm leading-relaxed">
                   <p>Thank you for being part of the Rafah Garden heritage.</p>
-                  <p className="mt-2 text-[11px] font-black uppercase tracking-widest text-gray-300 not-italic">Cultivated with passion in kasaragod.</p>
+                  <p className="mt-2 text-[11px] font-black capitalize tracking-widest text-gray-300 not-italic">Cultivated with passion in kasaragod.</p>
                </div>
             </div>
           </div>

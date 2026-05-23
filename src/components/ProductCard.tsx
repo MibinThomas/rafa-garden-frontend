@@ -50,131 +50,113 @@ export function ProductCard({ product, accentColor = "#d11e6d", onSelect }: { pr
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="group relative flex flex-col bg-[#f2f2f2] p-3 md:p-6 lg:p-8 rounded-[24px] md:rounded-[40px] transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.05)] h-fit"
+      className="group relative flex flex-col bg-[#f1f1f2] p-6 xl:p-8 rounded-[24px] transition-all duration-500 hover:shadow-[0_15px_40px_rgba(0,0,0,0.08)] h-full"
       style={{ fontFamily: 'AvantGarde, sans-serif' }}
     >
-      {/* Top Section: Responsive Layout */}
-      <div className="flex flex-col md:flex-row gap-3 md:gap-6 lg:gap-8">
-        
-        {/* Product Image & Wishlist */}
-        <div className="relative w-full md:flex-1 aspect-[1/1] md:aspect-[3/5] flex items-center justify-center">
-          {/* Wishlist Heart Icon - Top Left */}
-          <button
-            onClick={handleWishlist}
-            className="absolute top-0 left-0 z-30 w-7 h-7 md:w-10 md:h-10 rounded-full flex items-center justify-center bg-transparent border border-black/10 transition-all hover:scale-110 active:scale-90 shadow-sm"
-          >
-            <Heart
-              size={isDesktop ? 20 : 14}
-              fill={isFavorited ? "#d11e6d" : "transparent"}
-              className={isFavorited ? "text-[#d11e6d]" : "text-[#707072] opacity-40"}
-              strokeWidth={1.5}
-            />
-          </button>
+      {/* Wishlist Heart Icon - Top Right */}
+      <button
+        onClick={handleWishlist}
+        className="absolute top-6 right-6 z-30 w-10 h-10 xl:w-12 xl:h-12 rounded-full flex items-center justify-center bg-[#f1f1f2] border-[1.5px] border-[#b0b0b0]/40 transition-all hover:scale-105 active:scale-95 shadow-sm"
+      >
+        <Heart
+          size={isDesktop ? 22 : 18}
+          fill={isFavorited ? "#b0b0b0" : "#b0b0b0"}
+          className="text-[#b0b0b0]"
+          strokeWidth={1}
+        />
+      </button>
 
-          {/* Product Image */}
-          <Link
-            href={`/product/${product.id}`}
-            className="relative w-full h-full flex items-center justify-center cursor-pointer z-10"
-          >
-            <motion.div
-              className="relative w-full h-[90%]"
-              whileHover={{ scale: 1.05, y: -5 }}
-              transition={{ type: "spring", stiffness: 200, damping: 15 }}
-            >
-              <Image
-                src={product.image}
-                alt={product.name}
-                fill
-                className="object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.1)]"
-                priority
-              />
-            </motion.div>
-          </Link>
+      {/* Product Image */}
+      <Link
+        href={`/product/${product.id}`}
+        className="relative w-full aspect-square xl:aspect-[1.1] flex items-center justify-center cursor-pointer z-10 mb-6 xl:mb-8 mt-2"
+      >
+        <motion.div
+          className="relative w-[90%] h-[90%] xl:w-full xl:h-full"
+          whileHover={{ scale: 1.05, y: -5 }}
+          transition={{ type: "spring", stiffness: 200, damping: 15 }}
+        >
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            className="object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.15)]"
+            priority
+          />
+        </motion.div>
+      </Link>
+
+      <div className="flex flex-col mt-auto">
+        {/* Title */}
+        <Link href={`/product/${product.id}`} className="group/title block cursor-pointer mb-3 xl:mb-4">
+          <h3 className="text-[36px] md:text-[42px] xl:text-[56px] font-bold text-[#5d5f61] tracking-tight leading-[1] transition-colors truncate">
+            {product.name}
+          </h3>
+        </Link>
+
+        {/* Variants Selection */}
+        <div className="flex flex-wrap items-center gap-4 xl:gap-6 mb-6 xl:mb-8">
+          {product.variants.map((v, idx) => {
+            const isActive = selectedVariantIdx === idx;
+            return (
+              <button
+                key={idx}
+                onClick={(e) => { e.stopPropagation(); setSelectedVariantIdx(idx); }}
+                className="flex items-center gap-2 group/variant"
+              >
+                <span className="text-[15px] xl:text-[18px] font-normal text-[#9b9b9b] tracking-tight lowercase">
+                  {v.size}{v.unit}
+                </span>
+                <div className={`w-5 h-5 xl:w-6 xl:h-6 rounded-full border-[1.5px] flex items-center justify-center transition-all ${isActive ? "border-[#d11e6d]" : "border-[#b0b0b0]"}`}>
+                  {isActive && <div className="w-3 h-3 xl:w-3.5 xl:h-3.5 rounded-full bg-[#d11e6d]" />}
+                </div>
+              </button>
+            );
+          })}
         </div>
 
-        {/* Product Details */}
-        <div className="flex-1 flex flex-col justify-center">
-          {/* Title */}
-          <Link href={`/product/${product.id}`} className="group/title block cursor-pointer">
-            <h3 className="text-[16px] md:text-[28px] lg:text-[36px] font-semibold text-[#5d5f61] tracking-tight leading-[1.1] mb-2 md:mb-4 group-hover/title:text-[#d11e6d] transition-colors">
-              <span className="md:hidden">{product.name}</span>
-              <span className="hidden md:block">
-                {product.name.split(' ').map((word, i) => (
-                  <span key={i} className="block">{word}</span>
-                ))}
-              </span>
-            </h3>
-          </Link>
-
-          {/* Price & Taxes */}
-          <div className="flex items-baseline gap-1 md:gap-2 mb-3 md:mb-6">
-            <span className="text-[15px] md:text-[24px] lg:text-[32px] font-normal text-[#5d5f61]">
-              ₹{currentPrice.toFixed(0)}
-            </span>
-            <span className="text-[7px] md:text-[10px] text-[#b0b0b0] font-medium tracking-tight">
-              <span className="md:hidden">inc. taxes</span>
-              <span className="hidden md:inline">inclusive all taxes</span>
-            </span>
-          </div>
-
+        {/* Quantity & Price Row */}
+        <div className="flex items-center justify-between mb-8 xl:mb-10">
           {/* Quantity Selector */}
-          <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-6">
+          <div className="flex items-center gap-3 xl:gap-4 shrink-0">
             <button
               onClick={(e) => { e.stopPropagation(); if (quantity > 1) setQuantity(prev => prev - 1); }}
-              className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-[8px] md:rounded-[10px] border border-black/10 text-[#707072] hover:bg-white transition-all"
+              className="w-7 h-7 xl:w-8 xl:h-8 flex items-center justify-center rounded-[8px] border-[1.5px] border-[#5d5f61]/40 text-[#5d5f61] hover:bg-white/50 transition-all shrink-0"
             >
-              <Minus size={12} strokeWidth={1.5} />
+              <Minus size={14} strokeWidth={1.5} />
             </button>
-            <span className="text-[14px] md:text-[18px] font-medium text-[#707072] min-w-[14px] text-center">
+            <span className="text-[20px] xl:text-[24px] font-normal text-[#5d5f61] min-w-[20px] xl:min-w-[24px] text-center leading-none">
               {quantity}
             </span>
             <button
               onClick={(e) => { e.stopPropagation(); setQuantity(prev => prev + 1); }}
-              className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-[8px] md:rounded-[10px] border border-black/10 text-[#707072] hover:bg-white transition-all"
+              className="w-7 h-7 xl:w-8 xl:h-8 flex items-center justify-center rounded-[8px] border-[1.5px] border-[#5d5f61]/40 text-[#5d5f61] hover:bg-white/50 transition-all shrink-0"
             >
-              <Plus size={12} strokeWidth={1.5} />
+              <Plus size={14} strokeWidth={1.5} />
             </button>
           </div>
 
-          {/* Variants Selection */}
-          <div className="flex items-center gap-3 md:gap-4 mt-auto">
-            {product.variants.map((v, idx) => {
-              const isActive = selectedVariantIdx === idx;
-              // On mobile, only show first 2 variants if there are many, but user said keep previous design for others
-              // Previous design showed all.
-              return (
-                <button
-                  key={idx}
-                  onClick={(e) => { e.stopPropagation(); setSelectedVariantIdx(idx); }}
-                  className="flex items-center gap-1 md:gap-2 group/variant"
-                >
-                  <span className={`text-[10px] md:text-[14px] font-medium transition-colors ${isActive ? "text-[#5d5f61]" : "text-[#b0b0b0]"}`}>
-                    {v.size}{v.unit}
-                  </span>
-                  <div className={`w-3 h-3 md:w-5 md:h-5 rounded-full border flex items-center justify-center transition-all ${isActive ? "border-[#d11e6d]" : "border-[#d0d0d0]"}`}>
-                    {isActive && <div className="w-1.5 h-1.5 md:w-3 md:h-3 rounded-full bg-[#d11e6d]" />}
-                  </div>
-                </button>
-              );
-            })}
+          {/* Price */}
+          <div className="text-[48px] md:text-[56px] xl:text-[72px] font-normal text-[#5d5f61] leading-[0.8] tracking-tighter shrink-0 text-right pb-1">
+            ₹{currentPrice.toFixed(0)}
           </div>
         </div>
-      </div>
 
-      {/* Bottom Section: Action Buttons */}
-      <div className="mt-4 md:mt-8 flex flex-row items-center gap-2 md:gap-3 w-full">
-        <button
-          onClick={handleAddToCart}
-          className="flex-1 py-2 md:py-4 rounded-full bg-[#d11e6d] text-white font-bold text-[9px] md:text-[14px] tracking-wide transition-all hover:bg-[#b0185a] hover:shadow-lg active:scale-95 text-center"
-        >
-          Add to cart
-        </button>
-        <button
-          onClick={handleAddToCart}
-          className="flex-1 py-2 md:py-4 rounded-full bg-[#707072] text-white font-bold text-[9px] md:text-[14px] tracking-wide transition-all hover:bg-[#5a5a5c] hover:shadow-lg active:scale-95 text-center"
-        >
-          Buy Now
-        </button>
+        {/* Action Buttons */}
+        <div className="flex flex-row items-center gap-3 xl:gap-4 w-full">
+          <button
+            onClick={handleAddToCart}
+            className="flex-1 py-3 xl:py-4 px-2 rounded-full border-[1.5px] border-[#5d5f61] text-[#5d5f61] bg-transparent font-bold text-[14px] xl:text-[18px] tracking-wide transition-all hover:bg-[#5d5f61]/5 hover:shadow-sm active:scale-95 text-center whitespace-nowrap"
+          >
+            Add to Cart
+          </button>
+          <button
+            onClick={handleAddToCart}
+            className="flex-1 py-3 xl:py-4 px-2 rounded-full border-[1.5px] border-[#d11e6d] text-[#5d5f61] bg-transparent font-bold text-[14px] xl:text-[18px] tracking-wide transition-all hover:bg-[#d11e6d]/5 hover:shadow-sm active:scale-95 text-center whitespace-nowrap"
+          >
+            Buy Now
+          </button>
+        </div>
       </div>
     </motion.div>
   );
