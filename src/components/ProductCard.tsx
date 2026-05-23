@@ -143,16 +143,16 @@ export function ProductCard({ product, accentColor = "#d11e6d", onSelect }: { pr
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-2 sm:gap-3 xl:gap-4 w-full">
+        <div className="grid grid-cols-2 gap-[6px] sm:gap-3 xl:gap-4 w-full">
           <button
             onClick={handleAddToCart}
-            className="flex-1 min-w-0 flex items-center justify-center h-[44px] sm:h-[48px] xl:h-[52px] px-1 sm:px-3 xl:px-5 rounded-full border-[1.5px] border-[#5d5f61] text-[#5d5f61] bg-transparent font-bold text-[10px] sm:text-[13px] md:text-[14px] xl:text-[16px] tracking-wide transition-all hover:bg-[#5d5f61]/5 hover:shadow-sm active:scale-95 whitespace-nowrap"
+            className="w-full min-w-0 flex items-center justify-center h-[34px] sm:h-[48px] xl:h-[52px] px-[6px] sm:px-3 xl:px-5 rounded-[8px] sm:rounded-[12px] border-[1.5px] border-[#5d5f61] text-[#5d5f61] bg-transparent font-bold text-[11px] sm:text-[13px] md:text-[14px] xl:text-[16px] leading-none tracking-wide transition-all hover:bg-[#5d5f61]/5 hover:shadow-sm active:scale-95 whitespace-nowrap"
           >
             Add to Cart
           </button>
           <button
             onClick={handleAddToCart}
-            className="flex-1 min-w-0 flex items-center justify-center h-[44px] sm:h-[48px] xl:h-[52px] px-1 sm:px-3 xl:px-5 rounded-full border-[1.5px] border-[#d11e6d] text-[#5d5f61] bg-transparent font-bold text-[10px] sm:text-[13px] md:text-[14px] xl:text-[16px] tracking-wide transition-all hover:bg-[#d11e6d]/5 hover:shadow-sm active:scale-95 whitespace-nowrap"
+            className="w-full min-w-0 flex items-center justify-center h-[34px] sm:h-[48px] xl:h-[52px] px-[6px] sm:px-3 xl:px-5 rounded-[8px] sm:rounded-[12px] border-[1.5px] border-[#d11e6d] text-[#5d5f61] bg-transparent font-bold text-[11px] sm:text-[13px] md:text-[14px] xl:text-[16px] leading-none tracking-wide transition-all hover:bg-[#d11e6d]/5 hover:shadow-sm active:scale-95 whitespace-nowrap"
           >
             Buy Now
           </button>
