@@ -106,22 +106,6 @@ export default function AllProductsPage() {
                 className="w-full pl-12 pr-6 py-3.5 bg-white rounded-full border border-black/5 outline-none text-[11px] font-bold capitalize tracking-widest focus:ring-4 focus:ring-[#c81c6a]/5 transition-all"
               />
             </div>
-
-            {/* View Mode Toggle */}
-            <div className="hidden md:flex items-center bg-white rounded-full border border-black/5 p-1">
-              <button 
-                onClick={() => setViewMode("grid")}
-                className={`p-2.5 rounded-full transition-all ${viewMode === "grid" ? "bg-[#5d5f61] text-white shadow-md" : "text-gray-300 hover:text-[#5d5f61]"}`}
-              >
-                <LayoutGrid size={18} />
-              </button>
-              <button 
-                onClick={() => setViewMode("list")}
-                className={`p-2.5 rounded-full transition-all ${viewMode === "list" ? "bg-[#5d5f61] text-white shadow-md" : "text-gray-300 hover:text-[#5d5f61]"}`}
-              >
-                <List size={18} />
-              </button>
-            </div>
           </div>
         </div>
 
@@ -144,7 +128,7 @@ export default function AllProductsPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className={viewMode === "grid" 
-                ? "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 lg:gap-12" 
+                ? "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8 lg:gap-12" 
                 : "flex flex-col gap-8"
               }
             >
