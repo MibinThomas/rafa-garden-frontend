@@ -13,6 +13,7 @@ import { CATEGORIES as STATIC_CATEGORIES } from "@/lib/data";
 
 export default function Home() {
   const [categories, setCategories] = useState<any[]>(STATIC_CATEGORIES);
+  const [homeContent, setHomeContent] = useState<Record<string, string>>({});
   const [activeCollectionIndex, setActiveCollectionIndex] = useState(0);
   const [activeMobileCatIndex, setActiveMobileCatIndex] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -25,12 +26,22 @@ export default function Home() {
 
   const fetchCategories = async () => {
     try {
-      const res = await fetch("/api/categories", { 
-        cache: 'no-store',
-        headers: { 'Cache-Control': 'no-cache' }
-      });
-      if (res.ok) {
-        const data = await res.json();
+      const [catRes, contentRes] = await Promise.all([
+        fetch("/api/categories", { cache: 'no-store', headers: { 'Cache-Control': 'no-cache' } }),
+        fetch("/api/content?group=home", { cache: 'no-store', headers: { 'Cache-Control': 'no-cache' } })
+      ]);
+
+      if (contentRes.ok) {
+        const contentData = await contentRes.json();
+        const contentMap = contentData.reduce((acc: any, item: any) => {
+          acc[item.key] = item.value;
+          return acc;
+        }, {});
+        setHomeContent(contentMap);
+      }
+
+      if (catRes.ok) {
+        const data = await catRes.json();
         if (data && data.length > 0) {
           setCategories(data);
           // Sync header color with initial active category
@@ -76,11 +87,12 @@ export default function Home() {
           <CategoryHero 
             categories={categories}
             onActiveChange={setActiveMobileCatIndex}
+            content={homeContent}
           />
         </div>
 
         {/* Trust Badges Section */}
-        <TrustBadges />
+        <TrustBadges content={homeContent} />
 
         {/* Dynamic Product Grid Section Below Hero - Now showing all categories stacked */}
 
@@ -89,6 +101,7 @@ export default function Home() {
             <div key={cat.id || cat._id || idx} className="mb-0 last:mb-0">
               <CuratedSeriesSection 
                 categoryTitle={cat.title || "Collection"} 
+                content={homeContent}
               />
               <HomeProductSection 
                 categories={categories}
@@ -99,7 +112,7 @@ export default function Home() {
         </div>
 
         {/* Featured Carousel above Footer */}
-        <FeaturedCarousel categories={categories} />
+        <FeaturedCarousel categories={categories} content={homeContent} />
       </motion.div>
     </main>
   );

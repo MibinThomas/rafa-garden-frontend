@@ -38,12 +38,22 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
     try {
       const contentRes = await fetch(`/api/content?group=${group}`);
       const contentData = await contentRes.json();
-      setContent(contentData);
+      if (Array.isArray(contentData)) {
+        setContent(contentData);
+      } else {
+        console.error("API returned non-array:", contentData);
+        setContent([]);
+      }
 
       if (group === "shop") {
         const catRes = await fetch("/api/categories");
         const catData = await catRes.json();
-        setCategories(catData);
+        if (Array.isArray(catData)) {
+          setCategories(catData);
+        } else {
+          console.error("Categories API returned non-array:", catData);
+          setCategories([]);
+        }
       }
     } catch (error) {
       console.error("Failed to fetch site content:", error);

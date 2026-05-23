@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Plus, Edit2, Trash2, Search, ExternalLink, Image as ImageIcon, Settings as SettingsIcon, Layout, Globe, ShoppingBag } from "lucide-react";
+import { Plus, Edit2, Trash2, Search, ExternalLink, Image as ImageIcon, Settings as SettingsIcon, Layout, Globe, ShoppingBag, Home } from "lucide-react";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { CmsForm } from "@/components/admin/CmsForm";
@@ -28,7 +28,7 @@ interface Category {
   products: Product[];
 }
 
-type Tab = "categories" | "shop" | "about" | "global";
+type Tab = "categories" | "home" | "shop" | "about" | "global";
 
 
 export default function CmsPage() {
@@ -58,7 +58,7 @@ export default function CmsPage() {
 
   useEffect(() => {
     if (activeTab === "categories") fetchCategories();
-    if (activeTab === "about" || activeTab === "global") setLoading(false);
+    if (activeTab === "about" || activeTab === "global" || activeTab === "shop" || activeTab === "home") setLoading(false);
   }, [activeTab]);
 
   const handleEdit = (category: Category) => {
@@ -126,6 +126,7 @@ export default function CmsPage() {
         <div className="flex gap-3">
           {[
             { id: "categories", label: "Heritage", icon: Layout },
+            { id: "home", label: "Home Page", icon: Home },
             { id: "shop", label: "Shop Page", icon: ShoppingBag },
             { id: "about", label: "About Page", icon: SettingsIcon },
             { id: "global", label: "Global Settings", icon: Globe }

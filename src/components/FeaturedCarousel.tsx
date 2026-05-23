@@ -8,9 +8,10 @@ import { Category } from "@/lib/data";
 
 interface FeaturedCarouselProps {
   categories: Category[];
+  content?: Record<string, string>;
 }
 
-export function FeaturedCarousel({ categories }: FeaturedCarouselProps) {
+export function FeaturedCarousel({ categories, content = {} }: FeaturedCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextSlide = () => {
@@ -104,7 +105,7 @@ export function FeaturedCarousel({ categories }: FeaturedCarouselProps) {
       {/* Bottom Left Small Text */}
       <div className="absolute left-8 md:left-24 bottom-8 md:bottom-12 z-20 max-w-[200px] md:max-w-[300px]">
         <p className="text-[10px] md:text-[12px] text-[#b0b0b0] font-light leading-relaxed">
-          This is a sample product details must be enter here to show the ui ux design minimal stage
+          {content["home.carousel_footer_text"] || "This is a sample product details must be enter here to show the ui ux design minimal stage"}
         </p>
       </div>
 

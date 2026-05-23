@@ -1,26 +1,30 @@
 import { Package, MessageSquare, ShieldCheck, Award } from "lucide-react";
 
-export function TrustBadges() {
+interface TrustBadgesProps {
+  content?: Record<string, string>;
+}
+
+export function TrustBadges({ content = {} }: TrustBadgesProps) {
   const badges = [
     {
       icon: <Package size={32} strokeWidth={1} />,
-      title: "Delivery",
-      subtitle: "Available"
+      title: content["home.trust_1_title"] || "Delivery",
+      subtitle: content["home.trust_1_subtitle"] || "Available"
     },
     {
       icon: <MessageSquare size={32} strokeWidth={1} />,
-      title: "99 % Customer",
-      subtitle: "Feedbacks"
+      title: content["home.trust_2_title"] || "99 % Customer",
+      subtitle: content["home.trust_2_subtitle"] || "Feedbacks"
     },
     {
       icon: <ShieldCheck size={32} strokeWidth={1} />,
-      title: "Payment",
-      subtitle: "Secure System"
+      title: content["home.trust_3_title"] || "Payment",
+      subtitle: content["home.trust_3_subtitle"] || "Secure System"
     },
     {
       icon: <Award size={32} strokeWidth={1} />,
-      title: "Only Best",
-      subtitle: "Brands"
+      title: content["home.trust_4_title"] || "Only Best",
+      subtitle: content["home.trust_4_subtitle"] || "Brands"
     }
   ];
 

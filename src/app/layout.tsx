@@ -39,7 +39,7 @@ export default async function RootLayout({
     if (primaryDb?.value) primaryFont = primaryDb.value;
     if (secondaryDb?.value) secondaryFont = secondaryDb.value;
   } catch (error) {
-    console.error("Failed to fetch custom fonts:", error);
+    console.warn("Failed to fetch custom fonts from DB, using defaults. Is MongoDB running?");
   }
 
   const fontClasses = `${inter.variable} ${playfair.variable} ${outfit.variable} ${montserrat.variable}`;

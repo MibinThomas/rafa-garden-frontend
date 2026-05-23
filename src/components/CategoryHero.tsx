@@ -10,9 +10,10 @@ import { useHeaderColor } from "@/lib/HeaderColorContext";
 interface CategoryHeroProps {
   categories: any[];
   onActiveChange?: (index: number) => void;
+  content?: Record<string, string>;
 }
 
-export function CategoryHero({ categories, onActiveChange }: CategoryHeroProps) {
+export function CategoryHero({ categories, onActiveChange, content = {} }: CategoryHeroProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number>(0);
   const [activeMobileIndex, setActiveMobileIndex] = useState<number>(0);
   const [isMounted, setIsMounted] = useState(false);
@@ -69,7 +70,7 @@ export function CategoryHero({ categories, onActiveChange }: CategoryHeroProps) 
             <div className="relative z-10 py-2 max-w-[65%]">
               <p className={`text-[9px] font-black capitalize tracking-[0.4em] mb-2 transition-colors duration-500 ${
                 activeMobileIndex === index ? "text-white/50" : "text-black/40"
-              }`}>Collection 0{index + 1}</p>
+              }`}>{content["home.hero_mobile_prefix"] || "Collection"} 0{index + 1}</p>
               <h2 className={`text-4xl font-black font-brand-heading leading-tight tracking-tight transition-colors duration-500 ${
                 activeMobileIndex === index ? "text-white" : "text-[#1c1c1c]"
               }`}>
@@ -89,7 +90,7 @@ export function CategoryHero({ categories, onActiveChange }: CategoryHeroProps) 
                     }}
                     className="flex items-center gap-2 text-[10px] font-black text-white capitalize tracking-[0.2em] bg-white/20 backdrop-blur-md px-4 py-2.5 rounded-full border border-white/20 shadow-xl cursor-pointer"
                   >
-                    Explore <ArrowRight size={12} strokeWidth={2.5} />
+                    {content["home.hero_explore_btn"] || "Explore"} <ArrowRight size={12} strokeWidth={2.5} />
                   </button>
                 </motion.div>
               )}
@@ -209,7 +210,7 @@ export function CategoryHero({ categories, onActiveChange }: CategoryHeroProps) 
                     color: hoveredIndex === index ? "rgba(255,255,255,0.8)" : "#666666"
                   }}
                 >
-                  {cat.subtitle || "Pure Botanical Refreshment"}
+                  {cat.subtitle || content["home.hero_default_subtitle"] || "Pure Botanical Refreshment"}
                 </motion.p>
 
                 <motion.p
@@ -218,7 +219,7 @@ export function CategoryHero({ categories, onActiveChange }: CategoryHeroProps) 
                     color: hoveredIndex === index ? "rgba(255,255,255,0.6)" : "#999999"
                   }}
                 >
-                  {cat.mobileActiveDesc || "Handcrafted with botanical integrity to provide a sensory experience like no other."}
+                  {cat.mobileActiveDesc || content["home.hero_default_desc"] || "Handcrafted with botanical integrity to provide a sensory experience like no other."}
                 </motion.p>
 
                 <motion.button
@@ -234,7 +235,7 @@ export function CategoryHero({ categories, onActiveChange }: CategoryHeroProps) 
                       : "border-black/10 text-[#6f7074] hover:bg-black/5"}
                   `}
                 >
-                  <span>{hoveredIndex === index ? "Buy Now" : "View More"}</span>
+                  <span>{hoveredIndex === index ? (content["home.hero_buy_now_btn"] || "Buy Now") : (content["home.hero_view_more_btn"] || "View More")}</span>
                   <ArrowRight size={16} strokeWidth={1.5} className="ml-2 flex-shrink-0" />
                 </motion.button>
               </motion.div>
