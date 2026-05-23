@@ -149,7 +149,26 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
     return (
       <div className="bg-white rounded-[2.5rem] border border-gray-100 p-20 text-center shadow-sm">
         <Info className="inline-block text-gray-200 mb-4" size={48} />
-        <p className="text-gray-400 font-bold">No editable fields found for this section.</p>
+        <p className="text-gray-400 font-bold mb-6">No editable fields found for this section.</p>
+        
+        {group === "home" && (
+          <button 
+            onClick={async () => {
+              setLoading(true);
+              try {
+                const res = await fetch("/api/admin/setup-home-cms", { method: "POST" });
+                if (res.ok) await fetchContent();
+                else alert("Failed to initialize default content.");
+              } catch (e) {
+                alert("Error initializing content.");
+                setLoading(false);
+              }
+            }}
+            className="mx-auto flex items-center justify-center gap-2 bg-[#c81c6a] hover:bg-[#a01655] text-white px-6 py-3 rounded-xl font-bold transition-all text-sm shadow-md"
+          >
+            Initialize Default Fields
+          </button>
+        )}
       </div>
     );
   }
