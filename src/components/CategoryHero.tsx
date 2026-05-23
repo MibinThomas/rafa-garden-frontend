@@ -34,97 +34,156 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
   return (
     <section className="relative w-full flex-1 p-4 md:p-6 lg:p-12 flex flex-col font-sans overflow-hidden bg-transparent">
 
-      {/* Mobile-Only Vertical Flex Section */}
-      <div className="flex md:hidden flex-col h-full w-full rounded-[5px] overflow-hidden" style={{ borderRadius: "5px" }}>
-        {categories.slice(0, 4).map((cat, index) => (
-          <motion.div
-            key={cat.id || cat._id}
-            layout
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ layout: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }}
-            onClick={(e) => {
-              if (activeMobileIndex === index) {
-                router.push(`/shop?cat=${cat.title.toLowerCase()}`);
-              } else {
-                setActiveMobileIndex(index);
-                onActiveChange?.(index);
-              }
-            }}
-            className={`relative flex-1 flex items-center justify-between px-8 border-b transition-all duration-500 cursor-pointer overflow-hidden active:scale-[0.98] ${
-              activeMobileIndex === index ? "border-white/10" : "border-black/10"
-            }`}
-            style={{ 
-              backgroundColor: activeMobileIndex === index ? cat.color : "#f1f1f2",
-              borderRadius: activeMobileIndex === index ? "10px" : "5px"
-            }}
-          >
-            {/* Background Number */}
-            <div className={`absolute left-4 top-1/2 -translate-y-1/2 text-[120px] font-black pointer-events-none select-none leading-none transition-colors duration-500 ${
-              activeMobileIndex === index ? "text-white/5" : "text-black/[0.04]"
-            }`}>
-              {index + 1}
-            </div>
+      {/* Redesigned Mobile-Only Stacked Editorial Cards */}
+      <div className="flex md:hidden flex-col w-full gap-4 pb-10">
+        <AnimatePresence mode="popLayout">
+          {categories.slice(0, 4).map((cat, index) => {
+            const isActive = activeMobileIndex === index;
 
-            <div className="relative z-10 py-2 max-w-[65%]">
-              <p className={`text-[9px] font-black capitalize tracking-[0.4em] mb-2 transition-colors duration-500 ${
-                activeMobileIndex === index ? "text-white/50" : "text-black/40"
-              }`}>{content["home.hero_mobile_prefix"] || "Collection"} 0{index + 1}</p>
-              <h2 className={`text-4xl font-black font-brand-heading leading-tight tracking-tight transition-colors duration-500 ${
-                activeMobileIndex === index ? "text-white" : "text-[#1c1c1c]"
-              }`}>
-                {cat.title}
-              </h2>
-              {activeMobileIndex === index && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.4 }}
-                  className="flex items-center gap-3 mt-3"
+            if (isActive) {
+              return (
+                <motion.div 
+                  layoutId={`card-${cat.id}`}
+                  key={cat.id || cat._id}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-full flex rounded-2xl overflow-hidden shadow-sm relative h-[340px] bg-[#e2e2e2]"
                 >
-                  <button 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      router.push(`/shop?cat=${cat.title.toLowerCase()}`);
-                    }}
-                    className="flex items-center gap-2 text-[10px] font-black text-white capitalize tracking-[0.2em] bg-white/20 backdrop-blur-md px-4 py-2.5 rounded-full border border-white/20 shadow-xl cursor-pointer"
+                  {/* Left Side: Grey Background */}
+                  <motion.div layout className="w-[45%] relative flex items-center justify-center">
+                    {/* Vertical background text */}
+                    <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+                       <span className="text-[#d0d0d0] font-black text-6xl tracking-widest uppercase -rotate-90 whitespace-nowrap opacity-60">
+                         {cat.title.split(' ')[2] || cat.title.split(' ')[0] || "CRUSH"}
+                       </span>
+                    </div>
+                    {/* Product Image */}
+                    <motion.div 
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.1, duration: 0.5 }}
+                      className="absolute w-[140%] h-[110%] -bottom-4 left-1/2 -translate-x-1/2 z-10"
+                    >
+                      <Image
+                        src={cat.image}
+                        alt={cat.title}
+                        fill
+                        className="object-contain object-bottom drop-shadow-[0_15px_30px_rgba(0,0,0,0.25)]"
+                        sizes="50vw"
+                        priority
+                      />
+                    </motion.div>
+                  </motion.div>
+
+                  {/* Right Side: Colored Panel */}
+                  <motion.div 
+                    layout
+                    className="flex-1 p-5 flex flex-col justify-center rounded-l-2xl relative z-20 shadow-[-10px_0_20px_rgba(0,0,0,0.05)]"
+                    style={{ backgroundColor: cat.color || "#c81c6a" }}
                   >
-                    {content["home.hero_explore_btn"] || "Explore"} <ArrowRight size={12} strokeWidth={2.5} />
-                  </button>
+                    <motion.div
+                      initial={{ opacity: 0, x: 10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1, duration: 0.4 }}
+                    >
+                      <h2 className="text-white text-[1.6rem] font-brand-heading font-black leading-[1.1] mb-3">
+                        {cat.title}
+                      </h2>
+                      <p className="text-white/90 text-[10px] leading-relaxed font-avant-garde mb-6 pr-2 font-medium line-clamp-4">
+                        {cat.mobileActiveDesc || content["home.hero_default_desc"] || "This is a sample product details must be enter here to show the ui ux design minimal stage"}
+                      </p>
+                    </motion.div>
+                    
+                    <motion.div 
+                      className="mt-auto"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2, duration: 0.4 }}
+                    >
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          router.push(`/shop?cat=${cat.title.toLowerCase()}`);
+                        }}
+                        className="flex items-center justify-between w-[100px] px-4 py-2.5 rounded-full border border-white/40 text-white hover:bg-white/10 transition-colors text-[10px] font-bold active:scale-95"
+                      >
+                        <span>Buy Now</span>
+                        <ArrowRight size={14} />
+                      </button>
+                      <h3 className="text-white text-[1rem] font-black font-brand-heading leading-[1.1] mt-6 whitespace-pre-line">
+                        {content["home.hero_promo_text"] || "Pure\nBotanical\nRefreshment"}
+                      </h3>
+                    </motion.div>
+                  </motion.div>
                 </motion.div>
-              )}
-            </div>
+              );
+            }
 
-            {/* Product Image */}
-            <div className="absolute right-0 top-0 w-[45%] h-full pointer-events-none z-20">
-              <motion.div
-                className="relative w-full h-full"
-                animate={{
-                  y: [2, -5, 2],
-                  rotate: [10, 12, 10]
+            // Secondary Cards (Inactive)
+            const isImageLeft = index % 2 !== 0;
+            const words = cat.title.split(' ');
+            const rawWord = words.length > 1 ? words[words.length - 1] : words[0];
+            const bgWord = index === 1 ? "" : rawWord.charAt(0).toUpperCase() + rawWord.slice(1).toLowerCase();
+
+            return (
+              <motion.div 
+                layoutId={`card-${cat.id}`}
+                key={cat.id || cat._id}
+                onClick={() => {
+                  setActiveMobileIndex(index);
+                  onActiveChange?.(index);
                 }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: index * 0.5
-                }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="w-full bg-[#dedede] rounded-2xl overflow-hidden cursor-pointer shadow-sm relative h-[160px] flex items-center"
               >
-                <Image
-                  src={cat.image}
-                  alt={cat.title}
-                  fill
-                  className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
-                  sizes="40vw"
-                  priority
-                />
-              </motion.div>
-            </div>
+                 <div className={`w-full h-full flex ${isImageLeft ? "flex-row" : "flex-row-reverse"} relative z-10`}>
+                   {/* Image side */}
+                   <div className="w-[50%] h-full relative p-2 flex items-center justify-center overflow-visible">
+                     {/* Background faded text directly behind the image */}
+                     {bgWord && (
+                       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+                         <span className="text-[#c8c8c8] font-black text-6xl md:text-7xl tracking-tight whitespace-nowrap">
+                           {bgWord}
+                         </span>
+                       </div>
+                     )}
+                     <div className="relative w-full h-[110%] z-10">
+                       <Image
+                         src={cat.image}
+                         alt={cat.title}
+                         fill
+                         className="object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.15)] scale-110"
+                         sizes="40vw"
+                       />
+                     </div>
+                   </div>
 
-            {/* Glossy Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none" />
-          </motion.div>
-        ))}
+                   {/* Text side */}
+                   <div className={`w-[50%] h-full flex flex-col justify-center ${isImageLeft ? "pl-2 pr-6" : "pl-8 pr-2"}`}>
+                     <h2 className="text-[#656669] text-[1.3rem] font-brand-heading font-black leading-[1.1] mb-4 w-[95%] whitespace-pre-line">
+                       {cat.title}
+                     </h2>
+                     <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          router.push(`/shop?cat=${cat.title.toLowerCase()}`);
+                        }}
+                        className="flex items-center justify-between w-[100px] px-4 py-2 rounded-full border border-[#656669]/30 text-[#656669] hover:bg-black/5 transition-colors text-[10px] font-bold active:scale-95"
+                     >
+                       <span>View More</span>
+                       <ArrowRight size={12} className="text-[#656669]/60" />
+                     </button>
+                   </div>
+                 </div>
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
       </div>
 
       {/* Unified Desktop Header */}
