@@ -21,6 +21,11 @@ export async function POST(req: NextRequest) {
       { key: "home.trust_4_title", value: "Only Best", type: "text", group: "home", label: "Badge 4 Title", maxLength: 20 },
       { key: "home.trust_4_subtitle", value: "Brands", type: "text", group: "home", label: "Badge 4 Subtitle", maxLength: 20 },
 
+      // Curated Series
+      { key: "home.curated_badge_label", value: "Curated Selection", type: "text", group: "home", label: "Curated Section Badge", maxLength: 30 },
+      { key: "home.curated_heading_prefix", value: "Explore", type: "text", group: "home", label: "Curated Heading Prefix", maxLength: 20 },
+      { key: "home.curated_heading_suffix", value: "Series.", type: "text", group: "home", label: "Curated Heading Suffix", maxLength: 20 },
+
       // Featured Carousel
       { key: "home.carousel_1_image", value: "", type: "image", group: "home", label: "Carousel Slide 1 Image" },
       { key: "home.carousel_1_title", value: "", type: "text", group: "home", label: "Carousel Slide 1 Title" },

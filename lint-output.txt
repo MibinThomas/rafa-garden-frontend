@@ -1,0 +1,392 @@
+
+> rafa-garden@0.1.0 lint
+> eslint
+
+
+D:\MIBIN\rafa-garden-frontend\src\app\about\page.tsx
+  11:10  warning  'loading' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  18:46  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+  18:57  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\app\admin\blog\page.tsx
+    4:39  warning  'FileText' is defined but never used                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+    4:49  warning  'Loader2' is defined but never used                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+  135:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\MIBIN\rafa-garden-frontend\src\app\admin\cms\page.tsx
+    4:62  warning  'ImageIcon' is defined but never used                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+   62:6   warning  React Hook useEffect has a missing dependency: 'fetchCategories'. Either include it or remove the dependency array                                                                                                                                                                       react-hooks/exhaustive-deps
+  183:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  183:21  warning  img elements must have an alt prop, either with meaningful text, or an empty string for decorative images                                                                                                                                                                                jsx-a11y/alt-text
+
+D:\MIBIN\rafa-garden-frontend\src\app\admin\enquiries\page.tsx
+   15:3   warning  'Loader2' is defined but never used                                                                           @typescript-eslint/no-unused-vars
+   77:6   warning  React Hook useEffect has a missing dependency: 'fetchData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  139:85  error    Unexpected any. Specify a different type                                                                      @typescript-eslint/no-explicit-any
+  327:23  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                               react/no-unescaped-entities
+  327:41  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                               react/no-unescaped-entities
+
+D:\MIBIN\rafa-garden-frontend\src\app\admin\login\page.tsx
+   5:22  warning  'CheckCircle2' is defined but never used  @typescript-eslint/no-unused-vars
+  44:14  warning  'err' is defined but never used           @typescript-eslint/no-unused-vars
+
+D:\MIBIN\rafa-garden-frontend\src\app\admin\orders\page.tsx
+    9:3   warning  'CheckCircle2' is defined but never used                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+   10:3   warning  'Clock' is defined but never used                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+   39:10  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   97:82  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   99:72  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  435:34  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  493:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  557:31  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\MIBIN\rafa-garden-frontend\src\app\admin\page.tsx
+  17:46  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+  18:62  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+  25:10  warning  'loading' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\MIBIN\rafa-garden-frontend\src\app\admin\products\[id]\page.tsx
+    5:23  warning  'Edit3' is defined but never used         @typescript-eslint/no-unused-vars
+    5:39  warning  'Package' is defined but never used       @typescript-eslint/no-unused-vars
+   17:13  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   47:37  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  119:58  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\app\admin\products\new\page.tsx
+   5:23  warning  'Package' is defined but never used       @typescript-eslint/no-unused-vars
+   5:32  warning  'Sparkles' is defined but never used      @typescript-eslint/no-unused-vars
+  14:37  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\app\admin\products\page.tsx
+    6:17  warning  'Filter' is defined but never used                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+    6:25  warning  'MoreVertical' is defined but never used                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+    7:20  warning  'Eye' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+    8:3   warning  'ChevronRight' is defined but never used                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+  125:19  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  310:27  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\MIBIN\rafa-garden-frontend\src\app\admin\settings\social\page.tsx
+  3:20  warning  'useEffect' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\MIBIN\rafa-garden-frontend\src\app\api\admin\setup-about-cms\route.ts
+    1:10  warning  'NextRequest' is defined but never used   @typescript-eslint/no-unused-vars
+  133:19  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\app\api\admin\setup-home-cms\route.ts
+   5:28  warning  'req' is defined but never used           @typescript-eslint/no-unused-vars
+  58:19  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\app\api\auth\login\route.ts
+  35:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\MIBIN\rafa-garden-frontend\src\app\api\blog\route.ts
+  19:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  42:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  60:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\app\api\categories\route.ts
+  14:11  warning  '_ignore' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  22:19  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+  46:19  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+  64:19  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\app\api\content\route.ts
+  17:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  42:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\app\api\enquiries\route.ts
+  10:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  21:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  38:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  55:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\app\api\orders\route.ts
+  10:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  63:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  79:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  90:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\app\api\products\[id]\route.ts
+  19:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  61:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  91:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\app\api\products\bulk\route.ts
+  29:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  78:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  88:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\app\api\products\route.ts
+  15:9   error  'query' is never reassigned. Use 'const' instead  prefer-const
+  15:16  error  Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+  26:19  error  Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+  50:19  error  Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\app\api\seed\route.ts
+  20:14  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+  35:31  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  96:19  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\app\api\subscriptions\route.ts
+  10:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  32:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  49:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\app\api\upload\route.ts
+  28:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\app\auth\page.tsx
+  4:8   warning  'Link' is defined but never used       @typescript-eslint/no-unused-vars
+  6:10  warning  'ArrowLeft' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\MIBIN\rafa-garden-frontend\src\app\blog\[slug]\page.tsx
+   22:39   error  Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  166:211  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+D:\MIBIN\rafa-garden-frontend\src\app\blog\page.tsx
+  25:36  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\app\checkout\page.tsx
+    4:8   warning  'Link' is defined but never used                     @typescript-eslint/no-unused-vars
+    6:10  warning  'motion' is defined but never used                   @typescript-eslint/no-unused-vars
+    6:18  warning  'AnimatePresence' is defined but never used          @typescript-eslint/no-unused-vars
+    7:10  warning  'ArrowLeft' is defined but never used                @typescript-eslint/no-unused-vars
+    7:42  warning  'CheckCircle2' is defined but never used             @typescript-eslint/no-unused-vars
+   12:29  warning  'removeFromCart' is assigned a value but never used  @typescript-eslint/no-unused-vars
+   14:9   warning  'router' is assigned a value but never used          @typescript-eslint/no-unused-vars
+  104:21  error    Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\app\contact\page.tsx
+  14:39  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  14:50  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\app\layout.tsx
+  41:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\MIBIN\rafa-garden-frontend\src\app\page.tsx
+   4:10  warning  'AnimatePresence' is defined but never used                                                                         @typescript-eslint/no-unused-vars
+   6:10  warning  'CategoryDetail' is defined but never used                                                                          @typescript-eslint/no-unused-vars
+  15:48  error    Unexpected any. Specify a different type                                                                            @typescript-eslint/no-explicit-any
+  18:10  warning  'activeMobileCatIndex' is assigned a value but never used                                                           @typescript-eslint/no-unused-vars
+  19:10  warning  'loading' is assigned a value but never used                                                                        @typescript-eslint/no-unused-vars
+  36:53  error    Unexpected any. Specify a different type                                                                            @typescript-eslint/no-explicit-any
+  36:64  error    Unexpected any. Specify a different type                                                                            @typescript-eslint/no-explicit-any
+  51:19  error    Unexpected any. Specify a different type                                                                            @typescript-eslint/no-explicit-any
+  66:6   warning  React Hook useEffect has a missing dependency: 'fetchCategories'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  68:9   warning  'handleCategorySelect' is assigned a value but never used                                                           @typescript-eslint/no-unused-vars
+
+D:\MIBIN\rafa-garden-frontend\src\app\shop\page.tsx
+   5:22  warning  'Product' is defined but never used               @typescript-eslint/no-unused-vars
+   7:18  warning  'SlidersHorizontal' is defined but never used     @typescript-eslint/no-unused-vars
+   7:37  warning  'LayoutGrid' is defined but never used            @typescript-eslint/no-unused-vars
+   7:49  warning  'List' is defined but never used                  @typescript-eslint/no-unused-vars
+  14:20  warning  'setViewMode' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\MIBIN\rafa-garden-frontend\src\components\CartModal.tsx
+  13:13  warning  'headerColor' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\MIBIN\rafa-garden-frontend\src\components\CategoryDetail.tsx
+  8:21  warning  'MousePointer2' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\MIBIN\rafa-garden-frontend\src\components\CategoryHero.tsx
+   4:18  warning  'AnimatePresence' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+   8:10  warning  'useHeaderColor' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+  11:15  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-explicit-any
+  23:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\MIBIN\rafa-garden-frontend\src\components\CategoryHero.tsx:23:5
+  21 |
+  22 |   useEffect(() => {
+> 23 |     setIsMounted(true);
+     |     ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  24 |   }, []);
+  25 |
+  26 |   if (!isMounted || !categories || categories.length === 0) return null;  react-hooks/set-state-in-effect
+  46:23  warning  'e' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+
+D:\MIBIN\rafa-garden-frontend\src\components\FloatingHeader.tsx
+  17:11  warning  'headerColor' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  19:56  error    Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\components\HomeProductSection.tsx
+   4:18  warning  'AnimatePresence' is defined but never used                                                                                                                                                  @typescript-eslint/no-unused-vars
+   9:15  error    Unexpected any. Specify a different type                                                                                                                                                     @typescript-eslint/no-explicit-any
+  16:9   warning  'containerRef' is assigned a value but never used                                                                                                                                            @typescript-eslint/no-unused-vars
+  57:3   error    React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?  react-hooks/rules-of-hooks
+  96:37  error    Unexpected any. Specify a different type                                                                                                                                                     @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\components\JourneySection.tsx
+   3:29  warning  'useTransform' is defined but never used              @typescript-eslint/no-unused-vars
+  33:11  warning  'scrollYProgress' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\MIBIN\rafa-garden-frontend\src\components\ProductCard.tsx
+  12:40  warning  'accentColor' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  12:65  warning  'onSelect' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+  21:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\MIBIN\rafa-garden-frontend\src\components\ProductCard.tsx:21:5
+  19 |   useEffect(() => {
+  20 |     const mql = window.matchMedia("(min-width: 768px)");
+> 21 |     setIsDesktop(mql.matches);
+     |     ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  22 |     const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+  23 |     mql.addEventListener("change", handler);
+  24 |     return () => mql.removeEventListener("change", handler);  react-hooks/set-state-in-effect
+
+D:\MIBIN\rafa-garden-frontend\src\components\ProductPageClient.tsx
+   3:20  warning  'useEffect' is defined but never used        @typescript-eslint/no-unused-vars
+   5:18  warning  'AnimatePresence' is defined but never used  @typescript-eslint/no-unused-vars
+   6:30  warning  'ArrowLeft' is defined but never used        @typescript-eslint/no-unused-vars
+  10:8   warning  'Link' is defined but never used             @typescript-eslint/no-unused-vars
+  17:46  warning  'category' is defined but never used         @typescript-eslint/no-unused-vars
+
+D:\MIBIN\rafa-garden-frontend\src\components\RootLayoutWrapper.tsx
+  14:9  warning  'isHomePage' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\MIBIN\rafa-garden-frontend\src\components\ThemeProvider.tsx
+  5:55  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\components\TrustBadges.tsx
+  43:19  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\MIBIN\rafa-garden-frontend\src\components\admin\BlogForm.tsx
+    4:13  warning  'Upload' is defined but never used                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+   10:9   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   89:21  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  172:23  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\MIBIN\rafa-garden-frontend\src\components\admin\CalendarPicker.tsx
+  4:10  warning  'motion' is defined but never used  @typescript-eslint/no-unused-vars
+  5:37  warning  'X' is defined but never used       @typescript-eslint/no-unused-vars
+
+D:\MIBIN\rafa-garden-frontend\src\components\admin\Charts.tsx
+    4:58  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-explicit-any
+   14:54  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\MIBIN\rafa-garden-frontend\src\components\admin\Charts.tsx:14:54
+  12 |     // Helper to add mock trend
+  13 |     const mockTrend = (i: number, total: number) => {
+> 14 |       return Math.sin((i / total) * Math.PI) * 500 + Math.random() * 200;
+     |                                                      ^^^^^^^^^^^^^ Cannot call impure function
+  15 |     };
+  16 |
+  17 |     if (timeframe === 'hour') {  react-hooks/purity
+  301:34  warning  'orders' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-unused-vars
+  301:60  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-explicit-any
+  332:57  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-explicit-any
+  336:26  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-explicit-any
+  399:24  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\components\admin\CmsForm.tsx
+   10:13  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   21:21  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   88:52  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   95:32  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   96:21  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  125:21  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  227:25  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  357:27  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  368:56  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  442:30  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  442:30  warning  img elements must have an alt prop, either with meaningful text, or an empty string for decorative images                                                                                                                                                                                jsx-a11y/alt-text
+
+D:\MIBIN\rafa-garden-frontend\src\components\admin\DashboardStats.tsx
+   9:60  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  13:71  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  14:89  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\components\admin\InlineContentEditor.tsx
+   29:48  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   67:6   warning  React Hook useEffect has a missing dependency: 'fetchContent'. Either include it or remove the dependency array                                                                                                                                                                          react-hooks/exhaustive-deps
+  130:21  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  162:24  warning  'e' is defined but never used                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+  232:25  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  232:25  warning  img elements must have an alt prop, either with meaningful text, or an empty string for decorative images                                                                                                                                                                                jsx-a11y/alt-text
+  248:52  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  249:52  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  302:29  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  320:58  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  321:58  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  345:50  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  353:28  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                          react/no-unescaped-entities
+  353:69  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                          react/no-unescaped-entities
+  378:26  warning  'e' is defined but never used                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+  397:48  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  398:55  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\components\admin\ProductForm.tsx
+    4:10  warning  'X' is defined but never used                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+    4:50  warning  'CheckCircle2' is defined but never used                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+    4:64  warning  'AlertCircle' is defined but never used                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+    5:18  warning  'AnimatePresence' is defined but never used                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+   67:54  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   71:83  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  138:19  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\MIBIN\rafa-garden-frontend\src\components\admin\Sidebar.tsx
+  13:3  warning  'Briefcase' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\MIBIN\rafa-garden-frontend\src\components\admin\SiteContentForm.tsx
+   54:6   warning  React Hook useEffect has a missing dependency: 'fetchContent'. Either include it or remove the dependency array                                                                                                                                                                          react-hooks/exhaustive-deps
+  199:32  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  199:32  warning  img elements must have an alt prop, either with meaningful text, or an empty string for decorative images                                                                                                                                                                                jsx-a11y/alt-text
+  216:58  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  250:56  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\lib\SiteSettingsContext.tsx
+   6:18  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  47:28  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  48:29  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\lib\WishlistContext.tsx
+  21:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\MIBIN\rafa-garden-frontend\src\lib\WishlistContext.tsx:21:9
+  19 |     if (saved) {
+  20 |       try {
+> 21 |         setWishlistIds(JSON.parse(saved));
+     |         ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  22 |       } catch (e) {
+  23 |         console.error("Failed to parse wishlist", e);
+  24 |       }  react-hooks/set-state-in-effect
+
+D:\MIBIN\rafa-garden-frontend\src\lib\auth.ts
+   7:42  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  19:12  warning  'error' is defined but never used         @typescript-eslint/no-unused-vars
+
+D:\MIBIN\rafa-garden-frontend\src\lib\inventory.ts
+  52:49  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  83:45  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  83:51  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\lib\mongodb.ts
+  10:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  13:23  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\MIBIN\rafa-garden-frontend\src\models\SiteContent.ts
+  1:28  warning  'model' is defined but never used   @typescript-eslint/no-unused-vars
+  1:35  warning  'models' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 210 problems (110 errors, 100 warnings)
+  1 error and 0 warnings potentially fixable with the `--fix` option.
+

@@ -366,17 +366,18 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
             <button 
               type="button"
               onClick={async () => {
-                if (!confirm("This will initialize missing default fields. Continue?")) return;
+                if (!window.confirm("This will initialize missing default fields. Continue?")) return;
                 setLoading(true);
                 try {
                   const res = await fetch("/api/admin/setup-home-cms", { method: "POST" });
                   if (res.ok) {
                     await fetchContent();
-                    alert("Initialization complete!");
+                    window.alert("Initialization complete!");
                   }
-                  else alert("Failed to initialize default content.");
-                } catch (e) {
-                  alert("Error initializing content.");
+                  else window.alert("Failed to initialize default content.");
+                } catch {
+                  window.alert("Error initializing content.");
+                } finally {
                   setLoading(false);
                 }
               }}
