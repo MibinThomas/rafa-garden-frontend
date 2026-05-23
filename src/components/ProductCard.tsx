@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { useCart } from "@/lib/CartContext";
 import { useWishlist } from "@/lib/WishlistContext";
 import { Product } from "@/lib/data";
-import { Heart, Plus, Minus } from "lucide-react";
+import { Heart, Plus, Minus, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 
 export function ProductCard({ product, accentColor = "#d11e6d", onSelect }: { product: Product, accentColor?: string, onSelect?: (product: Product) => void }) {
@@ -143,16 +143,19 @@ export function ProductCard({ product, accentColor = "#d11e6d", onSelect }: { pr
         </div>
 
         {/* Action Buttons */}
-        <div className="grid grid-cols-2 gap-1 sm:gap-3 xl:gap-4 w-full">
+        <div className="flex flex-row items-center justify-between gap-1.5 sm:gap-3 xl:gap-4 w-full">
           <button
             onClick={handleAddToCart}
-            className="w-full min-w-0 flex items-center justify-center h-[32px] sm:h-[48px] xl:h-[52px] px-0.5 sm:px-3 xl:px-5 rounded-full border-[1.5px] border-[#5d5f61] text-[#5d5f61] bg-transparent font-bold text-[9px] sm:text-[13px] md:text-[14px] xl:text-[16px] leading-none tracking-wide transition-all hover:bg-[#5d5f61]/5 hover:shadow-sm active:scale-95 whitespace-nowrap overflow-hidden"
+            className="shrink-0 sm:flex-1 w-[32px] sm:w-full min-w-0 flex items-center justify-center h-[32px] sm:h-[48px] xl:h-[52px] p-0 sm:px-3 xl:px-5 rounded-full border-[1.5px] border-[#5d5f61] text-[#5d5f61] bg-transparent font-bold text-[9px] sm:text-[13px] md:text-[14px] xl:text-[16px] leading-none tracking-wide transition-all hover:bg-[#5d5f61]/5 hover:shadow-sm active:scale-95 whitespace-nowrap overflow-hidden"
           >
-            Add to Cart
+            <span className="sm:hidden flex items-center justify-center">
+              <ShoppingCart size={14} strokeWidth={2} />
+            </span>
+            <span className="hidden sm:inline">Add to Cart</span>
           </button>
           <button
             onClick={handleAddToCart}
-            className="w-full min-w-0 flex items-center justify-center h-[32px] sm:h-[48px] xl:h-[52px] px-0.5 sm:px-3 xl:px-5 rounded-full border-[1.5px] border-[#d11e6d] text-[#5d5f61] bg-transparent font-bold text-[9px] sm:text-[13px] md:text-[14px] xl:text-[16px] leading-none tracking-wide transition-all hover:bg-[#d11e6d]/5 hover:shadow-sm active:scale-95 whitespace-nowrap overflow-hidden"
+            className="flex-1 w-full min-w-0 flex items-center justify-center h-[32px] sm:h-[48px] xl:h-[52px] px-1 sm:px-3 xl:px-5 rounded-full border-[1.5px] border-[#d11e6d] text-[#5d5f61] bg-transparent font-bold text-[11px] sm:text-[13px] md:text-[14px] xl:text-[16px] leading-none tracking-wide transition-all hover:bg-[#d11e6d]/5 hover:shadow-sm active:scale-95 whitespace-nowrap overflow-hidden"
           >
             Buy Now
           </button>
