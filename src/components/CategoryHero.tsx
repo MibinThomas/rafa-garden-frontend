@@ -51,12 +51,11 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                 onActiveChange?.(index);
               }
             }}
-            className={`relative flex items-center justify-between px-8 border-b transition-all duration-500 cursor-pointer overflow-hidden active:scale-[0.98] ${
+            className={`relative flex-1 flex items-center justify-between px-8 border-b transition-all duration-500 cursor-pointer overflow-hidden active:scale-[0.98] ${
               activeMobileIndex === index ? "border-white/10" : "border-black/10"
             }`}
             style={{ 
               backgroundColor: activeMobileIndex === index ? cat.color : "#f1f1f2",
-              flex: activeMobileIndex === index ? "2.5 1 0%" : "1 1 0%",
               borderRadius: activeMobileIndex === index ? "10px" : "5px"
             }}
           >
@@ -140,10 +139,9 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
             key={cat.id || cat._id}
             onMouseEnter={() => setHoveredIndex(index)}
             onClick={() => router.push(`/shop?cat=${cat.title.toLowerCase()}`)}
-            className="relative h-full flex flex-col cursor-pointer overflow-hidden group"
+            className="relative flex-1 h-full flex flex-col cursor-pointer overflow-hidden group"
             animate={{
-              backgroundColor: getBgColor(index, hoveredIndex === index),
-              flex: hoveredIndex === index ? 1.8 : 1
+              backgroundColor: getBgColor(index, hoveredIndex === index)
             }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
