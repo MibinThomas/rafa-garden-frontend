@@ -3,12 +3,16 @@ loadEnvConfig(process.cwd());
 
 const homeContent = [
   // Trust Badges
+  { key: "home.trust_1_icon", value: "", type: "image", group: "home", label: "Badge 1 Icon" },
   { key: "home.trust_1_title", value: "Delivery", type: "text", group: "home", label: "Badge 1 Title", maxLength: 20 },
   { key: "home.trust_1_subtitle", value: "Available", type: "text", group: "home", label: "Badge 1 Subtitle", maxLength: 20 },
+  { key: "home.trust_2_icon", value: "", type: "image", group: "home", label: "Badge 2 Icon" },
   { key: "home.trust_2_title", value: "99 % Customer", type: "text", group: "home", label: "Badge 2 Title", maxLength: 20 },
   { key: "home.trust_2_subtitle", value: "Feedbacks", type: "text", group: "home", label: "Badge 2 Subtitle", maxLength: 20 },
+  { key: "home.trust_3_icon", value: "", type: "image", group: "home", label: "Badge 3 Icon" },
   { key: "home.trust_3_title", value: "Payment", type: "text", group: "home", label: "Badge 3 Title", maxLength: 20 },
   { key: "home.trust_3_subtitle", value: "Secure System", type: "text", group: "home", label: "Badge 3 Subtitle", maxLength: 20 },
+  { key: "home.trust_4_icon", value: "", type: "image", group: "home", label: "Badge 4 Icon" },
   { key: "home.trust_4_title", value: "Only Best", type: "text", group: "home", label: "Badge 4 Title", maxLength: 20 },
   { key: "home.trust_4_subtitle", value: "Brands", type: "text", group: "home", label: "Badge 4 Subtitle", maxLength: 20 },
 
@@ -18,6 +22,18 @@ const homeContent = [
   { key: "home.curated_heading_suffix", value: "Series.", type: "text", group: "home", label: "Curated Heading Suffix", maxLength: 20 },
 
   // Featured Carousel
+  { key: "home.carousel_1_image", value: "", type: "image", group: "home", label: "Carousel Slide 1 Image" },
+  { key: "home.carousel_1_title", value: "", type: "text", group: "home", label: "Carousel Slide 1 Title" },
+  { key: "home.carousel_1_subtitle", value: "", type: "text", group: "home", label: "Carousel Slide 1 Subtitle" },
+  { key: "home.carousel_2_image", value: "", type: "image", group: "home", label: "Carousel Slide 2 Image" },
+  { key: "home.carousel_2_title", value: "", type: "text", group: "home", label: "Carousel Slide 2 Title" },
+  { key: "home.carousel_2_subtitle", value: "", type: "text", group: "home", label: "Carousel Slide 2 Subtitle" },
+  { key: "home.carousel_3_image", value: "", type: "image", group: "home", label: "Carousel Slide 3 Image" },
+  { key: "home.carousel_3_title", value: "", type: "text", group: "home", label: "Carousel Slide 3 Title" },
+  { key: "home.carousel_3_subtitle", value: "", type: "text", group: "home", label: "Carousel Slide 3 Subtitle" },
+  { key: "home.carousel_4_image", value: "", type: "image", group: "home", label: "Carousel Slide 4 Image" },
+  { key: "home.carousel_4_title", value: "", type: "text", group: "home", label: "Carousel Slide 4 Title" },
+  { key: "home.carousel_4_subtitle", value: "", type: "text", group: "home", label: "Carousel Slide 4 Subtitle" },
   { key: "home.carousel_footer_text", value: "This is a sample product details must be enter here to show the ui ux design minimal stage", type: "text", group: "home", label: "Carousel Footer Description" },
 
   // Hero Section

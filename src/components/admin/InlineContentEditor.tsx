@@ -360,6 +360,32 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
             </div>
           </div>
         )}
+
+        {group === "home" && (
+          <div className="pt-10 border-t border-gray-100 flex justify-end">
+            <button 
+              type="button"
+              onClick={async () => {
+                if (!confirm("This will initialize missing default fields. Continue?")) return;
+                setLoading(true);
+                try {
+                  const res = await fetch("/api/admin/setup-home-cms", { method: "POST" });
+                  if (res.ok) {
+                    await fetchContent();
+                    alert("Initialization complete!");
+                  }
+                  else alert("Failed to initialize default content.");
+                } catch (e) {
+                  alert("Error initializing content.");
+                  setLoading(false);
+                }
+              }}
+              className="text-[#c81c6a] hover:text-[#a01655] font-black text-[10px] tracking-widest capitalize px-6 py-3 rounded-xl border-2 border-[#c81c6a]/20 hover:border-[#c81c6a]/40 transition-all"
+            >
+              Initialize Missing Fields
+            </button>
+          </div>
+        )}
       </form>
 
 
