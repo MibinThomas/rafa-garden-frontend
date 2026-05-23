@@ -173,6 +173,22 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
     );
   }
 
+  // Group content by section
+  const groupedContent = content.reduce((acc, item) => {
+    let section = 'General';
+    const parts = item.key.split('.');
+    if (parts.length > 1) {
+      const subParts = parts[1].split('_');
+      if (subParts[0]) {
+        section = subParts[0];
+      }
+    }
+    const sectionName = section.charAt(0).toUpperCase() + section.slice(1) + ' Section';
+    if (!acc[sectionName]) acc[sectionName] = [];
+    acc[sectionName].push(item);
+    return acc;
+  }, {} as Record<string, typeof content>);
+
   return (
     <div className="bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden">
       <div className="p-10 border-b border-gray-50 flex items-center justify-between bg-gray-50/30">
@@ -194,83 +210,92 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
 
       <form onSubmit={handleSave} className="p-10 space-y-12">
         {/* Global Group Settings */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-          {content.map((item) => (
-            <div key={item.key} className="space-y-3">
-              <div className="flex justify-between items-end">
-                <label className="text-[10px] font-black capitalize tracking-widest text-gray-400 ml-1">
-                  {item.label || item.key.split('.').pop()?.replace(/_/g, ' ')}
-                </label>
-                {item.maxLength && (
-                  <span className={cn(
-                    "text-[9px] font-bold capitalize tracking-tight mr-1",
-                    item.value.length > (item.maxLength || 0) ? "text-red-500" : "text-gray-300"
-                  )}>
-                    {item.value.length} / {item.maxLength} chars
-                  </span>
-                )}
+        <div className="space-y-16">
+          {Object.entries(groupedContent).map(([sectionName, items]) => (
+            <div key={sectionName} className="space-y-8">
+              <div className="border-b border-gray-100 pb-4">
+                <h3 className="text-xl font-black font-playfair text-[#c81c6a]">{sectionName}</h3>
               </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+                {items.map((item) => (
+                  <div key={item.key} className="space-y-3">
+                    <div className="flex justify-between items-end">
+                      <label className="text-[10px] font-black capitalize tracking-widest text-gray-400 ml-1">
+                        {item.label || item.key.split('.').pop()?.replace(/_/g, ' ')}
+                      </label>
+                      {item.maxLength && (
+                        <span className={cn(
+                          "text-[9px] font-bold capitalize tracking-tight mr-1",
+                          item.value.length > (item.maxLength || 0) ? "text-red-500" : "text-gray-300"
+                        )}>
+                          {item.value.length} / {item.maxLength} chars
+                        </span>
+                      )}
+                    </div>
 
-              {item.hint && (
-                <p className="text-[9px] font-bold text-[#c81c6a] capitalize tracking-wider ml-1 -mt-1 opacity-70">
-                  {item.hint}
-                </p>
-              )}
-              
-              {item.type === "image" || item.type === "font" ? (
-                <div className="relative group">
-                  <div className="aspect-video rounded-3xl bg-gray-50 border-2 border-dashed border-gray-100 flex items-center justify-center overflow-hidden">
-                    {item.value ? (
-                      item.type === "font" ? (
-                        <div className="text-center font-bold text-[#5d5f61] text-xs px-4">
-                            <span className="bg-[#c81c6a]/10 text-[#c81c6a] px-3 py-1 rounded-full break-all inline-block">
-                              {item.value.split('/').pop()}
-                            </span>
-                            <p className="mt-2 text-gray-400">Font Active</p>
-                        </div>
-                      ) : (
-                        <img src={item.value} className="w-full h-full object-cover" />
-                      )
-                    ) : (
-                      <Upload size={24} className="text-gray-200" />
+                    {item.hint && (
+                      <p className="text-[9px] font-bold text-[#c81c6a] capitalize tracking-wider ml-1 -mt-1 opacity-70">
+                        {item.hint}
+                      </p>
                     )}
                     
-                    {uploadingKey === item.key && (
-                      <div className="absolute inset-0 bg-[#5d5f61]/60 backdrop-blur-sm flex items-center justify-center text-white gap-3">
-                        <Loader2 className="animate-spin" size={20} />
-                      </div>
-                    )}
+                    {item.type === "image" || item.type === "font" ? (
+                      <div className="relative group">
+                        <div className="aspect-video rounded-3xl bg-gray-50 border-2 border-dashed border-gray-100 flex items-center justify-center overflow-hidden">
+                          {item.value ? (
+                            item.type === "font" ? (
+                              <div className="text-center font-bold text-[#5d5f61] text-xs px-4">
+                                  <span className="bg-[#c81c6a]/10 text-[#c81c6a] px-3 py-1 rounded-full break-all inline-block">
+                                    {item.value.split('/').pop()}
+                                  </span>
+                                  <p className="mt-2 text-gray-400">Font Active</p>
+                              </div>
+                            ) : (
+                              <img src={item.value} className="w-full h-full object-cover" />
+                            )
+                          ) : (
+                            <Upload size={24} className="text-gray-200" />
+                          )}
+                          
+                          {uploadingKey === item.key && (
+                            <div className="absolute inset-0 bg-[#5d5f61]/60 backdrop-blur-sm flex items-center justify-center text-white gap-3">
+                              <Loader2 className="animate-spin" size={20} />
+                            </div>
+                          )}
 
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <button 
-                        type="button"
-                        onClick={() => {
-                          (fileInputRef.current as any).pendingKey = item.key;
-                          (fileInputRef.current as any).isCategory = false;
-                          fileInputRef.current?.click();
-                        }}
-                        className="bg-white text-[#5d5f61] px-5 py-2.5 rounded-xl text-[9px] font-black capitalize tracking-widest shadow-lg"
-                      >
-                        Upload {item.type === "font" ? "Font" : "Image"}
-                      </button>
-                    </div>
+                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <button 
+                              type="button"
+                              onClick={() => {
+                                (fileInputRef.current as any).pendingKey = item.key;
+                                (fileInputRef.current as any).isCategory = false;
+                                fileInputRef.current?.click();
+                              }}
+                              className="bg-white text-[#5d5f61] px-5 py-2.5 rounded-xl text-[9px] font-black capitalize tracking-widest shadow-lg"
+                            >
+                              Upload {item.type === "font" ? "Font" : "Image"}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ) : item.value.length > 50 || item.key.includes('description') || item.key.includes('content') ? (
+                      <textarea 
+                        value={item.value}
+                        onChange={e => handleInputChange(item.key, e.target.value)}
+                        rows={4}
+                        className="w-full px-6 py-4 bg-gray-50 rounded-2xl border-none outline-none font-bold text-[#5d5f61] focus:ring-2 focus:ring-[#c81c6a]/20 transition-all resize-none text-sm"
+                      />
+                    ) : (
+                      <input 
+                        type="text" 
+                        value={item.value}
+                        onChange={e => handleInputChange(item.key, e.target.value)}
+                        className="w-full px-6 py-4 bg-gray-50 rounded-2xl border-none outline-none font-bold text-[#5d5f61] focus:ring-2 focus:ring-[#c81c6a]/20 transition-all text-sm"
+                      />
+                    )}
                   </div>
-                </div>
-              ) : item.value.length > 50 || item.key.includes('description') || item.key.includes('content') ? (
-                <textarea 
-                  value={item.value}
-                  onChange={e => handleInputChange(item.key, e.target.value)}
-                  rows={4}
-                  className="w-full px-6 py-4 bg-gray-50 rounded-2xl border-none outline-none font-bold text-[#5d5f61] focus:ring-2 focus:ring-[#c81c6a]/20 transition-all resize-none text-sm"
-                />
-              ) : (
-                <input 
-                  type="text" 
-                  value={item.value}
-                  onChange={e => handleInputChange(item.key, e.target.value)}
-                  className="w-full px-6 py-4 bg-gray-50 rounded-2xl border-none outline-none font-bold text-[#5d5f61] focus:ring-2 focus:ring-[#c81c6a]/20 transition-all text-sm"
-                />
-              )}
+                ))}
+              </div>
             </div>
           ))}
         </div>
@@ -350,7 +375,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
                       <div className="p-5 bg-white rounded-2xl border border-gray-100">
                          <p className="text-[8px] font-black capitalize tracking-[0.1em] text-gray-300 mb-2">Category Overview</p>
                          <p className="text-[10px] font-bold text-gray-500 leading-relaxed italic">
-                           "{cat.subtitle || "No subtitle provided"}"
+                           &quot;{cat.subtitle || "No subtitle provided"}&quot;
                          </p>
                       </div>
                     </div>
