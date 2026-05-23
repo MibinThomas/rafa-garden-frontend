@@ -24,7 +24,18 @@ export function FeaturedCarousel({ categories, content = {} }: FeaturedCarouselP
 
   if (!categories || categories.length === 0) return null;
 
-  const currentCategory = categories[currentIndex];
+  const slides = Array.from({ length: 4 }).map((_, i) => {
+    const slideNumber = i + 1;
+    const catFallback = categories[i] || categories[0];
+    return {
+      id: `slide_${slideNumber}`,
+      image: content[`home.carousel_${slideNumber}_image`] || catFallback.image,
+      title: content[`home.carousel_${slideNumber}_title`] || catFallback.title,
+      subtitle: content[`home.carousel_${slideNumber}_subtitle`] || catFallback.subtitle,
+    };
+  });
+
+  const currentSlide = slides[currentIndex % slides.length];
 
   return (
     <div className="relative w-full h-[600px] md:h-[800px] bg-[#ebebeb] overflow-hidden flex items-center justify-center">
@@ -33,14 +44,14 @@ export function FeaturedCarousel({ categories, content = {} }: FeaturedCarouselP
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden select-none">
         <AnimatePresence mode="popLayout">
           <motion.h1
-            key={currentCategory.id}
+            key={currentSlide.id}
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 1.05, y: -20 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="text-[120px] md:text-[280px] lg:text-[400px] font-black text-[#d0d0d0]/50 tracking-tighter leading-none whitespace-nowrap capitalize"
           >
-            {currentCategory.title}
+            {currentSlide.title}
           </motion.h1>
         </AnimatePresence>
       </div>
@@ -68,7 +79,7 @@ export function FeaturedCarousel({ categories, content = {} }: FeaturedCarouselP
       <div className="relative z-10 w-full h-full flex items-center justify-center">
         <AnimatePresence mode="popLayout">
           <motion.div
-            key={currentCategory.id}
+            key={currentSlide.id}
             initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
             animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
             exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
@@ -76,8 +87,8 @@ export function FeaturedCarousel({ categories, content = {} }: FeaturedCarouselP
             className="relative w-[80%] md:w-[60%] lg:w-[45%] h-[70%]"
           >
             <Image
-              src={currentCategory.image}
-              alt={currentCategory.title}
+              src={currentSlide.image}
+              alt={currentSlide.title}
               fill
               className="object-contain drop-shadow-[0_40px_60px_rgba(0,0,0,0.2)]"
               priority
@@ -90,14 +101,14 @@ export function FeaturedCarousel({ categories, content = {} }: FeaturedCarouselP
       <div className="absolute right-8 md:right-24 bottom-24 md:bottom-32 z-20 origin-bottom-right -rotate-90 translate-x-1/2">
         <AnimatePresence mode="popLayout">
           <motion.p
-            key={currentCategory.id}
+            key={currentSlide.id}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="text-[14px] md:text-[24px] font-light text-[#b0b0b0] tracking-[0.2em] capitalize whitespace-nowrap"
           >
-            {currentCategory.subtitle}
+            {currentSlide.subtitle}
           </motion.p>
         </AnimatePresence>
       </div>
