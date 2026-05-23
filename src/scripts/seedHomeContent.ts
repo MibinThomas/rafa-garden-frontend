@@ -21,6 +21,19 @@ const homeContent = [
   { key: "home.curated_heading_prefix", value: "Explore", type: "text", group: "home", label: "Curated Heading Prefix", maxLength: 20 },
   { key: "home.curated_heading_suffix", value: "Series.", type: "text", group: "home", label: "Curated Heading Suffix", maxLength: 20 },
 
+  // Testimonials
+  { key: "home.testimonial_badge", value: "What They Say", type: "text", group: "home", label: "Testimonial Badge", maxLength: 30 },
+  { key: "home.testimonial_title", value: "Customer Experiences", type: "text", group: "home", label: "Testimonial Title", maxLength: 50 },
+  { key: "home.testimonial_1_quote", value: "The most authentic and refreshing botanical experience I have ever had. The quality is truly unmatched.", type: "text", group: "home", label: "Testimonial 1 Quote" },
+  { key: "home.testimonial_1_author", value: "Sarah Jenkins", type: "text", group: "home", label: "Testimonial 1 Author", maxLength: 30 },
+  { key: "home.testimonial_1_role", value: "Executive Chef", type: "text", group: "home", label: "Testimonial 1 Role", maxLength: 30 },
+  { key: "home.testimonial_2_quote", value: "Absolutely exquisite. You can taste the dedication and heritage in every single harvest.", type: "text", group: "home", label: "Testimonial 2 Quote" },
+  { key: "home.testimonial_2_author", value: "Michael Chen", type: "text", group: "home", label: "Testimonial 2 Author", maxLength: 30 },
+  { key: "home.testimonial_2_role", value: "Food Critic", type: "text", group: "home", label: "Testimonial 2 Role", maxLength: 30 },
+  { key: "home.testimonial_3_quote", value: "A perfect blend of tradition and modern cultivation. A staple in our luxury resort.", type: "text", group: "home", label: "Testimonial 3 Quote" },
+  { key: "home.testimonial_3_author", value: "Elena Rodriguez", type: "text", group: "home", label: "Testimonial 3 Author", maxLength: 30 },
+  { key: "home.testimonial_3_role", value: "Resort Director", type: "text", group: "home", label: "Testimonial 3 Role", maxLength: 30 },
+
   // Featured Carousel
   { key: "home.carousel_1_image", value: "", type: "image", group: "home", label: "Carousel Slide 1 Image" },
   { key: "home.carousel_1_title", value: "", type: "text", group: "home", label: "Carousel Slide 1 Title" },

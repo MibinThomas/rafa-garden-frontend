@@ -8,6 +8,7 @@ import { HomeProductSection } from "@/components/HomeProductSection";
 import { CuratedSeriesSection } from "@/components/CuratedSeriesSection";
 import { FeaturedCarousel } from "@/components/FeaturedCarousel";
 import { TrustBadges } from "@/components/TrustBadges";
+import { Testimonials } from "@/components/Testimonials";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
 import { CATEGORIES as STATIC_CATEGORIES } from "@/lib/data";
 
@@ -110,6 +111,9 @@ export default function Home() {
             </div>
           ))}
         </div>
+
+        {/* Testimonials Section */}
+        <Testimonials content={homeContent} />
 
         {/* Featured Carousel above Footer */}
         <FeaturedCarousel categories={categories} content={homeContent} />
