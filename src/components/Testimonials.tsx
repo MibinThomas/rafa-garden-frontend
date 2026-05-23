@@ -15,7 +15,7 @@ export function Testimonials({ content = {} }: TestimonialsProps) {
   const badge = content["home.testimonial_badge"] || "What They Say";
   const title = content["home.testimonial_title"] || "Customer Experiences";
 
-  const testimonials = Array.from({ length: 3 }).map((_, i) => {
+  let testimonials = Array.from({ length: 3 }).map((_, i) => {
     const slideNumber = i + 1;
     return {
       id: `testimonial_${slideNumber}`,
@@ -24,6 +24,30 @@ export function Testimonials({ content = {} }: TestimonialsProps) {
       role: content[`home.testimonial_${slideNumber}_role`] || "",
     };
   }).filter(t => t.quote !== ""); // Only show testimonials that have a quote
+
+  // Fallback dummy content if CMS is not initialized yet
+  if (testimonials.length === 0) {
+    testimonials = [
+      {
+        id: "testimonial_dummy_1",
+        quote: "The most authentic and refreshing botanical experience I have ever had. The quality is truly unmatched.",
+        author: "Sarah Jenkins",
+        role: "Executive Chef"
+      },
+      {
+        id: "testimonial_dummy_2",
+        quote: "Absolutely exquisite. You can taste the dedication and heritage in every single harvest.",
+        author: "Michael Chen",
+        role: "Food Critic"
+      },
+      {
+        id: "testimonial_dummy_3",
+        quote: "A perfect blend of tradition and modern cultivation. A staple in our luxury resort.",
+        author: "Elena Rodriguez",
+        role: "Resort Director"
+      }
+    ];
+  }
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
