@@ -143,16 +143,16 @@ export function ProductCard({ product, accentColor = "#d11e6d", onSelect }: { pr
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-row items-center justify-between gap-1.5 sm:gap-3 xl:gap-4 w-full">
+        <div className="grid grid-cols-2 gap-1.5 sm:gap-3 xl:gap-4 w-full">
           <button
             onClick={handleAddToCart}
-            className="flex-1 w-full py-1.5 sm:py-3 xl:py-4 px-1 sm:px-2 xl:px-4 rounded-full border-[1.5px] border-[#5d5f61] text-[#5d5f61] bg-transparent font-bold text-[9px] sm:text-[13px] md:text-[14px] xl:text-[16px] tracking-wide transition-all hover:bg-[#5d5f61]/5 hover:shadow-sm active:scale-95 text-center whitespace-nowrap"
+            className="w-full py-1.5 sm:py-3 xl:py-4 px-1 sm:px-2 xl:px-4 rounded-full border-[1.5px] border-[#5d5f61] text-[#5d5f61] bg-transparent font-bold text-[9px] sm:text-[13px] md:text-[14px] xl:text-[16px] tracking-wide transition-all hover:bg-[#5d5f61]/5 hover:shadow-sm active:scale-95 text-center whitespace-nowrap"
           >
             Add to Cart
           </button>
           <button
             onClick={handleAddToCart}
-            className="flex-1 w-full py-1.5 sm:py-3 xl:py-4 px-1 sm:px-2 xl:px-4 rounded-full border-[1.5px] border-[#d11e6d] text-[#5d5f61] bg-transparent font-bold text-[9px] sm:text-[13px] md:text-[14px] xl:text-[16px] tracking-wide transition-all hover:bg-[#d11e6d]/5 hover:shadow-sm active:scale-95 text-center whitespace-nowrap"
+            className="w-full py-1.5 sm:py-3 xl:py-4 px-1 sm:px-2 xl:px-4 rounded-full border-[1.5px] border-[#d11e6d] text-[#5d5f61] bg-transparent font-bold text-[9px] sm:text-[13px] md:text-[14px] xl:text-[16px] tracking-wide transition-all hover:bg-[#d11e6d]/5 hover:shadow-sm active:scale-95 text-center whitespace-nowrap"
           >
             Buy Now
           </button>

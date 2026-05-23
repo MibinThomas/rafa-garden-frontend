@@ -128,7 +128,7 @@ export default function AllProductsPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className={viewMode === "grid" 
-                ? "grid grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-6 md:gap-8 lg:gap-12 snap-y snap-proximity" 
+                ? "grid grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-6 md:gap-8 lg:gap-12 max-md:h-[75vh] max-md:overflow-y-auto max-md:overscroll-y-contain snap-y snap-proximity no-scrollbar pb-10" 
                 : "flex flex-col gap-8"
               }
             >
