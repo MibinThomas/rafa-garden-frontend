@@ -41,7 +41,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
       if (Array.isArray(contentData)) {
         setContent(contentData);
       } else {
-        console.error("API returned non-array:", contentData);
+        console.warn("API returned non-array:", contentData);
         setContent([]);
       }
 
@@ -51,7 +51,7 @@ export function InlineContentEditor({ group, onSave }: InlineContentEditorProps)
         if (Array.isArray(catData)) {
           setCategories(catData);
         } else {
-          console.error("Categories API returned non-array:", catData);
+          console.warn("Categories API returned non-array:", catData);
           setCategories([]);
         }
       }
