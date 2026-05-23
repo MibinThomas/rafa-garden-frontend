@@ -27,7 +27,7 @@ export function TrustBadges() {
   return (
     <div className="w-full bg-transparent py-12 md:py-16">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-        <div className="flex flex-col sm:flex-row flex-wrap items-center justify-between gap-8 sm:gap-12 md:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 items-center justify-items-center gap-y-10 gap-x-4 md:gap-4">
           {badges.map((badge, idx) => (
             <div key={idx} className="flex flex-col items-center justify-center text-center gap-3">
               <div className="text-[#5d5f61]">
