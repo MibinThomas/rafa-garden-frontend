@@ -57,7 +57,7 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                   {/* Vertical background text */}
                   <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
                      <span className="text-[#d0d0d0] font-black text-6xl md:text-8xl tracking-widest uppercase -rotate-90 whitespace-nowrap opacity-60">
-                       {cat.title.split(' ')[2] || cat.title.split(' ')[0] || "CRUSH"}
+                       {cat.watermarkText || cat.title.split(' ')[2] || cat.title.split(' ')[0] || "CRUSH"}
                      </span>
                   </div>
                   {/* Product Image */}
@@ -151,10 +151,10 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                      {/* Image side */}
                      <div className="w-[50%] md:w-full h-full md:h-[50%] relative p-2 md:p-4 flex items-center justify-center overflow-visible">
                        {/* Background faded text directly behind the image */}
-                       {bgWord && (
+                       {(cat.watermarkText || bgWord) && (
                          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
                            <span className="text-[#c8c8c8] font-black text-6xl md:text-7xl tracking-tight whitespace-nowrap">
-                             {bgWord}
+                             {cat.watermarkText || bgWord}
                            </span>
                          </div>
                        )}

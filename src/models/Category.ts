@@ -13,6 +13,12 @@ const CategorySchema = new mongoose.Schema({
   mobileActiveDesc: { type: String },
   mobileHeroImage: { type: String },
   desktopFeaturedProductId: { type: String },
+  watermarkText: { type: String },
+  ctaText: { type: String },
+  ctaLink: { type: String },
+  enabled: { type: Boolean, default: true },
+  order: { type: Number, default: 0 },
+  isDefault: { type: Boolean, default: false },
 }, { timestamps: true });
 
 export default mongoose.models.Category || mongoose.model('Category', CategorySchema);

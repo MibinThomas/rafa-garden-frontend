@@ -8,6 +8,7 @@ import { CmsForm } from "@/components/admin/CmsForm";
 import { SiteContentForm } from "@/components/admin/SiteContentForm";
 import { InlineContentEditor } from "@/components/admin/InlineContentEditor";
 import { DeleteConfirmDialog } from "@/components/admin/DeleteConfirmDialog";
+import { HomepageCmsEditor } from "@/components/admin/HomepageCmsEditor";
 
 import Link from "next/link";
 import { Product } from "@/lib/data";
@@ -215,6 +216,8 @@ export default function CmsPage() {
             ))}
           </AnimatePresence>
         </div>
+      ) : activeTab === "home" ? (
+        <HomepageCmsEditor />
       ) : (
         <InlineContentEditor group={activeTab} onSave={() => {}} />
       )}
