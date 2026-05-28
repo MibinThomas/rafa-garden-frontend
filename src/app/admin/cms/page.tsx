@@ -1,14 +1,13 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Plus, Edit2, Trash2, Search, ExternalLink, Image as ImageIcon, Settings as SettingsIcon, Layout, Globe, ShoppingBag, Home } from "lucide-react";
+import { Plus, Edit2, Trash2, Search, ExternalLink, Image as ImageIcon, Settings as SettingsIcon, Globe, ShoppingBag, Home } from "lucide-react";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { CmsForm } from "@/components/admin/CmsForm";
 import { SiteContentForm } from "@/components/admin/SiteContentForm";
 import { InlineContentEditor } from "@/components/admin/InlineContentEditor";
 import { DeleteConfirmDialog } from "@/components/admin/DeleteConfirmDialog";
-import { HomepageCmsEditor } from "@/components/admin/HomepageCmsEditor";
 
 import Link from "next/link";
 import { Product } from "@/lib/data";
@@ -29,7 +28,7 @@ interface Category {
   products: Product[];
 }
 
-type Tab = "categories" | "home" | "shop" | "about" | "global";
+type Tab = "categories" | "shop" | "about" | "global";
 
 
 export default function CmsPage() {
@@ -59,7 +58,7 @@ export default function CmsPage() {
 
   useEffect(() => {
     if (activeTab === "categories") fetchCategories();
-    if (activeTab === "about" || activeTab === "global" || activeTab === "shop" || activeTab === "home") setLoading(false);
+    if (activeTab === "about" || activeTab === "global" || activeTab === "shop") setLoading(false);
   }, [activeTab]);
 
   const handleEdit = (category: Category) => {
@@ -126,8 +125,7 @@ export default function CmsPage() {
       <div className="flex gap-3 p-2 bg-white/40 backdrop-blur-md rounded-[2.5rem] border border-white w-fit max-w-full overflow-x-auto scrollbar-hide relative z-10 shadow-xl shadow-black/[0.02]">
         <div className="flex gap-3">
           {[
-            { id: "categories", label: "Heritage", icon: Layout },
-            { id: "home", label: "Home Page", icon: Home },
+            { id: "categories", label: "Home", icon: Home },
             { id: "shop", label: "Shop Page", icon: ShoppingBag },
             { id: "about", label: "About Page", icon: SettingsIcon },
             { id: "global", label: "Global Settings", icon: Globe }
@@ -216,8 +214,6 @@ export default function CmsPage() {
             ))}
           </AnimatePresence>
         </div>
-      ) : activeTab === "home" ? (
-        <HomepageCmsEditor />
       ) : (
         <InlineContentEditor group={activeTab} onSave={() => {}} />
       )}
