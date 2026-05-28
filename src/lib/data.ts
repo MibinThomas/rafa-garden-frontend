@@ -120,6 +120,7 @@ export const CATEGORIES: Category[] = [
     subtitle: "Pure Botanical Refreshment",
     image: "/images/hero/crush_bottle.png",
     color: "#c81c6a",
+    mobileActiveDesc: "Crafted from handpicked heritage Dragon fruit and natural ingredients, our Crush delivers a vibrant burst of flavor with every sip. Refreshingly rich, naturally delicious, and made to awaken your senses.",
     products: [
       {
         id: "c-1",
@@ -178,6 +179,7 @@ export const CATEGORIES: Category[] = [
     subtitle: "Deliciously Thick & Natural",
     image: "/images/hero/jam_premium.png",
     color: "#9a0c52",
+    mobileActiveDesc: "Made from farm-fresh fruits and traditional recipes, our jams bring authentic homemade taste to your table. Smooth, flavorful, and packed with natural goodness in every spoonful.",
     products: [
       {
         id: "j-1",
@@ -222,6 +224,7 @@ export const CATEGORIES: Category[] = [
     subtitle: "Fresh From Our Gardens",
     image: "/products/Dragon fruit png.webp",
     color: "#b5e55bc8",
+    mobileActiveDesc: "Carefully grown with love and harvested at peak freshness, our fruits offer natural sweetness and premium quality straight from the garden to your home.",
     products: [
       {
         id: "f-1",
@@ -266,6 +269,7 @@ export const CATEGORIES: Category[] = [
     subtitle: "Grow Your Own Heritage",
     image: "/images/hero/Plant.webp",
     color: "#7fa23fc8",
+    mobileActiveDesc: "Bring nature closer with our healthy, organically nurtured plants. Perfect for homes and gardens, each plant is grown with care to preserve heritage and freshness naturally.",
     products: [
       {
         id: "p-1",

@@ -33,7 +33,7 @@ export function TrustBadges({ content = {} }: TrustBadgesProps) {
   ];
 
   return (
-    <div className="w-full bg-transparent py-12 md:py-16">
+    <div className="w-full bg-transparent py-8 md:py-10 lg:py-16">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         <div className="grid grid-cols-2 md:grid-cols-4 items-center justify-items-center gap-y-10 gap-x-4 md:gap-4">
           {badges.map((badge, idx) => (

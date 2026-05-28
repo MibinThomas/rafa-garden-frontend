@@ -128,12 +128,12 @@ export default function AllProductsPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className={viewMode === "grid" 
-                ? "grid grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-6 md:gap-8 lg:gap-12 max-md:h-[75vh] max-md:overflow-y-auto max-md:overscroll-y-contain snap-y snap-proximity scrollbar-hide pb-10 max-md:pb-[250px]" 
-                : "flex flex-col gap-8"
+                ? "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1.5 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 max-md:h-[75vh] max-md:overflow-y-auto max-md:overscroll-y-contain snap-y snap-proximity scrollbar-hide pb-10 max-md:pb-[250px]" 
+                : "flex flex-col gap-4"
               }
             >
               {filteredProducts.map((product) => (
-                <div key={product.id} className={`${viewMode === "list" ? "max-w-4xl mx-auto w-full" : ""} snap-start`}>
+                <div key={product.id} className={`${viewMode === "list" ? "max-w-2xl mx-auto w-full" : ""} snap-start`}>
                    <ProductCard 
                      product={product} 
                      accentColor={product.categoryColor}

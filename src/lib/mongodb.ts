@@ -15,8 +15,7 @@ if (!cached) {
 
 async function dbConnect() {
   if (!MONGODB_URI) {
-    console.error('MONGODB_URI is not defined. CMS features will be disabled.');
-    return null;
+    throw new Error('MONGODB_URI is not defined. CMS features will be disabled.');
   }
 
   if (cached.conn) {

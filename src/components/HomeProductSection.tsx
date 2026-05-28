@@ -27,12 +27,14 @@ export function HomeProductSection({ categories, categoryIndex }: HomeProductSec
 
   useEffect(() => {
     const updateConfig = () => {
-      if (window.innerWidth >= 1024) {
-        setConfig({ items: 3, gap: 32 }); // lg:gap-8 is 32px
+      if (window.innerWidth >= 1440) {
+        setConfig({ items: 5, gap: 20 }); // xl:gap-5 is 20px
+      } else if (window.innerWidth >= 1025) {
+        setConfig({ items: 4, gap: 16 }); // lg:gap-4 is 16px
       } else if (window.innerWidth >= 768) {
-        setConfig({ items: 2, gap: 24 }); // md:gap-6 is 24px
+        setConfig({ items: 3, gap: 12 }); // md:gap-3 is 12px
       } else {
-        setConfig({ items: 2, gap: 16 }); // gap-4 is 16px
+        setConfig({ items: 2, gap: 8 });  // gap-2 is 8px
       }
     };
     updateConfig();
@@ -60,43 +62,44 @@ export function HomeProductSection({ categories, categoryIndex }: HomeProductSec
 
   return (
     <section className="bg-[#f1f1f2] pt-8 pb-12 px-6 md:px-12 lg:px-24 relative overflow-hidden">
-      <div className="max-w-[1600px] mx-auto relative z-10">
-        
-        {/* Header with Navigation Arrows on the right */}
-        <div className="flex items-center justify-end mb-6 md:mb-10">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={handlePrev}
-              disabled={scrollIndex === 0}
-              className={`w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center transition-all ${
-                scrollIndex === 0 ? "opacity-30 cursor-not-allowed" : "hover:bg-white hover:shadow-md active:scale-90 bg-[#ebebeb]"
-              }`}
-            >
-              <ChevronLeft size={isDesktop ? 20 : 16} className="text-[#5d5f61]" />
-            </button>
-            <button
-              onClick={handleNext}
-              disabled={scrollIndex === maxIndex}
-              className={`w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center transition-all ${
-                scrollIndex === maxIndex ? "opacity-30 cursor-not-allowed" : "hover:bg-white hover:shadow-md active:scale-90 bg-[#ebebeb]"
-              }`}
-            >
-              <ChevronRight size={isDesktop ? 20 : 16} className="text-[#5d5f61]" />
-            </button>
+      <div className="max-w-[1600px] mx-auto relative z-10 flex flex-col items-center">
+        <div className={`flex flex-col items-stretch mx-auto ${products.length < config.items ? "w-fit" : "w-full"}`}>
+          
+          {/* Header with Navigation Arrows on the right */}
+          <div className="flex items-center justify-end mb-6 md:mb-10">
+            <div className="flex items-center gap-4">
+              <button
+                onClick={handlePrev}
+                disabled={scrollIndex === 0}
+                className={`w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center transition-all ${
+                  scrollIndex === 0 ? "opacity-30 cursor-not-allowed" : "hover:bg-white hover:shadow-md active:scale-90 bg-[#ebebeb]"
+                }`}
+              >
+                <ChevronLeft size={isDesktop ? 20 : 16} className="text-[#5d5f61]" />
+              </button>
+              <button
+                onClick={handleNext}
+                disabled={scrollIndex === maxIndex}
+                className={`w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center transition-all ${
+                  scrollIndex === maxIndex ? "opacity-30 cursor-not-allowed" : "hover:bg-white hover:shadow-md active:scale-90 bg-[#ebebeb]"
+                }`}
+              >
+                <ChevronRight size={isDesktop ? 20 : 16} className="text-[#5d5f61]" />
+              </button>
+            </div>
           </div>
-        </div>
 
-        {/* Carousel Track with safe-zone padding to prevent shadow/scaling clipping */}
-        <div className="relative overflow-hidden -mx-4 px-4 py-8 -my-8">
-          <motion.div
+          {/* Carousel Track with safe-zone padding to prevent shadow/scaling clipping */}
+          <div className="relative overflow-hidden -mx-4 px-4 py-8 -my-8">
+            <motion.div
             animate={{ x: `calc(-${scrollIndex * (100 / config.items)}% - ${scrollIndex * (config.gap / config.items)}px)` }}
             transition={{ type: "spring", stiffness: 200, damping: 25 }}
-            className="flex gap-4 md:gap-6 lg:gap-8 w-full"
+            className={`flex gap-2 md:gap-3 lg:gap-4 xl:gap-5 w-full ${products.length < config.items ? "justify-center" : "justify-start"}`}
           >
             {products.map((product: any) => (
               <div 
                 key={product.id || product._id} 
-                className="flex-shrink-0 w-[calc(50%-8px)] md:w-[calc(50%-12px)] lg:w-[calc(33.3333%-21.33px)]"
+                className="flex-shrink-0 w-[calc(50%-4px)] md:w-[calc(33.3333%-8px)] lg:w-[calc(25%-12px)] xl:w-[calc(20%-16px)]"
               >
                 <ProductCard
                   product={product}
@@ -105,6 +108,7 @@ export function HomeProductSection({ categories, categoryIndex }: HomeProductSec
               </div>
             ))}
           </motion.div>
+          </div>
         </div>
       </div>
     </section>

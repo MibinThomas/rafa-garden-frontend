@@ -50,15 +50,15 @@ export function ProductCard({ product, accentColor = "#d11e6d", onSelect }: { pr
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="group relative flex flex-col justify-between bg-[#f1f1f2] p-3 sm:p-5 md:p-8 rounded-[16px] sm:rounded-[24px] transition-all duration-500 hover:shadow-[0_15px_40px_rgba(0,0,0,0.08)] h-full w-full snap-start"
+      className="group relative flex flex-col justify-between bg-[#f1f1f2] p-1.5 sm:p-2.5 md:p-4 rounded-[8px] sm:rounded-[12px] transition-all duration-500 hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] h-full w-full snap-start"
       style={{ fontFamily: 'AvantGarde, sans-serif' }}
     >
       <button
         onClick={handleWishlist}
-        className="absolute top-2 right-2 sm:top-5 sm:right-5 z-30 w-6 h-6 sm:w-10 sm:h-10 xl:w-12 xl:h-12 rounded-full flex items-center justify-center bg-[#f1f1f2] border-[1px] border-[#b0b0b0]/30 transition-all hover:scale-105 active:scale-95 shadow-sm"
+        className="absolute top-1 right-1 sm:top-2.5 sm:right-2.5 z-30 w-4 h-4 sm:w-5 sm:h-5 xl:w-6 xl:h-6 rounded-full flex items-center justify-center bg-[#f1f1f2] border-[1px] border-[#b0b0b0]/30 transition-all hover:scale-105 active:scale-95 shadow-sm"
       >
         <Heart
-          size={isDesktop ? 22 : 14}
+          size={isDesktop ? 11 : 7}
           fill={isFavorited ? "#b0b0b0" : "#b0b0b0"}
           className="text-[#b0b0b0]"
           strokeWidth={1}
@@ -68,18 +68,18 @@ export function ProductCard({ product, accentColor = "#d11e6d", onSelect }: { pr
       {/* Product Image */}
       <Link
         href={`/product/${product.id}`}
-        className="relative w-full aspect-[4/5] sm:aspect-[3/4] flex items-center justify-center cursor-pointer z-10 mb-3 sm:mb-6 xl:mb-8 mt-1"
+        className="relative w-full aspect-[4/5] sm:aspect-[3/4] flex items-center justify-center cursor-pointer z-10 mb-1.5 sm:mb-3 xl:mb-4 mt-0.5"
       >
         <motion.div
           className="relative w-[95%] h-[95%] xl:w-full xl:h-full"
-          whileHover={{ scale: 1.05, y: -5 }}
+          whileHover={{ scale: 1.05, y: -2.5 }}
           transition={{ type: "spring", stiffness: 200, damping: 15 }}
         >
           <Image
             src={product.image}
             alt={product.name}
             fill
-            className="object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.15)]"
+            className="object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.15)]"
             priority
           />
         </motion.div>
@@ -87,27 +87,27 @@ export function ProductCard({ product, accentColor = "#d11e6d", onSelect }: { pr
 
       <div className="flex flex-col mt-auto w-full">
         {/* Title */}
-        <Link href={`/product/${product.id}`} className="group/title block cursor-pointer mb-2 sm:mb-3 xl:mb-4">
-          <h3 className="text-[20px] sm:text-[32px] md:text-[40px] xl:text-[48px] 2xl:text-[56px] font-bold text-[#5d5f61] tracking-tight leading-[1.05] transition-colors break-words">
+        <Link href={`/product/${product.id}`} className="group/title block cursor-pointer mb-1 sm:mb-1.5 xl:mb-2">
+          <h3 className="text-[10px] sm:text-[16px] md:text-[20px] xl:text-[24px] 2xl:text-[28px] font-bold text-[#5d5f61] tracking-tight leading-[1.05] transition-colors break-words">
             {product.name}
           </h3>
         </Link>
 
         {/* Variants Selection */}
-        <div className="flex flex-wrap items-center gap-2 sm:gap-3 md:gap-5 mb-3 sm:mb-5 xl:mb-8">
+        <div className="flex flex-wrap items-center gap-1 sm:gap-1.5 md:gap-2.5 mb-1.5 sm:mb-2.5 xl:mb-4">
           {product.variants.map((v, idx) => {
             const isActive = selectedVariantIdx === idx;
             return (
               <button
                 key={idx}
                 onClick={(e) => { e.stopPropagation(); setSelectedVariantIdx(idx); }}
-                className="flex items-center gap-1 sm:gap-2 group/variant"
+                className="flex items-center gap-0.5 sm:gap-1 group/variant"
               >
-                <span className="text-[11px] sm:text-[14px] md:text-[16px] xl:text-[18px] font-normal text-[#9b9b9b] tracking-tight lowercase">
+                <span className="text-[8px] sm:text-[9px] md:text-[10px] xl:text-[11px] font-normal text-[#9b9b9b] tracking-tight lowercase">
                   {v.size}{v.unit}
                 </span>
-                <div className={`w-3 h-3 sm:w-5 sm:h-5 xl:w-6 xl:h-6 rounded-full border-[1.5px] flex items-center justify-center transition-all ${isActive ? "border-[#d11e6d]" : "border-[#b0b0b0]"}`}>
-                  {isActive && <div className="w-1.5 h-1.5 sm:w-3 sm:h-3 xl:w-3.5 xl:h-3.5 rounded-full bg-[#d11e6d]" />}
+                <div className={`w-2 h-2 sm:w-2.5 sm:h-2.5 xl:w-3 xl:h-3 rounded-full border-[1px] flex items-center justify-center transition-all ${isActive ? "border-[#d11e6d]" : "border-[#b0b0b0]"}`}>
+                  {isActive && <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 xl:w-1.5 xl:h-1.5 rounded-full bg-[#d11e6d]" />}
                 </div>
               </button>
             );
@@ -115,46 +115,46 @@ export function ProductCard({ product, accentColor = "#d11e6d", onSelect }: { pr
         </div>
 
         {/* Quantity & Price Row */}
-        <div className="flex items-center justify-between gap-1.5 sm:gap-4 mb-4 sm:mb-6 xl:mb-10 w-full min-w-0">
+        <div className="flex items-center justify-between gap-1 sm:gap-2 mb-2 sm:mb-3 xl:mb-5 w-full min-w-0">
           {/* Quantity Selector */}
-          <div className="flex items-center gap-1.5 sm:gap-3 md:gap-4 shrink-0">
+          <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2 shrink-0">
             <button
               onClick={(e) => { e.stopPropagation(); if (quantity > 1) setQuantity(prev => prev - 1); }}
-              className="w-6 h-6 sm:w-8 sm:h-8 md:w-9 md:h-9 xl:w-10 xl:h-10 flex items-center justify-center rounded-[6px] sm:rounded-[8px] border-[1.5px] border-[#5d5f61]/40 text-[#5d5f61] hover:bg-white/50 transition-all shrink-0"
+              className="w-3 h-3 sm:w-4 sm:h-4 md:w-4.5 md:h-4.5 xl:w-5 xl:h-5 flex items-center justify-center rounded-[3px] sm:rounded-[4px] border-[1px] border-[#5d5f61]/40 text-[#5d5f61] hover:bg-white/50 transition-all shrink-0"
             >
-              <Minus size={12} className="sm:w-[14px]" strokeWidth={1.5} />
+              <Minus size={6} className="sm:w-[8px]" strokeWidth={1.5} />
             </button>
-            <span className="text-[16px] sm:text-[20px] md:text-[24px] xl:text-[28px] font-normal text-[#5d5f61] min-w-[14px] sm:min-w-[20px] md:min-w-[24px] text-center leading-none">
+            <span className="text-[8px] sm:text-[10px] md:text-[12px] xl:text-[14px] font-normal text-[#5d5f61] min-w-[7px] sm:min-w-[10px] md:min-w-[12px] text-center leading-none">
               {quantity}
             </span>
             <button
               onClick={(e) => { e.stopPropagation(); setQuantity(prev => prev + 1); }}
-              className="w-6 h-6 sm:w-8 sm:h-8 md:w-9 md:h-9 xl:w-10 xl:h-10 flex items-center justify-center rounded-[6px] sm:rounded-[8px] border-[1.5px] border-[#5d5f61]/40 text-[#5d5f61] hover:bg-white/50 transition-all shrink-0"
+              className="w-3 h-3 sm:w-4 sm:h-4 md:w-4.5 md:h-4.5 xl:w-5 xl:h-5 flex items-center justify-center rounded-[3px] sm:rounded-[4px] border-[1px] border-[#5d5f61]/40 text-[#5d5f61] hover:bg-white/50 transition-all shrink-0"
             >
-              <Plus size={12} className="sm:w-[14px]" strokeWidth={1.5} />
+              <Plus size={6} className="sm:w-[8px]" strokeWidth={1.5} />
             </button>
           </div>
 
           {/* Price */}
-          <div className="w-auto min-w-fit text-[22px] sm:text-[40px] md:text-[52px] xl:text-[64px] 2xl:text-[72px] font-normal text-[#5d5f61] leading-[0.9] tracking-tighter shrink-0 text-right pb-0.5">
+          <div className="w-auto min-w-fit text-[11px] sm:text-[20px] md:text-[26px] xl:text-[32px] 2xl:text-[36px] font-normal text-[#5d5f61] leading-[0.9] tracking-tighter shrink-0 text-right pb-[1px]">
             ₹{currentPrice.toFixed(0)}
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-row items-center justify-between gap-2 sm:gap-3 xl:gap-4 w-full">
+        <div className="flex flex-row items-center justify-between gap-1 sm:gap-1.5 xl:gap-2 w-full">
           <button
             onClick={handleAddToCart}
-            className="shrink-0 sm:flex-1 w-[36px] sm:w-full min-w-0 flex items-center justify-center h-[36px] sm:h-[48px] xl:h-[52px] p-0 sm:px-3 xl:px-5 rounded-full border-[1.5px] border-[#5d5f61] text-[#5d5f61] bg-transparent font-bold text-[12px] sm:text-[13px] md:text-[14px] xl:text-[16px] leading-none tracking-wide transition-all hover:bg-[#5d5f61]/5 hover:shadow-sm active:scale-95 whitespace-nowrap overflow-hidden"
+            className="shrink-0 sm:flex-1 w-[18px] sm:w-full min-w-0 flex items-center justify-center h-[18px] sm:h-[24px] xl:h-[26px] p-0 sm:px-1.5 xl:px-2.5 rounded-full border-[1px] border-[#5d5f61] text-[#5d5f61] bg-transparent font-bold text-[8px] sm:text-[8px] md:text-[9px] xl:text-[10px] leading-none tracking-wide transition-all hover:bg-[#5d5f61]/5 hover:shadow-sm active:scale-95 whitespace-nowrap overflow-hidden"
           >
             <span className="sm:hidden flex items-center justify-center">
-              <ShoppingCart size={16} strokeWidth={2} />
+              <ShoppingCart size={8} strokeWidth={2} />
             </span>
             <span className="hidden sm:inline">Add to Cart</span>
           </button>
           <button
             onClick={handleAddToCart}
-            className="flex-1 w-full min-w-0 flex items-center justify-center h-[36px] sm:h-[48px] xl:h-[52px] px-1 sm:px-3 xl:px-5 rounded-full border-[1.5px] border-[#d11e6d] text-[#5d5f61] bg-transparent font-bold text-[12px] sm:text-[13px] md:text-[14px] xl:text-[16px] leading-none tracking-wide transition-all hover:bg-[#d11e6d]/5 hover:shadow-sm active:scale-95 whitespace-nowrap overflow-hidden"
+            className="flex-1 w-full min-w-0 flex items-center justify-center h-[18px] sm:h-[24px] xl:h-[26px] px-[2px] sm:px-1.5 xl:px-2.5 rounded-full border-[1px] border-[#d11e6d] text-[#5d5f61] bg-transparent font-bold text-[8px] sm:text-[8px] md:text-[9px] xl:text-[10px] leading-none tracking-wide transition-all hover:bg-[#d11e6d]/5 hover:shadow-sm active:scale-95 whitespace-nowrap overflow-hidden"
           >
             Buy Now
           </button>

@@ -31,7 +31,7 @@ export function FloatingHeader() {
   return (
     <>
       {/* Unified Desktop Header */}
-      <div className={`w-full hidden md:flex items-center pt-8 pb-4 pointer-events-auto select-none transition-all duration-1000 ${isImmersive ? "absolute top-0 left-0 z-50 bg-transparent" : "bg-[#f1f1f2]"}`}>
+      <div className={`w-full hidden lg:flex items-center pt-8 pb-4 pointer-events-auto select-none transition-all duration-1000 ${isImmersive ? "absolute top-0 left-0 z-50 bg-transparent" : "bg-[#f1f1f2]"}`}>
         <div className="max-w-[1700px] mx-auto w-full flex items-center px-6 md:px-12">
           
           {/* Logo Section - Flex-1 to balance with Right Section */}
@@ -101,12 +101,12 @@ export function FloatingHeader() {
         </div>
       </div>
 
-      {/* Redesigned Mobile Header - Matching Mockup */}
-      <div className={`w-full flex md:hidden items-center justify-between px-6 py-4 pointer-events-auto transition-all duration-1000 ${isImmersive ? "absolute top-0 left-0 z-50 bg-transparent" : "bg-[#f1f1f2]"}`}>
+      {/* Redesigned Mobile & Tablet Header */}
+      <div className={`w-full flex lg:hidden items-center justify-between px-6 py-4 pointer-events-auto transition-all duration-1000 ${isImmersive ? "absolute top-0 left-0 z-50 bg-transparent" : "bg-[#f1f1f2]"}`}>
         
         <div className="flex-none">
           <Link href="/" className="flex items-center">
-            <div className="relative w-8 h-8">
+            <div className="relative w-8 h-8 md:w-10 md:h-10">
               <Image
                 src="/images/logo/mobilelogo.webp"
                 alt="Logo"
@@ -118,29 +118,29 @@ export function FloatingHeader() {
         </div>
 
         {/* Center: Pill-shaped Search Bar */}
-        <div className="flex-1 flex justify-center px-4">
-          <div className="relative w-full max-w-[200px] flex items-center bg-[#EAEAEA] rounded-full h-8 px-3 shadow-[inset_0_2px_4px_rgba(0,0,0,0.06)]">
-            <Search size={14} className="text-[#333333]/30 mr-2" />
+        <div className="flex-1 flex justify-center px-4 md:px-8">
+          <div className="relative w-full max-w-[200px] md:max-w-[320px] flex items-center bg-[#EAEAEA] rounded-full h-8 md:h-10 px-3 md:px-5 shadow-[inset_0_2px_4px_rgba(0,0,0,0.06)]">
+            <Search size={14} className="text-[#333333]/30 mr-2 md:mr-3" />
             <input 
               type="text" 
               placeholder="Search..." 
-              className="bg-transparent border-none outline-none text-[0.7rem] w-full text-[#333333] placeholder:text-[#333333]/30 font-avant-garde"
+              className="bg-transparent border-none outline-none text-[0.7rem] md:text-[0.8rem] w-full text-[#333333] placeholder:text-[#333333]/30 font-avant-garde"
             />
           </div>
         </div>
 
         {/* Right: Action Icons */}
-        <div className="flex-none flex items-center gap-4">
+        <div className="flex-none flex items-center gap-4 md:gap-6">
           <Link href="/auth" className="text-[#333333]/50">
-            <User size={20} strokeWidth={1.5} />
+            <User size={20} strokeWidth={1.5} className="md:w-6 md:h-6" />
           </Link>
           <button 
             onClick={openCart}
             className="text-[#333333]/50 relative"
           >
-            <ShoppingBasket size={22} strokeWidth={1.5} />
+            <ShoppingBasket size={22} strokeWidth={1.5} className="md:w-[26px] md:h-[26px]" />
             {itemCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-[#9a0c52] text-white text-[0.5rem] font-bold w-3.5 h-3.5 flex items-center justify-center rounded-full">
+              <span className="absolute -top-1 -right-1 md:-top-1.5 md:-right-1.5 bg-[#9a0c52] text-white text-[0.5rem] md:text-[0.6rem] font-bold w-3.5 h-3.5 md:w-4.5 md:h-4.5 flex items-center justify-center rounded-full">
                 {itemCount}
               </span>
             )}
@@ -149,7 +149,7 @@ export function FloatingHeader() {
             onClick={() => setIsMenuOpen(true)}
             className="text-[#333333]/40 hover:text-[#333333] transition-colors"
           >
-            <Menu size={22} strokeWidth={1.5} />
+            <Menu size={22} strokeWidth={1.5} className="md:w-[26px] md:h-[26px]" />
           </button>
         </div>
       </div>
@@ -164,7 +164,7 @@ export function FloatingHeader() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMenuOpen(false)}
-              className="fixed inset-0 bg-black/40 backdrop-blur-[2px] z-[100] md:hidden"
+              className="fixed inset-0 bg-black/40 backdrop-blur-[2px] z-[100] lg:hidden"
             />
             {/* Premium Drawer Container */}
             <motion.div
@@ -172,7 +172,7 @@ export function FloatingHeader() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed top-0 right-0 h-[100dvh] w-[85%] max-w-sm bg-[#f1f1f2] z-[101] shadow-[-20px_0_40px_rgba(0,0,0,0.15)] flex flex-col md:hidden"
+              className="fixed top-0 right-0 h-[100dvh] w-[85%] max-w-sm bg-[#f1f1f2] z-[101] shadow-[-20px_0_40px_rgba(0,0,0,0.15)] flex flex-col lg:hidden"
             >
               {/* Header inside drawer */}
               <div className="flex items-center justify-between p-6 pb-2">
