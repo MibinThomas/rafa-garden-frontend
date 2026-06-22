@@ -71,11 +71,11 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                 // Active Card Layout: 50% image, 50% pink/magenta panel
                 <div className="flex flex-row w-full h-full">
                   {/* Left Side: Product Bottle Image */}
-                  <div className="w-[50%] h-full relative flex items-center justify-center p-4 overflow-hidden bg-[#e6e7e8]">
+                  <div className="w-[50%] h-full relative overflow-hidden bg-[#e6e7e8]">
                     {/* Vertical Faded Watermark */}
                     <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
                       <span 
-                        className="font-dharma-gothic uppercase tracking-[0.05em] text-black/[0.04] text-[9.5rem] sm:text-[11rem] md:text-[13rem] leading-none"
+                        className="font-dharma-gothic uppercase tracking-[0.05em] text-black/[0.04] text-[5rem] sm:text-[6rem] md:text-[7.5rem] leading-none"
                         style={{
                           writingMode: "vertical-lr",
                           transform: "rotate(180deg)",
@@ -85,13 +85,13 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                       </span>
                     </div>
                     
-                    {/* Product Image */}
-                    <div className="relative w-[85%] h-[85%] md:w-[75%] md:h-[75%] z-10 flex items-center justify-center">
+                    {/* Product Image - Larger and positioned in the lower-left */}
+                    <div className="absolute left-[8%] bottom-0 w-[85%] h-[92%] z-10">
                       <Image
                         src={cat.image}
                         alt={cat.title}
                         fill
-                        className="object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.15)]"
+                        className="object-contain object-bottom-left drop-shadow-[0_12px_24px_rgba(0,0,0,0.15)]"
                         sizes="45vw"
                         priority
                       />
@@ -147,20 +147,6 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                         </div>
                       </div>
                       <div className="w-[45%] h-full relative flex items-center justify-center p-3 overflow-hidden">
-                        {/* Vertical Watermark (if not Jam) */}
-                        {index !== 1 && (
-                          <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
-                            <span 
-                              className="font-dharma-gothic uppercase tracking-[0.05em] text-black/[0.04] text-[7.5rem] sm:text-[8.5rem] md:text-[10rem] leading-none"
-                              style={{
-                                writingMode: "vertical-lr",
-                                transform: "rotate(180deg)",
-                              }}
-                            >
-                              {cat.watermarkText || cat.title}
-                            </span>
-                          </div>
-                        )}
                         <div className="relative w-[85%] h-[85%] z-10">
                           <Image
                             src={cat.image}
@@ -176,20 +162,6 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                     // Image Left, Text Right
                     <>
                       <div className="w-[45%] h-full relative flex items-center justify-center p-3 overflow-hidden">
-                        {/* Vertical Watermark (if not Jam) */}
-                        {index !== 1 && (
-                          <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
-                            <span 
-                              className="font-dharma-gothic uppercase tracking-[0.05em] text-black/[0.04] text-[7.5rem] sm:text-[8.5rem] md:text-[10rem] leading-none"
-                              style={{
-                                writingMode: "vertical-lr",
-                                transform: "rotate(180deg)",
-                              }}
-                            >
-                              {cat.watermarkText || cat.title}
-                            </span>
-                          </div>
-                        )}
                         <div className="relative w-[75%] h-[75%] z-10">
                           <Image
                             src={cat.image}
