@@ -35,159 +35,208 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
     <section className="relative w-full flex-1 px-4 pt-4 pb-16 md:px-6 md:pt-6 md:pb-20 lg:p-12 flex flex-col font-sans overflow-hidden bg-transparent">
 
       {/* Redesigned Mobile & Tablet Editorial Hero: Vertically Expanding Accordion */}
-      <div className="flex lg:hidden flex-col w-full h-[520px] sm:h-[580px] md:h-[680px] gap-3.5 pb-6">
-        {categories.slice(0, 4).map((cat, index) => {
-          const isActive = activeMobileIndex === index;
-          const words = cat.title.split(' ');
-          const rawWord = words.length > 1 ? words[words.length - 1] : words[0];
-          const bgWord = rawWord.charAt(0).toUpperCase() + rawWord.slice(1).toLowerCase();
-
-          return (
-            <motion.div
-              layout
-              key={cat.id || cat._id}
-              onClick={() => {
-                setActiveMobileIndex(index);
-                onActiveChange?.(index);
-              }}
-              style={{
-                flexGrow: isActive ? 3.5 : 1,
-              }}
-              transition={{
-                type: "spring",
-                stiffness: 150,
-                damping: 20,
-              }}
-              className="w-full rounded-[20px] sm:rounded-[24px] overflow-hidden cursor-pointer shadow-sm relative flex flex-row h-0 min-h-[75px] group border border-black/[0.03]"
-            >
-              {/* Background Color Layer */}
-              <motion.div 
-                className="absolute inset-0 transition-colors duration-500"
-                style={{ 
-                  backgroundColor: isActive ? (cat.color || "#c81c6a") : "#ffffff" 
-                }}
-              />
-
-              {/* Watermark / Faded Background Text */}
+      <div className="flex lg:hidden flex-col w-full gap-4 pb-12">
+        {/* 1. MAIN FEATURED HERO CARD (Crush) */}
+        {categories[0] && (
+          <div 
+            onClick={() => router.push(`/shop?cat=${categories[0].title.toLowerCase()}`)}
+            className="w-full h-[320px] sm:h-[360px] md:h-[420px] rounded-[24px] overflow-hidden flex flex-row bg-[#e6e7e8] shadow-sm relative cursor-pointer select-none"
+          >
+            {/* Left Side: Product Bottle Image */}
+            <div className="w-[50%] h-full relative flex items-center justify-center p-4 overflow-hidden bg-[#e6e7e8]">
+              {/* Vertical Faded Watermark */}
               <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
-                <motion.span 
-                  layout
-                  className={`font-black uppercase tracking-[0.2em] transition-all duration-500 whitespace-nowrap
-                    ${isActive 
-                      ? "text-white/10 text-6xl sm:text-7xl md:text-8xl -rotate-12 scale-110" 
-                      : "text-black/[0.03] text-4xl sm:text-5xl md:text-6xl rotate-0 scale-95"
-                    }
-                  `}
-                >
-                  {cat.watermarkText || bgWord}
-                </motion.span>
-              </div>
-
-              {/* Left Side: Content Details */}
-              <div className="w-[58%] md:w-[50%] h-full flex flex-col justify-center pl-6 pr-2 py-4 z-10 select-none">
-                <div className="flex flex-col justify-center">
-                  
-                  {/* Category Number (Active only, animated) */}
-                  <motion.span 
-                    animate={{ 
-                      opacity: isActive ? 0.4 : 0,
-                      height: isActive ? "auto" : 0,
-                      marginBottom: isActive ? 4 : 0
-                    }}
-                    transition={{ duration: 0.3 }}
-                    className="text-white text-[9px] sm:text-[10px] md:text-xs uppercase font-black tracking-[0.2em] font-avant-garde block overflow-hidden"
-                  >
-                    {(index + 1).toString().padStart(2, '0')}
-                  </motion.span>
-
-                  {/* Title */}
-                  <motion.h2 
-                    layout="position"
-                    className={`font-brand-heading font-black leading-[1.1] transition-colors duration-500
-                      ${isActive 
-                        ? "text-white text-xl sm:text-2xl md:text-3xl mb-1.5" 
-                        : "text-[#5d5f61] text-base sm:text-lg md:text-xl mb-0.5"
-                      }
-                    `}
-                  >
-                    {cat.title}
-                  </motion.h2>
-
-                  {/* Description (Active only, animated) */}
-                  <motion.p 
-                    animate={{ 
-                      opacity: isActive ? 0.85 : 0,
-                      height: isActive ? "auto" : 0,
-                      marginTop: isActive ? 4 : 0,
-                      marginBottom: isActive ? 8 : 0
-                    }}
-                    transition={{ duration: 0.3 }}
-                    className="text-white text-[10px] sm:text-xs md:text-sm leading-relaxed font-sans font-light max-w-[95%] md:max-w-[85%] overflow-hidden line-clamp-3"
-                  >
-                    {cat.mobileActiveDesc || content["home.hero_default_desc"] || "Pure botanical refreshment designed to nourish and elevate your space."}
-                  </motion.p>
-
-                  {/* Subtitle / Interaction Helper (Inactive only, animated) */}
-                  <motion.span 
-                    animate={{ 
-                      opacity: isActive ? 0 : 0.6,
-                      height: isActive ? 0 : "auto",
-                    }}
-                    transition={{ duration: 0.3 }}
-                    className="text-[8px] sm:text-[9px] md:text-[10px] text-[#8e8f93] font-bold font-avant-garde tracking-widest flex items-center gap-1 overflow-hidden"
-                  >
-                    <span>Explore Collection</span>
-                    <ArrowRight size={9} className="text-[#8e8f93]" />
-                  </motion.span>
-                </div>
-
-                {/* Buy Now Button (Active only, animated) */}
-                <motion.div 
-                  animate={{ 
-                    opacity: isActive ? 1 : 0,
-                    height: isActive ? "auto" : 0,
-                    marginTop: isActive ? 4 : 0
+                <span 
+                  className="font-dharma-gothic uppercase tracking-[0.05em] text-black/[0.04] text-[9.5rem] sm:text-[11rem] md:text-[13rem] leading-none"
+                  style={{
+                    writingMode: "vertical-lr",
+                    transform: "rotate(180deg)",
                   }}
-                  transition={{ duration: 0.3 }}
-                  className="overflow-hidden"
                 >
-                  <button 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      router.push(`/shop?cat=${cat.title.toLowerCase()}`);
-                    }}
-                    className="flex items-center justify-between w-[95px] sm:w-[105px] md:w-[125px] px-3.5 py-2 rounded-full border border-white/35 text-white text-[9px] sm:text-[10px] md:text-xs font-bold active:scale-95 transition-all hover:bg-white hover:text-black hover:border-white shadow-sm"
-                  >
-                    <span>Buy Now</span>
-                    <ArrowRight size={11} />
-                  </button>
-                </motion.div>
+                  {categories[0].watermarkText || categories[0].title}
+                </span>
+              </div>
+              
+              {/* Product Image */}
+              <div className="relative w-[85%] h-[85%] md:w-[75%] md:h-[75%] z-10 flex items-center justify-center">
+                <Image
+                  src={categories[0].image}
+                  alt={categories[0].title}
+                  fill
+                  className="object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.15)]"
+                  sizes="45vw"
+                  priority
+                />
+              </div>
+            </div>
+
+            {/* Right Side: Magenta/Pink Panel */}
+            <div className="w-[50%] h-full bg-[#c81c6a] rounded-[24px] flex flex-col justify-between p-5 sm:p-6 text-white z-10 relative shadow-lg">
+              <div className="space-y-3 sm:space-y-4">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-black font-brand-heading leading-tight whitespace-pre-line">
+                  Dragon Fruit{"\n"}Crush
+                </h2>
+                <p className="text-[9px] sm:text-[10px] md:text-xs text-white/80 leading-relaxed font-sans font-light line-clamp-4">
+                  {categories[0].mobileActiveDesc || "This is a sample product details must be enter here to show the ui ux design minimal stage"}
+                </p>
               </div>
 
-              {/* Right Side: Product Image */}
-              <div className="w-[42%] md:w-[50%] h-full relative flex items-center justify-center pr-6 pl-2 py-4 z-10 overflow-visible select-none">
-                <motion.div 
-                  layout
-                  className={`relative transition-all duration-500 flex items-center justify-center
-                    ${isActive 
-                      ? "w-[90%] h-[90%] md:w-[80%] md:h-[80%] drop-shadow-[0_20px_35px_rgba(0,0,0,0.3)] scale-110" 
-                      : "w-14 h-14 sm:w-16 sm:h-16 md:w-24 md:h-24 drop-shadow-[0_4px_8px_rgba(0,0,0,0.12)] scale-100"
-                    }
-                  `}
+              <div className="space-y-4 sm:space-y-6">
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    router.push(`/shop?cat=${categories[0].title.toLowerCase()}`);
+                  }}
+                  className="flex items-center justify-between w-[95px] sm:w-[105px] md:w-[125px] px-3.5 py-2 rounded-full border border-white/45 text-white text-[9px] sm:text-[10px] md:text-xs font-bold active:scale-95 transition-all hover:bg-white hover:text-[#c81c6a] hover:border-white shadow-sm"
                 >
-                  <Image
-                    src={cat.image}
-                    alt={cat.title}
-                    fill
-                    className="object-contain transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 768px) 45vw, 30vw"
-                    priority={index === 0}
-                  />
-                </motion.div>
+                  <span>Buy Now</span>
+                  <ArrowRight size={10} />
+                </button>
+                
+                <p className="text-[12px] sm:text-[14px] md:text-[16px] font-black font-brand-heading leading-tight text-white whitespace-pre-line uppercase tracking-widest">
+                  Pure{"\n"}Botanical{"\n"}Refreshment
+                </p>
               </div>
-            </motion.div>
-          );
-        })}
+            </div>
+          </div>
+        )}
+
+        {/* 2. PRODUCT/CATEGORY CARDS BELOW HERO */}
+
+        {/* Card 1: Jams (Dragon Fruit Crush - Jam jar) */}
+        {categories[1] && (
+          <div 
+            onClick={() => router.push(`/shop?cat=${categories[1].title.toLowerCase()}`)}
+            className="w-full h-[140px] sm:h-[160px] md:h-[190px] rounded-[20px] sm:rounded-[24px] overflow-hidden flex flex-row bg-[#e6e7e8] shadow-sm relative cursor-pointer select-none"
+          >
+            <div className="w-[45%] h-full relative flex items-center justify-center p-3 overflow-hidden">
+              <div className="relative w-[75%] h-[75%] z-10">
+                <Image
+                  src={categories[1].image}
+                  alt={categories[1].title}
+                  fill
+                  className="object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.08)]"
+                  sizes="35vw"
+                />
+              </div>
+            </div>
+            <div className="w-[55%] h-full flex flex-col justify-center px-6 py-4 z-10">
+              <div className="space-y-3">
+                <h3 className="text-[#5d5f61] text-lg sm:text-xl md:text-2xl font-black font-brand-heading leading-tight whitespace-pre-line">
+                  Dragon Fruit{"\n"}Crush
+                </h3>
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    router.push(`/shop?cat=${categories[1].title.toLowerCase()}`);
+                  }}
+                  className="flex items-center justify-between w-[95px] sm:w-[105px] px-3.5 py-1.5 rounded-full border border-black/10 text-[#5d5f61] text-[9px] sm:text-[10px] font-bold active:scale-95 transition-all hover:bg-black/5"
+                >
+                  <span>View More</span>
+                  <ArrowRight size={10} />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Card 2: Fruits (Dragon Fruit) */}
+        {categories[2] && (
+          <div 
+            onClick={() => router.push(`/shop?cat=${categories[2].title.toLowerCase()}`)}
+            className="w-full h-[140px] sm:h-[160px] md:h-[190px] rounded-[20px] sm:rounded-[24px] overflow-hidden flex flex-row bg-[#e6e7e8] shadow-sm relative cursor-pointer select-none"
+          >
+            <div className="w-[55%] h-full flex flex-col justify-center px-6 py-4 z-10">
+              <div className="space-y-3">
+                <h3 className="text-[#5d5f61] text-lg sm:text-xl md:text-2xl font-black font-brand-heading leading-tight whitespace-pre-line">
+                  Dragon{"\n"}Fruit
+                </h3>
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    router.push(`/shop?cat=${categories[2].title.toLowerCase()}`);
+                  }}
+                  className="flex items-center justify-between w-[95px] sm:w-[105px] px-3.5 py-1.5 rounded-full border border-black/10 text-[#5d5f61] text-[9px] sm:text-[10px] font-bold active:scale-95 transition-all hover:bg-black/5"
+                >
+                  <span>View More</span>
+                  <ArrowRight size={10} />
+                </button>
+              </div>
+            </div>
+            <div className="w-[45%] h-full relative flex items-center justify-center p-3 overflow-hidden">
+              {/* Vertical Faded Watermark */}
+              <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
+                <span 
+                  className="font-dharma-gothic uppercase tracking-[0.05em] text-black/[0.04] text-[7.5rem] sm:text-[8.5rem] md:text-[10rem] leading-none"
+                  style={{
+                    writingMode: "vertical-lr",
+                    transform: "rotate(180deg)",
+                  }}
+                >
+                  {categories[2].watermarkText || categories[2].title}
+                </span>
+              </div>
+              <div className="relative w-[85%] h-[85%] z-10">
+                <Image
+                  src={categories[2].image}
+                  alt={categories[2].title}
+                  fill
+                  className="object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.08)]"
+                  sizes="35vw"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Card 3: Plants (Dragon Plant) */}
+        {categories[3] && (
+          <div 
+            onClick={() => router.push(`/shop?cat=${categories[3].title.toLowerCase()}`)}
+            className="w-full h-[140px] sm:h-[160px] md:h-[190px] rounded-[20px] sm:rounded-[24px] overflow-hidden flex flex-row bg-[#e6e7e8] shadow-sm relative cursor-pointer select-none"
+          >
+            <div className="w-[45%] h-full relative flex items-center justify-center p-3 overflow-hidden">
+              {/* Vertical Faded Watermark */}
+              <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
+                <span 
+                  className="font-dharma-gothic uppercase tracking-[0.05em] text-black/[0.04] text-[7.5rem] sm:text-[8.5rem] md:text-[10rem] leading-none"
+                  style={{
+                    writingMode: "vertical-lr",
+                    transform: "rotate(180deg)",
+                  }}
+                >
+                  {categories[3].watermarkText || "plant"}
+                </span>
+              </div>
+              <div className="relative w-[75%] h-[75%] z-10">
+                <Image
+                  src={categories[3].image}
+                  alt={categories[3].title}
+                  fill
+                  className="object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.08)]"
+                  sizes="35vw"
+                />
+              </div>
+            </div>
+            <div className="w-[55%] h-full flex flex-col justify-center px-6 py-4 z-10">
+              <div className="space-y-3">
+                <h3 className="text-[#5d5f61] text-lg sm:text-xl md:text-2xl font-black font-brand-heading leading-tight whitespace-pre-line">
+                  Dragon{"\n"}Plant
+                </h3>
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    router.push(`/shop?cat=${categories[3].title.toLowerCase()}`);
+                  }}
+                  className="flex items-center justify-between w-[95px] sm:w-[105px] px-3.5 py-1.5 rounded-full border border-black/10 text-[#5d5f61] text-[9px] sm:text-[10px] font-bold active:scale-95 transition-all hover:bg-black/5"
+                >
+                  <span>View More</span>
+                  <ArrowRight size={10} />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Unified Desktop Header */}
