@@ -23,7 +23,11 @@ import {
   List,
   Tag,
   ExternalLink,
-  LogOut
+  LogOut,
+  Home,
+  HelpCircle,
+  Image as ImageIcon,
+  FolderGit
 } from "lucide-react";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -34,26 +38,35 @@ function cn(...inputs: ClassValue[]) {
 
 const NAV_ITEMS = [
   { id: "dashboard", label: "Dashboard", href: "/admin", icon: LayoutDashboard },
-  { id: "orders", label: "Orders", href: "/admin/orders", icon: ShoppingBag },
-  { id: "enquiries", label: "Enquiries", href: "/admin/enquiries", icon: MessageSquare },
-  { id: "cms", label: "CMS", href: "/admin/cms", icon: FileEdit },
-  { id: "products", label: "Products", href: "/admin/products", icon: Package },
-  { id: "blog", label: "Blog", href: "/admin/blog", icon: BookOpen },
-  { id: "news", label: "News", href: "/admin/news", icon: Newspaper },
   { 
-    id: "settings", 
-    label: "Settings & Content", 
-    icon: Settings,
+    id: "cms", 
+    label: "Website CMS", 
+    icon: FileEdit,
     subItems: [
-      { id: "site-settings", label: "Site Settings", href: "/admin/settings", icon: Settings },
-      { id: "social-media", label: "Social Media", href: "/admin/settings/social", icon: Share2 },
-      { id: "payment-methods", label: "Payment Methods", href: "/admin/settings/payments", icon: List },
-      { id: "meta-tags", label: "Meta Tags", href: "/admin/settings/meta", icon: Tag }
+      { id: "home-cms", label: "Homepage CMS", href: "/admin/cms/home", icon: Home },
+      { id: "about-cms", label: "About Page CMS", href: "/admin/cms/about", icon: Settings },
+      { id: "services-cms", label: "Services CMS", href: "/admin/cms/services", icon: Briefcase },
+      { id: "projects-cms", label: "Projects CMS", href: "/admin/cms/projects", icon: FolderGit },
+      { id: "testimonials-cms", label: "Testimonials CMS", href: "/admin/cms/testimonials", icon: MessageSquare },
+      { id: "faqs-cms", label: "FAQ CMS", href: "/admin/cms/faqs", icon: HelpCircle },
+      { id: "gallery-cms", label: "Gallery CMS", href: "/admin/cms/gallery", icon: ImageIcon },
     ]
   },
-  { id: "users", label: "Users", href: "/admin/users", icon: Users },
-  { id: "coupons", label: "Coupons", href: "/admin/coupons", icon: Ticket },
-  { id: "policies", label: "Policies", href: "/admin/policies", icon: ShieldCheck },
+  { 
+    id: "ecommerce", 
+    label: "E-Commerce", 
+    icon: ShoppingBag,
+    subItems: [
+      { id: "products", label: "Products Catalog", href: "/admin/products", icon: Package },
+      { id: "categories", label: "Categories Manager", href: "/admin/categories", icon: Tag },
+      { id: "orders", label: "Orders List", href: "/admin/orders", icon: ShoppingBag },
+      { id: "coupons", label: "Coupons & Promos", href: "/admin/coupons", icon: Ticket },
+    ]
+  },
+  { id: "blog", label: "Blog Posts CMS", href: "/admin/blog", icon: BookOpen },
+  { id: "enquiries", label: "Enquiries", href: "/admin/enquiries", icon: MessageSquare },
+  { id: "media", label: "Media Library", href: "/admin/media", icon: ImageIcon },
+  { id: "settings", label: "Site Globals", href: "/admin/settings", icon: Settings },
 ];
 
 interface SidebarProps {
@@ -64,6 +77,8 @@ interface SidebarProps {
 export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
   const pathname = usePathname();
   const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({
+    cms: pathname?.includes('/admin/cms') ? true : false,
+    ecommerce: (pathname?.includes('/admin/products') || pathname?.includes('/admin/categories') || pathname?.includes('/admin/orders') || pathname?.includes('/admin/coupons')) ? true : false,
     settings: pathname?.includes('/admin/settings') ? true : false,
   });
 

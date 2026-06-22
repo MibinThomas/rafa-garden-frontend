@@ -21,6 +21,7 @@ export function SiteSettingsProvider({ children }: { children: ReactNode }) {
     "global.contact_phone": "+971 00 000 0000",
     "global.social_instagram": "https://instagram.com/rafagarden",
     "global.social_whatsapp": "https://wa.me/971000000000",
+    "global.whatsapp_order_number": "918550088485",
   });
   const [loading, setLoading] = useState(true);
 

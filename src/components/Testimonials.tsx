@@ -10,44 +10,69 @@ interface TestimonialsProps {
 
 export function Testimonials({ content = {} }: TestimonialsProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [testimonials, setTestimonials] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   // Extract testimonials from content map
   const badge = content["home.testimonial_badge"] || "What They Say";
   const title = content["home.testimonial_title"] || "Customer Experiences";
 
-  let testimonials = Array.from({ length: 3 }).map((_, i) => {
-    const slideNumber = i + 1;
-    return {
-      id: `testimonial_${slideNumber}`,
-      quote: content[`home.testimonial_${slideNumber}_quote`] || "",
-      author: content[`home.testimonial_${slideNumber}_author`] || "",
-      role: content[`home.testimonial_${slideNumber}_role`] || "",
-    };
-  }).filter(t => t.quote !== ""); // Only show testimonials that have a quote
-
-  // Fallback dummy content if CMS is not initialized yet
-  if (testimonials.length === 0) {
-    testimonials = [
-      {
-        id: "testimonial_dummy_1",
-        quote: "The most authentic and refreshing botanical experience I have ever had. The quality is truly unmatched.",
-        author: "Sarah Jenkins",
-        role: "Executive Chef"
-      },
-      {
-        id: "testimonial_dummy_2",
-        quote: "Absolutely exquisite. You can taste the dedication and heritage in every single harvest.",
-        author: "Michael Chen",
-        role: "Food Critic"
-      },
-      {
-        id: "testimonial_dummy_3",
-        quote: "A perfect blend of tradition and modern cultivation. A staple in our luxury resort.",
-        author: "Elena Rodriguez",
-        role: "Resort Director"
+  useEffect(() => {
+    const loadTestimonials = async () => {
+      try {
+        const res = await fetch("/api/testimonials?published=true");
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            setTestimonials(data);
+            setLoading(false);
+            return;
+          }
+        }
+      } catch (e) {
+        console.error("Failed to load testimonials:", e);
       }
-    ];
-  }
+      
+      // Fallback if empty or failed
+      const fallbackList = Array.from({ length: 3 }).map((_, i) => {
+        const slideNumber = i + 1;
+        return {
+          _id: `testimonial_${slideNumber}`,
+          quote: content[`home.testimonial_${slideNumber}_quote`] || "",
+          author: content[`home.testimonial_${slideNumber}_author`] || "",
+          role: content[`home.testimonial_${slideNumber}_role`] || "",
+        };
+      }).filter(t => t.quote !== "");
+      
+      if (fallbackList.length > 0) {
+        setTestimonials(fallbackList);
+      } else {
+        setTestimonials([
+          {
+            _id: "testimonial_dummy_1",
+            quote: "The most authentic and refreshing botanical experience I have ever had. The quality is truly unmatched.",
+            author: "Sarah Jenkins",
+            role: "Executive Chef"
+          },
+          {
+            _id: "testimonial_dummy_2",
+            quote: "Absolutely exquisite. You can taste the dedication and heritage in every single harvest.",
+            author: "Michael Chen",
+            role: "Food Critic"
+          },
+          {
+            _id: "testimonial_dummy_3",
+            quote: "A perfect blend of tradition and modern cultivation. A staple in our luxury resort.",
+            author: "Elena Rodriguez",
+            role: "Resort Director"
+          }
+        ]);
+      }
+      setLoading(false);
+    };
+
+    loadTestimonials();
+  }, [content]);
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
@@ -64,7 +89,7 @@ export function Testimonials({ content = {} }: TestimonialsProps) {
     return () => clearInterval(interval);
   }, [testimonials.length]);
 
-  if (testimonials.length === 0) return null;
+  if (loading || testimonials.length === 0) return null;
 
   return (
     <section className="relative w-full py-24 md:py-32 bg-white overflow-hidden">

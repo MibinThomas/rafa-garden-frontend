@@ -19,10 +19,30 @@ const montserrat = Montserrat({
   variable: "--font-montserrat" 
 });
 
-export const metadata: Metadata = {
-  title: "Rafah Garden | Heritage Pitaya Sanctuary",
-  description: "Experience the botanical essence of Rafah's premium dragon fruit harvest.",
-};
+import SeoSettings from "@/models/SeoSettings";
+
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    await dbConnect();
+    const seo = await SeoSettings.findOne({ page: "home" });
+    if (seo) {
+      return {
+        title: seo.metaTitle,
+        description: seo.metaDescription,
+        keywords: seo.keywords,
+        openGraph: seo.ogImage ? {
+          images: [{ url: seo.ogImage }]
+        } : undefined
+      };
+    }
+  } catch (error) {
+    console.warn("Failed to generate dynamic homepage metadata, using defaults.");
+  }
+  return {
+    title: "Rafah Garden | Heritage Pitaya Sanctuary",
+    description: "Experience the botanical essence of Rafah's premium dragon fruit harvest.",
+  };
+}
 
 export default async function RootLayout({
   children,

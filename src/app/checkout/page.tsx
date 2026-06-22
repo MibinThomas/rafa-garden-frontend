@@ -7,12 +7,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, Loader2, CheckCircle2 } from "lucide-react";
 import { useCart } from "@/lib/CartContext";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
+import { useSiteSettings } from "@/lib/SiteSettingsContext";
 
 export default function CheckoutPage() {
   const { items, cartTotal, removeFromCart } = useCart();
   const { setIsImmersive, setHeaderColor } = useHeaderColor();
+  const { settings } = useSiteSettings();
   const router = useRouter();
-
+  
   const [formData, setFormData] = useState({
     email: "",
     firstName: "",
@@ -97,7 +99,8 @@ export default function CheckoutPage() {
           `Please confirm my order. Thank you!`;
 
         const encodedMessage = encodeURIComponent(message);
-        window.location.href = `https://wa.me/918550088485?text=${encodedMessage}`; 
+        const whatsappNumber = settings["global.whatsapp_order_number"] || "918550088485";
+        window.location.href = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`; 
       } else {
         throw new Error(result.error || "Failed to place order");
       }

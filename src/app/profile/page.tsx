@@ -11,6 +11,7 @@ import {
   LogOut
 } from "lucide-react";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
+import { useSiteSettings } from "@/lib/SiteSettingsContext";
 
 const TABS = [
   { id: "account", label: "Account.", icon: User },
@@ -40,11 +41,28 @@ const FAQS = [
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState("account");
   const { setIsImmersive, setHeaderColor } = useHeaderColor();
+  const { settings } = useSiteSettings();
+  const [faqs, setFaqs] = useState(FAQS);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
 
   useEffect(() => {
     setIsImmersive(false);
     setHeaderColor("#1b1c1c");
+
+    const fetchFaqs = async () => {
+      try {
+        const res = await fetch("/api/faqs?published=true");
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            setFaqs(data);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch FAQs:", err);
+      }
+    };
+    fetchFaqs();
   }, [setIsImmersive, setHeaderColor]);
 
   // Mock Orders
@@ -196,7 +214,7 @@ export default function ProfilePage() {
                   <h2 className="text-[32px] md:text-[40px] font-light text-[#555555] mb-8">Help Center.</h2>
                   
                   <div className="space-y-4">
-                    {FAQS.map((faq, index) => (
+                    {faqs.map((faq, index) => (
                       <div key={index} className="border-b border-[#cccccc]/50 overflow-hidden">
                         <button 
                           onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
@@ -228,7 +246,7 @@ export default function ProfilePage() {
                   <div className="pt-10">
                     <p className="text-[14px] text-[#a3a3a3] mb-6">Need further guidance?</p>
                     <a 
-                      href="https://wa.me/918550088485" 
+                      href={`https://wa.me/${settings["global.whatsapp_order_number"] || "918550088485"}`} 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-4 text-[#c81c6a] font-medium hover:underline group"

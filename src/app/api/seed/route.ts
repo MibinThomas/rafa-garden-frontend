@@ -3,6 +3,12 @@ import dbConnect from '@/lib/mongodb';
 import Category from '@/models/Category';
 import Product from '@/models/Product';
 import SiteContent from '@/models/SiteContent';
+import Service from '@/models/Service';
+import Project from '@/models/Project';
+import GalleryItem from '@/models/GalleryItem';
+import Testimonial from '@/models/Testimonial';
+import Faq from '@/models/Faq';
+import SeoSettings from '@/models/SeoSettings';
 import { CATEGORIES } from '@/lib/data';
 import mongoose from 'mongoose';
 
@@ -62,6 +68,7 @@ export async function GET(request: Request) {
         // Global
         { key: 'site_name', value: 'Rafah Garden', type: 'text', group: 'global', label: 'Site Name' },
         { key: 'contact_email', value: 'hello@rafagarden.com', type: 'text', group: 'global', label: 'Global Contact Email' },
+        { key: 'global.whatsapp_order_number', value: '918550088485', type: 'text', group: 'global', label: 'WhatsApp Order Number' },
         
         // Header
         { key: 'header_logo', value: '/images/logo/Rafah logo.webp', type: 'image', group: 'header', label: 'Main Logo (320x96px Default)' },
@@ -85,6 +92,175 @@ export async function GET(request: Request) {
         { key: 'shop_mobile_description', value: 'This is a sample product details must be enter here to show the ui ux design minimal stage', type: 'text', group: 'shop', label: 'Mobile Bottom Description' }
       ]);
     }
+
+    // 4. Seed other CMS collections
+    await Faq.deleteMany({});
+    await Faq.insertMany([
+      {
+        question: "When will my botanical assets arrive?",
+        answer: "Our products are harvested fresh to order. Standard shipping typically takes 3-5 business days within the region. You will receive a WhatsApp confirmation once your manifest is dispatched.",
+        category: "Delivery",
+        order: 1,
+        isPublished: true
+      },
+      {
+        question: "How should I care for my Rafah Garden harvests?",
+        answer: "To maintain peak freshness, keep your botanical assets in a cool, dry sanctuary away from direct sunlight. For live plants, a specific care guide is included with your delivery.",
+        category: "Care",
+        order: 2,
+        isPublished: true
+      },
+      {
+        question: "Can I return a fresh harvest?",
+        answer: "Due to the artisanal and perishable nature of our products, we only accept returns within 48 hours of delivery if the quality does not meet our heritage standards. Please contact our support collective for assistance.",
+        category: "Returns",
+        order: 3,
+        isPublished: true
+      },
+      {
+        question: "How do I confirm my order settlement?",
+        answer: "All orders are finalized via WhatsApp. Once you place an order on the sanctuary website, our team will reach out to confirm availability and settlement details.",
+        category: "Orders",
+        order: 4,
+        isPublished: true
+      }
+    ]);
+
+    await Testimonial.deleteMany({});
+    await Testimonial.insertMany([
+      {
+        author: "Amina Al-Mansoori",
+        role: "Botanical Enthusiast",
+        quote: "The quality of the pitaya is absolutely unmatched. It's a taste of pure heritage.",
+        rating: 5,
+        image: "/images/testimonials/avatar-1.webp",
+        order: 1,
+        isPublished: true
+      },
+      {
+        author: "Marcus Chen",
+        role: "Culinary Director",
+        quote: "We source all our farm-to-table dragon fruits exclusively from Rafah. Phenomenal flavor profiles.",
+        rating: 5,
+        image: "/images/testimonials/avatar-2.webp",
+        order: 2,
+        isPublished: true
+      }
+    ]);
+
+    await Service.deleteMany({});
+    await Service.insertMany([
+      {
+        id: "fresh-harvests",
+        title: "Heritage Harvests",
+        description: "Freshly handpicked organic dragon fruits delivered directly from our soil to your sanctuary.",
+        image: "/images/services/harvest.webp",
+        icon: "Sprout",
+        order: 1,
+        isPublished: true
+      },
+      {
+        id: "botanical-consultation",
+        title: "Sanctuary Consulting",
+        description: "Expert guidance on designing your own pitaya orchard and sustainable cultivation practices.",
+        image: "/images/services/consulting.webp",
+        icon: "Compass",
+        order: 2,
+        isPublished: true
+      }
+    ]);
+
+    await Project.deleteMany({});
+    await Project.insertMany([
+      {
+        id: "heritage-orchard",
+        title: "The Heritage Orchard",
+        subtitle: "A sustainable landscape restoration initiative",
+        description: "Restoring soil fertility and establishing premium heritage pitaya cultivation.",
+        content: "Detailed description of the botanical restoration project and sustainable organic farming.",
+        mainImage: "/images/projects/orchard.webp",
+        gallery: ["/images/projects/orchard-detail-1.webp", "/images/projects/orchard-detail-2.webp"],
+        location: "Kasaragod, Kerala",
+        status: "Active",
+        order: 1,
+        isPublished: true,
+        metaTitle: "Heritage Orchard Restoration | Rafah Garden",
+        metaDescription: "Explore our sustainable agricultural restoration and heritage pitaya orchard in Kasaragod."
+      }
+    ]);
+
+    await GalleryItem.deleteMany({});
+    await GalleryItem.insertMany([
+      {
+        title: "Morning Harvest",
+        description: "Sunlight hitting the fresh morning harvest of red pitaya.",
+        image: "/images/gallery/morning-harvest.webp",
+        category: "Harvest",
+        order: 1,
+        isPublished: true
+      },
+      {
+        title: "Sanctuary Gates",
+        description: "The botanical entryway welcoming visitors to Rafah Garden.",
+        image: "/images/gallery/sanctuary-gates.webp",
+        category: "Sanctuary",
+        order: 2,
+        isPublished: true
+      }
+    ]);
+
+    await SeoSettings.deleteMany({});
+    await SeoSettings.insertMany([
+      {
+        page: "home",
+        metaTitle: "Rafah Garden | Heritage Pitaya Sanctuary",
+        metaDescription: "Experience nature's premium sweetness at our organic pitaya dragon fruit sanctuary.",
+        keywords: "dragon fruit, organic pitaya, agricultural sanctuary, boutique farm, botanical refreshment",
+        ogImage: "/images/og/home-og.jpg"
+      },
+      {
+        page: "about",
+        metaTitle: "The Heritage & Story | Rafah Garden",
+        metaDescription: "Learn about the generations of passion and sustainable farming behind Rafah Garden.",
+        keywords: "heritage, sustainable farming, organic cultivation, dragon fruit story",
+        ogImage: "/images/og/about-og.jpg"
+      },
+      {
+        page: "shop",
+        metaTitle: "Shop Premium Botanical Assets | Rafah Garden",
+        metaDescription: "Browse and order our fresh organic pitaya harvests, jams, and live plants online.",
+        keywords: "buy dragon fruit, organic jams, live pitaya plants, storefront",
+        ogImage: "/images/og/shop-og.jpg"
+      },
+      {
+        page: "contact",
+        metaTitle: "Connect With Our Sanctuary | Rafah Garden",
+        metaDescription: "Reach out to the Rafah Garden collective for orders, consulting, or visitor tours.",
+        keywords: "contact farm, Kasaragod farm tour, order help",
+        ogImage: "/images/og/contact-og.jpg"
+      },
+      {
+        page: "blog",
+        metaTitle: "Sanctuary Stories & Updates | Rafah Garden",
+        metaDescription: "Insights from the soil. Read our blog for agricultural updates, recipes, and botanical knowledge.",
+        keywords: "gardening blog, dragon fruit recipes, organic farm updates",
+        ogImage: "/images/og/blog-og.jpg"
+      },
+      {
+        page: "profile",
+        metaTitle: "Member Sanctuary Dashboard | Rafah Garden",
+        metaDescription: "View your order status, track shipments, or get support from our help collective.",
+        keywords: "customer profile, track order, help desk",
+        ogImage: ""
+      },
+      {
+        page: "checkout",
+        metaTitle: "Confirm Botanical Settlement | Rafah Garden",
+        metaDescription: "Verify your checkout details to reserve your freshly harvested organic pitaya.",
+        keywords: "checkout, finalize order",
+        ogImage: ""
+      }
+    ]);
 
     return NextResponse.json({ 
       success: true, 

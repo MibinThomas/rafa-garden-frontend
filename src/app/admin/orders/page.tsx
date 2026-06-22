@@ -152,7 +152,8 @@ export default function OrdersPage() {
       `_Sent via Rafah Garden Sanctuary Office_`;
 
     const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/918550088485?text=${encodedMessage}`, '_blank');
+    const customerPhone = order.customer.phone.replace(/[^0-9]/g, '');
+    window.open(`https://wa.me/${customerPhone}?text=${encodedMessage}`, '_blank');
   };
 
   const filteredOrders = orders.filter(o => 
