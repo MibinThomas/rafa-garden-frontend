@@ -31,212 +31,195 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
     return greys[index] || "#ebebeb";
   };
 
+  const formatTitleWithNewline = (title: string) => {
+    if (!title) return "";
+    if (title.toLowerCase().includes("dragon fruit crush")) {
+      return "Dragon Fruit\nCrush";
+    }
+    const parts = title.split(" ");
+    if (parts.length > 1) {
+      return `${parts[0]}\n${parts.slice(1).join(" ")}`;
+    }
+    return title;
+  };
+
   return (
     <section className="relative w-full flex-1 px-4 pt-4 pb-16 md:px-6 md:pt-6 md:pb-20 lg:p-12 flex flex-col font-sans overflow-hidden bg-transparent">
 
       {/* Redesigned Mobile & Tablet Editorial Hero: Vertically Expanding Accordion */}
       <div className="flex lg:hidden flex-col w-full gap-4 pb-12">
-        {/* 1. MAIN FEATURED HERO CARD (Crush) */}
-        {categories[0] && (
-          <div 
-            onClick={() => router.push(`/shop?cat=${categories[0].title.toLowerCase()}`)}
-            className="w-full h-[320px] sm:h-[360px] md:h-[420px] rounded-[24px] overflow-hidden flex flex-row bg-[#e6e7e8] shadow-sm relative cursor-pointer select-none"
-          >
-            {/* Left Side: Product Bottle Image */}
-            <div className="w-[50%] h-full relative flex items-center justify-center p-4 overflow-hidden bg-[#e6e7e8]">
-              {/* Vertical Faded Watermark */}
-              <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
-                <span 
-                  className="font-dharma-gothic uppercase tracking-[0.05em] text-black/[0.04] text-[9.5rem] sm:text-[11rem] md:text-[13rem] leading-none"
-                  style={{
-                    writingMode: "vertical-lr",
-                    transform: "rotate(180deg)",
-                  }}
-                >
-                  {categories[0].watermarkText || categories[0].title}
-                </span>
-              </div>
-              
-              {/* Product Image */}
-              <div className="relative w-[85%] h-[85%] md:w-[75%] md:h-[75%] z-10 flex items-center justify-center">
-                <Image
-                  src={categories[0].image}
-                  alt={categories[0].title}
-                  fill
-                  className="object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.15)]"
-                  sizes="45vw"
-                  priority
-                />
-              </div>
-            </div>
+        {categories.slice(0, 4).map((cat, index) => {
+          const isActive = activeMobileIndex === index;
+          return (
+            <motion.div
+              key={cat.id || cat._id || index}
+              layout
+              onClick={() => {
+                if (!isActive) {
+                  setActiveMobileIndex(index);
+                  onActiveChange?.(index);
+                }
+              }}
+              className={`w-full rounded-[24px] overflow-hidden flex flex-row relative cursor-pointer select-none transition-shadow duration-300 ${
+                isActive 
+                  ? "h-[320px] sm:h-[360px] md:h-[420px] bg-[#e6e7e8] shadow-md z-10" 
+                  : "h-[140px] sm:h-[160px] md:h-[190px] bg-[#e6e7e8] shadow-sm hover:shadow-md"
+              }`}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {isActive ? (
+                // Active Card Layout: 50% image, 50% pink/magenta panel
+                <div className="flex flex-row w-full h-full">
+                  {/* Left Side: Product Bottle Image */}
+                  <div className="w-[50%] h-full relative flex items-center justify-center p-4 overflow-hidden bg-[#e6e7e8]">
+                    {/* Vertical Faded Watermark */}
+                    <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
+                      <span 
+                        className="font-dharma-gothic uppercase tracking-[0.05em] text-black/[0.04] text-[9.5rem] sm:text-[11rem] md:text-[13rem] leading-none"
+                        style={{
+                          writingMode: "vertical-lr",
+                          transform: "rotate(180deg)",
+                        }}
+                      >
+                        {cat.watermarkText || cat.title}
+                      </span>
+                    </div>
+                    
+                    {/* Product Image */}
+                    <div className="relative w-[85%] h-[85%] md:w-[75%] md:h-[75%] z-10 flex items-center justify-center">
+                      <Image
+                        src={cat.image}
+                        alt={cat.title}
+                        fill
+                        className="object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.15)]"
+                        sizes="45vw"
+                        priority
+                      />
+                    </div>
+                  </div>
 
-            {/* Right Side: Magenta/Pink Panel */}
-            <div className="w-[50%] h-full bg-[#c81c6a] rounded-[24px] flex flex-col justify-between p-5 sm:p-6 text-white z-10 relative shadow-lg">
-              <div className="space-y-3 sm:space-y-4">
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-black font-brand-heading leading-tight whitespace-pre-line">
-                  Dragon Fruit{"\n"}Crush
-                </h2>
-                <p className="text-[9px] sm:text-[10px] md:text-xs text-white/80 leading-relaxed font-sans font-light line-clamp-4">
-                  {categories[0].mobileActiveDesc || "This is a sample product details must be enter here to show the ui ux design minimal stage"}
-                </p>
-              </div>
+                  {/* Right Side: Magenta/Pink Panel */}
+                  <div className="w-[50%] h-full bg-[#c81c6a] rounded-[24px] flex flex-col justify-between p-5 sm:p-6 text-white z-10 relative shadow-lg">
+                    <div className="space-y-3 sm:space-y-4">
+                      <h2 className="text-xl sm:text-2xl md:text-3xl font-black font-brand-heading leading-tight whitespace-pre-line">
+                        {formatTitleWithNewline(cat.title)}
+                      </h2>
+                      <p className="text-[9px] sm:text-[10px] md:text-xs text-white/80 leading-relaxed font-sans font-light line-clamp-4">
+                        {cat.mobileActiveDesc || cat.description || "This is a sample product details must be enter here to show the ui ux design minimal stage"}
+                      </p>
+                    </div>
 
-              <div className="space-y-4 sm:space-y-6">
-                <button 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    router.push(`/shop?cat=${categories[0].title.toLowerCase()}`);
-                  }}
-                  className="flex items-center justify-between w-[95px] sm:w-[105px] md:w-[125px] px-3.5 py-2 rounded-full border border-white/45 text-white text-[9px] sm:text-[10px] md:text-xs font-bold active:scale-95 transition-all hover:bg-white hover:text-[#c81c6a] hover:border-white shadow-sm"
-                >
-                  <span>Buy Now</span>
-                  <ArrowRight size={10} />
-                </button>
-                
-                <p className="text-[12px] sm:text-[14px] md:text-[16px] font-black font-brand-heading leading-tight text-white whitespace-pre-line uppercase tracking-widest">
-                  Pure{"\n"}Botanical{"\n"}Refreshment
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* 2. PRODUCT/CATEGORY CARDS BELOW HERO */}
-
-        {/* Card 1: Jams (Dragon Fruit Crush - Jam jar) */}
-        {categories[1] && (
-          <div 
-            onClick={() => router.push(`/shop?cat=${categories[1].title.toLowerCase()}`)}
-            className="w-full h-[140px] sm:h-[160px] md:h-[190px] rounded-[20px] sm:rounded-[24px] overflow-hidden flex flex-row bg-[#e6e7e8] shadow-sm relative cursor-pointer select-none"
-          >
-            <div className="w-[45%] h-full relative flex items-center justify-center p-3 overflow-hidden">
-              <div className="relative w-[75%] h-[75%] z-10">
-                <Image
-                  src={categories[1].image}
-                  alt={categories[1].title}
-                  fill
-                  className="object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.08)]"
-                  sizes="35vw"
-                />
-              </div>
-            </div>
-            <div className="w-[55%] h-full flex flex-col justify-center px-6 py-4 z-10">
-              <div className="space-y-3">
-                <h3 className="text-[#5d5f61] text-lg sm:text-xl md:text-2xl font-black font-brand-heading leading-tight whitespace-pre-line">
-                  Dragon Fruit{"\n"}Crush
-                </h3>
-                <button 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    router.push(`/shop?cat=${categories[1].title.toLowerCase()}`);
-                  }}
-                  className="flex items-center justify-between w-[95px] sm:w-[105px] px-3.5 py-1.5 rounded-full border border-black/10 text-[#5d5f61] text-[9px] sm:text-[10px] font-bold active:scale-95 transition-all hover:bg-black/5"
-                >
-                  <span>View More</span>
-                  <ArrowRight size={10} />
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Card 2: Fruits (Dragon Fruit) */}
-        {categories[2] && (
-          <div 
-            onClick={() => router.push(`/shop?cat=${categories[2].title.toLowerCase()}`)}
-            className="w-full h-[140px] sm:h-[160px] md:h-[190px] rounded-[20px] sm:rounded-[24px] overflow-hidden flex flex-row bg-[#e6e7e8] shadow-sm relative cursor-pointer select-none"
-          >
-            <div className="w-[55%] h-full flex flex-col justify-center px-6 py-4 z-10">
-              <div className="space-y-3">
-                <h3 className="text-[#5d5f61] text-lg sm:text-xl md:text-2xl font-black font-brand-heading leading-tight whitespace-pre-line">
-                  Dragon{"\n"}Fruit
-                </h3>
-                <button 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    router.push(`/shop?cat=${categories[2].title.toLowerCase()}`);
-                  }}
-                  className="flex items-center justify-between w-[95px] sm:w-[105px] px-3.5 py-1.5 rounded-full border border-black/10 text-[#5d5f61] text-[9px] sm:text-[10px] font-bold active:scale-95 transition-all hover:bg-black/5"
-                >
-                  <span>View More</span>
-                  <ArrowRight size={10} />
-                </button>
-              </div>
-            </div>
-            <div className="w-[45%] h-full relative flex items-center justify-center p-3 overflow-hidden">
-              {/* Vertical Faded Watermark */}
-              <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
-                <span 
-                  className="font-dharma-gothic uppercase tracking-[0.05em] text-black/[0.04] text-[7.5rem] sm:text-[8.5rem] md:text-[10rem] leading-none"
-                  style={{
-                    writingMode: "vertical-lr",
-                    transform: "rotate(180deg)",
-                  }}
-                >
-                  {categories[2].watermarkText || categories[2].title}
-                </span>
-              </div>
-              <div className="relative w-[85%] h-[85%] z-10">
-                <Image
-                  src={categories[2].image}
-                  alt={categories[2].title}
-                  fill
-                  className="object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.08)]"
-                  sizes="35vw"
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Card 3: Plants (Dragon Plant) */}
-        {categories[3] && (
-          <div 
-            onClick={() => router.push(`/shop?cat=${categories[3].title.toLowerCase()}`)}
-            className="w-full h-[140px] sm:h-[160px] md:h-[190px] rounded-[20px] sm:rounded-[24px] overflow-hidden flex flex-row bg-[#e6e7e8] shadow-sm relative cursor-pointer select-none"
-          >
-            <div className="w-[45%] h-full relative flex items-center justify-center p-3 overflow-hidden">
-              {/* Vertical Faded Watermark */}
-              <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
-                <span 
-                  className="font-dharma-gothic uppercase tracking-[0.05em] text-black/[0.04] text-[7.5rem] sm:text-[8.5rem] md:text-[10rem] leading-none"
-                  style={{
-                    writingMode: "vertical-lr",
-                    transform: "rotate(180deg)",
-                  }}
-                >
-                  {categories[3].watermarkText || "plant"}
-                </span>
-              </div>
-              <div className="relative w-[75%] h-[75%] z-10">
-                <Image
-                  src={categories[3].image}
-                  alt={categories[3].title}
-                  fill
-                  className="object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.08)]"
-                  sizes="35vw"
-                />
-              </div>
-            </div>
-            <div className="w-[55%] h-full flex flex-col justify-center px-6 py-4 z-10">
-              <div className="space-y-3">
-                <h3 className="text-[#5d5f61] text-lg sm:text-xl md:text-2xl font-black font-brand-heading leading-tight whitespace-pre-line">
-                  Dragon{"\n"}Plant
-                </h3>
-                <button 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    router.push(`/shop?cat=${categories[3].title.toLowerCase()}`);
-                  }}
-                  className="flex items-center justify-between w-[95px] sm:w-[105px] px-3.5 py-1.5 rounded-full border border-black/10 text-[#5d5f61] text-[9px] sm:text-[10px] font-bold active:scale-95 transition-all hover:bg-black/5"
-                >
-                  <span>View More</span>
-                  <ArrowRight size={10} />
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+                    <div className="space-y-4 sm:space-y-6">
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          router.push(`/shop?cat=${cat.title.toLowerCase()}`);
+                        }}
+                        className="flex items-center justify-between w-[95px] sm:w-[105px] md:w-[125px] px-3.5 py-2 rounded-full border border-white/45 text-white text-[9px] sm:text-[10px] md:text-xs font-bold active:scale-95 transition-all hover:bg-white hover:text-[#c81c6a] hover:border-white shadow-sm"
+                      >
+                        <span>Buy Now</span>
+                        <ArrowRight size={10} />
+                      </button>
+                      
+                      <p className="text-[12px] sm:text-[14px] md:text-[16px] font-black font-brand-heading leading-tight text-white whitespace-pre-line uppercase tracking-widest">
+                        Pure{"\n"}Botanical{"\n"}Refreshment
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                // Inactive Card Layout: alternating image left/right
+                <div className="flex flex-row w-full h-full">
+                  {index % 2 === 0 ? (
+                    // Text Left, Image Right
+                    <>
+                      <div className="w-[55%] h-full flex flex-col justify-center px-6 py-4 z-10">
+                        <div className="space-y-3">
+                          <h3 className="text-[#5d5f61] text-lg sm:text-xl md:text-2xl font-black font-brand-heading leading-tight whitespace-pre-line">
+                            {formatTitleWithNewline(cat.title)}
+                          </h3>
+                          <div 
+                            className="flex items-center justify-between w-[95px] sm:w-[105px] px-3.5 py-1.5 rounded-full border border-black/10 text-[#5d5f61] text-[9px] sm:text-[10px] font-bold"
+                          >
+                            <span>View More</span>
+                            <ArrowRight size={10} />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="w-[45%] h-full relative flex items-center justify-center p-3 overflow-hidden">
+                        {/* Vertical Watermark (if not Jam) */}
+                        {index !== 1 && (
+                          <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
+                            <span 
+                              className="font-dharma-gothic uppercase tracking-[0.05em] text-black/[0.04] text-[7.5rem] sm:text-[8.5rem] md:text-[10rem] leading-none"
+                              style={{
+                                writingMode: "vertical-lr",
+                                transform: "rotate(180deg)",
+                              }}
+                            >
+                              {cat.watermarkText || cat.title}
+                            </span>
+                          </div>
+                        )}
+                        <div className="relative w-[85%] h-[85%] z-10">
+                          <Image
+                            src={cat.image}
+                            alt={cat.title}
+                            fill
+                            className="object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.08)]"
+                            sizes="35vw"
+                          />
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    // Image Left, Text Right
+                    <>
+                      <div className="w-[45%] h-full relative flex items-center justify-center p-3 overflow-hidden">
+                        {/* Vertical Watermark (if not Jam) */}
+                        {index !== 1 && (
+                          <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
+                            <span 
+                              className="font-dharma-gothic uppercase tracking-[0.05em] text-black/[0.04] text-[7.5rem] sm:text-[8.5rem] md:text-[10rem] leading-none"
+                              style={{
+                                writingMode: "vertical-lr",
+                                transform: "rotate(180deg)",
+                              }}
+                            >
+                              {cat.watermarkText || cat.title}
+                            </span>
+                          </div>
+                        )}
+                        <div className="relative w-[75%] h-[75%] z-10">
+                          <Image
+                            src={cat.image}
+                            alt={cat.title}
+                            fill
+                            className="object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.08)]"
+                            sizes="35vw"
+                          />
+                        </div>
+                      </div>
+                      <div className="w-[55%] h-full flex flex-col justify-center px-6 py-4 z-10">
+                        <div className="space-y-3">
+                          <h3 className="text-[#5d5f61] text-lg sm:text-xl md:text-2xl font-black font-brand-heading leading-tight whitespace-pre-line">
+                            {formatTitleWithNewline(cat.title)}
+                          </h3>
+                          <div 
+                            className="flex items-center justify-between w-[95px] sm:w-[105px] px-3.5 py-1.5 rounded-full border border-black/10 text-[#5d5f61] text-[9px] sm:text-[10px] font-bold"
+                          >
+                            <span>View More</span>
+                            <ArrowRight size={10} />
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
+            </motion.div>
+          );
+        })}
       </div>
 
       {/* Unified Desktop Header */}
