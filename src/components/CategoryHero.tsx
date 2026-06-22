@@ -32,10 +32,10 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
   };
 
   return (
-    <section className="relative w-full flex-1 p-4 md:p-6 lg:p-12 flex flex-col font-sans overflow-hidden bg-transparent">
+    <section className="relative w-full flex-1 px-4 pt-4 pb-16 md:px-6 md:pt-6 md:pb-20 lg:p-12 flex flex-col font-sans overflow-hidden bg-transparent">
 
       {/* Redesigned Mobile & Tablet Editorial Hero: Vertically Expanding Accordion */}
-      <div className="flex lg:hidden flex-col w-full h-[540px] md:h-[680px] gap-3 pb-6">
+      <div className="flex lg:hidden flex-col w-full h-[520px] sm:h-[580px] md:h-[680px] gap-3.5 pb-6">
         {categories.slice(0, 4).map((cat, index) => {
           const isActive = activeMobileIndex === index;
           const words = cat.title.split(' ');
@@ -51,20 +51,20 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                 onActiveChange?.(index);
               }}
               style={{
-                flexGrow: isActive ? 4 : 2,
+                flexGrow: isActive ? 3.5 : 1,
               }}
               transition={{
                 type: "spring",
                 stiffness: 150,
                 damping: 20,
               }}
-              className="w-full rounded-2xl overflow-hidden cursor-pointer shadow-sm relative flex flex-row h-0 min-h-[85px] group"
+              className="w-full rounded-[20px] sm:rounded-[24px] overflow-hidden cursor-pointer shadow-sm relative flex flex-row h-0 min-h-[75px] group border border-black/[0.03]"
             >
               {/* Background Color Layer */}
               <motion.div 
                 className="absolute inset-0 transition-colors duration-500"
                 style={{ 
-                  backgroundColor: isActive ? (cat.color || "#c81c6a") : "#f3f4f6" 
+                  backgroundColor: isActive ? (cat.color || "#c81c6a") : "#ffffff" 
                 }}
               />
 
@@ -72,10 +72,10 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
               <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
                 <motion.span 
                   layout
-                  className={`font-black uppercase tracking-widest transition-all duration-500 whitespace-nowrap
+                  className={`font-black uppercase tracking-[0.2em] transition-all duration-500 whitespace-nowrap
                     ${isActive 
-                      ? "text-white/10 text-6xl md:text-8xl -rotate-12 scale-110" 
-                      : "text-black/4 text-4xl md:text-5xl rotate-0 scale-90"
+                      ? "text-white/10 text-6xl sm:text-7xl md:text-8xl -rotate-12 scale-110" 
+                      : "text-black/[0.03] text-4xl sm:text-5xl md:text-6xl rotate-0 scale-95"
                     }
                   `}
                 >
@@ -84,83 +84,94 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
               </div>
 
               {/* Left Side: Content Details */}
-              <div className="w-[60%] h-full flex flex-col justify-between p-4 md:p-6 z-10 select-none">
-                <div className="flex flex-col justify-center flex-1">
-                  {/* Category Number (Active only) */}
-                  {isActive && (
-                    <motion.span 
-                      initial={{ opacity: 0, y: -5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="text-white/40 text-[9px] md:text-[10px] uppercase font-bold tracking-widest mb-1 font-avant-garde"
-                    >
-                      {(index + 1).toString().padStart(2, '0')}
-                    </motion.span>
-                  )}
+              <div className="w-[58%] md:w-[50%] h-full flex flex-col justify-center pl-6 pr-2 py-4 z-10 select-none">
+                <div className="flex flex-col justify-center">
+                  
+                  {/* Category Number (Active only, animated) */}
+                  <motion.span 
+                    animate={{ 
+                      opacity: isActive ? 0.4 : 0,
+                      height: isActive ? "auto" : 0,
+                      marginBottom: isActive ? 4 : 0
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="text-white text-[9px] sm:text-[10px] md:text-xs uppercase font-black tracking-[0.2em] font-avant-garde block overflow-hidden"
+                  >
+                    {(index + 1).toString().padStart(2, '0')}
+                  </motion.span>
 
                   {/* Title */}
                   <motion.h2 
                     layout="position"
                     className={`font-brand-heading font-black leading-[1.1] transition-colors duration-500
                       ${isActive 
-                        ? "text-white text-lg md:text-2xl mb-1.5" 
-                        : "text-[#555659] text-base md:text-lg mb-0"
+                        ? "text-white text-xl sm:text-2xl md:text-3xl mb-1.5" 
+                        : "text-[#5d5f61] text-base sm:text-lg md:text-xl mb-0.5"
                       }
                     `}
                   >
                     {cat.title}
                   </motion.h2>
 
-                  {/* Description (Active only) */}
-                  {isActive && (
-                    <motion.p 
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      transition={{ delay: 0.05 }}
-                      className="text-white/90 text-[10px] md:text-xs leading-relaxed font-avant-garde font-medium line-clamp-3 mb-2 max-w-[95%]"
-                    >
-                      {cat.mobileActiveDesc || content["home.hero_default_desc"] || "Pure botanical refreshment designed to nourish and elevate your space."}
-                    </motion.p>
-                  )}
+                  {/* Description (Active only, animated) */}
+                  <motion.p 
+                    animate={{ 
+                      opacity: isActive ? 0.85 : 0,
+                      height: isActive ? "auto" : 0,
+                      marginTop: isActive ? 4 : 0,
+                      marginBottom: isActive ? 8 : 0
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="text-white text-[10px] sm:text-xs md:text-sm leading-relaxed font-sans font-light max-w-[95%] md:max-w-[85%] overflow-hidden line-clamp-3"
+                  >
+                    {cat.mobileActiveDesc || content["home.hero_default_desc"] || "Pure botanical refreshment designed to nourish and elevate your space."}
+                  </motion.p>
 
-                  {/* Subtitle / Interaction Helper (Inactive only) */}
-                  {!isActive && (
-                    <span className="text-[9px] md:text-[10px] text-[#8e8f93] font-bold font-avant-garde tracking-wider flex items-center gap-1 mt-1 opacity-70 group-hover:opacity-100 transition-opacity">
-                      <span>Explore Collection</span>
-                      <ArrowRight size={10} className="text-[#8e8f93]" />
-                    </span>
-                  )}
+                  {/* Subtitle / Interaction Helper (Inactive only, animated) */}
+                  <motion.span 
+                    animate={{ 
+                      opacity: isActive ? 0 : 0.6,
+                      height: isActive ? 0 : "auto",
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="text-[8px] sm:text-[9px] md:text-[10px] text-[#8e8f93] font-bold font-avant-garde tracking-widest flex items-center gap-1 overflow-hidden"
+                  >
+                    <span>Explore Collection</span>
+                    <ArrowRight size={9} className="text-[#8e8f93]" />
+                  </motion.span>
                 </div>
 
-                {/* Buy Now Button (Active only) */}
-                {isActive && (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="mt-1"
+                {/* Buy Now Button (Active only, animated) */}
+                <motion.div 
+                  animate={{ 
+                    opacity: isActive ? 1 : 0,
+                    height: isActive ? "auto" : 0,
+                    marginTop: isActive ? 4 : 0
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="overflow-hidden"
+                >
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      router.push(`/shop?cat=${cat.title.toLowerCase()}`);
+                    }}
+                    className="flex items-center justify-between w-[95px] sm:w-[105px] md:w-[125px] px-3.5 py-2 rounded-full border border-white/35 text-white text-[9px] sm:text-[10px] md:text-xs font-bold active:scale-95 transition-all hover:bg-white hover:text-black hover:border-white shadow-sm"
                   >
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        router.push(`/shop?cat=${cat.title.toLowerCase()}`);
-                      }}
-                      className="flex items-center justify-between w-[95px] md:w-[110px] px-3.5 py-2 rounded-full border border-white/35 text-white text-[9px] md:text-[10px] font-bold active:scale-95 transition-colors hover:bg-white/10"
-                    >
-                      <span>Buy Now</span>
-                      <ArrowRight size={12} />
-                    </button>
-                  </motion.div>
-                )}
+                    <span>Buy Now</span>
+                    <ArrowRight size={11} />
+                  </button>
+                </motion.div>
               </div>
 
               {/* Right Side: Product Image */}
-              <div className="w-[40%] h-full relative flex items-center justify-center p-3 z-10 overflow-visible select-none">
+              <div className="w-[42%] md:w-[50%] h-full relative flex items-center justify-center pr-6 pl-2 py-4 z-10 overflow-visible select-none">
                 <motion.div 
                   layout
                   className={`relative transition-all duration-500 flex items-center justify-center
                     ${isActive 
-                      ? "w-[90%] h-[90%] drop-shadow-[0_12px_24px_rgba(0,0,0,0.25)] scale-110" 
-                      : "w-16 h-16 md:w-20 md:h-20 drop-shadow-[0_4px_8px_rgba(0,0,0,0.12)] scale-100"
+                      ? "w-[90%] h-[90%] md:w-[80%] md:h-[80%] drop-shadow-[0_20px_35px_rgba(0,0,0,0.3)] scale-110" 
+                      : "w-14 h-14 sm:w-16 sm:h-16 md:w-24 md:h-24 drop-shadow-[0_4px_8px_rgba(0,0,0,0.12)] scale-100"
                     }
                   `}
                 >
@@ -169,7 +180,7 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                     alt={cat.title}
                     fill
                     className="object-contain transition-transform duration-500 group-hover:scale-105"
-                    sizes="40vw"
+                    sizes="(max-width: 768px) 45vw, 30vw"
                     priority={index === 0}
                   />
                 </motion.div>
