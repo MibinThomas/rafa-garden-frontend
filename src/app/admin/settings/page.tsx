@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { SiteContentForm } from "@/components/admin/SiteContentForm";
-import { PanelTop, PanelBottom } from "lucide-react";
+import { PanelTop, PanelBottom, Phone } from "lucide-react";
 
 export default function SiteSettingsPage() {
   const [activeGroup, setActiveGroup] = useState<string | null>(null);
@@ -26,20 +26,20 @@ export default function SiteSettingsPage() {
         <h1 className="text-4xl md:text-7xl font-black font-playfair text-[#5d5f61] tracking-tighter">Settings</h1>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl relative z-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl relative z-10">
         {/* Header Widget */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           onClick={() => setActiveGroup("header")}
-          className="bg-white/60 backdrop-blur-md p-10 rounded-[3.5rem] border border-white shadow-2xl shadow-black/[0.03] hover:shadow-black/[0.06] transition-all duration-700 cursor-pointer group flex gap-8 items-center"
+          className="bg-white/60 backdrop-blur-md p-8 rounded-[3.5rem] border border-white shadow-2xl shadow-black/[0.03] hover:shadow-black/[0.06] transition-all duration-700 cursor-pointer group flex gap-6 items-center"
         >
-          <div className="w-20 h-20 rounded-[2rem] bg-white text-[#c81c6a] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-[#c81c6a] group-hover:text-white transition-all duration-700 shadow-xl border border-gray-50">
-            <PanelTop size={32} strokeWidth={2.5} />
+          <div className="w-16 h-16 rounded-[1.8rem] bg-white text-[#c81c6a] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-[#c81c6a] group-hover:text-white transition-all duration-700 shadow-xl border border-gray-50">
+            <PanelTop size={28} strokeWidth={2.5} />
           </div>
           <div>
-            <h3 className="text-2xl font-black font-playfair text-[#5d5f61] group-hover:text-[#c81c6a] transition-colors duration-500">Header Content</h3>
-            <p className="text-[12px] text-gray-400 font-bold capitalize tracking-widest mt-2 leading-relaxed opacity-60">Menus, banners & global branding.</p>
+            <h3 className="text-xl font-black font-playfair text-[#5d5f61] group-hover:text-[#c81c6a] transition-colors duration-500">Header Content</h3>
+            <p className="text-[10px] text-gray-400 font-bold capitalize tracking-widest mt-1 leading-relaxed opacity-60">Menus, banners & global branding.</p>
           </div>
         </motion.div>
 
@@ -49,14 +49,31 @@ export default function SiteSettingsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
           onClick={() => setActiveGroup("footer")}
-          className="bg-white/60 backdrop-blur-md p-10 rounded-[3.5rem] border border-white shadow-2xl shadow-black/[0.03] hover:shadow-black/[0.06] transition-all duration-700 cursor-pointer group flex gap-8 items-center"
+          className="bg-white/60 backdrop-blur-md p-8 rounded-[3.5rem] border border-white shadow-2xl shadow-black/[0.03] hover:shadow-black/[0.06] transition-all duration-700 cursor-pointer group flex gap-6 items-center"
         >
-          <div className="w-20 h-20 rounded-[2rem] bg-white text-[#c81c6a] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-[#c81c6a] group-hover:text-white transition-all duration-700 shadow-xl border border-gray-50">
-            <PanelBottom size={32} strokeWidth={2.5} />
+          <div className="w-16 h-16 rounded-[1.8rem] bg-white text-[#c81c6a] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-[#c81c6a] group-hover:text-white transition-all duration-700 shadow-xl border border-gray-50">
+            <PanelBottom size={28} strokeWidth={2.5} />
           </div>
           <div>
-            <h3 className="text-2xl font-black font-playfair text-[#5d5f61] group-hover:text-[#c81c6a] transition-colors duration-500">Footer Content</h3>
-            <p className="text-[12px] text-gray-400 font-bold capitalize tracking-widest mt-2 leading-relaxed opacity-60">Company info, links & social assets.</p>
+            <h3 className="text-xl font-black font-playfair text-[#5d5f61] group-hover:text-[#c81c6a] transition-colors duration-500">Footer Content</h3>
+            <p className="text-[10px] text-gray-400 font-bold capitalize tracking-widest mt-1 leading-relaxed opacity-60">Company info, links & social assets.</p>
+          </div>
+        </motion.div>
+
+        {/* Global Widget */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          onClick={() => setActiveGroup("global")}
+          className="bg-white/60 backdrop-blur-md p-8 rounded-[3.5rem] border border-white shadow-2xl shadow-black/[0.03] hover:shadow-black/[0.06] transition-all duration-700 cursor-pointer group flex gap-6 items-center"
+        >
+          <div className="w-16 h-16 rounded-[1.8rem] bg-white text-[#c81c6a] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-[#c81c6a] group-hover:text-white transition-all duration-700 shadow-xl border border-gray-50">
+            <Phone size={28} strokeWidth={2.5} />
+          </div>
+          <div>
+            <h3 className="text-xl font-black font-playfair text-[#5d5f61] group-hover:text-[#c81c6a] transition-colors duration-500">Global Settings</h3>
+            <p className="text-[10px] text-gray-400 font-bold capitalize tracking-widest mt-1 leading-relaxed opacity-60">WhatsApp Order number & metadata.</p>
           </div>
         </motion.div>
       </div>
