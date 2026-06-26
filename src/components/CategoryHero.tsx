@@ -98,8 +98,8 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                     </div>
                   </div>
 
-                  {/* Right Side: Magenta/Pink Panel */}
-                  <div className="w-[50%] h-full bg-[#c81c6a] rounded-[24px] flex flex-col justify-between p-5 sm:p-6 text-white z-10 relative shadow-lg">
+                  {/* Right Side: Category Color Panel */}
+                  <div className="w-[50%] h-full rounded-[24px] flex flex-col justify-between p-5 sm:p-6 text-white z-10 relative shadow-lg" style={{ backgroundColor: cat.color }}>
                     <div className="space-y-3 sm:space-y-4">
                       <h2 className="text-xl sm:text-2xl md:text-3xl font-black font-brand-heading leading-tight whitespace-pre-line">
                         {formatTitleWithNewline(cat.title)}
@@ -115,7 +115,10 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                           e.stopPropagation();
                           router.push(`/shop?cat=${cat.title.toLowerCase()}`);
                         }}
-                        className="flex items-center justify-between w-[95px] sm:w-[105px] md:w-[125px] px-3.5 py-2 rounded-full border border-white/45 text-white text-[9px] sm:text-[10px] md:text-xs font-bold active:scale-95 transition-all hover:bg-white hover:text-[#c81c6a] hover:border-white shadow-sm"
+                        className="flex items-center justify-between w-[95px] sm:w-[105px] md:w-[125px] px-3.5 py-2 rounded-full border border-white/45 text-white text-[9px] sm:text-[10px] md:text-xs font-bold active:scale-95 transition-all hover:bg-white hover:border-white shadow-sm"
+                        style={{ '--hover-color': cat.color } as React.CSSProperties}
+                        onMouseEnter={e => (e.currentTarget.style.color = cat.color)}
+                        onMouseLeave={e => (e.currentTarget.style.color = 'white')}
                       >
                         <span>Buy Now</span>
                         <ArrowRight size={10} />
@@ -135,7 +138,7 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                     <>
                       <div className="w-[55%] h-full flex flex-col justify-center px-6 py-4 z-10">
                         <div className="space-y-3">
-                          <h3 className="text-[#5d5f61] text-lg sm:text-xl md:text-2xl font-black font-brand-heading leading-tight whitespace-pre-line">
+                          <h3 className="text-[#5d5f61] text-[1.575rem] sm:text-xl md:text-2xl font-black font-brand-heading leading-tight whitespace-pre-line">
                             {formatTitleWithNewline(cat.title)}
                           </h3>
                           <div 
@@ -174,7 +177,7 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                       </div>
                       <div className="w-[55%] h-full flex flex-col justify-center px-6 py-4 z-10">
                         <div className="space-y-3">
-                          <h3 className="text-[#5d5f61] text-lg sm:text-xl md:text-2xl font-black font-brand-heading leading-tight whitespace-pre-line">
+                          <h3 className="text-[#5d5f61] text-[1.575rem] sm:text-xl md:text-2xl font-black font-brand-heading leading-tight whitespace-pre-line">
                             {formatTitleWithNewline(cat.title)}
                           </h3>
                           <div 
