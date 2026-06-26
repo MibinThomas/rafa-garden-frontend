@@ -44,7 +44,7 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
   };
 
   return (
-    <section className="relative w-full flex-1 px-4 pt-4 pb-16 md:px-6 md:pt-6 md:pb-20 lg:p-12 flex flex-col font-sans overflow-hidden bg-transparent">
+    <section className="relative w-full flex-1 px-4 pt-4 pb-16 md:px-6 md:pt-6 md:pb-20 lg:px-8 lg:pt-2 lg:pb-12 xl:px-12 flex flex-col font-sans overflow-hidden bg-transparent">
 
       {/* Redesigned Mobile & Tablet Editorial Hero: Vertically Expanding Accordion */}
       <div className="flex lg:hidden flex-col w-full gap-4 pb-12">
@@ -212,9 +212,9 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
             }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="relative z-10 w-full h-full flex flex-col items-center justify-center px-4 md:px-8 text-center py-10">
+            <div className="relative z-10 w-full h-full flex flex-col items-center justify-center px-4 md:px-6 lg:px-8 text-center py-10">
 
-              <div className="absolute top-[8%] w-full h-[45%] flex items-center justify-center pointer-events-none" style={{ zIndex: 20 }}>
+              <div className="absolute top-[5%] w-full h-[40%] flex items-center justify-center pointer-events-none" style={{ zIndex: 20 }}>
                 <motion.div
                   className="relative w-full h-full"
                   initial={false}
@@ -241,7 +241,7 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
               <motion.div
                 className="flex flex-col items-center w-full z-10"
                 animate={{
-                  y: hoveredIndex === index ? 100 : 0
+                  y: hoveredIndex === index ? 55 : 0
                 }}
                 transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
               >
@@ -260,7 +260,7 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                 </motion.div>
 
                 <motion.h2
-                  className="text-4xl lg:text-[4.2rem] font-bold mb-1 tracking-tight font-brand-heading leading-[1.1] z-30"
+                  className="text-4xl lg:text-[3.8rem] xl:text-[4.2rem] font-bold mb-1 tracking-tight font-brand-heading leading-[1.1] z-30 hero-title"
                   animate={{
                     color: hoveredIndex === index ? "#ffffff" : "#6f7074"
                   }}
@@ -279,7 +279,7 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                 </motion.p>
 
                 <motion.p
-                  className="text-[0.65rem] md:text-[0.7rem] leading-relaxed font-avant-garde px-4 md:px-6 mb-6 md:mb-8 max-w-[240px] z-30"
+                  className="text-[0.65rem] md:text-[0.7rem] leading-relaxed font-avant-garde px-4 md:px-6 mb-6 md:mb-8 max-w-[240px] z-30 hero-desc"
                   animate={{
                     color: hoveredIndex === index ? "rgba(255,255,255,0.6)" : "#999999"
                   }}
@@ -294,7 +294,7 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                     e.stopPropagation();
                     router.push(`/shop?cat=${cat.title.toLowerCase()}`);
                   }}
-                  className={`flex items-center justify-between w-full max-w-[170px] md:max-w-[180px] px-6 md:px-8 py-3 rounded-full border transition-all duration-300 font-avant-garde text-[0.7rem] md:text-[0.75rem] font-medium tracking-tight whitespace-nowrap z-30
+                  className={`flex items-center justify-between w-full max-w-[170px] md:max-w-[180px] px-6 md:px-8 py-3 rounded-full border transition-all duration-300 font-avant-garde text-[0.7rem] md:text-[0.75rem] font-medium tracking-tight whitespace-nowrap z-30 hero-button
                     ${hoveredIndex === index
                       ? "border-white/40 text-white bg-transparent hover:bg-white/10"
                       : "border-black/10 text-[#6f7074] hover:bg-black/5"}

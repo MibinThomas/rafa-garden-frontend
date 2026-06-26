@@ -120,7 +120,7 @@ export default function Home() {
         className="w-full flex-1 flex flex-col h-full"
       >
         {/* Full Screen Hero Section */}
-        <div className="h-auto lg:h-[calc(100vh-100px)] flex flex-col pt-0 lg:pt-4 lg:overflow-hidden">
+        <div className="h-auto lg:h-[calc(100vh-90px)] flex flex-col pt-0 lg:pt-1 lg:overflow-hidden">
           <CategoryHero 
             categories={categories}
             onActiveChange={setActiveMobileCatIndex}
