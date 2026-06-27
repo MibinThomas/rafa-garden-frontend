@@ -121,7 +121,7 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                         >
                           <span>Buy Now</span><ArrowRight size={10} />
                         </button>
-                        <p className="font-brand-heading font-black leading-[1.05] text-white uppercase" style={{ fontSize: 'clamp(1rem, 4vw, 1.4rem)' }}>
+                        <p className="font-brand-heading font-black leading-[1.05] text-white capitalize" style={{ fontSize: 'clamp(1rem, 4vw, 1.4rem)' }}>
                           {cat.subtitle || 'Pure\nBotanical\nRefreshment'}
                         </p>
                       </div>
@@ -154,7 +154,7 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                         >
                           <span>Buy Now</span><ArrowRight size={10} />
                         </button>
-                        <p className="font-brand-heading font-black leading-[1.05] text-white uppercase" style={{ fontSize: 'clamp(1rem, 4vw, 1.4rem)' }}>
+                        <p className="font-brand-heading font-black leading-[1.05] text-white capitalize" style={{ fontSize: 'clamp(1rem, 4vw, 1.4rem)' }}>
                           {cat.subtitle || 'Pure\nBotanical\nRefreshment'}
                         </p>
                       </div>
