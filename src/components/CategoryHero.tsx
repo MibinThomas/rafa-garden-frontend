@@ -206,13 +206,13 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                           </div>
                         </div>
                       </div>
-                      <div className="w-[45%] h-full relative flex items-center justify-center p-3 overflow-hidden">
-                        <div className="relative w-[85%] h-[85%] z-10">
+                      <div className="w-[45%] h-full relative flex items-end justify-center px-2 overflow-hidden">
+                        <div className="relative w-[90%] h-[88%] z-10">
                           <Image
                             src={cat.image}
                             alt={cat.title}
                             fill
-                            className="object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.08)]"
+                            className="object-contain object-bottom drop-shadow-[0_4px_8px_rgba(0,0,0,0.08)]"
                             sizes="35vw"
                           />
                         </div>
@@ -221,13 +221,13 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                   ) : (
                     // Image Left, Text Right
                     <>
-                      <div className="w-[45%] h-full relative flex items-center justify-center p-3 overflow-hidden">
-                        <div className="relative w-[75%] h-[75%] z-10">
+                      <div className="w-[45%] h-full relative flex items-end justify-center px-2 overflow-hidden">
+                        <div className="relative w-[80%] h-[80%] z-10">
                           <Image
                             src={cat.image}
                             alt={cat.title}
                             fill
-                            className="object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.08)]"
+                            className="object-contain object-bottom drop-shadow-[0_4px_8px_rgba(0,0,0,0.08)]"
                             sizes="35vw"
                           />
                         </div>
