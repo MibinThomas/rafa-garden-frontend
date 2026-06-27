@@ -7,6 +7,7 @@ import { SiteSettingsProvider } from "@/lib/SiteSettingsContext";
 import { RootLayoutWrapper } from "@/components/RootLayoutWrapper";
 
 
+import dbConnect from "@/lib/mongodb";
 import SeoSettings from "@/models/SeoSettings";
 
 export async function generateMetadata(): Promise<Metadata> {
