@@ -15,7 +15,8 @@ export async function GET(req: NextRequest) {
       try {
         const config = JSON.parse(publishedContent.value);
         
-        // Merge with live categories to get up-to-date product lists and details
+        // Merge with live categories — always sync live fields so CMS snapshots
+        // don't get stale description/subtitle data after DB edits
         const liveCategories = await Category.find({}).populate("products");
         if (config.categories && Array.isArray(config.categories)) {
           config.categories = config.categories.map((cat: any) => {
@@ -25,7 +26,16 @@ export async function GET(req: NextRequest) {
             if (liveCat) {
               return {
                 ...cat,
-                products: liveCat.products || []
+                // Always pull these from live DB so edits take effect immediately
+                products: liveCat.products || [],
+                subtitle: liveCat.subtitle || cat.subtitle || "",
+                description: liveCat.description || cat.description || "",
+                mobileShortDesc: liveCat.mobileShortDesc || "",
+                shortDescription: liveCat.mobileShortDesc || liveCat.description || "",
+                mobileActiveDesc: liveCat.mobileActiveDesc || "",
+                watermarkText: liveCat.watermarkText || cat.watermarkText || "",
+                color: liveCat.color || cat.color,
+                image: liveCat.image || cat.image,
               };
             }
             return cat;
