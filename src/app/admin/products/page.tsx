@@ -2,7 +2,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Plus, Search, Filter, Edit2, Trash2, Eye, EyeOff, Star, RefreshCw, Package, ChevronDown } from "lucide-react";
+import { Plus, Search, Edit2, Trash2, Eye, EyeOff, RefreshCw, Package, Upload } from "lucide-react";
+import dynamic from "next/dynamic";
+
+const BulkUploadModal = dynamic(() => import('@/components/admin/BulkUploadModal'), { ssr: false });
 
 const statusColors: Record<string, string> = {
   'in-stock': 'bg-green-100 text-green-700',
@@ -28,6 +31,7 @@ export default function ProductsPage() {
   const [filterStatus, setFilterStatus] = useState('');
   const [filterFeatured, setFilterFeatured] = useState('');
   const [toast, setToast] = useState<any>(null);
+  const [showBulkUpload, setShowBulkUpload] = useState(false);
 
   const showToast = (msg: string, type: string) => setToast({ msg, type });
 
@@ -85,6 +89,12 @@ export default function ProductsPage() {
         <div className="flex gap-3">
           <button onClick={fetchData} className="p-2.5 bg-white border border-gray-100 rounded-xl hover:bg-gray-50 transition-all shadow-sm">
             <RefreshCw size={16} className={`text-gray-500 ${loading ? 'animate-spin' : ''}`} />
+          </button>
+          <button
+            onClick={() => setShowBulkUpload(true)}
+            className="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 text-gray-700 rounded-xl text-sm font-medium hover:bg-gray-50 transition-all shadow-sm"
+          >
+            <Upload size={15} /> Bulk Import
           </button>
           <Link href="/admin/products/new" className="flex items-center gap-2 px-5 py-2.5 text-white rounded-xl text-sm font-medium shadow-lg hover:opacity-90 transition-all" style={{ background: 'linear-gradient(135deg, #c81c6a, #9a0c52)' }}>
             <Plus size={16} /> Add Product
@@ -213,6 +223,12 @@ export default function ProductsPage() {
           </div>
         )}
       </div>
+      {showBulkUpload && (
+        <BulkUploadModal
+          onClose={() => setShowBulkUpload(false)}
+          onSuccess={() => { fetchData(); setShowBulkUpload(false); }}
+        />
+      )}
     </div>
   );
 }
