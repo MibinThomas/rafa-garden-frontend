@@ -74,13 +74,15 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                   {/* LEFT: Light gray panel — watermark + product image */}
                   <div className="w-[50%] h-full relative bg-[#e6e7e8] overflow-visible">
 
-                    {/* Watermark: huge horizontal text filling the panel */}
+                    {/* Watermark: large vertical text filling full panel height */}
                     <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
                       <span
                         className="font-dharma-gothic uppercase text-black/[0.07] leading-none whitespace-nowrap"
                         style={{
-                          fontSize: 'clamp(3.5rem, 16vw, 9rem)',
-                          letterSpacing: '-0.02em',
+                          fontSize: 'clamp(5rem, 20vw, 11rem)',
+                          letterSpacing: '0.05em',
+                          writingMode: 'vertical-lr',
+                          transform: 'rotate(180deg)',
                         }}
                       >
                         {cat.watermarkText || cat.title?.split(' ').slice(-1)[0] || cat.title}
