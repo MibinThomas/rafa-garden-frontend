@@ -7,6 +7,10 @@ import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
 
+// Sentence case: first letter uppercase, rest lowercase
+const toSentenceCase = (text: string) =>
+  text ? text.charAt(0).toUpperCase() + text.slice(1).toLowerCase() : '';
+
 interface CategoryHeroProps {
   categories: any[];
   onActiveChange?: (index: number) => void;
@@ -77,15 +81,15 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                     <div className="w-[50%] h-full relative bg-[#e6e7e8] overflow-visible">
                       <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
                         <span
-                          className="font-dharma-gothic uppercase text-black/[0.07] leading-none whitespace-nowrap"
+                          className="font-dharma-gothic text-black/[0.07] leading-none whitespace-nowrap"
                           style={{
-                            fontSize: 'clamp(5rem, 20vw, 11rem)',
+                            fontSize: 'clamp(7.5rem, 30vw, 16.5rem)',
                             letterSpacing: '0.05em',
                             writingMode: 'vertical-lr',
                             transform: 'rotate(180deg)',
                           }}
                         >
-                          {cat.watermarkText || cat.title?.split(' ').slice(-1)[0] || cat.title}
+                          {toSentenceCase(cat.watermarkText || cat.title?.split(' ').slice(-1)[0] || cat.title)}
                         </span>
                       </div>
                       {/* Image overflows to the RIGHT */}
@@ -164,15 +168,15 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                     <div className="w-[50%] h-full relative bg-[#e6e7e8] overflow-visible">
                       <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
                         <span
-                          className="font-dharma-gothic uppercase text-black/[0.07] leading-none whitespace-nowrap"
+                          className="font-dharma-gothic text-black/[0.07] leading-none whitespace-nowrap"
                           style={{
-                            fontSize: 'clamp(5rem, 20vw, 11rem)',
+                            fontSize: 'clamp(7.5rem, 30vw, 16.5rem)',
                             letterSpacing: '0.05em',
                             writingMode: 'vertical-lr',
                             transform: 'rotate(180deg)',
                           }}
                         >
-                          {cat.watermarkText || cat.title?.split(' ').slice(-1)[0] || cat.title}
+                          {toSentenceCase(cat.watermarkText || cat.title?.split(' ').slice(-1)[0] || cat.title)}
                         </span>
                       </div>
                       {/* Image overflows to the LEFT */}
