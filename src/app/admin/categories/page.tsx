@@ -36,6 +36,15 @@ export default function CategoriesPage() {
   const [activeTab, setActiveTab] = useState<'basic'|'mobile'|'seo'>('basic');
   const fileRef = useRef<HTMLInputElement>(null);
   const bannerRef = useRef<HTMLInputElement>(null);
+  const mobileImgRef = useRef<HTMLInputElement>(null);
+  const desktopBannerRef = useRef<HTMLInputElement>(null);
+
+  // Strip alpha channel from hex colors — browser color inputs only accept #rrggbb
+  const toHex6 = (hex: string) => {
+    if (!hex) return '#c81c6a';
+    const clean = hex.replace('#', '');
+    return '#' + (clean.length >= 6 ? clean.slice(0, 6) : clean.padEnd(6, '0'));
+  };
 
   const showToast = (msg: string, type: 'success'|'error') => setToast({ msg, type });
 
@@ -66,16 +75,21 @@ export default function CategoriesPage() {
 
   const handleUpload = async (field: string, file: File) => {
     setUploading(field);
-    const fd = new FormData();
-    fd.append('file', file);
-    fd.append('folder', 'uploads/categories');
     try {
-      const res = await fetch('/api/upload', { method: 'POST', body: fd });
+      // Vercel Blob upload: send raw file body with ?filename= query param
+      const filename = `categories/${Date.now()}-${file.name.replace(/\s+/g, '-')}`;
+      const res = await fetch(`/api/upload?filename=${encodeURIComponent(filename)}`, {
+        method: 'POST',
+        body: file,
+      });
       if (res.ok) {
         const data = await res.json();
         setForm((f: any) => ({ ...f, [field]: data.url }));
         showToast('Image uploaded!', 'success');
-      } else showToast('Upload failed', 'error');
+      } else {
+        const err = await res.json().catch(() => ({}));
+        showToast(err.error || 'Upload failed', 'error');
+      }
     } catch { showToast('Upload error', 'error'); }
     setUploading(null);
   };
@@ -288,14 +302,14 @@ export default function CategoriesPage() {
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wide">Highlight Color *</label>
                     <div className="flex gap-2">
-                      <input type="color" value={form.color || '#c81c6a'} onChange={e => setForm((f: any) => ({ ...f, color: e.target.value }))} className="w-10 h-10 rounded-xl border border-gray-200 cursor-pointer" />
+                      <input type="color" value={toHex6(form.color)} onChange={e => setForm((f: any) => ({ ...f, color: e.target.value }))} className="w-10 h-10 rounded-xl border border-gray-200 cursor-pointer" />
                       <input type="text" value={form.color || ''} onChange={e => setForm((f: any) => ({ ...f, color: e.target.value }))} className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all" />
                     </div>
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wide">Accent Color</label>
                     <div className="flex gap-2">
-                      <input type="color" value={form.accentColor || '#c81c6a'} onChange={e => setForm((f: any) => ({ ...f, accentColor: e.target.value }))} className="w-10 h-10 rounded-xl border border-gray-200 cursor-pointer" />
+                      <input type="color" value={toHex6(form.accentColor || form.color)} onChange={e => setForm((f: any) => ({ ...f, accentColor: e.target.value }))} className="w-10 h-10 rounded-xl border border-gray-200 cursor-pointer" />
                       <input type="text" value={form.accentColor || ''} onChange={e => setForm((f: any) => ({ ...f, accentColor: e.target.value }))} className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all" />
                     </div>
                   </div>
@@ -319,10 +333,60 @@ export default function CategoriesPage() {
               )}
 
               {activeTab === 'mobile' && (
-                <div className="space-y-4">
-                  <InputField label="Mobile Title" field="mobileTitle" placeholder="Optional override title for mobile" />
-                  <InputField label="Mobile Short Description" field="mobileShortDesc" type="textarea" />
-                  <InputField label="Mobile Active Description" field="mobileActiveDesc" type="textarea" />
+                <div className="space-y-5">
+                  <InputField label="Mobile Title Override" field="mobileTitle" placeholder="Optional override title for mobile" />
+                  <InputField label="Mobile Short Description" field="mobileShortDesc" type="textarea" placeholder="Short text shown in the active mobile card description area" />
+                  <InputField label="Mobile Active Description" field="mobileActiveDesc" type="textarea" placeholder="Longer description (fallback)" />
+
+                  {/* Mobile Hero Image */}
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide">📱 Mobile Hero Image</label>
+                      <span className="text-[10px] text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full font-mono">Recommended: 600 × 800 px · PNG/WebP · transparent bg</span>
+                    </div>
+                    <div className="flex gap-3 items-center">
+                      <input type="text" value={form.mobileHeroImage || ''} onChange={e => setForm((f: any) => ({ ...f, mobileHeroImage: e.target.value }))}
+                        placeholder="https://... or /images/..." className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all" />
+                      <button onClick={() => mobileImgRef.current?.click()} disabled={uploading === 'mobileHeroImage'}
+                        className="flex items-center gap-2 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 rounded-xl text-xs font-medium text-gray-600 transition-all flex-shrink-0">
+                        <Upload size={13} /> {uploading === 'mobileHeroImage' ? 'Uploading...' : 'Upload'}
+                      </button>
+                      <input ref={mobileImgRef} type="file" accept="image/*" className="hidden" onChange={e => e.target.files?.[0] && handleUpload('mobileHeroImage', e.target.files[0])} />
+                    </div>
+                    {form.mobileHeroImage && (
+                      <div className="mt-2 flex items-center gap-3">
+                        <div className="relative w-16 h-20 rounded-xl overflow-hidden border border-gray-100 bg-gray-50">
+                          <Image src={form.mobileHeroImage} alt="mobile preview" fill className="object-contain" sizes="64px" />
+                        </div>
+                        <button onClick={() => setForm((f: any) => ({ ...f, mobileHeroImage: '' }))} className="text-xs text-red-400 hover:text-red-600">Remove</button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Desktop / Large Screen Banner Image */}
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide">🖥️ Desktop Banner Image</label>
+                      <span className="text-[10px] text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full font-mono">Recommended: 1200 × 600 px · JPG/WebP</span>
+                    </div>
+                    <div className="flex gap-3 items-center">
+                      <input type="text" value={form.bannerImage || ''} onChange={e => setForm((f: any) => ({ ...f, bannerImage: e.target.value }))}
+                        placeholder="https://... or /images/..." className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all" />
+                      <button onClick={() => desktopBannerRef.current?.click()} disabled={uploading === 'bannerImage'}
+                        className="flex items-center gap-2 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 rounded-xl text-xs font-medium text-gray-600 transition-all flex-shrink-0">
+                        <Upload size={13} /> {uploading === 'bannerImage' ? 'Uploading...' : 'Upload'}
+                      </button>
+                      <input ref={desktopBannerRef} type="file" accept="image/*" className="hidden" onChange={e => e.target.files?.[0] && handleUpload('bannerImage', e.target.files[0])} />
+                    </div>
+                    {form.bannerImage && (
+                      <div className="mt-2 flex items-center gap-3">
+                        <div className="relative w-32 h-16 rounded-xl overflow-hidden border border-gray-100 bg-gray-50">
+                          <Image src={form.bannerImage} alt="desktop banner preview" fill className="object-cover" sizes="128px" />
+                        </div>
+                        <button onClick={() => setForm((f: any) => ({ ...f, bannerImage: '' }))} className="text-xs text-red-400 hover:text-red-600">Remove</button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
 
