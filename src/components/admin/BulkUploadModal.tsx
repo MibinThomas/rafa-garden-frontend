@@ -3,7 +3,7 @@ import { useState, useRef, useCallback } from "react";
 import * as XLSX from "xlsx";
 import {
   X, Upload, FileSpreadsheet, Download, CheckCircle2,
-  XCircle, AlertTriangle, RefreshCw, ChevronDown, ChevronUp, Info
+  XCircle, AlertTriangle, RefreshCw, ChevronDown, ChevronUp, Info, Loader2
 } from "lucide-react";
 
 const REQUIRED_COLS = ["id", "name", "category"];
@@ -18,61 +18,124 @@ const TEMPLATE_HEADERS = [
   "seoTitle", "seoDescription"
 ];
 
-const TEMPLATE_SAMPLE = [
-  ["P001", "Dragon Fruit Crush 250ml", "dragon-fruit-crush-250ml", "Crush",
-    "Premium Dragon Fruit Crush", "Pure botanical refreshment",
-    "/images/hero/crush_bottle.png", "120", "99", "CRUSH-001",
-    "50", "in-stock", "10", "250ml", "organic,fruit,crush",
-    "250ml", "ml", "120", "500ml", "ml", "220", "", "", "",
-    "true", "false", "true", "true", "1",
-    "Dragon Fruit Crush | Rafah Garden", "Premium organic dragon fruit crush drink"
-  ]
+function productToRow(p: any): any[] {
+  const v = (n: number) => p.variants?.[n - 1] ?? {};
+  return [
+    p.id ?? '',
+    p.name ?? '',
+    p.slug ?? '',
+    p.category ?? '',
+    p.description ?? '',
+    p.shortDescription ?? '',
+    p.image ?? '',
+    p.price ?? '',
+    p.offerPrice ?? '',
+    p.sku ?? '',
+    p.stock ?? 0,
+    p.stockStatus ?? 'in-stock',
+    p.lowStockThreshold ?? 10,
+    p.weight ?? '',
+    Array.isArray(p.tags) ? p.tags.join(',') : (p.tags ?? ''),
+    v(1).size ?? '', v(1).unit ?? '', v(1).price ?? '',
+    v(2).size ?? '', v(2).unit ?? '', v(2).price ?? '',
+    v(3).size ?? '', v(3).unit ?? '', v(3).price ?? '',
+    p.featured ? 'true' : 'false',
+    p.bestSeller ? 'true' : 'false',
+    p.newArrival ? 'true' : 'false',
+    p.active !== false ? 'true' : 'false',
+    p.sortOrder ?? 0,
+    p.seoTitle ?? '',
+    p.seoDescription ?? '',
+  ];
+}
+
+const SAMPLE_ROW = [
+  "P001", "Dragon Fruit Crush 250ml", "dragon-fruit-crush-250ml", "Crush",
+  "Premium Dragon Fruit Crush", "Pure botanical refreshment",
+  "/images/hero/crush_bottle.png", "120", "99", "CRUSH-001",
+  "50", "in-stock", "10", "250ml", "organic,fruit,crush",
+  "250ml", "ml", "120", "500ml", "ml", "220", "", "", "",
+  "true", "false", "true", "true", "1",
+  "Dragon Fruit Crush | Rafah Garden", "Premium organic dragon fruit crush drink"
 ];
 
-function downloadTemplate() {
+async function downloadTemplate(setDownloading: (v: boolean) => void) {
+  setDownloading(true);
+  let dataRows: any[][] = [];
+  let filename = 'rafa-garden-products-template.xlsx';
+
+  try {
+    const res = await fetch('/api/products');
+    if (res.ok) {
+      const products: any[] = await res.json();
+      if (products.length > 0) {
+        // Sort by sortOrder then name
+        products.sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0) || (a.name ?? '').localeCompare(b.name ?? ''));
+        dataRows = products.map(productToRow);
+        filename = `rafa-garden-products-export-${new Date().toISOString().slice(0,10)}.xlsx`;
+      }
+    }
+  } catch {}
+
+  if (dataRows.length === 0) dataRows = [SAMPLE_ROW];
+
   const wb = XLSX.utils.book_new();
-  const wsData = [TEMPLATE_HEADERS, ...TEMPLATE_SAMPLE];
+
+  // --- Products sheet ---
+  const wsData = [TEMPLATE_HEADERS, ...dataRows];
   const ws = XLSX.utils.aoa_to_sheet(wsData);
+  ws["!cols"] = TEMPLATE_HEADERS.map(h => ({ wch: Math.max(h.length + 4, 16) }));
 
-  // Column widths
-  ws["!cols"] = TEMPLATE_HEADERS.map(h => ({ wch: Math.max(h.length + 4, 14) }));
+  // Style header row (bold)
+  const range = XLSX.utils.decode_range(ws['!ref'] || 'A1');
+  for (let C = range.s.c; C <= range.e.c; C++) {
+    const cell = ws[XLSX.utils.encode_cell({ r: 0, c: C })];
+    if (cell) cell.s = { font: { bold: true }, fill: { fgColor: { rgb: 'C81C6A' } }, fontColor: { rgb: 'FFFFFF' } };
+  }
 
-  XLSX.utils.book_append_sheet(wb, ws, "Products");
+  XLSX.utils.book_append_sheet(wb, ws, 'Products');
 
-  // Instructions sheet
+  // --- Instructions sheet ---
   const instrData = [
-    ["Column", "Required", "Description", "Example"],
-    ["id", "YES", "Unique product ID (used for upsert)", "P001"],
-    ["name", "YES", "Product name", "Dragon Fruit Crush"],
-    ["category", "YES", "Category name (must match existing category)", "Crush"],
-    ["slug", "No", "URL slug (auto-generated if blank)", "dragon-fruit-crush"],
+    ["Column", "Required", "Description", "Example / Values"],
+    ["id", "YES", "Unique product ID — used to match existing products for update", "P001"],
+    ["name", "YES", "Product display name", "Dragon Fruit Crush"],
+    ["category", "YES", "Category name — must match an existing category in the system", "Crush"],
+    ["slug", "No", "URL slug (auto-generated from name if blank)", "dragon-fruit-crush"],
     ["description", "No", "Full product description", "Premium..."],
-    ["shortDescription", "No", "Short description", "Pure botanical..."],
-    ["image", "No", "Image path or URL", "/images/product.png"],
-    ["price", "No", "Base price", "120"],
-    ["offerPrice", "No", "Sale/offer price", "99"],
-    ["sku", "No", "Stock keeping unit", "CRUSH-001"],
-    ["stock", "No", "Quantity in stock", "50"],
+    ["shortDescription", "No", "Short description for cards/listings", "Pure botanical..."],
+    ["image", "No", "Main image path or URL (800×800px recommended)", "/images/product.png"],
+    ["price", "No", "Base price (number)", "120"],
+    ["offerPrice", "No", "Sale / offer price (number, leave blank if no sale)", "99"],
+    ["sku", "No", "Stock keeping unit code", "CRUSH-001"],
+    ["stock", "No", "Quantity in stock (number)", "50"],
     ["stockStatus", "No", "in-stock / low-stock / out-of-stock", "in-stock"],
-    ["lowStockThreshold", "No", "Alert threshold (default: 10)", "10"],
-    ["weight", "No", "Weight/volume", "250ml"],
-    ["tags", "No", "Comma-separated tags", "organic,fruit"],
-    ["variant1_size", "No", "Variant 1 size label", "250ml"],
-    ["variant1_unit", "No", "Variant 1 unit", "ml"],
-    ["variant1_price", "No", "Variant 1 price", "120"],
-    ["featured", "No", "true/false", "true"],
-    ["bestSeller", "No", "true/false", "false"],
-    ["newArrival", "No", "true/false", "true"],
-    ["active", "No", "true/false (default: true)", "true"],
-    ["sortOrder", "No", "Display sort order", "1"],
-    ["seoTitle", "No", "SEO meta title", "Product | Rafah Garden"],
-    ["seoDescription", "No", "SEO meta description", "Description text"],
+    ["lowStockThreshold", "No", "Alert when stock falls below this number (default: 10)", "10"],
+    ["weight", "No", "Weight or volume label", "250ml"],
+    ["tags", "No", "Comma-separated product tags", "organic,fruit,crush"],
+    ["variant1_size", "No", "Variant 1 — size label (e.g. 250ml, Small, 1kg)", "250ml"],
+    ["variant1_unit", "No", "Variant 1 — unit type (e.g. ml, kg, pcs)", "ml"],
+    ["variant1_price", "No", "Variant 1 — price (number)", "120"],
+    ["variant2_size", "No", "Variant 2 — size label", "500ml"],
+    ["variant2_unit", "No", "Variant 2 — unit", "ml"],
+    ["variant2_price", "No", "Variant 2 — price", "220"],
+    ["variant3_size", "No", "Variant 3 — size label", "1L"],
+    ["variant3_unit", "No", "Variant 3 — unit", "L"],
+    ["variant3_price", "No", "Variant 3 — price", "399"],
+    ["featured", "No", "Show in featured section? true / false", "true"],
+    ["bestSeller", "No", "Mark as best seller? true / false", "false"],
+    ["newArrival", "No", "Mark as new arrival? true / false", "true"],
+    ["active", "No", "Show on website? true / false (default: true)", "true"],
+    ["sortOrder", "No", "Display order — lower numbers appear first", "1"],
+    ["seoTitle", "No", "SEO meta title for the product page", "Product | Rafah Garden"],
+    ["seoDescription", "No", "SEO meta description for the product page", "Description text here"],
   ];
   const wsInstr = XLSX.utils.aoa_to_sheet(instrData);
-  wsInstr["!cols"] = [{ wch: 20 }, { wch: 10 }, { wch: 50 }, { wch: 30 }];
-  XLSX.utils.book_append_sheet(wb, wsInstr, "Instructions");
+  wsInstr["!cols"] = [{ wch: 22 }, { wch: 10 }, { wch: 55 }, { wch: 35 }];
+  XLSX.utils.book_append_sheet(wb, wsInstr, 'Instructions');
 
-  XLSX.writeFile(wb, "rafa-garden-products-template.xlsx");
+  XLSX.writeFile(wb, filename);
+  setDownloading(false);
 }
 
 type ParsedRow = Record<string, any>;
@@ -82,6 +145,7 @@ interface Props {
   onClose: () => void;
   onSuccess: () => void;
 }
+
 
 export default function BulkUploadModal({ onClose, onSuccess }: Props) {
   const fileRef = useRef<HTMLInputElement>(null);
@@ -95,6 +159,7 @@ export default function BulkUploadModal({ onClose, onSuccess }: Props) {
   const [summary, setSummary] = useState<any>(null);
   const [showAllRows, setShowAllRows] = useState(false);
   const [previewError, setPreviewError] = useState('');
+  const [downloading, setDownloading] = useState(false);
 
   const parseFile = (file: File) => {
     setPreviewError('');
@@ -228,14 +293,18 @@ export default function BulkUploadModal({ onClose, onSuccess }: Props) {
               {/* Download template */}
               <div className="flex items-center gap-3 p-4 bg-[#c81c6a]/5 border border-[#c81c6a]/20 rounded-2xl">
                 <Info size={16} className="text-[#c81c6a] flex-shrink-0" />
-                <p className="text-sm text-gray-600 flex-1">
-                  Download the template first to ensure correct column format.
-                </p>
+                <div className="flex-1">
+                  <p className="text-sm text-gray-700 font-medium">Download your existing products</p>
+                  <p className="text-xs text-gray-400 mt-0.5">Edit any field in the spreadsheet and re-import to update.</p>
+                </div>
                 <button
-                  onClick={downloadTemplate}
-                  className="flex items-center gap-2 px-4 py-2 bg-white border border-[#c81c6a]/30 text-[#c81c6a] rounded-xl text-xs font-medium hover:bg-[#c81c6a]/5 transition-all flex-shrink-0"
+                  onClick={() => downloadTemplate(setDownloading)}
+                  disabled={downloading}
+                  className="flex items-center gap-2 px-4 py-2 bg-white border border-[#c81c6a]/30 text-[#c81c6a] rounded-xl text-xs font-medium hover:bg-[#c81c6a]/5 transition-all flex-shrink-0 disabled:opacity-60"
                 >
-                  <Download size={13} /> Download Template
+                  {downloading
+                    ? <><Loader2 size={13} className="animate-spin" /> Fetching…</>
+                    : <><Download size={13} /> Export Products</>}
                 </button>
               </div>
 
@@ -442,8 +511,13 @@ export default function BulkUploadModal({ onClose, onSuccess }: Props) {
 
           <div className="flex items-center gap-3">
             {step === 'upload' && (
-              <button onClick={downloadTemplate} className="flex items-center gap-2 px-5 py-2.5 border border-gray-200 text-gray-600 rounded-xl text-sm font-medium hover:bg-gray-50 transition-all">
-                <Download size={14} /> Template
+              <button
+                onClick={() => downloadTemplate(setDownloading)}
+                disabled={downloading}
+                className="flex items-center gap-2 px-5 py-2.5 border border-gray-200 text-gray-600 rounded-xl text-sm font-medium hover:bg-gray-50 transition-all disabled:opacity-60"
+              >
+                {downloading ? <Loader2 size={14} className="animate-spin" /> : <Download size={14} />}
+                {downloading ? 'Fetching…' : 'Export Products'}
               </button>
             )}
             {step === 'preview' && (
