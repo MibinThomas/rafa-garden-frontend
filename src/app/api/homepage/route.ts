@@ -36,6 +36,8 @@ export async function GET(req: NextRequest) {
                 watermarkText: liveCat.watermarkText || cat.watermarkText || "",
                 color: liveCat.color || cat.color,
                 image: liveCat.image || cat.image,
+                mobileHeroImage: liveCat.mobileHeroImage || liveCat.image || cat.image,
+                bannerImage: liveCat.bannerImage || cat.bannerImage || "",
               };
             }
             return cat;

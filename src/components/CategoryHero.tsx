@@ -91,7 +91,7 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                       {/* Image overflows to the RIGHT */}
                       <div className="absolute z-10" style={{ left: '0%', bottom: 0, width: '120%', height: '90%' }}>
                         <Image
-                          src={cat.image} alt={cat.title} fill
+                          src={cat.mobileHeroImage || cat.image} alt={cat.title} fill
                           className="object-contain object-bottom drop-shadow-[0_16px_32px_rgba(0,0,0,0.18)]"
                           sizes="60vw" priority
                         />
@@ -178,7 +178,7 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                       {/* Image overflows to the LEFT */}
                       <div className="absolute z-10" style={{ right: '0%', bottom: 0, width: '120%', height: '90%' }}>
                         <Image
-                          src={cat.image} alt={cat.title} fill
+                          src={cat.mobileHeroImage || cat.image} alt={cat.title} fill
                           className="object-contain object-bottom drop-shadow-[0_16px_32px_rgba(0,0,0,0.18)]"
                           sizes="60vw" priority
                         />
