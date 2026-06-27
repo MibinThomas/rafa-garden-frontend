@@ -17,6 +17,7 @@ const navItems = [
   { href: "/admin/inventory", icon: BarChart3, label: "Inventory" },
   { href: "/admin/orders", icon: ShoppingCart, label: "Orders" },
   { href: "/admin/cms", icon: Layers, label: "Homepage CMS" },
+  { href: "/admin/about", icon: FileText, label: "About Us CMS" },
   { href: "/admin/blog", icon: BookOpen, label: "Blog" },
   { href: "/admin/media", icon: Image, label: "Media" },
   { href: "/admin/enquiries", icon: MessageSquare, label: "Enquiries" },
