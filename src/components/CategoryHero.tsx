@@ -108,7 +108,7 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                           {formatTitleWithNewline(cat.title)}
                         </h2>
                         <p className="text-[9px] sm:text-[10px] md:text-[11px] text-white/80 leading-relaxed font-sans font-light line-clamp-4">
-                          {cat.shortDescription || cat.mobileActiveDesc || cat.description || 'This is a sample product details must be enter here to show the ui ux design minimal stage'}
+                          {cat.mobileShortDesc || cat.shortDescription || cat.mobileActiveDesc || 'Discover our premium botanical collection'}
                         </p>
                       </div>
                       <div className="space-y-3 sm:space-y-5">
@@ -141,7 +141,7 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                           {formatTitleWithNewline(cat.title)}
                         </h2>
                         <p className="text-[9px] sm:text-[10px] md:text-[11px] text-white/80 leading-relaxed font-sans font-light line-clamp-4">
-                          {cat.shortDescription || cat.mobileActiveDesc || cat.description || 'This is a sample product details must be enter here to show the ui ux design minimal stage'}
+                          {cat.mobileShortDesc || cat.shortDescription || cat.mobileActiveDesc || 'Discover our premium botanical collection'}
                         </p>
                       </div>
                       <div className="space-y-3 sm:space-y-5">

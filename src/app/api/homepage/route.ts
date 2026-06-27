@@ -55,6 +55,8 @@ export async function GET(req: NextRequest) {
       id: cat.id || `cat-${idx}`,
       title: cat.title || "",
       subtitle: cat.subtitle || "",
+      description: cat.description || "",
+      shortDescription: cat.mobileShortDesc || cat.description || "",
       image: cat.image || "",
       color: cat.color || "#c81c6a",
       watermarkText: cat.watermarkText || cat.title?.split(" ")[0]?.toUpperCase() || "HERITAGE",
@@ -63,7 +65,8 @@ export async function GET(req: NextRequest) {
       enabled: cat.enabled !== false,
       order: typeof cat.order === "number" ? cat.order : idx,
       isDefault: cat.isDefault || idx === 0,
-      mobileActiveDesc: cat.mobileActiveDesc || cat.subtitle || "",
+      mobileActiveDesc: cat.mobileActiveDesc || "",
+      mobileShortDesc: cat.mobileShortDesc || "",
       mobileHeroImage: cat.mobileHeroImage || cat.image || "",
       mobileTitle: cat.mobileTitle || cat.title || ""
     }));
