@@ -68,92 +68,124 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             >
               {isActive ? (
-                // Active Card Layout — matches reference design
-                <div className="flex flex-row w-full h-full">
+                // Active layout: odd index (2nd, 4th) = mirrored — color panel LEFT, image RIGHT
+                index % 2 === 0 ? (
+                  /* Even (1st, 3rd): gray+image LEFT — color panel RIGHT */
+                  <div className="flex flex-row w-full h-full">
 
-                  {/* LEFT: Light gray panel — watermark + product image */}
-                  <div className="w-[50%] h-full relative bg-[#e6e7e8] overflow-visible">
-
-                    {/* Watermark: large vertical text filling full panel height */}
-                    <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
-                      <span
-                        className="font-dharma-gothic uppercase text-black/[0.07] leading-none whitespace-nowrap"
-                        style={{
-                          fontSize: 'clamp(5rem, 20vw, 11rem)',
-                          letterSpacing: '0.05em',
-                          writingMode: 'vertical-lr',
-                          transform: 'rotate(180deg)',
-                        }}
-                      >
-                        {cat.watermarkText || cat.title?.split(' ').slice(-1)[0] || cat.title}
-                      </span>
+                    {/* LEFT: gray panel — watermark + image overflows right */}
+                    <div className="w-[50%] h-full relative bg-[#e6e7e8] overflow-visible">
+                      <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
+                        <span
+                          className="font-dharma-gothic uppercase text-black/[0.07] leading-none whitespace-nowrap"
+                          style={{
+                            fontSize: 'clamp(5rem, 20vw, 11rem)',
+                            letterSpacing: '0.05em',
+                            writingMode: 'vertical-lr',
+                            transform: 'rotate(180deg)',
+                          }}
+                        >
+                          {cat.watermarkText || cat.title?.split(' ').slice(-1)[0] || cat.title}
+                        </span>
+                      </div>
+                      {/* Image overflows to the RIGHT */}
+                      <div className="absolute z-10" style={{ left: '0%', bottom: 0, width: '120%', height: '90%' }}>
+                        <Image
+                          src={cat.image} alt={cat.title} fill
+                          className="object-contain object-bottom drop-shadow-[0_16px_32px_rgba(0,0,0,0.18)]"
+                          sizes="60vw" priority
+                        />
+                      </div>
                     </div>
 
-                    {/* Product Image — large, bottom-anchored, overflows right edge */}
+                    {/* RIGHT: color panel */}
                     <div
-                      className="absolute z-10"
-                      style={{
-                        left: '0%',
-                        bottom: 0,
-                        width: '120%',
-                        height: '90%',
-                      }}
+                      className="w-[50%] h-full rounded-[24px] flex flex-col justify-between p-5 sm:p-6 text-white z-20 relative shadow-lg"
+                      style={{ backgroundColor: cat.color }}
                     >
-                      <Image
-                        src={cat.image}
-                        alt={cat.title}
-                        fill
-                        className="object-contain object-bottom drop-shadow-[0_16px_32px_rgba(0,0,0,0.18)]"
-                        sizes="60vw"
-                        priority
-                      />
+                      <div className="space-y-2 sm:space-y-3">
+                        <h2 className="font-brand-heading font-black leading-tight whitespace-pre-line" style={{ fontSize: 'clamp(1.15rem, 4.5vw, 1.75rem)' }}>
+                          {formatTitleWithNewline(cat.title)}
+                        </h2>
+                        <p className="text-[9px] sm:text-[10px] md:text-[11px] text-white/80 leading-relaxed font-sans font-light line-clamp-4">
+                          {cat.mobileActiveDesc || cat.description || 'This is a sample product details must be enter here to show the ui ux design minimal stage'}
+                        </p>
+                      </div>
+                      <div className="space-y-3 sm:space-y-5">
+                        <button
+                          onClick={(e) => { e.stopPropagation(); router.push(`/shop?cat=${cat.title.toLowerCase()}`); }}
+                          className="flex items-center justify-between px-4 py-2 rounded-full border border-white/50 text-white font-bold active:scale-95 transition-all hover:bg-white hover:border-white"
+                          style={{ fontSize: 'clamp(0.55rem, 2vw, 0.75rem)', width: 'clamp(90px, 28vw, 130px)' }}
+                          onMouseEnter={e => (e.currentTarget.style.color = cat.color)}
+                          onMouseLeave={e => (e.currentTarget.style.color = 'white')}
+                        >
+                          <span>Buy Now</span><ArrowRight size={10} />
+                        </button>
+                        <p className="font-brand-heading font-black leading-[1.05] text-white uppercase" style={{ fontSize: 'clamp(1rem, 4vw, 1.4rem)' }}>
+                          {cat.subtitle || 'Pure\nBotanical\nRefreshment'}
+                        </p>
+                      </div>
                     </div>
                   </div>
+                ) : (
+                  /* Odd (2nd, 4th): color panel LEFT — gray+image RIGHT */
+                  <div className="flex flex-row w-full h-full">
 
-                  {/* RIGHT: Colored panel — title, desc, button, tagline */}
-                  <div
-                    className="w-[50%] h-full rounded-[24px] flex flex-col justify-between p-5 sm:p-6 text-white z-20 relative shadow-lg"
-                    style={{ backgroundColor: cat.color }}
-                  >
-                    {/* Top: title + description */}
-                    <div className="space-y-2 sm:space-y-3">
-                      <h2
-                        className="font-brand-heading font-black leading-tight whitespace-pre-line"
-                        style={{ fontSize: 'clamp(1.15rem, 4.5vw, 1.75rem)' }}
-                      >
-                        {formatTitleWithNewline(cat.title)}
-                      </h2>
-                      <p className="text-[9px] sm:text-[10px] md:text-[11px] text-white/80 leading-relaxed font-sans font-light line-clamp-4">
-                        {cat.mobileActiveDesc || cat.description || 'This is a sample product details must be enter here to show the ui ux design minimal stage'}
-                      </p>
+                    {/* LEFT: color panel */}
+                    <div
+                      className="w-[50%] h-full rounded-[24px] flex flex-col justify-between p-5 sm:p-6 text-white z-20 relative shadow-lg"
+                      style={{ backgroundColor: cat.color }}
+                    >
+                      <div className="space-y-2 sm:space-y-3">
+                        <h2 className="font-brand-heading font-black leading-tight whitespace-pre-line" style={{ fontSize: 'clamp(1.15rem, 4.5vw, 1.75rem)' }}>
+                          {formatTitleWithNewline(cat.title)}
+                        </h2>
+                        <p className="text-[9px] sm:text-[10px] md:text-[11px] text-white/80 leading-relaxed font-sans font-light line-clamp-4">
+                          {cat.mobileActiveDesc || cat.description || 'This is a sample product details must be enter here to show the ui ux design minimal stage'}
+                        </p>
+                      </div>
+                      <div className="space-y-3 sm:space-y-5">
+                        <button
+                          onClick={(e) => { e.stopPropagation(); router.push(`/shop?cat=${cat.title.toLowerCase()}`); }}
+                          className="flex items-center justify-between px-4 py-2 rounded-full border border-white/50 text-white font-bold active:scale-95 transition-all hover:bg-white hover:border-white"
+                          style={{ fontSize: 'clamp(0.55rem, 2vw, 0.75rem)', width: 'clamp(90px, 28vw, 130px)' }}
+                          onMouseEnter={e => (e.currentTarget.style.color = cat.color)}
+                          onMouseLeave={e => (e.currentTarget.style.color = 'white')}
+                        >
+                          <span>Buy Now</span><ArrowRight size={10} />
+                        </button>
+                        <p className="font-brand-heading font-black leading-[1.05] text-white uppercase" style={{ fontSize: 'clamp(1rem, 4vw, 1.4rem)' }}>
+                          {cat.subtitle || 'Pure\nBotanical\nRefreshment'}
+                        </p>
+                      </div>
                     </div>
 
-                    {/* Bottom: Buy Now + tagline */}
-                    <div className="space-y-3 sm:space-y-5">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          router.push(`/shop?cat=${cat.title.toLowerCase()}`);
-                        }}
-                        className="flex items-center justify-between px-4 py-2 rounded-full border border-white/50 text-white font-bold active:scale-95 transition-all hover:bg-white hover:border-white"
-                        style={{ fontSize: 'clamp(0.55rem, 2vw, 0.75rem)', width: 'clamp(90px, 28vw, 130px)' }}
-                        onMouseEnter={e => (e.currentTarget.style.color = cat.color)}
-                        onMouseLeave={e => (e.currentTarget.style.color = 'white')}
-                      >
-                        <span>Buy Now</span>
-                        <ArrowRight size={10} />
-                      </button>
-
-                      {/* Tagline */}
-                      <p
-                        className="font-brand-heading font-black leading-[1.05] text-white uppercase"
-                        style={{ fontSize: 'clamp(1rem, 4vw, 1.4rem)' }}
-                      >
-                        {cat.subtitle || 'Pure\nBotanical\nRefreshment'}
-                      </p>
+                    {/* RIGHT: gray panel — watermark + image overflows left */}
+                    <div className="w-[50%] h-full relative bg-[#e6e7e8] overflow-visible">
+                      <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
+                        <span
+                          className="font-dharma-gothic uppercase text-black/[0.07] leading-none whitespace-nowrap"
+                          style={{
+                            fontSize: 'clamp(5rem, 20vw, 11rem)',
+                            letterSpacing: '0.05em',
+                            writingMode: 'vertical-lr',
+                            transform: 'rotate(180deg)',
+                          }}
+                        >
+                          {cat.watermarkText || cat.title?.split(' ').slice(-1)[0] || cat.title}
+                        </span>
+                      </div>
+                      {/* Image overflows to the LEFT */}
+                      <div className="absolute z-10" style={{ right: '0%', bottom: 0, width: '120%', height: '90%' }}>
+                        <Image
+                          src={cat.image} alt={cat.title} fill
+                          className="object-contain object-bottom drop-shadow-[0_16px_32px_rgba(0,0,0,0.18)]"
+                          sizes="60vw" priority
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
+                )
 
               ) : (
                 // Inactive Card Layout: alternating image left/right
