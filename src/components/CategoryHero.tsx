@@ -68,68 +68,91 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             >
               {isActive ? (
-                // Active Card Layout: 50% image, 50% pink/magenta panel
+                // Active Card Layout — matches reference design
                 <div className="flex flex-row w-full h-full">
-                  {/* Left Side: Product Bottle Image */}
-                  <div className="w-[50%] h-full relative overflow-hidden bg-[#e6e7e8]">
-                    {/* Vertical Faded Watermark */}
+
+                  {/* LEFT: Light gray panel — watermark + product image */}
+                  <div className="w-[50%] h-full relative bg-[#e6e7e8] overflow-visible">
+
+                    {/* Watermark: huge horizontal text filling the panel */}
                     <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
-                      <span 
-                        className="font-dharma-gothic uppercase tracking-[0.05em] text-black/[0.04] text-[5rem] sm:text-[6rem] md:text-[7.5rem] leading-none"
+                      <span
+                        className="font-dharma-gothic uppercase text-black/[0.07] leading-none whitespace-nowrap"
                         style={{
-                          writingMode: "vertical-lr",
-                          transform: "rotate(180deg)",
+                          fontSize: 'clamp(3.5rem, 16vw, 9rem)',
+                          letterSpacing: '-0.02em',
                         }}
                       >
-                        {cat.watermarkText || cat.title}
+                        {cat.watermarkText || cat.title?.split(' ').slice(-1)[0] || cat.title}
                       </span>
                     </div>
-                    
-                    {/* Product Image - Larger and positioned in the lower-left */}
-                    <div className="absolute left-[8%] bottom-0 w-[85%] h-[92%] z-10">
+
+                    {/* Product Image — large, bottom-anchored, overflows right edge */}
+                    <div
+                      className="absolute z-10"
+                      style={{
+                        left: '0%',
+                        bottom: 0,
+                        width: '120%',
+                        height: '90%',
+                      }}
+                    >
                       <Image
                         src={cat.image}
                         alt={cat.title}
                         fill
-                        className="object-contain object-bottom-left drop-shadow-[0_12px_24px_rgba(0,0,0,0.15)]"
-                        sizes="45vw"
+                        className="object-contain object-bottom drop-shadow-[0_16px_32px_rgba(0,0,0,0.18)]"
+                        sizes="60vw"
                         priority
                       />
                     </div>
                   </div>
 
-                  {/* Right Side: Category Color Panel */}
-                  <div className="w-[50%] h-full rounded-[24px] flex flex-col justify-between p-5 sm:p-6 text-white z-10 relative shadow-lg" style={{ backgroundColor: cat.color }}>
-                    <div className="space-y-3 sm:space-y-4">
-                      <h2 className="text-xl sm:text-2xl md:text-3xl font-black font-brand-heading leading-tight whitespace-pre-line">
+                  {/* RIGHT: Colored panel — title, desc, button, tagline */}
+                  <div
+                    className="w-[50%] h-full rounded-[24px] flex flex-col justify-between p-5 sm:p-6 text-white z-20 relative shadow-lg"
+                    style={{ backgroundColor: cat.color }}
+                  >
+                    {/* Top: title + description */}
+                    <div className="space-y-2 sm:space-y-3">
+                      <h2
+                        className="font-brand-heading font-black leading-tight whitespace-pre-line"
+                        style={{ fontSize: 'clamp(1.15rem, 4.5vw, 1.75rem)' }}
+                      >
                         {formatTitleWithNewline(cat.title)}
                       </h2>
-                      <p className="text-[9px] sm:text-[10px] md:text-xs text-white/80 leading-relaxed font-sans font-light line-clamp-4">
-                        {cat.mobileActiveDesc || cat.description || "This is a sample product details must be enter here to show the ui ux design minimal stage"}
+                      <p className="text-[9px] sm:text-[10px] md:text-[11px] text-white/80 leading-relaxed font-sans font-light line-clamp-4">
+                        {cat.mobileActiveDesc || cat.description || 'This is a sample product details must be enter here to show the ui ux design minimal stage'}
                       </p>
                     </div>
 
-                    <div className="space-y-4 sm:space-y-6">
-                      <button 
+                    {/* Bottom: Buy Now + tagline */}
+                    <div className="space-y-3 sm:space-y-5">
+                      <button
                         onClick={(e) => {
                           e.stopPropagation();
                           router.push(`/shop?cat=${cat.title.toLowerCase()}`);
                         }}
-                        className="flex items-center justify-between w-[95px] sm:w-[105px] md:w-[125px] px-3.5 py-2 rounded-full border border-white/45 text-white text-[9px] sm:text-[10px] md:text-xs font-bold active:scale-95 transition-all hover:bg-white hover:border-white shadow-sm"
-                        style={{ '--hover-color': cat.color } as React.CSSProperties}
+                        className="flex items-center justify-between px-4 py-2 rounded-full border border-white/50 text-white font-bold active:scale-95 transition-all hover:bg-white hover:border-white"
+                        style={{ fontSize: 'clamp(0.55rem, 2vw, 0.75rem)', width: 'clamp(90px, 28vw, 130px)' }}
                         onMouseEnter={e => (e.currentTarget.style.color = cat.color)}
                         onMouseLeave={e => (e.currentTarget.style.color = 'white')}
                       >
                         <span>Buy Now</span>
                         <ArrowRight size={10} />
                       </button>
-                      
-                      <p className="text-[12px] sm:text-[14px] md:text-[16px] font-black font-brand-heading leading-tight text-white whitespace-pre-line uppercase tracking-widest">
-                        Pure{"\n"}Botanical{"\n"}Refreshment
+
+                      {/* Tagline */}
+                      <p
+                        className="font-brand-heading font-black leading-[1.05] text-white uppercase"
+                        style={{ fontSize: 'clamp(1rem, 4vw, 1.4rem)' }}
+                      >
+                        {cat.subtitle || 'Pure\nBotanical\nRefreshment'}
                       </p>
                     </div>
                   </div>
                 </div>
+
               ) : (
                 // Inactive Card Layout: alternating image left/right
                 <div className="flex flex-row w-full h-full">
