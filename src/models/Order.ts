@@ -32,7 +32,7 @@ export interface IOrder extends Document {
 
 const OrderSchema: Schema = new Schema({
   orderId: { type: String, required: true, unique: true },
-  orderNumber: { type: String, unique: true },
+  orderNumber: { type: String, unique: true, sparse: true },
   customer: {
     name: { type: String, required: true },
     email: { type: String, required: true },
