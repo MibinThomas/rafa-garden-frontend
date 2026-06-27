@@ -100,7 +100,7 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
 
                     {/* RIGHT: color panel */}
                     <div
-                      className="w-[50%] h-full rounded-[24px] flex flex-col justify-between p-5 sm:p-6 text-white z-20 relative shadow-lg"
+                      className="w-[50%] h-full rounded-[24px] flex flex-col justify-start gap-5 sm:gap-6 p-5 sm:p-6 text-white z-20 relative shadow-lg"
                       style={{ backgroundColor: cat.color }}
                     >
                       <div className="space-y-2 sm:space-y-3">
@@ -133,7 +133,7 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
 
                     {/* LEFT: color panel */}
                     <div
-                      className="w-[50%] h-full rounded-[24px] flex flex-col justify-between p-5 sm:p-6 text-white z-20 relative shadow-lg"
+                      className="w-[50%] h-full rounded-[24px] flex flex-col justify-start gap-5 sm:gap-6 p-5 sm:p-6 text-white z-20 relative shadow-lg"
                       style={{ backgroundColor: cat.color }}
                     >
                       <div className="space-y-2 sm:space-y-3">
