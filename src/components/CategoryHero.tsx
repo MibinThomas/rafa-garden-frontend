@@ -83,8 +83,8 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                         <span
                           className="font-avant-garde font-semibold text-black/[0.07] leading-none whitespace-nowrap"
                           style={{
-                            fontSize: 'clamp(7.5rem, 30vw, 16.5rem)',
-                            letterSpacing: '0.05em',
+                            fontSize: 'clamp(6.375rem, 25.5vw, 14rem)',
+                            letterSpacing: '0',
                             writingMode: 'vertical-lr',
                             transform: 'rotate(180deg)',
                           }}
@@ -170,8 +170,8 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                         <span
                           className="font-avant-garde font-semibold text-black/[0.07] leading-none whitespace-nowrap"
                           style={{
-                            fontSize: 'clamp(7.5rem, 30vw, 16.5rem)',
-                            letterSpacing: '0.05em',
+                            fontSize: 'clamp(6.375rem, 25.5vw, 14rem)',
+                            letterSpacing: '0',
                             writingMode: 'vertical-lr',
                             transform: 'rotate(180deg)',
                           }}
