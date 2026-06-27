@@ -36,16 +36,22 @@
   --color-brand-dark: #5d5f61;
   --color-brand-bg: #f1f1f2;
 
+  /* Brand fonts */
   --font-avant-garde: 'AvantGarde', sans-serif;
-  --font-outfit: 'Outfit', sans-serif;
   --font-dharma-gothic: 'DharmaGothic', sans-serif;
+
+  /* Aliases — all Google font utility classes now resolve to brand fonts */
+  --font-playfair: 'DharmaGothic', sans-serif;
+  --font-inter: 'AvantGarde', sans-serif;
+  --font-outfit: 'AvantGarde', sans-serif;
+  --font-montserrat: 'AvantGarde', sans-serif;
 }
 
 
 
 :root {
-  --font-sans: 'AvantGarde', var(--font-outfit), var(--font-inter), ui-sans-serif, system-ui;
-  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-sans: 'AvantGarde', sans-serif;
+  --font-serif: 'DharmaGothic', sans-serif;
 }
 
 body {
