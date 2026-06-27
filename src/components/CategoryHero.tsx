@@ -81,7 +81,7 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                     <div className="w-[50%] h-full relative bg-[#e6e7e8] overflow-visible">
                       <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
                         <span
-                          className="font-dharma-gothic text-black/[0.07] leading-none whitespace-nowrap"
+                          className="font-avant-garde font-semibold text-black/[0.07] leading-none whitespace-nowrap"
                           style={{
                             fontSize: 'clamp(7.5rem, 30vw, 16.5rem)',
                             letterSpacing: '0.05em',
@@ -168,7 +168,7 @@ export function CategoryHero({ categories, onActiveChange, content = {} }: Categ
                     <div className="w-[50%] h-full relative bg-[#e6e7e8] overflow-visible">
                       <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
                         <span
-                          className="font-dharma-gothic text-black/[0.07] leading-none whitespace-nowrap"
+                          className="font-avant-garde font-semibold text-black/[0.07] leading-none whitespace-nowrap"
                           style={{
                             fontSize: 'clamp(7.5rem, 30vw, 16.5rem)',
                             letterSpacing: '0.05em',
