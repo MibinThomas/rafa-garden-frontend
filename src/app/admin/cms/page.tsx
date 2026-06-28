@@ -1,10 +1,151 @@
 "use client";
-import { useState, useEffect } from "react";
-import { Layers, Save, RefreshCw, Plus, Trash2, Eye, EyeOff, GripVertical, ChevronDown, ChevronUp } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Layers, Save, RefreshCw, Plus, Trash2, Eye, EyeOff, GripVertical, ChevronDown, ChevronUp, Upload, X, ImageIcon } from "lucide-react";
 
 function Toast({ msg, type, onClose }: any) {
   useEffect(() => { const t = setTimeout(onClose, 3000); return () => clearTimeout(t); }, [onClose]);
   return <div className={`fixed bottom-6 right-6 z-[9999] px-5 py-3 rounded-2xl text-white text-sm font-medium shadow-2xl ${type === 'success' ? 'bg-[#7fa23f]' : 'bg-red-500'}`}>{msg}</div>;
+}
+
+function TrustBadgeRow({ feature: f, idx, onUpdate }: { feature: any; idx: number; onUpdate: (field: string, val: any) => void }) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+  const [iconMode, setIconMode] = useState<'emoji' | 'image'>(f.iconUrl ? 'image' : 'emoji');
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    try {
+      const res = await fetch(`/api/upload?filename=trust-badge-${idx}-${file.name}`, {
+        method: 'POST',
+        body: file,
+      });
+      if (!res.ok) throw new Error('Upload failed');
+      const blob = await res.json();
+      onUpdate('iconUrl', blob.url);
+      onUpdate('icon', '');
+      setIconMode('image');
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
+
+  const clearImage = () => {
+    onUpdate('iconUrl', '');
+    setIconMode('emoji');
+  };
+
+  return (
+    <div className="p-4 bg-gray-50 rounded-xl border border-gray-100">
+      <div className="grid grid-cols-[180px_1fr_1fr] gap-4 items-start">
+        {/* Icon column */}
+        <div>
+          <label className="text-xs text-gray-400 uppercase tracking-wide mb-2 block">Icon</label>
+          {/* Mode toggle */}
+          <div className="flex rounded-lg border border-gray-200 overflow-hidden mb-3 bg-white">
+            <button
+              type="button"
+              onClick={() => setIconMode('emoji')}
+              className={`flex-1 py-1.5 text-xs font-medium transition-all ${iconMode === 'emoji' ? 'bg-[#c81c6a] text-white' : 'text-gray-500 hover:bg-gray-50'}`}
+            >
+              Emoji
+            </button>
+            <button
+              type="button"
+              onClick={() => setIconMode('image')}
+              className={`flex-1 py-1.5 text-xs font-medium transition-all ${iconMode === 'image' ? 'bg-[#c81c6a] text-white' : 'text-gray-500 hover:bg-gray-50'}`}
+            >
+              Image
+            </button>
+          </div>
+
+          {iconMode === 'emoji' ? (
+            <input
+              type="text"
+              value={f.icon || ''}
+              onChange={e => onUpdate('icon', e.target.value)}
+              placeholder="e.g. 🚚"
+              className="w-full px-3 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all text-center text-xl"
+            />
+          ) : (
+            <div className="space-y-2">
+              {/* Preview */}
+              <div className="w-full h-16 rounded-xl border-2 border-dashed border-gray-200 flex items-center justify-center bg-white relative overflow-hidden">
+                {f.iconUrl ? (
+                  <>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={f.iconUrl} alt="badge icon" className="max-h-12 max-w-full object-contain" />
+                    <button
+                      type="button"
+                      onClick={clearImage}
+                      className="absolute top-1 right-1 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-all"
+                    >
+                      <X size={10} />
+                    </button>
+                  </>
+                ) : (
+                  <div className="flex flex-col items-center gap-1 text-gray-400">
+                    <ImageIcon size={18} />
+                    <span className="text-[10px]">No image</span>
+                  </div>
+                )}
+              </div>
+              {/* Upload button */}
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*,.svg"
+                className="hidden"
+                onChange={handleFileUpload}
+              />
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploading}
+                className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-gray-200 text-xs text-gray-600 hover:border-[#c81c6a] hover:text-[#c81c6a] transition-all bg-white disabled:opacity-60"
+              >
+                {uploading ? (
+                  <><div className="w-3 h-3 border border-current border-t-transparent rounded-full animate-spin" /> Uploading...</>
+                ) : (
+                  <><Upload size={12} /> Upload Icon</>
+                )}
+              </button>
+              <p className="text-[10px] text-gray-400 text-center leading-tight">
+                Recommended: <span className="font-medium text-gray-500">64×64 px</span> or larger<br />
+                PNG / SVG / WebP &nbsp;·&nbsp; Square format
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Title */}
+        <div>
+          <label className="text-xs text-gray-400 uppercase tracking-wide mb-1 block">Title</label>
+          <input
+            type="text"
+            value={f.title || ''}
+            onChange={e => onUpdate('title', e.target.value)}
+            className="w-full px-3 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all"
+          />
+        </div>
+
+        {/* Description */}
+        <div>
+          <label className="text-xs text-gray-400 uppercase tracking-wide mb-1 block">Description</label>
+          <input
+            type="text"
+            value={f.desc || ''}
+            onChange={e => onUpdate('desc', e.target.value)}
+            className="w-full px-3 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all"
+          />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default function CmsPage() {
@@ -246,36 +387,18 @@ export default function CmsPage() {
       {activeSection === 'features' && (
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
           <p className="text-sm text-gray-500 mb-4">Edit trust badge features shown below the hero section. Changes are saved as site content.</p>
-          <div className="space-y-3">
+          <div className="space-y-4">
             {(config?.features || []).map((f: any, idx: number) => (
-              <div key={idx} className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
-                <div className="flex-1 grid grid-cols-3 gap-3">
-                  <div>
-                    <label className="text-xs text-gray-400 uppercase tracking-wide mb-1 block">Icon (emoji)</label>
-                    <input type="text" value={f.icon || ''} onChange={e => {
-                      const feats = [...(config?.features || [])];
-                      feats[idx] = { ...f, icon: e.target.value };
-                      setConfig((c: any) => ({ ...c, features: feats }));
-                    }} className="w-full px-3 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all" />
-                  </div>
-                  <div>
-                    <label className="text-xs text-gray-400 uppercase tracking-wide mb-1 block">Title</label>
-                    <input type="text" value={f.title || ''} onChange={e => {
-                      const feats = [...(config?.features || [])];
-                      feats[idx] = { ...f, title: e.target.value };
-                      setConfig((c: any) => ({ ...c, features: feats }));
-                    }} className="w-full px-3 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all" />
-                  </div>
-                  <div>
-                    <label className="text-xs text-gray-400 uppercase tracking-wide mb-1 block">Description</label>
-                    <input type="text" value={f.desc || ''} onChange={e => {
-                      const feats = [...(config?.features || [])];
-                      feats[idx] = { ...f, desc: e.target.value };
-                      setConfig((c: any) => ({ ...c, features: feats }));
-                    }} className="w-full px-3 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all" />
-                  </div>
-                </div>
-              </div>
+              <TrustBadgeRow
+                key={idx}
+                feature={f}
+                idx={idx}
+                onUpdate={(field: string, val: any) => {
+                  const feats = [...(config?.features || [])];
+                  feats[idx] = { ...f, [field]: val };
+                  setConfig((c: any) => ({ ...c, features: feats }));
+                }}
+              />
             ))}
             {(!config?.features || config.features.length === 0) && (
               <p className="text-gray-400 text-sm text-center py-4">No features configured yet</p>

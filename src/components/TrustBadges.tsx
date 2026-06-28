@@ -36,9 +36,10 @@ export function TrustBadges({ content = {}, features, className }: TrustBadgesPr
       .sort((a: any, b: any) => (a.order || 0) - (b.order || 0))
       .map((f: any, idx: number) => ({
         icon: iconMap[f.id] || defaultIcons[idx] || <Package size={32} strokeWidth={1} />,
-        customIcon: f.icon,
+        iconUrl: f.iconUrl || null,   // uploaded image (takes priority)
+        customIcon: f.icon,           // emoji fallback
         title: f.title,
-        subtitle: f.subtitle
+        subtitle: f.subtitle || f.desc
       }));
   } else {
     badges = [
@@ -78,8 +79,11 @@ export function TrustBadges({ content = {}, features, className }: TrustBadgesPr
           {badges.map((badge, idx) => (
             <div key={idx} className="flex flex-col items-center justify-center text-center gap-3">
               <div className="text-[#5d5f61]">
-                {badge.customIcon ? (
-                  <img src={badge.customIcon} alt={badge.title} className="w-8 h-8 object-contain" />
+                {badge.iconUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={badge.iconUrl} alt={badge.title} className="w-8 h-8 object-contain" />
+                ) : badge.customIcon ? (
+                  <span className="text-3xl leading-none">{badge.customIcon}</span>
                 ) : (
                   badge.icon
                 )}
