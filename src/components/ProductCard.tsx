@@ -45,7 +45,7 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-30px" }}
       transition={{ duration: 0.3 }}
-      className="group relative flex flex-col justify-between bg-[#e5e5e6] rounded-[22px] p-3.5 sm:p-4 border border-black/10 transition-all duration-300 h-full w-full"
+      className="group relative flex flex-col justify-between bg-[#e5e5e6] rounded-[14px] p-3.5 sm:p-4 border border-black/10 transition-all duration-300 h-full w-full"
     >
       {/* Wishlist Favorite Button (Top Right) */}
       <button
@@ -143,14 +143,14 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
         <div className="grid grid-cols-2 gap-2 pt-1">
           <button
             onClick={handleBuyNow}
-            className="w-full py-2.5 px-1.5 rounded-xl bg-[#525254] hover:bg-[#3f4042] text-white font-bold text-xs sm:text-sm transition-all active:scale-95 text-center shadow-xs"
+            className="w-full py-2 px-1.5 rounded-lg bg-[#525254] hover:bg-[#3f4042] text-white font-bold text-xs sm:text-sm transition-all active:scale-95 text-center shadow-xs"
           >
             Buy Now
           </button>
 
           <Link
             href={`/product/${product.id}`}
-            className="w-full py-2.5 px-1.5 rounded-xl bg-[#c81c6a] hover:bg-[#b0185c] text-white font-bold text-xs sm:text-sm transition-all active:scale-95 text-center shadow-xs block"
+            className="w-full py-2 px-1.5 rounded-lg bg-[#c81c6a] hover:bg-[#b0185c] text-white font-bold text-xs sm:text-sm transition-all active:scale-95 text-center shadow-xs block"
           >
             View Details
           </Link>
