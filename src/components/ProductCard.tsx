@@ -45,18 +45,18 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-30px" }}
       transition={{ duration: 0.3 }}
-      className="group relative flex flex-col justify-between bg-[#e5e5e6] rounded-[14px] p-3.5 sm:p-4 border border-black/10 transition-all duration-300 h-full w-full"
+      className="group relative flex flex-col justify-between bg-[#e5e5e6] rounded-[18px] p-3 sm:p-4 border border-[#a8a8aa] transition-all duration-300 h-full w-full"
     >
       {/* Wishlist Favorite Button (Top Right) */}
       <button
         onClick={handleWishlist}
         aria-label="Add to wishlist"
-        className="absolute top-3.5 right-3.5 z-30 w-7 h-7 flex items-center justify-center transition-transform active:scale-90"
+        className="absolute top-3 right-3 z-30 w-7 h-7 flex items-center justify-center transition-transform active:scale-90"
       >
         <Heart
           size={20}
           fill={isFavorited ? "#c81c6a" : "none"}
-          className={isFavorited ? "text-[#c81c6a]" : "text-gray-400 hover:text-gray-600"}
+          className={isFavorited ? "text-[#c81c6a]" : "text-[#b0b0b2] hover:text-[#555]"}
           strokeWidth={1.8}
         />
       </button>
@@ -75,7 +75,7 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
             src={product.image}
             alt={product.name}
             fill
-            className="object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.15)]"
+            className="object-contain drop-shadow-[0_8px_18px_rgba(0,0,0,0.12)]"
             priority
           />
         </motion.div>
@@ -85,7 +85,7 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
       <div className="flex flex-col mt-auto w-full space-y-2">
         {/* Product Name */}
         <Link href={`/product/${product.id}`} className="block">
-          <h3 className="text-sm sm:text-base font-bold text-[#3a3a3c] leading-snug line-clamp-2">
+          <h3 className="text-sm sm:text-base font-bold text-[#3d3d3f] leading-snug line-clamp-2">
             {product.name}
           </h3>
         </Link>
@@ -115,15 +115,15 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
         {/* Price & Quantity Controls Row */}
         <div className="flex items-center justify-between pt-1">
           {/* Price */}
-          <span className="text-xl sm:text-2xl font-black text-[#2e2e30] tracking-tight">
+          <span className="text-xl sm:text-2xl font-black text-[#252527] tracking-tight">
             ₹{currentPrice.toFixed(0)}
           </span>
 
           {/* Quantity Selector: - 1 + */}
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2">
             <button
               onClick={(e) => { e.stopPropagation(); if (quantity > 1) setQuantity(prev => prev - 1); }}
-              className="w-5 h-5 flex items-center justify-center text-[#222] hover:text-[#c81c6a] active:scale-90 transition-all"
+              className="w-5 h-5 flex items-center justify-center text-[#222] hover:text-[#c81c6a] active:scale-90 transition-all cursor-pointer"
             >
               <Minus size={16} strokeWidth={3.5} />
             </button>
@@ -132,7 +132,7 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
             </span>
             <button
               onClick={(e) => { e.stopPropagation(); setQuantity(prev => prev + 1); }}
-              className="w-5 h-5 flex items-center justify-center text-[#222] hover:text-[#c81c6a] active:scale-90 transition-all"
+              className="w-5 h-5 flex items-center justify-center text-[#222] hover:text-[#c81c6a] active:scale-90 transition-all cursor-pointer"
             >
               <Plus size={16} strokeWidth={3.5} />
             </button>
@@ -143,14 +143,14 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
         <div className="grid grid-cols-2 gap-2 pt-1">
           <button
             onClick={handleBuyNow}
-            className="w-full py-2 px-1.5 rounded-lg bg-[#525254] hover:bg-[#3f4042] text-white font-bold text-xs sm:text-sm transition-all active:scale-95 text-center shadow-xs"
+            className="w-full py-2.5 px-1.5 rounded-xl sm:rounded-full bg-[#525254] hover:bg-[#3d3d3f] text-white font-bold text-xs sm:text-sm transition-all active:scale-95 text-center shadow-xs cursor-pointer"
           >
             Buy Now
           </button>
 
           <Link
             href={`/product/${product.id}`}
-            className="w-full py-2 px-1.5 rounded-lg bg-[#c81c6a] hover:bg-[#b0185c] text-white font-bold text-xs sm:text-sm transition-all active:scale-95 text-center shadow-xs block"
+            className="w-full py-2.5 px-1.5 rounded-xl sm:rounded-full bg-[#c81c6a] hover:bg-[#b0185c] text-white font-bold text-xs sm:text-sm transition-all active:scale-95 text-center shadow-xs block"
           >
             View Details
           </Link>
