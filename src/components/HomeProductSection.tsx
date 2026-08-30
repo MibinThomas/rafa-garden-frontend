@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ProductCard } from "./ProductCard";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -32,6 +32,8 @@ export function HomeProductSection({
   const [scrollIndex, setScrollIndex] = useState(0);
   const [config, setConfig] = useState({ items: 2, gap: 16 });
   const [isPaused, setIsPaused] = useState(false);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const updateConfig = () => {
@@ -80,13 +82,35 @@ export function HomeProductSection({
     return () => clearInterval(interval);
   }, [products.length, maxIndex, config.items, isPaused]);
 
+  // Touch Swipe Gesture Handlers for Mobile Slide Scrolling
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setIsPaused(true);
+    setTouchStart(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    setIsPaused(false);
+    if (touchStart === null) return;
+    const touchEnd = e.changedTouches[0].clientX;
+    const diff = touchStart - touchEnd;
+
+    if (diff > 40) {
+      // Swiped Left -> Next Slide
+      handleNext();
+    } else if (diff < -40) {
+      // Swiped Right -> Prev Slide
+      handlePrev();
+    }
+    setTouchStart(null);
+  };
+
   return (
     <section 
-      className={cn("bg-[#f1f1f2] pt-4 pb-10 px-4 sm:px-6 md:px-12 lg:px-24 relative overflow-hidden", className)}
+      className={cn("bg-[#f1f1f2] pt-4 pb-10 px-4 sm:px-6 md:px-12 lg:px-24 relative overflow-hidden select-none", className)}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      onTouchStart={() => setIsPaused(true)}
-      onTouchEnd={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       <div className="max-w-[1600px] mx-auto relative z-10 flex flex-col">
         <div className="flex flex-col w-full">
@@ -121,12 +145,15 @@ export function HomeProductSection({
             </div>
           </div>
 
-          {/* Carousel Track */}
-          <div className="relative overflow-hidden -mx-2 px-2 py-4 -my-4">
+          {/* Carousel Slide Track */}
+          <div 
+            ref={scrollContainerRef}
+            className="relative overflow-hidden -mx-2 px-2 py-4 -my-4 touch-pan-x"
+          >
             <motion.div
               animate={{ x: `calc(-${scrollIndex * (100 / config.items)}% - ${scrollIndex * (config.gap / config.items)}px)` }}
               transition={{ type: "spring", stiffness: 180, damping: 24 }}
-              className="flex gap-2 md:gap-3 lg:gap-4 xl:gap-5 w-full justify-start"
+              className="flex gap-2 md:gap-3 lg:gap-4 xl:gap-5 w-full justify-start cursor-grab active:cursor-grabbing"
             >
               {products.map((product: any) => (
                 <div 
