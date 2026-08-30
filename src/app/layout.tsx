@@ -21,7 +21,15 @@ export async function generateMetadata(): Promise<Metadata> {
         keywords: seo.keywords,
         openGraph: seo.ogImage ? {
           images: [{ url: seo.ogImage }]
-        } : undefined
+        } : undefined,
+        icons: {
+          icon: [
+            { url: '/images/logo/mobilelogo.webp', type: 'image/webp' },
+            { url: '/favicon.ico' }
+          ],
+          shortcut: '/images/logo/mobilelogo.webp',
+          apple: '/images/logo/mobilelogo.webp',
+        }
       };
     }
   } catch (error) {
@@ -30,6 +38,14 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Rafah Garden | Heritage Pitaya Sanctuary",
     description: "Experience the botanical essence of Rafah's premium dragon fruit harvest.",
+    icons: {
+      icon: [
+        { url: '/images/logo/mobilelogo.webp', type: 'image/webp' },
+        { url: '/favicon.ico' }
+      ],
+      shortcut: '/images/logo/mobilelogo.webp',
+      apple: '/images/logo/mobilelogo.webp',
+    }
   };
 }
 
