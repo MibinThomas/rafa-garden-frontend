@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Settings, Save, RefreshCw, AlertTriangle } from "lucide-react";
+import { Settings, Save, RefreshCw, AlertTriangle, KeyRound } from "lucide-react";
 
 const SETTINGS_SCHEMA = [
   {
@@ -55,6 +55,12 @@ export default function SettingsPage() {
   const [saving, setSaving] = useState(false);
   const [apiError, setApiError] = useState(false);
   const [toast, setToast] = useState<any>(null);
+  
+  // Super Admin Reset State
+  const [adminEmailInput, setAdminEmailInput] = useState('admin@rafagarden.com');
+  const [adminPassInput, setAdminPassInput] = useState('');
+  const [resettingPass, setResettingPass] = useState(false);
+
   const showToast = (msg: string, type: string) => setToast({ msg, type });
 
   const loadSettings = () => {
@@ -91,6 +97,32 @@ export default function SettingsPage() {
     setSaving(false);
   };
 
+  const handleResetSuperAdminPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!adminPassInput || adminPassInput.trim().length < 4) {
+      showToast('Password must be at least 4 characters long', 'error');
+      return;
+    }
+    setResettingPass(true);
+    try {
+      const res = await fetch('/api/auth/reset-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: adminEmailInput, newPassword: adminPassInput }),
+      });
+      if (res.ok) {
+        showToast('Super Admin password reset successfully in database!', 'success');
+        setAdminPassInput('');
+      } else {
+        const data = await res.json();
+        showToast(data.error || 'Reset failed', 'error');
+      }
+    } catch {
+      showToast('Connection error', 'error');
+    }
+    setResettingPass(false);
+  };
+
   return (
     <div className="p-4 md:p-6 lg:p-8 max-w-[900px]" style={{ fontFamily: 'AvantGarde, sans-serif' }}>
       {toast && <Toast {...toast} onClose={() => setToast(null)} />}
@@ -118,6 +150,48 @@ export default function SettingsPage() {
         </div>
       ) : (
         <div className="space-y-6">
+          {/* Reset Super Admin Password Section */}
+          <div className="bg-white rounded-2xl shadow-sm border border-purple-100 p-6">
+            <h2 className="font-bold text-[#1a1a1a] mb-2 flex items-center gap-2">
+              <KeyRound size={18} className="text-[#c81c6a]" />
+              Reset Super Admin Password
+            </h2>
+            <p className="text-gray-400 text-xs mb-4">
+              Update the Super Admin username/email and password stored in the MongoDB database.
+            </p>
+            <form onSubmit={handleResetSuperAdminPassword} className="space-y-3 max-w-md">
+              <div>
+                <label className="block text-xs font-medium text-gray-500 mb-1">Super Admin Email / Username</label>
+                <input
+                  type="email"
+                  required
+                  value={adminEmailInput}
+                  onChange={e => setAdminEmailInput(e.target.value)}
+                  placeholder="admin@rafagarden.com"
+                  className="w-full px-4 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a]"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-500 mb-1">New Password</label>
+                <input
+                  type="password"
+                  required
+                  value={adminPassInput}
+                  onChange={e => setAdminPassInput(e.target.value)}
+                  placeholder="Enter new admin password"
+                  className="w-full px-4 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a]"
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={resettingPass}
+                className="px-5 py-2.5 bg-[#c81c6a] hover:bg-[#a81658] text-white rounded-xl text-xs font-bold transition-all shadow-md active:scale-95 disabled:opacity-50 flex items-center gap-1.5"
+              >
+                <KeyRound size={14} /> {resettingPass ? 'Updating...' : 'Update Super Admin Password'}
+              </button>
+            </form>
+          </div>
+
           {SETTINGS_SCHEMA.map(section => (
             <div key={section.section} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
               <h2 className="font-bold text-[#1a1a1a] mb-4 pb-3 border-b border-gray-100 flex items-center gap-2">

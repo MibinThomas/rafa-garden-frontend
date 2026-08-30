@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const DEFAULT_URI = "mongodb+srv://Vercel-Admin-rafah-garden-db:6zV4p4hGDT7g9h41@rafah-garden-db.jn3zk3s.mongodb.net/rafa-garden?retryWrites=true&w=majority";
+const DEFAULT_URI = "mongodb+srv://Vercel-Admin-rafah-garden-db:6zV4p4hGDT7g9h41@rafah-garden-db.jn3zk3s.mongodb.net/?retryWrites=true&w=majority";
 const MONGODB_URI = process.env.MONGODB_URI || DEFAULT_URI;
 
 /**
