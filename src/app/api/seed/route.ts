@@ -9,6 +9,7 @@ import GalleryItem from '@/models/GalleryItem';
 import Testimonial from '@/models/Testimonial';
 import Faq from '@/models/Faq';
 import SeoSettings from '@/models/SeoSettings';
+import User from '@/models/User';
 import { CATEGORIES } from '@/lib/data';
 import mongoose from 'mongoose';
 
@@ -18,6 +19,19 @@ export async function GET(request: Request) {
     const force = searchParams.get('force') === 'true';
 
     await dbConnect();
+
+    // Seed default admin user in MongoDB
+    const userCount = await User.countDocuments({});
+    if (userCount === 0 || force) {
+      await User.deleteMany({});
+      await User.create({
+        name: 'Super Admin',
+        email: (process.env.ADMIN_EMAIL || 'admin@rafagarden.com').trim().toLowerCase(),
+        password: (process.env.ADMIN_PASSWORD || 'Admin@1234').trim(),
+        role: 'super-admin',
+        active: true
+      });
+    }
     
     // 1. Clear existing products and categories
     // Also drop indexes to avoid legacy constraints like 'sku_1'
