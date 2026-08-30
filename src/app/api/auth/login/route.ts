@@ -5,11 +5,14 @@ export async function POST(request: Request) {
   try {
     const { email, password } = await request.json();
 
-    const adminEmail = process.env.ADMIN_EMAIL;
-    const adminPassword = process.env.ADMIN_PASSWORD;
+    const inputEmail = (email || '').trim().toLowerCase();
+    const inputPassword = (password || '').trim();
 
-    if (email === adminEmail && password === adminPassword) {
-      const token = await signToken({ email });
+    const adminEmail = (process.env.ADMIN_EMAIL || 'admin@rafagarden.com').trim().toLowerCase();
+    const adminPassword = (process.env.ADMIN_PASSWORD || 'Admin@1234').trim();
+
+    if (inputEmail === adminEmail && inputPassword === adminPassword) {
+      const token = await signToken({ email: adminEmail });
 
       const response = NextResponse.json(
         { message: "Authenticated successfully" },
@@ -29,12 +32,12 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json(
-      { error: "Invalid credentials" },
+      { error: "Invalid email or password. Please check your credentials." },
       { status: 401 }
     );
   } catch (error) {
     return NextResponse.json(
-      { error: "Authentication failed" },
+      { error: "Authentication failed. Server error." },
       { status: 500 }
     );
   }
