@@ -45,9 +45,9 @@ export default function AdminDashboard() {
   useEffect(() => { fetchStats(); }, []);
 
   const statCards = stats ? [
+    { label: 'Total Revenue', value: stats.revenue ? `₹${stats.revenue.toLocaleString()}` : '₹0', icon: TrendingUp, color: '#10b981', href: '/admin/orders' },
     { label: 'Total Products', value: stats.products.total, icon: Package, color: '#c81c6a', href: '/admin/products' },
     { label: 'Active Products', value: stats.products.active, icon: CheckCircle, color: '#7fa23f', href: '/admin/products' },
-    { label: 'Out of Stock', value: stats.products.outOfStock, icon: XCircle, color: '#ef4444', href: '/admin/inventory' },
     { label: 'Low Stock', value: stats.products.lowStock, icon: AlertTriangle, color: '#f59e0b', href: '/admin/inventory' },
     { label: 'Categories', value: stats.categories.total, icon: Tag, color: '#9a0c52', href: '/admin/categories' },
     { label: 'Featured', value: stats.products.featured, icon: Star, color: '#c81c6a', href: '/admin/products' },

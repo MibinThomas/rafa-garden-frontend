@@ -9,8 +9,11 @@ const ProductVariantSchema = new mongoose.Schema({
 const ProductSchema = new mongoose.Schema({
   name: { type: String, required: true },
   slug: { type: String },
+  subtitle: { type: String },
   description: { type: String, required: true },
   shortDescription: { type: String },
+  highlights: [{ type: String }],
+  cta_url: { type: String },
   image: { type: String, required: true },
   gallery: [{ type: String }],
   category: { type: String, required: true, index: true },
@@ -20,7 +23,7 @@ const ProductSchema = new mongoose.Schema({
   price: { type: Number },
   offerPrice: { type: Number },
   sku: { type: String },
-  stock: { type: Number, default: 0 },
+  stock: { type: Number, default: 50 },
   stockStatus: {
     type: String,
     enum: ['in-stock', 'low-stock', 'out-of-stock'],

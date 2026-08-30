@@ -141,6 +141,32 @@ export default function SettingsPage() {
             </div>
           ))}
 
+          {/* Database Maintenance Section */}
+          <div className="bg-white rounded-2xl shadow-sm border border-amber-100 p-6">
+            <h2 className="font-bold text-[#1a1a1a] mb-2 flex items-center gap-2">
+              <AlertTriangle size={18} className="text-amber-500" />
+              Database Maintenance & Reset
+            </h2>
+            <p className="text-gray-400 text-xs mb-4">
+              Re-populate categories, live products, variants, highlights, FAQs, testimonials, and site content defaults into MongoDB.
+            </p>
+            <button
+              onClick={async () => {
+                if (!confirm("Are you sure you want to re-seed the database? This will populate all default products, categories, and content.")) return;
+                try {
+                  const res = await fetch('/api/seed?force=true');
+                  if (res.ok) showToast('Database re-seeded successfully!', 'success');
+                  else showToast('Re-seed failed', 'error');
+                } catch {
+                  showToast('Connection error during re-seed', 'error');
+                }
+              }}
+              className="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold transition-all shadow-md active:scale-95"
+            >
+              ⚡ Re-Seed Database & Populate Default Data
+            </button>
+          </div>
+
           <div className="flex justify-end">
             <button onClick={handleSave} disabled={saving} className="flex items-center gap-2 px-8 py-3 text-white rounded-xl font-medium shadow-lg hover:opacity-90 transition-all disabled:opacity-50" style={{ background: 'linear-gradient(135deg, #c81c6a, #9a0c52)' }}>
               <Save size={16} /> {saving ? 'Saving...' : 'Save All Settings'}
