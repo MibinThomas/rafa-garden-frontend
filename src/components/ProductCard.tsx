@@ -45,7 +45,8 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-30px" }}
       transition={{ duration: 0.3 }}
-      className="group relative flex flex-col justify-between bg-[#f1f1f2] rounded-[18px] p-3 sm:p-4 border border-[#a8a8aa] transition-all duration-300 h-full w-full"
+      className="group relative flex flex-col justify-between bg-[#f1f1f2] rounded-[18px] p-3 sm:p-4 border border-[#a8a8aa] transition-all duration-300 h-full w-full font-sans"
+      style={{ fontFamily: "'AvantGarde', sans-serif" }}
     >
       {/* Wishlist Favorite Button (Top Right) */}
       <button
@@ -82,10 +83,10 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
       </Link>
 
       {/* Product Details Section */}
-      <div className="flex flex-col mt-auto w-full space-y-2">
+      <div className="flex flex-col mt-auto w-full space-y-2 font-sans" style={{ fontFamily: "'AvantGarde', sans-serif" }}>
         {/* Product Name */}
         <Link href={`/product/${product.id}`} className="block">
-          <h3 className="text-sm sm:text-base font-bold text-[#3d3d3f] leading-snug line-clamp-2">
+          <h3 className="text-sm sm:text-base font-bold text-[#3d3d3f] leading-snug line-clamp-2" style={{ fontFamily: "'AvantGarde', sans-serif" }}>
             {product.name}
           </h3>
         </Link>
@@ -104,6 +105,7 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
                       ? "bg-[#c81c6a] text-white" 
                       : "bg-white/70 text-gray-600 hover:bg-white"
                   }`}
+                  style={{ fontFamily: "'AvantGarde', sans-serif" }}
                 >
                   {v.size}{v.unit}
                 </button>
@@ -113,21 +115,21 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
         )}
 
         {/* Price & Quantity Controls Row */}
-        <div className="flex items-center justify-between pt-1">
+        <div className="flex items-center justify-between pt-1 font-sans" style={{ fontFamily: "'AvantGarde', sans-serif" }}>
           {/* Price */}
-          <span className="text-xl sm:text-2xl font-black text-[#252527] tracking-tight">
+          <span className="text-xl sm:text-2xl font-black text-[#252527] tracking-tight" style={{ fontFamily: "'AvantGarde', sans-serif" }}>
             ₹{currentPrice.toFixed(0)}
           </span>
 
           {/* Quantity Selector: - 1 + */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 font-sans" style={{ fontFamily: "'AvantGarde', sans-serif" }}>
             <button
               onClick={(e) => { e.stopPropagation(); if (quantity > 1) setQuantity(prev => prev - 1); }}
               className="w-5 h-5 flex items-center justify-center text-[#222] hover:text-[#c81c6a] active:scale-90 transition-all cursor-pointer"
             >
               <Minus size={16} strokeWidth={3.5} />
             </button>
-            <span className="text-sm font-bold text-[#222] min-w-[12px] text-center">
+            <span className="text-sm font-bold text-[#222] min-w-[12px] text-center" style={{ fontFamily: "'AvantGarde', sans-serif" }}>
               {quantity}
             </span>
             <button
@@ -140,10 +142,11 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
         </div>
 
         {/* Action Buttons Row: [ Buy Now ] [ View Details ] */}
-        <div className="grid grid-cols-2 gap-2 pt-1">
+        <div className="grid grid-cols-2 gap-2 pt-1 font-sans" style={{ fontFamily: "'AvantGarde', sans-serif" }}>
           <button
             onClick={handleBuyNow}
             className="w-full py-2.5 px-1.5 rounded-xl sm:rounded-full bg-[#525254] hover:bg-[#3d3d3f] text-white font-bold text-xs sm:text-sm transition-all active:scale-95 text-center shadow-xs cursor-pointer"
+            style={{ fontFamily: "'AvantGarde', sans-serif" }}
           >
             Buy Now
           </button>
@@ -151,6 +154,7 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
           <Link
             href={`/product/${product.id}`}
             className="w-full py-2.5 px-1.5 rounded-xl sm:rounded-full bg-[#c81c6a] hover:bg-[#b0185c] text-white font-bold text-xs sm:text-sm transition-all active:scale-95 text-center shadow-xs block"
+            style={{ fontFamily: "'AvantGarde', sans-serif" }}
           >
             View Details
           </Link>
