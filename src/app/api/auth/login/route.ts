@@ -26,7 +26,7 @@ export async function POST(request: Request) {
       response.cookies.set("admin-token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        sameSite: "lax",
         maxAge: 60 * 60 * 24, // 24 hours
         path: "/",
       });
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
       return response;
     }
 
-    // 2. Fallback check for environment credentials (.env.local)
+    // 2. Fallback check for environment credentials (.env.local or defaults)
     const adminEmail = (process.env.ADMIN_EMAIL || 'admin@rafagarden.com').trim().toLowerCase();
     const adminPassword = (process.env.ADMIN_PASSWORD || 'Admin@1234').trim();
 
@@ -49,7 +49,7 @@ export async function POST(request: Request) {
       response.cookies.set("admin-token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        sameSite: "lax",
         maxAge: 60 * 60 * 24,
         path: "/",
       });

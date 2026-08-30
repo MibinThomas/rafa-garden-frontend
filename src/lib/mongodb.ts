@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const DEFAULT_URI = "mongodb+srv://Vercel-Admin-rafah-garden-db:6zV4p4hGDT7g9h41@rafah-garden-db.jn3zk3s.mongodb.net/rafa-garden?retryWrites=true&w=majority";
+const MONGODB_URI = process.env.MONGODB_URI || DEFAULT_URI;
 
 /**
  * Global is used here to maintain a cached connection across hot reloads
- * in development. This prevents connections growing exponentially
- * during API Route usage.
+ * in development and serverless invocations on Vercel.
  */
 let cached = (global as any).mongoose;
 
@@ -14,10 +14,6 @@ if (!cached) {
 }
 
 async function dbConnect() {
-  if (!MONGODB_URI) {
-    throw new Error('MONGODB_URI is not defined. CMS features will be disabled.');
-  }
-
   if (cached.conn) {
     return cached.conn;
   }
@@ -25,9 +21,11 @@ async function dbConnect() {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
+      serverSelectionTimeoutMS: 5000,
+      connectTimeoutMS: 5000,
     };
 
-    cached.promise = mongoose.connect(MONGODB_URI!, opts).then((mongoose) => {
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
       return mongoose;
     });
   }
