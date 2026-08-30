@@ -145,7 +145,7 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
         <div className="grid grid-cols-2 gap-2 pt-1 font-sans" style={{ fontFamily: "'AvantGarde', sans-serif" }}>
           <button
             onClick={handleBuyNow}
-            className="w-full py-2.5 px-1.5 rounded-xl sm:rounded-full bg-[#525254] hover:bg-[#3d3d3f] text-white font-bold text-xs sm:text-sm transition-all active:scale-95 text-center shadow-xs cursor-pointer"
+            className="w-full py-2.5 px-1.5 rounded-xl sm:rounded-full bg-transparent border border-[#525254] text-[#3d3d3f] hover:bg-[#525254] hover:text-white font-bold text-xs sm:text-sm transition-all active:scale-95 text-center cursor-pointer"
             style={{ fontFamily: "'AvantGarde', sans-serif" }}
           >
             Buy Now

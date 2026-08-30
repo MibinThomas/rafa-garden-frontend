@@ -190,7 +190,7 @@ export function ProductPageClient({ product, category }: ProductPageClientProps)
 
               <button
                 onClick={handleBuyNow}
-                className="flex-1 px-8 py-5 rounded-full bg-[#707072] text-white font-black capitalize text-[11px] tracking-[0.4em] transition-all hover:scale-[1.02] hover:bg-[#5d5f61] active:scale-95 shadow-2xl shadow-black/10"
+                className="flex-1 px-8 py-5 rounded-full bg-transparent border border-[#707072] text-[#5d5f61] hover:bg-[#707072] hover:text-white font-black capitalize text-[11px] tracking-[0.4em] transition-all hover:scale-[1.02] active:scale-95 cursor-pointer"
               >
                 Buy Now
               </button>
