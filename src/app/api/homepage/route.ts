@@ -8,6 +8,12 @@ export async function GET(req: NextRequest) {
   try {
     await dbConnect();
 
+    // Ensure Product model is registered
+    const _ignore = Product.modelName;
+
+    // Fetch live categories with populated products
+    const liveCategories = await Category.find({}).sort({ id: 1 }).populate("products");
+
     // Try to load published homepage config
     const publishedContent = await SiteContent.findOne({ key: "home.cms_published_state" });
 
@@ -15,18 +21,15 @@ export async function GET(req: NextRequest) {
       try {
         const config = JSON.parse(publishedContent.value);
         
-        // Merge with live categories — always sync live fields so CMS snapshots
-        // don't get stale description/subtitle data after DB edits
-        const liveCategories = await Category.find({}).populate("products");
+        // Merge with live categories
         if (config.categories && Array.isArray(config.categories)) {
           config.categories = config.categories.map((cat: any) => {
             const liveCat = liveCategories.find(
-              (lc: any) => lc.id === cat.id || lc._id?.toString() === cat._id?.toString()
+              (lc: any) => lc.id === cat.id || lc._id?.toString() === cat._id?.toString() || lc.title?.toLowerCase() === cat.title?.toLowerCase()
             );
             if (liveCat) {
               return {
                 ...cat,
-                // Always pull these from live DB so edits take effect immediately
                 products: liveCat.products || [],
                 subtitle: liveCat.subtitle || cat.subtitle || "",
                 description: liveCat.description || cat.description || "",
@@ -51,20 +54,15 @@ export async function GET(req: NextRequest) {
     }
 
     // Default configuration fallback
-    // Ensure Product model is registered for populate
-    const _ignore = Product.modelName;
-    const categories = await Category.find({}).populate("products");
-    
-    // Fetch individual fields
     const contents = await SiteContent.find({ group: "home" });
     const contentMap = contents.reduce((acc: any, item: any) => {
       acc[item.key] = item.value;
       return acc;
     }, {});
 
-    const defaultCategories = categories.map((cat, idx) => ({
+    const defaultCategories = liveCategories.map((cat, idx) => ({
       _id: cat._id?.toString() || "",
-      id: cat.id || `cat-${idx}`,
+      id: cat.id || `0${idx + 1}`,
       title: cat.title || "",
       subtitle: cat.subtitle || "",
       description: cat.description || "",
@@ -80,7 +78,8 @@ export async function GET(req: NextRequest) {
       mobileActiveDesc: cat.mobileActiveDesc || "",
       mobileShortDesc: cat.mobileShortDesc || "",
       mobileHeroImage: cat.mobileHeroImage || cat.image || "",
-      mobileTitle: cat.mobileTitle || cat.title || ""
+      mobileTitle: cat.mobileTitle || cat.title || "",
+      products: cat.products || []
     }));
 
     const defaultFeatures = [
@@ -118,8 +117,8 @@ export async function GET(req: NextRequest) {
       }
     ];
 
-    const defaultSeries = categories.map((cat, idx) => ({
-      categoryId: cat.id || `cat-${idx}`,
+    const defaultSeries = liveCategories.map((cat, idx) => ({
+      categoryId: cat.id || `0${idx + 1}`,
       heading: `Explore ${cat.title || ""} Series`,
       badgeText: contentMap["home.curated_badge_label"] || "Curated Selection",
       productIds: cat.products?.map((p: any) => p.id || p._id?.toString()) || [],

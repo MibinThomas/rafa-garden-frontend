@@ -141,18 +141,30 @@ export default function Home() {
             homepageConfig.series
               .filter((ser: any) => ser.enabled !== false)
               .map((ser: any, idx: number) => {
-                const cat = categories.find((c: any) => c.id === ser.categoryId || c._id?.toString() === ser.categoryId);
+                // Robust category matching by id, _id, title/slug, or array index fallback
+                const cat = categories.find((c: any) => 
+                  c.id === ser.categoryId || 
+                  c._id?.toString() === ser.categoryId ||
+                  (c.title && ser.categoryId && (
+                    c.title.toLowerCase().includes(ser.categoryId.toLowerCase()) ||
+                    ser.categoryId.toLowerCase().includes(c.title.toLowerCase().split(' ')[0])
+                  ))
+                ) || categories[idx] || categories[0];
+
                 if (!cat) return null;
 
                 // Filter products based on CMS selected product IDs
-                const filteredProducts = cat.products?.filter((p: any) => 
-                  ser.productIds.includes(p.id) || ser.productIds.includes(p._id?.toString())
-                ) || [];
+                let filteredProducts: any[] = [];
+                if (Array.isArray(ser.productIds) && ser.productIds.length > 0) {
+                  filteredProducts = cat.products?.filter((p: any) => 
+                    ser.productIds.includes(p.id) || ser.productIds.includes(p._id?.toString())
+                  ) || [];
+                }
 
-                // Custom category object with selected products
+                // If filtered products is empty or not matching, fallback to all category products
                 const customCat = {
                   ...cat,
-                  products: filteredProducts.length > 0 ? filteredProducts : cat.products
+                  products: (filteredProducts && filteredProducts.length > 0) ? filteredProducts : (cat.products || [])
                 };
 
                 return (
