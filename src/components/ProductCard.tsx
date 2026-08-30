@@ -45,7 +45,7 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-30px" }}
       transition={{ duration: 0.3 }}
-      className="group relative flex flex-col justify-between bg-[#e5e5e6] rounded-[18px] p-3 sm:p-4 border border-[#a8a8aa] transition-all duration-300 h-full w-full"
+      className="group relative flex flex-col justify-between bg-[#f1f1f2] rounded-[18px] p-3 sm:p-4 border border-[#a8a8aa] transition-all duration-300 h-full w-full"
     >
       {/* Wishlist Favorite Button (Top Right) */}
       <button
