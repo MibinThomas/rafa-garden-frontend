@@ -157,16 +157,10 @@ export default function Home() {
 
                 return (
                   <div key={ser.categoryId || idx} className="mb-0 last:mb-0">
-                    <CuratedSeriesSection 
-                      categoryTitle={formatText(cat.title)} 
-                      customHeading={formatText(ser.heading)}
-                      customBadge={formatText(ser.badgeText)}
-                      content={homeContent}
-                      className={getSpacingClass("series")}
-                    />
                     <HomeProductSection 
                       categories={[customCat]}
                       categoryIndex={0}
+                      categoryTitle={formatText(ser.heading || cat.title)}
                       cardsPerScreen={ser.cardsPerScreen}
                       showArrows={ser.showArrows}
                       className={getSpacingClass("products")}
@@ -178,14 +172,10 @@ export default function Home() {
             // Fallback rendering
             categories.map((cat, idx) => (
               <div key={cat.id || cat._id || idx} className="mb-0 last:mb-0">
-                <CuratedSeriesSection 
-                  categoryTitle={cat.title || "Collection"} 
-                  content={homeContent}
-                  className={getSpacingClass("series")}
-                />
                 <HomeProductSection 
                   categories={categories}
                   categoryIndex={idx} 
+                  categoryTitle={cat.title}
                   className={getSpacingClass("products")}
                 />
               </div>
