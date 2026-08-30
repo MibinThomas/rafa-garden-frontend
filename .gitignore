@@ -43,3 +43,8 @@ next-env.d.ts
 # Local environment variables (never commit)
 .env.local
 .env*.local
+
+# deployment zip & scratch files
+*.zip
+products_legacy.html
+rafa-garden/

@@ -28,7 +28,15 @@ export function TrustBadges({ content = {}, features, className }: TrustBadgesPr
     <Award size={32} strokeWidth={1} />
   ];
 
-  let badges = [];
+  interface BadgeItem {
+    icon: React.ReactNode;
+    iconUrl?: string | null;
+    customIcon?: string | null;
+    title: string;
+    subtitle: string;
+  }
+
+  let badges: BadgeItem[] = [];
 
   if (features && features.length > 0) {
     badges = features
@@ -45,24 +53,28 @@ export function TrustBadges({ content = {}, features, className }: TrustBadgesPr
     badges = [
       {
         icon: <Package size={32} strokeWidth={1} />,
+        iconUrl: null,
         customIcon: content["home.trust_1_icon"],
         title: content["home.trust_1_title"] || "Delivery",
         subtitle: content["home.trust_1_subtitle"] || "Available"
       },
       {
         icon: <MessageSquare size={32} strokeWidth={1} />,
+        iconUrl: null,
         customIcon: content["home.trust_2_icon"],
         title: content["home.trust_2_title"] || "99 % Customer",
         subtitle: content["home.trust_2_subtitle"] || "Feedbacks"
       },
       {
         icon: <ShieldCheck size={32} strokeWidth={1} />,
+        iconUrl: null,
         customIcon: content["home.trust_3_icon"],
         title: content["home.trust_3_title"] || "Payment",
         subtitle: content["home.trust_3_subtitle"] || "Secure System"
       },
       {
         icon: <Award size={32} strokeWidth={1} />,
+        iconUrl: null,
         customIcon: content["home.trust_4_icon"],
         title: content["home.trust_4_title"] || "Only Best",
         subtitle: content["home.trust_4_subtitle"] || "Brands"

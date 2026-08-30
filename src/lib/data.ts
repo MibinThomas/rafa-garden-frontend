@@ -13,6 +13,8 @@ export interface Product {
   category?: string;
   variants: ProductVariant[];
   active?: boolean;
+  highlights?: string[];
+  cta_url?: string;
 }
 
 export interface Category {
@@ -125,50 +127,65 @@ export const CATEGORIES: Category[] = [
       {
         id: "c-1",
         name: "Crush 1",
-        description: "This is a sample description for product 1.",
+        subtitle: "100% Pure & Refreshing Drink Concentrate",
+        description: "Refreshing and delicious dragon fruit juice concentrate. Packed with natural flavor and nutrition. Perfect for smoothies, cocktails, or direct consumption with water.",
+        highlights: ["No Added Sugar Option", "100% Pure Dragon Fruit", "Ready to Mix", "Long Shelf Life"],
         image: "/products/crush_bottle.png",
+        cta_url: "https://wa.me/917021932982?text=Hi!%20I%20would%20like%20to%20order%20Dragon%20Fruit%20Crush.%20Please%20share%20pricing%20and%20availability.",
         variants: [
-          { size: "500", unit: "ML" },
-          { size: "100", unit: "ML" }
+          { size: "500", unit: "ML", price: 599 },
+          { size: "100", unit: "ML", price: 199 }
         ]
       },
       {
         id: "c-2",
         name: "Crush 2",
-        description: "This is a sample description for product 2.",
+        subtitle: "Artisanal Dragon Fruit Nectar",
+        description: "Refreshing and delicious dragon fruit juice concentrate. Packed with natural flavor and nutrition. Perfect for smoothies, cocktails, or direct consumption with water.",
+        highlights: ["No Added Sugar Option", "100% Pure Dragon Fruit", "Ready to Mix", "Long Shelf Life"],
         image: "/products/crush_bottle.png",
+        cta_url: "https://wa.me/917021932982?text=Hi!%20I%20would%20like%20to%20order%20Dragon%20Fruit%20Crush.%20Please%20share%20pricing%20and%20availability.",
         variants: [
-          { size: "500", unit: "ML" },
-          { size: "250", unit: "ML" }
+          { size: "500", unit: "ML", price: 599 },
+          { size: "250", unit: "ML", price: 349 }
         ]
       },
       {
         id: "c-3",
         name: "Crush 3",
-        description: "This is a sample description for product 3.",
+        subtitle: "Pure Kasaragod Dragon Fruit Concentrate",
+        description: "Refreshing and delicious dragon fruit juice concentrate. Packed with natural flavor and nutrition. Perfect for smoothies, cocktails, or direct consumption with water.",
+        highlights: ["No Added Sugar Option", "100% Pure Dragon Fruit", "Ready to Mix", "Long Shelf Life"],
         image: "/products/crush_bottle.png",
+        cta_url: "https://wa.me/917021932982?text=Hi!%20I%20would%20like%20to%20order%20Dragon%20Fruit%20Crush.%20Please%20share%20pricing%20and%20availability.",
         variants: [
-          { size: "500", unit: "ML" }
+          { size: "500", unit: "ML", price: 599 }
         ]
       },
       {
         id: "c-4",
         name: "Crush 4",
-        description: "This is a sample description for product 4.",
+        subtitle: "Family Reserve Dragon Fruit Crush",
+        description: "Refreshing and delicious dragon fruit juice concentrate. Packed with natural flavor and nutrition. Perfect for smoothies, cocktails, or direct consumption with water.",
+        highlights: ["No Added Sugar Option", "100% Pure Dragon Fruit", "Ready to Mix", "Long Shelf Life"],
         image: "/products/crush_bottle.png",
+        cta_url: "https://wa.me/917021932982?text=Hi!%20I%20would%20like%20to%20order%20Dragon%20Fruit%20Crush.%20Please%20share%20pricing%20and%20availability.",
         variants: [
-          { size: "750", unit: "ML" },
-          { size: "250", unit: "ML" }
+          { size: "750", unit: "ML", price: 799 },
+          { size: "250", unit: "ML", price: 349 }
         ]
       },
       {
         id: "c-5",
         name: "Crush 5",
-        description: "This is a sample description for product 5.",
+        subtitle: "Bulk Reserve Dragon Fruit Crush",
+        description: "Refreshing and delicious dragon fruit juice concentrate. Packed with natural flavor and nutrition. Perfect for smoothies, cocktails, or direct consumption with water.",
+        highlights: ["No Added Sugar Option", "100% Pure Dragon Fruit", "Ready to Mix", "Long Shelf Life"],
         image: "/products/crush_bottle.png",
+        cta_url: "https://wa.me/917021932982?text=Hi!%20I%20would%20like%20to%20order%20Dragon%20Fruit%20Crush.%20Please%20share%20pricing%20and%20availability.",
         variants: [
-          { size: "1000", unit: "ML" },
-          { size: "500", unit: "ML" }
+          { size: "1000", unit: "ML", price: 999 },
+          { size: "500", unit: "ML", price: 599 }
         ]
       }
     ]
@@ -184,37 +201,52 @@ export const CATEGORIES: Category[] = [
       {
         id: "j-1",
         name: "Jam 1",
-        description: "This is a sample description for product 1.",
+        subtitle: "Handcrafted Small-Batch Artisanal Jam",
+        description: "Handcrafted in small batches, our dragon fruit jam is made with love and pure ingredients. Spread on toast, mix with yogurt, or use as a filling for desserts.",
+        highlights: ["Small Batch Artisanal", "Natural Pectin Setting", "No Preservatives Added", "Perfect Gift Option"],
         image: "/products/jam_premium.png",
-        variants: [{ size: "500", unit: "G" }, { size: "250", unit: "G" }]
+        cta_url: "https://wa.me/917021932982?text=Hi!%20I%20would%20like%20to%20order%20Dragon%20Fruit%20Jam.%20Please%20share%20pricing%20and%20availability.",
+        variants: [{ size: "500", unit: "G", price: 599 }, { size: "250", unit: "G", price: 349 }]
       },
       {
         id: "j-2",
         name: "Jam 2",
-        description: "This is a sample description for product 2.",
+        subtitle: "Pure Fruit Artisanal Spread",
+        description: "Handcrafted in small batches, our dragon fruit jam is made with love and pure ingredients. Spread on toast, mix with yogurt, or use as a filling for desserts.",
+        highlights: ["Small Batch Artisanal", "Natural Pectin Setting", "No Preservatives Added", "Perfect Gift Option"],
         image: "/products/jam_premium.png",
-        variants: [{ size: "500", unit: "G" }]
+        cta_url: "https://wa.me/917021932982?text=Hi!%20I%20would%20like%20to%20order%20Dragon%20Fruit%20Jam.%20Please%20share%20pricing%20and%20availability.",
+        variants: [{ size: "500", unit: "G", price: 599 }]
       },
       {
         id: "j-3",
         name: "Jam 3",
-        description: "This is a sample description for product 3.",
+        subtitle: "Artisanal Dragon Fruit Preserve",
+        description: "Handcrafted in small batches, our dragon fruit jam is made with love and pure ingredients. Spread on toast, mix with yogurt, or use as a filling for desserts.",
+        highlights: ["Small Batch Artisanal", "Natural Pectin Setting", "No Preservatives Added", "Perfect Gift Option"],
         image: "/products/jam_premium.png",
-        variants: [{ size: "300", unit: "G" }]
+        cta_url: "https://wa.me/917021932982?text=Hi!%20I%20would%20like%20to%20order%20Dragon%20Fruit%20Jam.%20Please%20share%20pricing%20and%20availability.",
+        variants: [{ size: "300", unit: "G", price: 399 }]
       },
       {
         id: "j-4",
         name: "Jam 4",
-        description: "This is a sample description for product 4.",
+        subtitle: "Heritage Recipe Dragon Fruit Jam",
+        description: "Handcrafted in small batches, our dragon fruit jam is made with love and pure ingredients. Spread on toast, mix with yogurt, or use as a filling for desserts.",
+        highlights: ["Small Batch Artisanal", "Natural Pectin Setting", "No Preservatives Added", "Perfect Gift Option"],
         image: "/products/jam_premium.png",
-        variants: [{ size: "400", unit: "G" }]
+        cta_url: "https://wa.me/917021932982?text=Hi!%20I%20would%20like%20to%20order%20Dragon%20Fruit%20Jam.%20Please%20share%20pricing%20and%20availability.",
+        variants: [{ size: "400", unit: "G", price: 499 }]
       },
       {
         id: "j-5",
         name: "Jam 5",
-        description: "This is a sample description for product 5.",
+        subtitle: "Signature Kasaragod Jam Reserve",
+        description: "Handcrafted in small batches, our dragon fruit jam is made with love and pure ingredients. Spread on toast, mix with yogurt, or use as a filling for desserts.",
+        highlights: ["Small Batch Artisanal", "Natural Pectin Setting", "No Preservatives Added", "Perfect Gift Option"],
         image: "/products/jam_premium.png",
-        variants: [{ size: "500", unit: "G" }, { size: "200", unit: "G" }]
+        cta_url: "https://wa.me/917021932982?text=Hi!%20I%20would%20like%20to%20order%20Dragon%20Fruit%20Jam.%20Please%20share%20pricing%20and%20availability.",
+        variants: [{ size: "500", unit: "G", price: 599 }, { size: "200", unit: "G", price: 299 }]
       }
     ]
   },
@@ -228,38 +260,53 @@ export const CATEGORIES: Category[] = [
     products: [
       {
         id: "f-1",
-        name: "Fruit 1",
-        description: "This is a sample description for product 1.",
+        name: "Fresh Dragon Fruits",
+        subtitle: "Handpicked Red Sweety Variety",
+        description: "Handpicked red sweety dragon fruits at peak ripeness. Rich in vitamins, fiber, and antioxidants. Perfect for fresh consumption or making your own smoothies and desserts.",
+        highlights: ["100% Fresh & Organic", "Rich Red Sweety Variety", "Peak Ripeness Guaranteed", "Farm Fresh Delivery"],
         image: "/products/Dragon fruit png.webp",
-        variants: [{ size: "1", unit: "KG" }, { size: "3", unit: "KG" }]
+        cta_url: "https://wa.me/917021932982?text=Hi!%20I%20would%20like%20to%20order%20Fresh%20Dragon%20Fruits.%20Please%20share%20pricing%20and%20availability.",
+        variants: [{ size: "1", unit: "KG", price: 299 }, { size: "3", unit: "KG", price: 799 }]
       },
       {
         id: "f-2",
         name: "Fruit 2",
-        description: "This is a sample description for product 2.",
+        subtitle: "Premium Red Sweety Harvest",
+        description: "Handpicked red sweety dragon fruits at peak ripeness. Rich in vitamins, fiber, and antioxidants. Perfect for fresh consumption or making your own smoothies and desserts.",
+        highlights: ["100% Fresh & Organic", "Rich Red Sweety Variety", "Peak Ripeness Guaranteed", "Farm Fresh Delivery"],
         image: "/products/Dragon fruit png.webp",
-        variants: [{ size: "1", unit: "KG" }]
+        cta_url: "https://wa.me/917021932982?text=Hi!%20I%20would%20like%20to%20order%20Fresh%20Dragon%20Fruits.%20Please%20share%20pricing%20and%20availability.",
+        variants: [{ size: "1", unit: "KG", price: 299 }]
       },
       {
         id: "f-3",
         name: "Fruit 3",
-        description: "This is a sample description for product 3.",
+        subtitle: "Single Serve Red Pitaya",
+        description: "Handpicked red sweety dragon fruits at peak ripeness. Rich in vitamins, fiber, and antioxidants. Perfect for fresh consumption or making your own smoothies and desserts.",
+        highlights: ["100% Fresh & Organic", "Rich Red Sweety Variety", "Peak Ripeness Guaranteed", "Farm Fresh Delivery"],
         image: "/products/Dragon fruit png.webp",
-        variants: [{ size: "500", unit: "G" }]
+        cta_url: "https://wa.me/917021932982?text=Hi!%20I%20would%20like%20to%20order%20Fresh%20Dragon%20Fruits.%20Please%20share%20pricing%20and%20availability.",
+        variants: [{ size: "500", unit: "G", price: 169 }]
       },
       {
         id: "f-4",
         name: "Fruit 4",
-        description: "This is a sample description for product 4.",
+        subtitle: "Organic Kasaragod Farm Harvest",
+        description: "Handpicked red sweety dragon fruits at peak ripeness. Rich in vitamins, fiber, and antioxidants. Perfect for fresh consumption or making your own smoothies and desserts.",
+        highlights: ["100% Fresh & Organic", "Rich Red Sweety Variety", "Peak Ripeness Guaranteed", "Farm Fresh Delivery"],
         image: "/products/Dragon fruit png.webp",
-        variants: [{ size: "1", unit: "KG" }]
+        cta_url: "https://wa.me/917021932982?text=Hi!%20I%20would%20like%20to%20order%20Fresh%20Dragon%20Fruits.%20Please%20share%20pricing%20and%20availability.",
+        variants: [{ size: "1", unit: "KG", price: 299 }]
       },
       {
         id: "f-5",
         name: "Fruit 5",
-        description: "This is a sample description for product 5.",
+        subtitle: "Artisanal Pitaya Harvest Pack",
+        description: "Handpicked red sweety dragon fruits at peak ripeness. Rich in vitamins, fiber, and antioxidants. Perfect for fresh consumption or making your own smoothies and desserts.",
+        highlights: ["100% Fresh & Organic", "Rich Red Sweety Variety", "Peak Ripeness Guaranteed", "Farm Fresh Delivery"],
         image: "/products/Dragon fruit png.webp",
-        variants: [{ size: "250", unit: "G" }, { size: "500", unit: "G" }]
+        cta_url: "https://wa.me/917021932982?text=Hi!%20I%20would%20like%20to%20order%20Fresh%20Dragon%20Fruits.%20Please%20share%20pricing%20and%20availability.",
+        variants: [{ size: "250", unit: "G", price: 99 }, { size: "500", unit: "G", price: 169 }]
       }
     ]
   },
@@ -273,38 +320,53 @@ export const CATEGORIES: Category[] = [
     products: [
       {
         id: "p-1",
-        name: "Plant 1",
-        description: "This is a sample description for product 1.",
+        name: "Dragon Fruit Plant",
+        subtitle: "Disease-Resistant High-Yielding Sapling",
+        description: "High-quality, disease-resistant dragon fruit saplings & plants. Grown in our Kasaragod plantation, ideal for home gardening or commercial cultivation.",
+        highlights: ["High Yielding Red Sweety Variety", "Disease Resistant Saplings", "Rooted & Ready for Planting", "Expert Cultivation Guidance"],
         image: "/images/hero/Plant.webp",
-        variants: [{ size: "Medium", unit: "Pot" }]
+        cta_url: "https://wa.me/917021932982?text=Hi!%20I%20would%20like%20to%20order%20Dragon%20Fruit%20Plant.%20Please%20share%20pricing%20and%20availability.",
+        variants: [{ size: "Medium", unit: "Pot", price: 349 }]
       },
       {
         id: "p-2",
         name: "Plant 2",
-        description: "This is a sample description for product 2.",
+        subtitle: "Large Cultivation Ready Pot",
+        description: "High-quality, disease-resistant dragon fruit saplings & plants. Grown in our Kasaragod plantation, ideal for home gardening or commercial cultivation.",
+        highlights: ["High Yielding Red Sweety Variety", "Disease Resistant Saplings", "Rooted & Ready for Planting", "Expert Cultivation Guidance"],
         image: "/images/hero/Plant.webp",
-        variants: [{ size: "Large", unit: "Pot" }]
+        cta_url: "https://wa.me/917021932982?text=Hi!%20I%20would%20like%20to%20order%20Dragon%20Fruit%20Plant.%20Please%20share%20pricing%20and%20availability.",
+        variants: [{ size: "Large", unit: "Pot", price: 499 }]
       },
       {
         id: "p-3",
         name: "Plant 3",
-        description: "This is a sample description for product 3.",
+        subtitle: "Home Garden Starter Plant",
+        description: "High-quality, disease-resistant dragon fruit saplings & plants. Grown in our Kasaragod plantation, ideal for home gardening or commercial cultivation.",
+        highlights: ["High Yielding Red Sweety Variety", "Disease Resistant Saplings", "Rooted & Ready for Planting", "Expert Cultivation Guidance"],
         image: "/images/hero/Plant.webp",
-        variants: [{ size: "Small", unit: "Pot" }, { size: "Medium", unit: "Pot" }]
+        cta_url: "https://wa.me/917021932982?text=Hi!%20I%20would%20like%20to%20order%20Dragon%20Fruit%20Plant.%20Please%20share%20pricing%20and%20availability.",
+        variants: [{ size: "Small", unit: "Pot", price: 199 }, { size: "Medium", unit: "Pot", price: 349 }]
       },
       {
         id: "p-4",
         name: "Plant 4",
-        description: "This is a sample description for product 4.",
+        subtitle: "Mature Heritage Pitaya Plant",
+        description: "High-quality, disease-resistant dragon fruit saplings & plants. Grown in our Kasaragod plantation, ideal for home gardening or commercial cultivation.",
+        highlights: ["High Yielding Red Sweety Variety", "Disease Resistant Saplings", "Rooted & Ready for Planting", "Expert Cultivation Guidance"],
         image: "/images/hero/Plant.webp",
-        variants: [{ size: "Large", unit: "Pot" }]
+        cta_url: "https://wa.me/917021932982?text=Hi!%20I%20would%20like%20to%20order%20Dragon%20Fruit%20Plant.%20Please%20share%20pricing%20and%20availability.",
+        variants: [{ size: "Large", unit: "Pot", price: 499 }]
       },
       {
         id: "p-5",
         name: "Plant 5",
-        description: "This is a sample description for product 5.",
+        subtitle: "Boutique Orchard Sapling",
+        description: "High-quality, disease-resistant dragon fruit saplings & plants. Grown in our Kasaragod plantation, ideal for home gardening or commercial cultivation.",
+        highlights: ["High Yielding Red Sweety Variety", "Disease Resistant Saplings", "Rooted & Ready for Planting", "Expert Cultivation Guidance"],
         image: "/images/hero/Plant.webp",
-        variants: [{ size: "Medium", unit: "Pot" }]
+        cta_url: "https://wa.me/917021932982?text=Hi!%20I%20would%20like%20to%20order%20Dragon%20Fruit%20Plant.%20Please%20share%20pricing%20and%20availability.",
+        variants: [{ size: "Medium", unit: "Pot", price: 349 }]
       }
     ]
   }

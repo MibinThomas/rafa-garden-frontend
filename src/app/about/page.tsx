@@ -347,6 +347,206 @@ export default function AboutPage() {
         </section>
       </div>
 
+      {/* ── 5. OUR STORY & MISSION ── */}
+      <div className="w-full bg-[#f1f1f2] pt-8 pb-16 md:py-24">
+        <section className="relative w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 z-20">
+          
+          <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
+            
+            {/* Left: Our Story */}
+            <div className="w-full lg:w-[60%] flex flex-col items-start">
+              <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#d11e6d] mb-2 font-avant-garde">
+                Learn Our Story
+              </span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#5d5f61] leading-tight tracking-tight mb-6 font-brand-heading">
+                {get("about.our_story_title", "Crafting Nature's Sweetness Since Day One")}
+              </h2>
+              
+              <div className="flex flex-col gap-4 text-[#666666] text-sm md:text-base leading-relaxed">
+                <p>
+                  {get("about.our_story_text_1", "Rafah Garden is more than just a farm – it's a passion project born from love for nature and commitment to quality. Nestled in the lush landscapes of Kasaragod, Kerala, we have dedicated ourselves to cultivating the finest dragon fruits and crafting premium products that bring the true taste of nature to your home.")}
+                </p>
+                <p>
+                  {get("about.our_story_text_2", "What began as a small family initiative has blossomed into a thriving agricultural enterprise. With every season, we've perfected our techniques, deepened our commitment to sustainable farming, and expanded our range of delicious dragon fruit products – from fresh whole fruits to our signature Dragon Fruit Crush and Dragon Fruit Jam.")}
+                </p>
+              </div>
+            </div>
+
+            {/* Right: Mission Card */}
+            <div className="w-full lg:w-[40%] bg-white/70 backdrop-blur-md rounded-3xl p-6 sm:p-8 md:p-10 border border-white/80 shadow-[0_15px_30px_rgba(0,0,0,0.04)] relative overflow-hidden flex flex-col justify-between">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#d11e6d]/5 rounded-bl-full pointer-events-none" />
+              
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-[#d11e6d]/10 flex items-center justify-center mb-6 text-[#d11e6d]">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-[#5d5f61] mb-4 font-brand-heading">
+                  {get("about.mission_title", "Our Mission")}
+                </h3>
+                <p className="text-[#666666] text-sm md:text-base leading-relaxed">
+                  {get("about.mission_text", "To bring the purest, freshest, and most delicious dragon fruit products straight from our farm to families across India. We believe in celebrating nature's sweetness while maintaining the highest standards of quality, hygiene, and sustainability. Every product we create is a testament to our dedication to your health and happiness.")}
+                </p>
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-[#e0e0e0] flex items-center gap-3 text-xs text-[#888888] font-medium">
+                <span className="w-2 h-2 rounded-full bg-[#d11e6d]" />
+                Kasaragod, Kerala • Pure & Fresh
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+      </div>
+
+      {/* ── 6. CORE VALUES ── */}
+      <div className="w-full bg-[#e6e7e9] py-16 md:py-24">
+        <section className="relative w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 z-20">
+          
+          <div className="text-center max-w-[700px] mx-auto mb-12 md:mb-16">
+            <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#d11e6d] mb-2 font-avant-garde block">
+              What We Stand For
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#5d5f61] tracking-tight font-brand-heading">
+              Our Core Values
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            
+            {/* Value 1 */}
+            <div className="bg-[#f1f1f2] rounded-3xl p-6 md:p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-white/60 flex flex-col justify-between">
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center mb-6 text-[#d11e6d] shadow-sm">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h4 className="text-lg md:text-xl font-bold text-[#5d5f61] mb-3">
+                  {get("about.value_1_title", "Guaranteed Freshness")}
+                </h4>
+                <p className="text-[#666666] text-xs sm:text-sm leading-relaxed">
+                  {get("about.value_1_text", "Every dragon fruit is harvested at peak ripeness from our Kasaragod farm. We ensure freshness through careful timing, proper storage, and swift delivery.")}
+                </p>
+              </div>
+            </div>
+
+            {/* Value 2 */}
+            <div className="bg-[#f1f1f2] rounded-3xl p-6 md:p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-white/60 flex flex-col justify-between">
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center mb-6 text-[#d11e6d] shadow-sm">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
+                  </svg>
+                </div>
+                <h4 className="text-lg md:text-xl font-bold text-[#5d5f61] mb-3">
+                  {get("about.value_2_title", "Pure Ingredients")}
+                </h4>
+                <p className="text-[#666666] text-xs sm:text-sm leading-relaxed">
+                  {get("about.value_2_text", "No artificial colors, flavors, or preservatives. We use only real dragon fruit and natural ingredients in all our products – nothing more, nothing less.")}
+                </p>
+              </div>
+            </div>
+
+            {/* Value 3 */}
+            <div className="bg-[#f1f1f2] rounded-3xl p-6 md:p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-white/60 flex flex-col justify-between">
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center mb-6 text-[#d11e6d] shadow-sm">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 002-2V4.065M12 3a9 9 0 100 18 9 9 0 000-18z" />
+                  </svg>
+                </div>
+                <h4 className="text-lg md:text-xl font-bold text-[#5d5f61] mb-3">
+                  {get("about.value_3_title", "Sustainability")}
+                </h4>
+                <p className="text-[#666666] text-xs sm:text-sm leading-relaxed">
+                  {get("about.value_3_text", "We practice eco-friendly farming methods and are committed to preserving the environment for future generations. Our farm operates with respect for nature's balance.")}
+                </p>
+              </div>
+            </div>
+
+            {/* Value 4 */}
+            <div className="bg-[#f1f1f2] rounded-3xl p-6 md:p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-white/60 flex flex-col justify-between">
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center mb-6 text-[#d11e6d] shadow-sm">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </div>
+                <h4 className="text-lg md:text-xl font-bold text-[#5d5f61] mb-3">
+                  {get("about.value_4_title", "Customer Care")}
+                </h4>
+                <p className="text-[#666666] text-xs sm:text-sm leading-relaxed">
+                  {get("about.value_4_text", "Your satisfaction is our priority. We're always available to answer questions, address concerns, and ensure you have the best experience with our products.")}
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+      </div>
+
+      {/* ── 7. WHY CHOOSE RAFAH GARDEN ── */}
+      <div className="w-full bg-[#f1f1f2] py-16 md:py-24">
+        <section className="relative w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 z-20">
+          
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
+            
+            {/* Left Box */}
+            <div className="w-full lg:w-[45%] flex flex-col">
+              <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#d11e6d] mb-2 font-avant-garde">
+                Why Choose Us
+              </span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#5d5f61] tracking-tight mb-6 font-brand-heading">
+                Why Rafah Garden Stands Apart
+              </h2>
+              <p className="text-[#666666] text-sm md:text-base leading-relaxed mb-8">
+                {get("about.team_text_1", "Our team is comprised of passionate farming experts and product enthusiasts who understand the nuances of dragon fruit cultivation. From soil preparation to harvest, from crushing to packaging – we are personally involved in every step of the process.")}
+              </p>
+
+              <div className="p-6 rounded-2xl bg-white/60 border border-black/5 flex items-center gap-5 shadow-sm">
+                <div className="text-3xl sm:text-4xl font-black text-[#d11e6d] font-dharma-gothic leading-none">
+                  20+
+                </div>
+                <div className="text-xs sm:text-sm text-[#5d5f61] font-medium leading-snug">
+                  Years of combined farming & agricultural expertise dedicated to dragon fruit excellence.
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Key Highlights */}
+            <div className="w-full lg:w-[55%] grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+              
+              {[
+                { title: get("about.why_1_title", "Farm Fresh"), desc: get("about.why_1_desc", "Direct from our farm to your door – no middlemen, maximum freshness") },
+                { title: get("about.why_2_title", "Quality Assured"), desc: get("about.why_2_desc", "Every product undergoes rigorous quality checks") },
+                { title: get("about.why_3_title", "Family Expertise"), desc: get("about.why_3_desc", "20+ years of combined farming experience") },
+                { title: get("about.why_4_title", "Transparent Operations"), desc: get("about.why_4_desc", "We believe in honesty and transparency in all dealings") },
+                { title: get("about.why_5_title", "Customer Focused"), desc: get("about.why_5_desc", "Your feedback helps us improve constantly") },
+              ].map((item, idx) => (
+                <div key={idx} className="bg-white/80 rounded-2xl p-5 sm:p-6 border border-black/5 shadow-sm flex flex-col justify-start">
+                  <div className="w-7 h-7 rounded-full bg-[#d11e6d]/10 text-[#d11e6d] flex items-center justify-center mb-3 font-bold text-xs">
+                    ✓
+                  </div>
+                  <h4 className="text-base font-bold text-[#5d5f61] mb-1">
+                    {item.title}
+                  </h4>
+                  <p className="text-xs sm:text-sm text-[#666666] leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              ))}
+
+            </div>
+
+          </div>
+
+        </section>
+      </div>
+
     </div>
   );
 }

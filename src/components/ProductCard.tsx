@@ -6,23 +6,16 @@ import { motion } from "framer-motion";
 import { useCart } from "@/lib/CartContext";
 import { useWishlist } from "@/lib/WishlistContext";
 import { Product } from "@/lib/data";
-import { Heart, Plus, Minus, ShoppingCart } from "lucide-react";
+import { Heart, Plus, Minus, ShoppingBag, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-export function ProductCard({ product, accentColor = "#d11e6d", onSelect }: { product: Product, accentColor?: string, onSelect?: (product: Product) => void }) {
+export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { product: Product, accentColor?: string, onSelect?: (product: Product) => void }) {
   const { addToCart } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
+  const router = useRouter();
   const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    const mql = window.matchMedia("(min-width: 768px)");
-    setIsDesktop(mql.matches);
-    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
-    mql.addEventListener("change", handler);
-    return () => mql.removeEventListener("change", handler);
-  }, []);
 
   const selectedVariant = product.variants[selectedVariantIdx] || { size: "Standard", unit: "", price: 599 };
   const currentPrice = selectedVariant.price || 599.00;
@@ -39,6 +32,18 @@ export function ProductCard({ product, accentColor = "#d11e6d", onSelect }: { pr
     }, quantity);
   };
 
+  const handleBuyNow = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addToCart({
+      id: `${product.id}-${selectedVariantIdx}`,
+      name: `${product.name} (${selectedVariant.size} ${selectedVariant.unit})`.trim(),
+      price: currentPrice,
+      image: product.image
+    }, quantity);
+    router.push("/checkout");
+  };
+
   const handleWishlist = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -47,121 +52,132 @@ export function ProductCard({ product, accentColor = "#d11e6d", onSelect }: { pr
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="group relative flex flex-col justify-between bg-[#f1f1f2] p-1.5 sm:p-2.5 md:p-4 rounded-[8px] sm:rounded-[12px] transition-all duration-500 hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] h-full w-full snap-start"
-      style={{ fontFamily: 'AvantGarde, sans-serif' }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.4 }}
+      className="group relative flex flex-col justify-between bg-[#f1f1f2] rounded-2xl sm:rounded-3xl p-3 sm:p-4 transition-all duration-300 h-full w-full"
     >
+      {/* Wishlist Favorite Button */}
       <button
         onClick={handleWishlist}
-        className="absolute top-1 right-1 sm:top-2.5 sm:right-2.5 z-30 w-4 h-4 sm:w-5 sm:h-5 xl:w-6 xl:h-6 rounded-full flex items-center justify-center bg-[#f1f1f2] border-[1px] border-[#b0b0b0]/30 transition-all hover:scale-105 active:scale-95 shadow-sm"
+        aria-label="Add to wishlist"
+        className={`absolute top-2.5 right-2.5 sm:top-3.5 sm:right-3.5 z-30 w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center transition-all ${
+          isFavorited 
+            ? "bg-[#c81c6a] text-white shadow-md shadow-[#c81c6a]/30 scale-105" 
+            : "bg-[#f1f1f2] border border-black/10 text-gray-400 hover:text-[#c81c6a] hover:bg-white"
+        } active:scale-90`}
       >
         <Heart
-          size={isDesktop ? 11 : 7}
-          fill={isFavorited ? "#b0b0b0" : "#b0b0b0"}
-          className="text-[#b0b0b0]"
-          strokeWidth={1}
+          size={13}
+          fill={isFavorited ? "currentColor" : "none"}
+          strokeWidth={2}
         />
       </button>
 
-      {/* Product Image */}
+      {/* Product Image Link */}
       <Link
         href={`/product/${product.id}`}
-        className="relative w-full aspect-[4/5] sm:aspect-[3/4] flex items-center justify-center cursor-pointer z-10 mb-1.5 sm:mb-3 xl:mb-4 mt-0.5"
+        className="relative w-full aspect-square sm:aspect-[4/5] flex items-center justify-center p-2 rounded-xl sm:rounded-2xl bg-[#f1f1f2] mb-3 transition-colors overflow-hidden"
       >
         <motion.div
-          className="relative w-[95%] h-[95%] xl:w-full xl:h-full"
-          whileHover={{ scale: 1.05, y: -2.5 }}
-          transition={{ type: "spring", stiffness: 200, damping: 15 }}
+          className="relative w-[85%] h-[85%]"
+          whileHover={{ scale: 1.08, y: -4 }}
+          transition={{ type: "spring", stiffness: 260, damping: 20 }}
         >
           <Image
             src={product.image}
             alt={product.name}
             fill
-            className="object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.15)]"
+            className="object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.12)]"
             priority
           />
         </motion.div>
       </Link>
 
+      {/* Product Information */}
       <div className="flex flex-col mt-auto w-full">
         {/* Title */}
-        <Link href={`/product/${product.id}`} className="group/title block cursor-pointer mb-1 sm:mb-1.5 xl:mb-2">
-          <h3 className="text-[10px] sm:text-[16px] md:text-[20px] xl:text-[24px] 2xl:text-[28px] font-bold text-[#5d5f61] tracking-tight leading-[1.05] transition-colors break-words">
+        <Link href={`/product/${product.id}`} className="block mb-1.5 group/title">
+          <h3 className="text-xs sm:text-base font-bold text-[#333335] group-hover/title:text-[#c81c6a] transition-colors leading-tight line-clamp-1">
             {product.name}
           </h3>
+          <p className="text-[10px] sm:text-xs text-[#88888a] line-clamp-1 font-medium mt-0.5">
+            {product.subtitle || "Nature's Sweetness"}
+          </p>
         </Link>
 
-        {/* Variants Selection */}
-        <div className="flex flex-wrap items-center gap-1 sm:gap-1.5 md:gap-2.5 mb-1.5 sm:mb-2.5 xl:mb-4">
-          {product.variants.map((v, idx) => {
-            const isActive = selectedVariantIdx === idx;
-            return (
-              <button
-                key={idx}
-                onClick={(e) => { e.stopPropagation(); setSelectedVariantIdx(idx); }}
-                className="flex items-center gap-0.5 sm:gap-1 group/variant"
-              >
-                <span className="text-[8px] sm:text-[9px] md:text-[10px] xl:text-[11px] font-normal text-[#9b9b9b] tracking-tight lowercase">
+        {/* Variant Pills & Quantity Row */}
+        <div className="flex items-center justify-between gap-1.5 my-2.5 py-1.5 border-y border-black/[0.04]">
+          {/* Variants Selection */}
+          <div className="flex items-center gap-1 overflow-x-auto no-scrollbar">
+            {product.variants.map((v, idx) => {
+              const isActive = selectedVariantIdx === idx;
+              return (
+                <button
+                  key={idx}
+                  onClick={(e) => { e.stopPropagation(); setSelectedVariantIdx(idx); }}
+                  className={`px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-bold transition-all shrink-0 ${
+                    isActive 
+                      ? "bg-[#c81c6a] text-white shadow-xs" 
+                      : "bg-white/60 text-gray-500 hover:bg-white"
+                  }`}
+                >
                   {v.size}{v.unit}
-                </span>
-                <div className={`w-2 h-2 sm:w-2.5 sm:h-2.5 xl:w-3 xl:h-3 rounded-full border-[1px] flex items-center justify-center transition-all ${isActive ? "border-[#d11e6d]" : "border-[#b0b0b0]"}`}>
-                  {isActive && <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 xl:w-1.5 xl:h-1.5 rounded-full bg-[#d11e6d]" />}
-                </div>
-              </button>
-            );
-          })}
-        </div>
+                </button>
+              );
+            })}
+          </div>
 
-        {/* Quantity & Price Row */}
-        <div className="flex items-center justify-between gap-1 sm:gap-2 mb-2 sm:mb-3 xl:mb-5 w-full min-w-0">
-          {/* Quantity Selector */}
-          <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2 shrink-0">
+          {/* Quantity Controls */}
+          <div className="flex items-center gap-1 shrink-0 bg-white/60 rounded-lg p-0.5">
             <button
               onClick={(e) => { e.stopPropagation(); if (quantity > 1) setQuantity(prev => prev - 1); }}
-              className="w-3 h-3 sm:w-4 sm:h-4 md:w-4.5 md:h-4.5 xl:w-5 xl:h-5 flex items-center justify-center rounded-[3px] sm:rounded-[4px] border-[1px] border-[#5d5f61]/40 text-[#5d5f61] hover:bg-white/50 transition-all shrink-0"
+              className="w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-md bg-white text-gray-600 shadow-xs hover:bg-gray-50 active:scale-90 transition-all border border-black/5"
             >
-              <Minus size={6} className="sm:w-[8px]" strokeWidth={1.5} />
+              <Minus size={10} strokeWidth={2.5} />
             </button>
-            <span className="text-[8px] sm:text-[10px] md:text-[12px] xl:text-[14px] font-normal text-[#5d5f61] min-w-[7px] sm:min-w-[10px] md:min-w-[12px] text-center leading-none">
+            <span className="text-[10px] sm:text-xs font-bold text-gray-700 px-1 min-w-[14px] text-center">
               {quantity}
             </span>
             <button
               onClick={(e) => { e.stopPropagation(); setQuantity(prev => prev + 1); }}
-              className="w-3 h-3 sm:w-4 sm:h-4 md:w-4.5 md:h-4.5 xl:w-5 xl:h-5 flex items-center justify-center rounded-[3px] sm:rounded-[4px] border-[1px] border-[#5d5f61]/40 text-[#5d5f61] hover:bg-white/50 transition-all shrink-0"
+              className="w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-md bg-white text-gray-600 shadow-xs hover:bg-gray-50 active:scale-90 transition-all border border-black/5"
             >
-              <Plus size={6} className="sm:w-[8px]" strokeWidth={1.5} />
+              <Plus size={10} strokeWidth={2.5} />
             </button>
-          </div>
-
-          {/* Price */}
-          <div className="w-auto min-w-fit text-[11px] sm:text-[20px] md:text-[26px] xl:text-[32px] 2xl:text-[36px] font-normal text-[#5d5f61] leading-[0.9] tracking-tighter shrink-0 text-right pb-[1px]">
-            ₹{currentPrice.toFixed(0)}
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-row items-center justify-between gap-1 sm:gap-1.5 xl:gap-2 w-full">
-          <button
-            onClick={handleAddToCart}
-            className="shrink-0 sm:flex-1 w-[18px] sm:w-full min-w-0 flex items-center justify-center h-[18px] sm:h-[24px] xl:h-[26px] p-0 sm:px-1.5 xl:px-2.5 rounded-full border-[1px] border-[#5d5f61] text-[#5d5f61] bg-transparent font-bold text-[8px] sm:text-[8px] md:text-[9px] xl:text-[10px] leading-none tracking-wide transition-all hover:bg-[#5d5f61]/5 hover:shadow-sm active:scale-95 whitespace-nowrap overflow-hidden"
-          >
-            <span className="sm:hidden flex items-center justify-center">
-              <ShoppingCart size={8} strokeWidth={2} />
+        {/* Price & Action Row */}
+        <div className="flex items-center justify-between gap-2 mt-1">
+          <div className="flex flex-col">
+            <span className="text-[9px] text-gray-400 font-bold uppercase tracking-wider">Price</span>
+            <span className="text-sm sm:text-lg font-black text-[#222] font-playfair tracking-tight">
+              ₹{currentPrice.toFixed(0)}
             </span>
-            <span className="hidden sm:inline">Add to Cart</span>
-          </button>
-          <button
-            onClick={handleAddToCart}
-            className="flex-1 w-full min-w-0 flex items-center justify-center h-[18px] sm:h-[24px] xl:h-[26px] px-[2px] sm:px-1.5 xl:px-2.5 rounded-full border-[1px] border-[#d11e6d] text-[#5d5f61] bg-transparent font-bold text-[8px] sm:text-[8px] md:text-[9px] xl:text-[10px] leading-none tracking-wide transition-all hover:bg-[#d11e6d]/5 hover:shadow-sm active:scale-95 whitespace-nowrap overflow-hidden"
-          >
-            Buy Now
-          </button>
+          </div>
+
+          {/* Buttons */}
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={handleAddToCart}
+              title="Add to Cart"
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-gray-300 text-gray-700 hover:border-[#c81c6a] hover:text-[#c81c6a] hover:bg-[#c81c6a]/5 transition-all flex items-center justify-center active:scale-90 bg-white/40"
+            >
+              <ShoppingBag size={14} strokeWidth={2} />
+            </button>
+
+            <button
+              onClick={handleBuyNow}
+              className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#c81c6a] text-white text-[10px] sm:text-xs font-bold tracking-wider capitalize hover:bg-[#b0185a] transition-all active:scale-95 shadow-md shadow-[#c81c6a]/20 flex items-center gap-1"
+            >
+              <span>Buy</span>
+              <ArrowRight size={11} strokeWidth={2.5} />
+            </button>
+          </div>
         </div>
       </div>
     </motion.div>
   );
 }
-
-

@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Minus, Heart, ArrowLeft } from "lucide-react";
+import { motion } from "framer-motion";
+import { Plus, Minus, Heart } from "lucide-react";
 import { Product, Category } from "@/lib/data";
 import { useCart } from "@/lib/CartContext";
 import { useWishlist } from "@/lib/WishlistContext";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface ProductPageClientProps {
   product: Product;
@@ -17,6 +17,7 @@ interface ProductPageClientProps {
 export function ProductPageClient({ product, category }: ProductPageClientProps) {
   const { addToCart } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
+  const router = useRouter();
   const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const isFavorited = isInWishlist(product.id);
@@ -33,29 +34,32 @@ export function ProductPageClient({ product, category }: ProductPageClientProps)
     }, quantity);
   };
 
+  const handleBuyNow = () => {
+    addToCart({
+      id: `${product.id}-${selectedVariantIdx}`,
+      name: `${product.name} (${selectedVariant.size}${selectedVariant.unit})`.trim(),
+      price: currentPrice,
+      image: product.image
+    }, quantity);
+    router.push("/checkout");
+  };
+
   return (
     <div className="relative min-h-screen bg-[#f1f1f2] overflow-hidden pt-12 md:pt-24 font-sans">
-      {/* Background Watermark - Removed as requested */}
-
       <div className="relative z-10 max-w-[1600px] mx-auto px-6 md:px-12 lg:px-24 pb-12 md:pb-24">
         
-        {/* Navigation - Removed as requested */}
-
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
           
-          {/* Left Side: Cinematic Product Stage */}
+          {/* Left Side: Product Stage */}
           <div className="lg:col-span-7 flex flex-col items-center">
             <div className="relative w-full aspect-square md:aspect-[4/5] flex justify-center items-center">
-              {/* Wishlist Heart Icon - Top Left as requested */}
+              {/* Wishlist Heart Icon */}
               <button 
                 onClick={() => toggleWishlist(product.id)}
                 className={`absolute top-4 left-4 z-30 w-12 h-12 rounded-full border flex items-center justify-center transition-all ${isFavorited ? "bg-[#c81c6a] border-transparent text-white shadow-xl shadow-[#c81c6a]/30" : "bg-white/80 backdrop-blur-md border-black/5 text-gray-300 hover:text-[#c81c6a] hover:border-[#c81c6a]/20 shadow-xl shadow-black/[0.05]"} active:scale-90`}
               >
                 <Heart size={20} fill={isFavorited ? "currentColor" : "none"} strokeWidth={2.5} />
               </button>
-
-              {/* Decorative Botanical Elements - Removed as requested */}
-              <div className="absolute inset-0 z-0" />
 
               {/* Focal Product Bottle */}
               <motion.div
@@ -74,7 +78,7 @@ export function ProductPageClient({ product, category }: ProductPageClientProps)
               </motion.div>
             </div>
 
-            {/* Thumbnail Row - As per mockup */}
+            {/* Thumbnail Row */}
             <div className="flex gap-4 md:gap-8 mt-8 md:mt-12">
               {[1, 2, 3].map((i) => (
                 <div key={i} className="w-20 h-20 md:w-32 md:h-32 rounded-[1.5rem] md:rounded-[2.5rem] bg-black/[0.03] border border-white flex items-center justify-center p-4 md:p-8 hover:bg-white hover:shadow-xl transition-all duration-500 cursor-pointer group">
@@ -86,7 +90,7 @@ export function ProductPageClient({ product, category }: ProductPageClientProps)
             </div>
           </div>
 
-          {/* Right Side: Editorial Interaction Hub */}
+          {/* Right Side: Product Details & Controls */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -98,7 +102,7 @@ export function ProductPageClient({ product, category }: ProductPageClientProps)
               {product.name}
             </h2>
             <p className="text-[#5d5f61] font-black text-[11px] md:text-[13px] capitalize tracking-[0.3em] mb-12 opacity-60">
-              {product.subtitle || "Nature's Sweetness In Every Drink"}
+              {product.subtitle || "Nature's Sweetness In Every Product"}
             </p>
 
             {/* Selection Hub */}
@@ -142,38 +146,57 @@ export function ProductPageClient({ product, category }: ProductPageClientProps)
               </div>
             </div>
 
-            {/* Description Block - Editorial Layout */}
-            <div className="space-y-8 mb-16 max-w-lg">
-              <p className="text-[10px] md:text-[11px] font-black capitalize tracking-[0.3em] text-[#5d5f61]/40 mb-4">
-                {product.subtitle || "Nature's Sweetness In Every Drink"}
+            {/* Description Block */}
+            <div className="space-y-6 mb-12 max-w-lg">
+              <p className="text-[10px] md:text-[11px] font-black capitalize tracking-[0.3em] text-[#5d5f61]/60 mb-2">
+                {product.subtitle || "Nature's Sweetness In Every Product"}
               </p>
-              <p className="text-[#5d5f61] text-[12px] md:text-[13px] font-bold leading-[2] tracking-wide opacity-50">
+              <p className="text-[#5d5f61] text-[13px] md:text-[14px] font-normal leading-[1.8] tracking-wide">
                 {product.description}
               </p>
+
+              {/* Product Highlights */}
+              {product.highlights && product.highlights.length > 0 && (
+                <div className="pt-4 border-t border-black/5">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#c81c6a] block mb-3">
+                    Product Highlights
+                  </span>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-medium text-[#5d5f61]">
+                    {product.highlights.map((item, idx) => (
+                      <li key={idx} className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#c81c6a]" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
 
             {/* Price Staging */}
-            <div className="flex items-baseline gap-6 mb-12 border-t border-black/5 pt-12">
+            <div className="flex items-baseline gap-6 mb-10 border-t border-black/5 pt-8">
               <span className="text-5xl md:text-7xl font-black font-playfair text-[#5d5f61] tracking-tighter">₹{currentPrice}</span>
-              <span className="text-[10px] md:text-[11px] font-black capitalize tracking-[0.4em] text-gray-300">Inclusive taxes</span>
+              <span className="text-[10px] md:text-[11px] font-black capitalize tracking-[0.4em] text-gray-400">Inclusive taxes</span>
             </div>
 
             {/* Actions */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <button
                 onClick={handleAddToCart}
-                className="flex-1 px-12 py-6 rounded-full bg-[#c81c6a] text-white font-black capitalize text-[11px] tracking-[0.4em] transition-all hover:scale-[1.02] hover:bg-[#b0185a] active:scale-95 shadow-2xl shadow-[#c81c6a]/20"
+                className="flex-1 px-8 py-5 rounded-full bg-[#c81c6a] text-white font-black capitalize text-[11px] tracking-[0.4em] transition-all hover:scale-[1.02] hover:bg-[#b0185a] active:scale-95 shadow-2xl shadow-[#c81c6a]/20"
               >
                 Add to cart
               </button>
+
               <button
-                className="flex-1 px-12 py-6 rounded-full bg-[#707072] text-white font-black capitalize text-[11px] tracking-[0.4em] transition-all hover:scale-[1.02] hover:bg-[#5d5f61] active:scale-95 shadow-2xl shadow-black/10"
+                onClick={handleBuyNow}
+                className="flex-1 px-8 py-5 rounded-full bg-[#707072] text-white font-black capitalize text-[11px] tracking-[0.4em] transition-all hover:scale-[1.02] hover:bg-[#5d5f61] active:scale-95 shadow-2xl shadow-black/10"
               >
                 Buy Now
               </button>
             </div>
 
-            {/* Secondary Description as per mockup footer */}
+            {/* Secondary Description */}
             <div className="mt-20 opacity-[0.25]">
                <p className="text-[10px] md:text-[11px] font-bold leading-[2] text-[#5d5f61] line-clamp-3">
                  {product.description}

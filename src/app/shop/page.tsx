@@ -2,16 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CATEGORIES, Product, Category } from "@/lib/data";
+import { CATEGORIES, Category } from "@/lib/data";
 import { ProductCard } from "@/components/ProductCard";
-import { Search, SlidersHorizontal, LayoutGrid, List } from "lucide-react";
+import { Search, Sparkles, Filter, Package, ChevronDown } from "lucide-react";
 
 export default function AllProductsPage() {
   const [categories, setCategories] = useState<Category[]>(CATEGORIES);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -47,69 +46,119 @@ export default function AllProductsPage() {
 
   const uniqueCategoryTitles = ["All", ...new Set(categories.map(c => c.title))];
 
+  const getCategoryCount = (title: string) => {
+    if (title === "All") return allProducts.length;
+    return allProducts.filter(p => p.categoryTitle === title).length;
+  };
+
   return (
-    <div className="min-h-screen bg-[#f1f1f2] font-sans">
-      <main className="pt-32 pb-24 px-6 md:px-12 lg:px-24 max-w-[1600px] mx-auto">
-        {/* Editorial Header */}
-        <div className="relative mb-16 md:mb-24">
+    <div className="min-h-screen bg-[#f1f1f2] font-sans selection:bg-[#c81c6a] selection:text-white">
+      <main className="pt-24 md:pt-32 pb-24 px-4 sm:px-6 md:px-12 lg:px-24 max-w-[1600px] mx-auto">
+        
+        {/* Editorial Hero Banner */}
+        <div className="relative mb-6 md:mb-12">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             className="relative z-10"
           >
-            <span className="text-[10px] font-black capitalize tracking-[0.5em] text-[#c81c6a] mb-4 block">
-              The Botanical Archive
-            </span>
-            <h1 className="text-5xl md:text-8xl font-black font-playfair text-[#5d5f61] tracking-tighter leading-none mb-8">
-              Full Collection
+            <div className="flex items-center gap-2 mb-2">
+              <Sparkles size={14} className="text-[#c81c6a]" />
+              <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.4em] text-[#c81c6a]">
+                The Botanical Sanctuary
+              </span>
+            </div>
+
+            <h1 className="text-3xl sm:text-5xl md:text-7xl font-black font-playfair text-[#333335] tracking-tighter leading-none mb-3">
+              Shop Collection
             </h1>
-            <p className="max-w-2xl text-[#5d5f61]/60 text-sm md:text-lg font-medium leading-relaxed">
-              Explore our complete sanctuary of heritage botanical products. From cold-pressed crushes to artisanal jams, 
-              each asset is cultivated with cinematic precision and ancient wisdom.
+
+            <p className="max-w-xl text-[#5d5f61]/70 text-xs sm:text-sm md:text-base font-normal leading-relaxed">
+              Discover our complete sanctuary of heritage botanical products. Handcrafted cold-pressed crushes, artisanal preserves, and saplings.
             </p>
           </motion.div>
 
-          {/* Background Watermark */}
-          <div className="absolute top-0 right-0 pointer-events-none opacity-[0.03] select-none -mt-12 hidden md:block">
-            <h1 className="text-[200px] font-black tracking-tighter leading-none text-[#5d5f61]">ARCHIVE</h1>
+          {/* Watermark BG Text */}
+          <div className="absolute top-0 right-0 pointer-events-none opacity-[0.03] select-none -mt-8 hidden lg:block">
+            <h1 className="text-[180px] font-black tracking-tighter leading-none text-[#5d5f61]">BOUTIQUE</h1>
           </div>
         </div>
 
-        {/* Toolbar: Search & Filter */}
-        <div className="flex flex-col md:flex-row gap-8 items-center justify-between mb-16 relative z-10 py-6 border-b border-black/5">
-          {/* Category Pills */}
-          <div className="flex items-center gap-3 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 no-scrollbar">
-            {uniqueCategoryTitles.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-6 py-3 rounded-full text-[10px] font-black capitalize tracking-widest transition-all whitespace-nowrap ${
-                  selectedCategory === cat 
-                    ? "bg-[#5d5f61] text-white shadow-lg" 
-                    : "bg-white text-[#5d5f61] border border-black/5 hover:border-[#c81c6a]/30"
-                }`}
+        {/* Compact Filter & Search Toolbar (Non-sticky natural scrolling) */}
+        <div className="relative z-10 py-2.5 mb-6 border-b border-black/5 transition-all">
+          <div className="flex flex-row items-center justify-between gap-2.5">
+            
+            {/* Category Dropdown List (Mobile & Desktop) */}
+            <div className="relative flex-1 sm:flex-initial min-w-[150px] sm:min-w-[220px]">
+              <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#c81c6a] pointer-events-none flex items-center gap-1 z-10">
+                <Filter size={13} strokeWidth={2.5} />
+              </div>
+              
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="w-full pl-9 pr-8 py-2 bg-white rounded-full border border-black/10 text-xs font-bold text-[#333335] outline-none appearance-none cursor-pointer focus:border-[#c81c6a] focus:ring-2 focus:ring-[#c81c6a]/10 transition-all shadow-xs"
               >
-                {cat}
-              </button>
-            ))}
-          </div>
+                {uniqueCategoryTitles.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat === "All" ? `All Categories (${getCategoryCount("All")})` : `${cat} (${getCategoryCount(cat)})`}
+                  </option>
+                ))}
+              </select>
 
-          <div className="flex items-center gap-6 w-full md:w-auto">
-            {/* Search Bar */}
-            <div className="relative flex-1 md:w-64 group">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#c81c6a] transition-colors" size={16} />
+              <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+            </div>
+
+            {/* Desktop Category Pills (Hidden on Small Screens to prevent sticky overlap) */}
+            <div className="hidden lg:flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+              {uniqueCategoryTitles.map((cat) => {
+                const isActive = selectedCategory === cat;
+                const count = getCategoryCount(cat);
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 ${
+                      isActive 
+                        ? "bg-[#c81c6a] text-white shadow-xs" 
+                        : "bg-white text-[#5d5f61] border border-black/5 hover:border-[#c81c6a]/30 hover:text-[#c81c6a]"
+                    }`}
+                  >
+                    <span>{cat}</span>
+                    <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${
+                      isActive ? "bg-white/20 text-white" : "bg-black/5 text-gray-400"
+                    }`}>
+                      {count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Search Input Bar */}
+            <div className="relative flex-1 sm:w-64 sm:flex-initial">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={13} />
               <input 
                 type="text"
-                placeholder="Search Archive..."
+                placeholder="Search products..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-6 py-3.5 bg-white rounded-full border border-black/5 outline-none text-[11px] font-bold capitalize tracking-widest focus:ring-4 focus:ring-[#c81c6a]/5 transition-all"
+                className="w-full pl-9 pr-8 py-2 bg-white rounded-full border border-black/10 outline-none text-xs font-medium text-[#333] placeholder-gray-400 focus:border-[#c81c6a] focus:ring-2 focus:ring-[#c81c6a]/10 transition-all shadow-xs"
               />
+              {searchQuery && (
+                <button 
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-gray-400 hover:text-gray-600"
+                >
+                  ✕
+                </button>
+              )}
             </div>
+
           </div>
         </div>
 
-        {/* Product Grid/List */}
+        {/* Product Grid Layout */}
         <AnimatePresence mode="wait">
           {loading ? (
             <motion.div 
@@ -117,57 +166,47 @@ export default function AllProductsPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="py-32 text-center"
+              className="py-24 text-center"
             >
-              <div className="w-12 h-12 border-4 border-gray-100 border-t-[#c81c6a] rounded-full animate-spin mx-auto mb-6" />
-              <p className="text-[10px] font-black capitalize tracking-[0.4em] text-gray-400">Syncing with Garden Database...</p>
+              <div className="w-10 h-10 border-3 border-gray-200 border-t-[#c81c6a] rounded-full animate-spin mx-auto mb-4" />
+              <p className="text-xs font-bold tracking-widest text-gray-400 capitalize">Fetching Products...</p>
             </motion.div>
           ) : filteredProducts.length > 0 ? (
             <motion.div 
-              key={viewMode + selectedCategory}
-              initial={{ opacity: 0, y: 20 }}
+              key={selectedCategory + searchQuery}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              className={viewMode === "grid" 
-                ? "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1.5 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 max-md:h-[75vh] max-md:overflow-y-auto max-md:overscroll-y-contain snap-y snap-proximity scrollbar-hide pb-10 max-md:pb-[250px]" 
-                : "flex flex-col gap-4"
-              }
+              transition={{ duration: 0.3 }}
+              className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-6"
             >
               {filteredProducts.map((product) => (
-                <div key={product.id} className={`${viewMode === "list" ? "max-w-2xl mx-auto w-full" : ""} snap-start`}>
-                   <ProductCard 
-                     product={product} 
-                     accentColor={product.categoryColor}
-                   />
-                </div>
+                <ProductCard 
+                  key={product.id}
+                  product={product} 
+                  accentColor={product.categoryColor}
+                />
               ))}
             </motion.div>
           ) : (
             <motion.div 
               key="empty"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="py-32 text-center bg-white/40 rounded-[4rem] border border-dashed border-gray-200"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="py-20 text-center bg-white/60 rounded-3xl border border-dashed border-gray-200 px-4 max-w-md mx-auto"
             >
-              <Search size={48} className="mx-auto mb-6 text-gray-200" strokeWidth={1} />
-              <h3 className="text-xl font-bold text-[#5d5f61] mb-2 capitalize tracking-tight">No botanical assets found</h3>
-              <p className="text-[10px] font-black capitalize tracking-widest text-gray-400">Try refining your search or selecting a different category</p>
+              <Package size={40} className="mx-auto mb-4 text-gray-300" strokeWidth={1.5} />
+              <h3 className="text-lg font-bold text-[#333] mb-1">No products found</h3>
+              <p className="text-xs text-gray-500 mb-6">We couldn't find any products matching "{searchQuery || selectedCategory}"</p>
+              <button
+                onClick={() => { setSelectedCategory("All"); setSearchQuery(""); }}
+                className="px-6 py-2.5 rounded-full bg-[#c81c6a] text-white text-xs font-bold hover:bg-[#b0185a] transition-all"
+              >
+                Reset Filters
+              </button>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Floating Background Elements */}
-        <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
-           <motion.div 
-             animate={{ rotate: 360 }}
-             transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-             className="absolute -top-[10%] -right-[5%] w-[40vw] h-[40vw] bg-[#c81c6a]/5 rounded-full blur-[120px]"
-           />
-           <motion.div 
-             animate={{ rotate: -360 }}
-             transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-             className="absolute top-[40%] -left-[10%] w-[30vw] h-[30vw] bg-[#7fa23f]/5 rounded-full blur-[100px]"
-           />
-        </div>
       </main>
     </div>
   );
