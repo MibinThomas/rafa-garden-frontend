@@ -14,6 +14,21 @@ function Toast({ msg, type, onClose }: any) {
   return <div className={`fixed bottom-6 right-6 z-[9999] px-5 py-3 rounded-2xl text-white text-sm font-medium shadow-2xl ${type === 'success' ? 'bg-[#7fa23f]' : 'bg-red-500'}`}>{msg}</div>;
 }
 
+function InputField({ label, value, onChange, type = 'text', placeholder = '' }: any) {
+  return (
+    <div>
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wide">{label}</label>
+      {type === 'textarea' ? (
+        <textarea rows={3} value={value || ''} onChange={onChange} placeholder={placeholder}
+          className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all resize-none" />
+      ) : (
+        <input type={type} value={value || ''} onChange={onChange} placeholder={placeholder}
+          className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all" />
+      )}
+    </div>
+  );
+}
+
 export default function BlogPage() {
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -25,6 +40,13 @@ export default function BlogPage() {
   const [uploading, setUploading] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const showToast = (msg: string, type: string) => setToast({ msg, type });
+
+
+
+  const updateField = (field: string, value: any) => {
+    setForm((f: any) => ({ ...f, [field]: value }));
+  };
+
 
   const fetchPosts = async () => {
     setLoading(true);
@@ -67,7 +89,6 @@ export default function BlogPage() {
     setUploading(false);
   };
 
-
   const handleSave = async () => {
     if (!form.title || !form.excerpt || !form.content) {
       showToast('Title, excerpt, and content are required', 'error'); return;
@@ -99,19 +120,6 @@ export default function BlogPage() {
       if (res.ok) { showToast('Post deleted', 'success'); fetchPosts(); }
     } catch {}
   };
-
-  const Field = ({ label, field, type = 'text', placeholder = '' }: any) => (
-    <div>
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wide">{label}</label>
-      {type === 'textarea' ? (
-        <textarea rows={type === 'content' ? 8 : 3} value={form[field] || ''} onChange={e => setForm((f: any) => ({ ...f, [field]: e.target.value }))} placeholder={placeholder}
-          className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all resize-none" />
-      ) : (
-        <input type={type} value={form[field] || ''} onChange={e => setForm((f: any) => ({ ...f, [field]: e.target.value }))} placeholder={placeholder}
-          className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all" />
-      )}
-    </div>
-  );
 
   return (
     <div className="p-4 md:p-6 lg:p-8 max-w-[1200px]" style={{ fontFamily: 'AvantGarde, sans-serif' }}>
@@ -189,13 +197,13 @@ export default function BlogPage() {
               <button onClick={() => setShowForm(false)} className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl"><X size={20} /></button>
             </div>
             <div className="p-6 space-y-4 max-h-[65vh] overflow-y-auto">
-              <Field label="Title *" field="title" placeholder="Post title" />
-              <Field label="Slug" field="slug" placeholder="auto-generated-from-title" />
-              <Field label="Category" field="category" placeholder="e.g. Sustainability" />
-              <Field label="Excerpt *" field="excerpt" type="textarea" placeholder="Short description for the blog list..." />
+              <InputField label="Title *" value={form.title} onChange={(e: any) => updateField('title', e.target.value)} placeholder="Post title" />
+              <InputField label="Slug" value={form.slug} onChange={(e: any) => updateField('slug', e.target.value)} placeholder="auto-generated-from-title" />
+              <InputField label="Category" value={form.category} onChange={(e: any) => updateField('category', e.target.value)} placeholder="e.g. Sustainability" />
+              <InputField label="Excerpt *" value={form.excerpt} onChange={(e: any) => updateField('excerpt', e.target.value)} type="textarea" placeholder="Short description for the blog list..." />
               <div>
                 <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wide">Content *</label>
-                <textarea rows={8} value={form.content || ''} onChange={e => setForm((f: any) => ({ ...f, content: e.target.value }))} placeholder="Full blog post content..."
+                <textarea rows={8} value={form.content || ''} onChange={e => updateField('content', e.target.value)} placeholder="Full blog post content..."
                   className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all resize-y" />
               </div>
               {/* Image */}
@@ -205,7 +213,7 @@ export default function BlogPage() {
                   <span className="text-[10px] text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full font-mono">1200 × 630 px · JPG/WebP</span>
                 </div>
                 <div className="flex gap-2">
-                  <input type="text" value={form.image || ''} onChange={e => setForm((f: any) => ({ ...f, image: e.target.value }))} placeholder="/images/blog/post.jpg"
+                  <input type="text" value={form.image || ''} onChange={e => updateField('image', e.target.value)} placeholder="/images/blog/post.jpg"
                     className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all" />
                   <button onClick={() => fileRef.current?.click()} disabled={uploading} className="px-4 py-2.5 bg-gray-100 hover:bg-gray-200 rounded-xl text-xs font-medium text-gray-600 transition-all flex-shrink-0">
                     <Upload size={13} />
@@ -214,30 +222,14 @@ export default function BlogPage() {
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <Field label="Date" field="date" type="date" />
-                <Field label="Reading Time" field="readingTime" placeholder="5 min read" />
-                <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wide">Accent Color</label>
-                  <div className="flex gap-2">
-                    <input type="color" value={form.accentColor || '#c81c6a'} onChange={e => setForm((f: any) => ({ ...f, accentColor: e.target.value }))} className="w-10 h-10 rounded-xl border border-gray-200 cursor-pointer" />
-                    <input type="text" value={form.accentColor || ''} onChange={e => setForm((f: any) => ({ ...f, accentColor: e.target.value }))} className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all" />
-                  </div>
-                </div>
-                <div className="flex items-end pb-2">
-                  <label className="flex items-center gap-3 cursor-pointer">
-                    <div className={`w-10 h-5 rounded-full transition-colors relative ${form.isPublished ? 'bg-[#c81c6a]' : 'bg-gray-200'}`}
-                      onClick={() => setForm((f: any) => ({ ...f, isPublished: !f.isPublished }))}>
-                      <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-all ${form.isPublished ? 'left-5' : 'left-0.5'}`} />
-                    </div>
-                    <span className="text-sm text-gray-600">Published</span>
-                  </label>
-                </div>
+                <InputField label="Date" value={form.date} onChange={(e: any) => updateField('date', e.target.value)} type="date" />
+                <InputField label="Reading Time" value={form.readingTime} onChange={(e: any) => updateField('readingTime', e.target.value)} placeholder="5 min read" />
               </div>
             </div>
             <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-100">
-              <button onClick={() => setShowForm(false)} className="px-5 py-2.5 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-xl text-sm font-medium transition-all">Cancel</button>
-              <button onClick={handleSave} disabled={saving} className="flex items-center gap-2 px-6 py-2.5 text-white rounded-xl text-sm font-medium shadow-lg hover:opacity-90 transition-all disabled:opacity-50" style={{ background: 'linear-gradient(135deg, #c81c6a, #9a0c52)' }}>
-                <Save size={15} /> {saving ? 'Saving...' : (editing ? 'Update Post' : 'Publish Post')}
+              <button onClick={() => setShowForm(false)} className="px-5 py-2.5 text-gray-500 hover:text-gray-700 rounded-xl text-sm">Cancel</button>
+              <button onClick={handleSave} disabled={saving} className="px-6 py-2.5 text-white rounded-xl text-sm font-medium shadow-lg hover:opacity-90 transition-all disabled:opacity-50" style={{ background: 'linear-gradient(135deg, #c81c6a, #9a0c52)' }}>
+                {saving ? 'Saving...' : 'Save Post'}
               </button>
             </div>
           </div>
@@ -246,3 +238,6 @@ export default function BlogPage() {
     </div>
   );
 }
+
+
+

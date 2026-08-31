@@ -23,6 +23,21 @@ function Toast({ msg, type, onClose }: { msg: string; type: 'success'|'error'; o
   );
 }
 
+function InputField({ label, value, onChange, type = 'text', placeholder = '', full = false }: any) {
+  return (
+    <div className={full ? 'col-span-2' : ''}>
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wide">{label}</label>
+      {type === 'textarea' ? (
+        <textarea rows={3} value={value || ''} onChange={onChange}
+          placeholder={placeholder} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] focus:ring-2 focus:ring-[#c81c6a]/10 transition-all resize-none" />
+      ) : (
+        <input type={type} value={value ?? ''} onChange={onChange}
+          placeholder={placeholder} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] focus:ring-2 focus:ring-[#c81c6a]/10 transition-all" />
+      )}
+    </div>
+  );
+}
+
 export default function CategoriesPage() {
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -38,6 +53,10 @@ export default function CategoriesPage() {
   const bannerRef = useRef<HTMLInputElement>(null);
   const mobileImgRef = useRef<HTMLInputElement>(null);
   const desktopBannerRef = useRef<HTMLInputElement>(null);
+
+  const updateField = (field: string, value: any) => {
+    setForm((f: any) => ({ ...f, [field]: value }));
+  };
 
   // Strip alpha channel from hex colors — browser color inputs only accept #rrggbb
   const toHex6 = (hex: string) => {
@@ -96,7 +115,6 @@ export default function CategoriesPage() {
     setUploading(null);
   };
 
-
   const handleSave = async () => {
     if (!form.title || !form.id || !form.image) {
       showToast('Title, ID, and image are required', 'error'); return;
@@ -141,19 +159,6 @@ export default function CategoriesPage() {
       fetchCategories();
     } catch {}
   };
-
-  const InputField = ({ label, field, type = 'text', placeholder = '', full = false }: any) => (
-    <div className={full ? 'col-span-2' : ''}>
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wide">{label}</label>
-      {type === 'textarea' ? (
-        <textarea rows={3} value={form[field] || ''} onChange={e => setForm((f: any) => ({ ...f, [field]: e.target.value }))}
-          placeholder={placeholder} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] focus:ring-2 focus:ring-[#c81c6a]/10 transition-all resize-none" />
-      ) : (
-        <input type={type} value={form[field] || ''} onChange={e => setForm((f: any) => ({ ...f, [field]: e.target.value }))}
-          placeholder={placeholder} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] focus:ring-2 focus:ring-[#c81c6a]/10 transition-all" />
-      )}
-    </div>
-  );
 
   return (
     <div className="p-4 md:p-6 lg:p-8 max-w-[1400px]" style={{ fontFamily: 'AvantGarde, sans-serif' }}>
@@ -272,13 +277,13 @@ export default function CategoriesPage() {
             <div className="px-6 py-5 space-y-4 max-h-[60vh] overflow-y-auto">
               {activeTab === 'basic' && (
                 <div className="grid grid-cols-2 gap-4">
-                  <InputField label="Category Title *" field="title" placeholder="e.g. Crush" />
-                  <InputField label="Category ID *" field="id" placeholder="e.g. 01" />
-                  <InputField label="Slug" field="slug" placeholder="e.g. crush" />
-                  <InputField label="Subtitle" field="subtitle" placeholder="e.g. Pure Botanical Refreshment" />
+                  <InputField label="Category Title *" value={form.title} onChange={(e: any) => updateField('title', e.target.value)} placeholder="e.g. Crush" />
+                  <InputField label="Category ID *" value={form.id} onChange={(e: any) => updateField('id', e.target.value)} placeholder="e.g. 01" />
+                  <InputField label="Slug" value={form.slug} onChange={(e: any) => updateField('slug', e.target.value)} placeholder="e.g. crush" />
+                  <InputField label="Subtitle" value={form.subtitle} onChange={(e: any) => updateField('subtitle', e.target.value)} placeholder="e.g. Pure Botanical Refreshment" />
                   <div className="col-span-2">
                     <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wide">Short Description</label>
-                    <textarea rows={2} value={form.description || ''} onChange={e => setForm((f: any) => ({ ...f, description: e.target.value }))} placeholder="Short description for the category..." className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all resize-none" />
+                    <textarea rows={2} value={form.description || ''} onChange={e => updateField('description', e.target.value)} placeholder="Short description for the category..." className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all resize-none" />
                   </div>
                   {/* Category Image */}
                   <div className="col-span-2">
@@ -287,7 +292,7 @@ export default function CategoriesPage() {
                       <span className="text-[10px] text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full font-mono">Recommended: 800 × 800 px · PNG/WebP · transparent bg</span>
                     </div>
                     <div className="flex gap-3 items-start">
-                      <input type="text" value={form.image || ''} onChange={e => setForm((f: any) => ({ ...f, image: e.target.value }))}
+                      <input type="text" value={form.image || ''} onChange={e => updateField('image', e.target.value)}
                         placeholder="/images/hero/crush_bottle.png" className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all" />
                       <button onClick={() => fileRef.current?.click()} disabled={uploading === 'image'}
                         className="flex items-center gap-2 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 rounded-xl text-xs font-medium text-gray-600 transition-all flex-shrink-0">
@@ -305,27 +310,27 @@ export default function CategoriesPage() {
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wide">Highlight Color *</label>
                     <div className="flex gap-2">
-                      <input type="color" value={toHex6(form.color)} onChange={e => setForm((f: any) => ({ ...f, color: e.target.value }))} className="w-10 h-10 rounded-xl border border-gray-200 cursor-pointer" />
-                      <input type="text" value={form.color || ''} onChange={e => setForm((f: any) => ({ ...f, color: e.target.value }))} className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all" />
+                      <input type="color" value={toHex6(form.color)} onChange={e => updateField('color', e.target.value)} className="w-10 h-10 rounded-xl border border-gray-200 cursor-pointer" />
+                      <input type="text" value={form.color || ''} onChange={e => updateField('color', e.target.value)} className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all" />
                     </div>
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wide">Accent Color</label>
                     <div className="flex gap-2">
-                      <input type="color" value={toHex6(form.accentColor || form.color)} onChange={e => setForm((f: any) => ({ ...f, accentColor: e.target.value }))} className="w-10 h-10 rounded-xl border border-gray-200 cursor-pointer" />
-                      <input type="text" value={form.accentColor || ''} onChange={e => setForm((f: any) => ({ ...f, accentColor: e.target.value }))} className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all" />
+                      <input type="color" value={toHex6(form.accentColor || form.color)} onChange={e => updateField('accentColor', e.target.value)} className="w-10 h-10 rounded-xl border border-gray-200 cursor-pointer" />
+                      <input type="text" value={form.accentColor || ''} onChange={e => updateField('accentColor', e.target.value)} className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all" />
                     </div>
                   </div>
-                  <InputField label="Watermark Text" field="watermarkText" placeholder="e.g. CRUSH" />
-                  <InputField label="Sort Order" field="order" type="number" placeholder="0" />
-                  <InputField label="CTA Button Text" field="ctaText" placeholder="e.g. Buy Now" />
-                  <InputField label="CTA Link" field="ctaLink" placeholder="/shop?cat=crush" />
+                  <InputField label="Watermark Text" value={form.watermarkText} onChange={(e: any) => updateField('watermarkText', e.target.value)} placeholder="e.g. CRUSH" />
+                  <InputField label="Sort Order" value={form.order} onChange={(e: any) => updateField('order', e.target.value)} type="number" placeholder="0" />
+                  <InputField label="CTA Button Text" value={form.ctaText} onChange={(e: any) => updateField('ctaText', e.target.value)} placeholder="e.g. Buy Now" />
+                  <InputField label="CTA Link" value={form.ctaLink} onChange={(e: any) => updateField('ctaLink', e.target.value)} placeholder="/shop?cat=crush" />
                   {/* Toggles */}
                   <div className="col-span-2 flex gap-6">
                     {[['enabled', 'Active'], ['featured', 'Featured']].map(([field, label]) => (
                       <label key={field} className="flex items-center gap-3 cursor-pointer">
                         <div className={`w-10 h-5 rounded-full transition-colors relative ${form[field] ? 'bg-[#c81c6a]' : 'bg-gray-200'}`}
-                          onClick={() => setForm((f: any) => ({ ...f, [field]: !f[field] }))}>
+                          onClick={() => updateField(field, !form[field])}>
                           <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-all ${form[field] ? 'left-5' : 'left-0.5'}`} />
                         </div>
                         <span className="text-sm text-gray-600">{label}</span>
@@ -337,9 +342,9 @@ export default function CategoriesPage() {
 
               {activeTab === 'mobile' && (
                 <div className="space-y-5">
-                  <InputField label="Mobile Title Override" field="mobileTitle" placeholder="Optional override title for mobile" />
-                  <InputField label="Mobile Short Description" field="mobileShortDesc" type="textarea" placeholder="Short text shown in the active mobile card description area" />
-                  <InputField label="Mobile Active Description" field="mobileActiveDesc" type="textarea" placeholder="Longer description (fallback)" />
+                  <InputField label="Mobile Title Override" value={form.mobileTitle} onChange={(e: any) => updateField('mobileTitle', e.target.value)} placeholder="Optional override title for mobile" />
+                  <InputField label="Mobile Short Description" value={form.mobileShortDesc} onChange={(e: any) => updateField('mobileShortDesc', e.target.value)} type="textarea" placeholder="Short text shown in the active mobile card description area" />
+                  <InputField label="Mobile Active Description" value={form.mobileActiveDesc} onChange={(e: any) => updateField('mobileActiveDesc', e.target.value)} type="textarea" placeholder="Longer description (fallback)" />
 
                   {/* Mobile Hero Image */}
                   <div>
@@ -348,7 +353,7 @@ export default function CategoriesPage() {
                       <span className="text-[10px] text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full font-mono">Recommended: 600 × 800 px · PNG/WebP · transparent bg</span>
                     </div>
                     <div className="flex gap-3 items-center">
-                      <input type="text" value={form.mobileHeroImage || ''} onChange={e => setForm((f: any) => ({ ...f, mobileHeroImage: e.target.value }))}
+                      <input type="text" value={form.mobileHeroImage || ''} onChange={e => updateField('mobileHeroImage', e.target.value)}
                         placeholder="https://... or /images/..." className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all" />
                       <button onClick={() => mobileImgRef.current?.click()} disabled={uploading === 'mobileHeroImage'}
                         className="flex items-center gap-2 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 rounded-xl text-xs font-medium text-gray-600 transition-all flex-shrink-0">
@@ -361,7 +366,7 @@ export default function CategoriesPage() {
                         <div className="relative w-16 h-20 rounded-xl overflow-hidden border border-gray-100 bg-gray-50">
                           <Image src={form.mobileHeroImage} alt="mobile preview" fill className="object-contain" sizes="64px" />
                         </div>
-                        <button onClick={() => setForm((f: any) => ({ ...f, mobileHeroImage: '' }))} className="text-xs text-red-400 hover:text-red-600">Remove</button>
+                        <button onClick={() => updateField('mobileHeroImage', '')} className="text-xs text-red-400 hover:text-red-600">Remove</button>
                       </div>
                     )}
                   </div>
@@ -373,7 +378,7 @@ export default function CategoriesPage() {
                       <span className="text-[10px] text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full font-mono">Recommended: 1200 × 600 px · JPG/WebP</span>
                     </div>
                     <div className="flex gap-3 items-center">
-                      <input type="text" value={form.bannerImage || ''} onChange={e => setForm((f: any) => ({ ...f, bannerImage: e.target.value }))}
+                      <input type="text" value={form.bannerImage || ''} onChange={e => updateField('bannerImage', e.target.value)}
                         placeholder="https://... or /images/..." className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all" />
                       <button onClick={() => desktopBannerRef.current?.click()} disabled={uploading === 'bannerImage'}
                         className="flex items-center gap-2 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 rounded-xl text-xs font-medium text-gray-600 transition-all flex-shrink-0">
@@ -386,7 +391,7 @@ export default function CategoriesPage() {
                         <div className="relative w-32 h-16 rounded-xl overflow-hidden border border-gray-100 bg-gray-50">
                           <Image src={form.bannerImage} alt="desktop banner preview" fill className="object-cover" sizes="128px" />
                         </div>
-                        <button onClick={() => setForm((f: any) => ({ ...f, bannerImage: '' }))} className="text-xs text-red-400 hover:text-red-600">Remove</button>
+                        <button onClick={() => updateField('bannerImage', '')} className="text-xs text-red-400 hover:text-red-600">Remove</button>
                       </div>
                     )}
                   </div>
@@ -395,9 +400,9 @@ export default function CategoriesPage() {
 
               {activeTab === 'seo' && (
                 <div className="space-y-4">
-                  <InputField label="SEO Title" field="seoTitle" placeholder="Category page meta title" />
-                  <InputField label="SEO Description" field="seoDescription" type="textarea" placeholder="Category page meta description" />
-                  <InputField label="Low Stock Threshold" field="lowStockThreshold" type="number" placeholder="10" />
+                  <InputField label="SEO Title" value={form.seoTitle} onChange={(e: any) => updateField('seoTitle', e.target.value)} placeholder="Category page meta title" />
+                  <InputField label="SEO Description" value={form.seoDescription} onChange={(e: any) => updateField('seoDescription', e.target.value)} type="textarea" placeholder="Category page meta description" />
+                  <InputField label="Low Stock Threshold" value={form.lowStockThreshold} onChange={(e: any) => updateField('lowStockThreshold', e.target.value)} type="number" placeholder="10" />
                 </div>
               )}
             </div>
@@ -416,3 +421,4 @@ export default function CategoriesPage() {
     </div>
   );
 }
+

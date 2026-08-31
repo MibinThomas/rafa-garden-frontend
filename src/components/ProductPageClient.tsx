@@ -20,17 +20,24 @@ export function ProductPageClient({ product, category }: ProductPageClientProps)
   const router = useRouter();
   const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
   const [quantity, setQuantity] = useState(1);
+
+  // Collect main image and unique gallery image variations
+  const galleryImages = [
+    product.image,
+    ...((product as any).gallery || []).filter((img: string) => img && img !== product.image)
+  ];
+  const [activeImage, setActiveImage] = useState(product.image);
   const isFavorited = isInWishlist(product.id);
 
-  const selectedVariant = product.variants[selectedVariantIdx] || product.variants[0];
-  const currentPrice = selectedVariant.price || 599;
+  const selectedVariant = product.variants?.[selectedVariantIdx] || product.variants?.[0];
+  const currentPrice = selectedVariant?.price || 599;
 
   const handleAddToCart = () => {
     addToCart({
       id: `${product.id}-${selectedVariantIdx}`,
       name: `${product.name} (${selectedVariant.size}${selectedVariant.unit})`.trim(),
       price: currentPrice,
-      image: product.image
+      image: activeImage || product.image
     }, quantity);
   };
 
@@ -39,7 +46,7 @@ export function ProductPageClient({ product, category }: ProductPageClientProps)
       id: `${product.id}-${selectedVariantIdx}`,
       name: `${product.name} (${selectedVariant.size}${selectedVariant.unit})`.trim(),
       price: currentPrice,
-      image: product.image
+      image: activeImage || product.image
     }, quantity);
     router.push("/checkout");
   };
@@ -61,15 +68,16 @@ export function ProductPageClient({ product, category }: ProductPageClientProps)
                 <Heart size={20} fill={isFavorited ? "currentColor" : "none"} strokeWidth={2.5} />
               </button>
 
-              {/* Focal Product Bottle */}
+              {/* Focal Product Stage Image */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.9, y: 30 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                key={activeImage}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4 }}
                 className="relative w-full h-[85%] z-10"
               >
                 <Image
-                  src={product.image}
+                  src={activeImage}
                   alt={product.name}
                   fill
                   className="object-contain drop-shadow-[0_60px_100px_rgba(0,0,0,0.12)]"
@@ -78,17 +86,29 @@ export function ProductPageClient({ product, category }: ProductPageClientProps)
               </motion.div>
             </div>
 
-            {/* Thumbnail Row */}
-            <div className="flex gap-4 md:gap-8 mt-8 md:mt-12">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="w-20 h-20 md:w-32 md:h-32 rounded-[1.5rem] md:rounded-[2.5rem] bg-black/[0.03] border border-white flex items-center justify-center p-4 md:p-8 hover:bg-white hover:shadow-xl transition-all duration-500 cursor-pointer group">
-                  <div className="relative w-full h-full group-hover:scale-110 transition-transform duration-500">
-                    <Image src={product.image} alt="" fill className="object-contain" />
-                  </div>
-                </div>
-              ))}
+            {/* Gallery Thumbnail Variations Row */}
+            <div className="flex gap-3 md:gap-5 mt-6 md:mt-10 overflow-x-auto max-w-full pb-2 no-scrollbar">
+              {galleryImages.map((imgUrl, idx) => {
+                const isActive = activeImage === imgUrl;
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveImage(imgUrl)}
+                    className={`relative w-16 h-16 md:w-24 md:h-24 rounded-2xl bg-white border-2 flex items-center justify-center p-2 transition-all duration-300 cursor-pointer flex-shrink-0 ${
+                      isActive 
+                        ? "border-[#c81c6a] shadow-lg scale-105" 
+                        : "border-gray-200/80 hover:border-gray-300 opacity-70 hover:opacity-100"
+                    }`}
+                  >
+                    <div className="relative w-full h-full">
+                      <Image src={imgUrl} alt={`${product.name} variation ${idx + 1}`} fill className="object-contain" />
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
+
 
           {/* Right Side: Product Details & Controls */}
           <motion.div 

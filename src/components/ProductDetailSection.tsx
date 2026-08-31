@@ -22,8 +22,12 @@ export function ProductDetailSection({ product, categoryTitle, categoryColor, on
   const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const images = Array.isArray((product as any).gallery) && (product as any).gallery.length > 0
+    ? [product.image, ...((product as any).gallery.filter((img: string) => img && img !== product.image))]
+    : [product.image];
 
-  const images = [product.image, product.image, product.image, product.image];
+
+
 
   const selectedVariant = product.variants[selectedVariantIdx] || product.variants[0] || {};
   const isFavorited = isInWishlist(product.id);

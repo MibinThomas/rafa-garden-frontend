@@ -19,6 +19,21 @@ function Toast({ msg, type, onClose }: any) {
   return <div className={`fixed bottom-6 right-6 z-[9999] px-5 py-3 rounded-2xl text-white text-sm font-medium shadow-2xl ${type === 'success' ? 'bg-[#7fa23f]' : 'bg-red-500'}`}>{msg}</div>;
 }
 
+function InputField({ label, value, onChange, type = 'text', placeholder = '', span = 1 }: any) {
+  return (
+    <div className={span === 2 ? 'col-span-2' : ''}>
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wide">{label}</label>
+      {type === 'textarea' ? (
+        <textarea rows={3} value={value || ''} onChange={onChange} placeholder={placeholder}
+          className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all resize-none" />
+      ) : (
+        <input type={type} value={value ?? ''} onChange={onChange} placeholder={placeholder}
+          className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all" />
+      )}
+    </div>
+  );
+}
+
 export default function ProductFormPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const isNew = id === 'new';
@@ -34,6 +49,10 @@ export default function ProductFormPage({ params }: { params: Promise<{ id: stri
   const galleryRef = useRef<HTMLInputElement>(null);
 
   const showToast = (msg: string, type: string) => setToast({ msg, type });
+
+  const updateField = (field: string, value: any) => {
+    setForm((f: any) => ({ ...f, [field]: value }));
+  };
 
   useEffect(() => {
     fetch('/api/categories').then(r => r.json()).then(setCategories).catch(() => {});
@@ -68,7 +87,6 @@ export default function ProductFormPage({ params }: { params: Promise<{ id: stri
     setUploading(null);
   };
 
-
   const handleSave = async () => {
     if (!form.name || !form.category || !form.image) {
       showToast('Name, category, and image are required', 'error'); return;
@@ -101,19 +119,6 @@ export default function ProductFormPage({ params }: { params: Promise<{ id: stri
     } catch { showToast('Save error', 'error'); }
     setSaving(false);
   };
-
-  const Field = ({ label, field, type = 'text', placeholder = '', span = 1 }: any) => (
-    <div className={span === 2 ? 'col-span-2' : ''}>
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wide">{label}</label>
-      {type === 'textarea' ? (
-        <textarea rows={3} value={form[field] || ''} onChange={e => setForm((f: any) => ({ ...f, [field]: e.target.value }))} placeholder={placeholder}
-          className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all resize-none" />
-      ) : (
-        <input type={type} value={form[field] ?? ''} onChange={e => setForm((f: any) => ({ ...f, [field]: e.target.value }))} placeholder={placeholder}
-          className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] transition-all" />
-      )}
-    </div>
-  );
 
   if (loading) return (
     <div className="p-8 flex items-center justify-center min-h-[400px]">
@@ -159,19 +164,19 @@ export default function ProductFormPage({ params }: { params: Promise<{ id: stri
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 space-y-4">
             {activeTab === 'basic' && (
               <div className="grid grid-cols-2 gap-4">
-                <Field label="Product Name *" field="name" placeholder="e.g. Dragon Fruit Crush 500ml" span={2} />
-                <Field label="Product ID" field="id" placeholder="e.g. c-1 (auto-generated if empty)" />
-                <Field label="Slug" field="slug" placeholder="e.g. dragon-fruit-crush-500ml" />
+                <InputField label="Product Name *" value={form.name} onChange={(e: any) => updateField('name', e.target.value)} placeholder="e.g. Dragon Fruit Crush 500ml" span={2} />
+                <InputField label="Product ID" value={form.id} onChange={(e: any) => updateField('id', e.target.value)} placeholder="e.g. c-1 (auto-generated if empty)" />
+                <InputField label="Slug" value={form.slug} onChange={(e: any) => updateField('slug', e.target.value)} placeholder="e.g. dragon-fruit-crush-500ml" />
                 <div className="col-span-2">
                   <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wide">Category *</label>
-                  <select value={form.category || ''} onChange={e => setForm((f: any) => ({ ...f, category: e.target.value }))}
+                  <select value={form.category || ''} onChange={e => updateField('category', e.target.value)}
                     className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] bg-white transition-all">
                     <option value="">Select a category...</option>
                     {categories.map(c => <option key={c.id} value={c.title}>{c.title}</option>)}
                   </select>
                 </div>
-                <Field label="Short Description" field="shortDescription" type="textarea" span={2} placeholder="Brief product summary for cards..." />
-                <Field label="Full Description" field="description" type="textarea" span={2} placeholder="Detailed product description..." />
+                <InputField label="Short Description" value={form.shortDescription} onChange={(e: any) => updateField('shortDescription', e.target.value)} type="textarea" span={2} placeholder="Brief product summary for cards..." />
+                <InputField label="Full Description" value={form.description} onChange={(e: any) => updateField('description', e.target.value)} type="textarea" span={2} placeholder="Detailed product description..." />
 
                 {/* Variants */}
                 <div className="col-span-2">
@@ -206,42 +211,43 @@ export default function ProductFormPage({ params }: { params: Promise<{ id: stri
 
             {activeTab === 'inventory' && (
               <div className="grid grid-cols-2 gap-4">
-                <Field label="SKU / Product Code" field="sku" placeholder="e.g. RG-CRUSH-500" />
-                <Field label="Sort Order" field="sortOrder" type="number" placeholder="0" />
-                <Field label="Price (₹)" field="price" type="number" placeholder="0.00" />
-                <Field label="Offer Price (₹)" field="offerPrice" type="number" placeholder="0.00" />
-                <Field label="Stock Quantity" field="stock" type="number" placeholder="0" />
-                <Field label="Low Stock Threshold" field="lowStockThreshold" type="number" placeholder="10" />
+                <InputField label="SKU / Product Code" value={form.sku} onChange={(e: any) => updateField('sku', e.target.value)} placeholder="e.g. RG-CRUSH-500" />
+                <InputField label="Sort Order" value={form.sortOrder} onChange={(e: any) => updateField('sortOrder', e.target.value)} type="number" placeholder="0" />
+                <InputField label="Price (₹)" value={form.price} onChange={(e: any) => updateField('price', e.target.value)} type="number" placeholder="0.00" />
+                <InputField label="Offer Price (₹)" value={form.offerPrice} onChange={(e: any) => updateField('offerPrice', e.target.value)} type="number" placeholder="0.00" />
+                <InputField label="Stock Quantity" value={form.stock} onChange={(e: any) => updateField('stock', e.target.value)} type="number" placeholder="0" />
+                <InputField label="Low Stock Threshold" value={form.lowStockThreshold} onChange={(e: any) => updateField('lowStockThreshold', e.target.value)} type="number" placeholder="10" />
                 <div>
                   <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wide">Stock Status</label>
-                  <select value={form.stockStatus || 'in-stock'} onChange={e => setForm((f: any) => ({ ...f, stockStatus: e.target.value }))}
+                  <select value={form.stockStatus || 'in-stock'} onChange={e => updateField('stockStatus', e.target.value)}
                     className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#c81c6a] bg-white transition-all">
                     <option value="in-stock">In Stock</option>
                     <option value="low-stock">Low Stock</option>
                     <option value="out-of-stock">Out of Stock</option>
                   </select>
                 </div>
-                <Field label="Weight / Volume" field="weight" placeholder="e.g. 500ml, 250g" />
-                <Field label="Tags (comma separated)" field="tags" placeholder="organic, premium, bestseller" span={2} />
+                <InputField label="Weight / Volume" value={form.weight} onChange={(e: any) => updateField('weight', e.target.value)} placeholder="e.g. 500ml, 250g" />
+                <InputField label="Tags (comma separated)" value={form.tags} onChange={(e: any) => updateField('tags', e.target.value)} placeholder="organic, premium, bestseller" span={2} />
               </div>
             )}
 
             {activeTab === 'details' && (
               <div className="space-y-4">
-                <Field label="Ingredients" field="ingredients" type="textarea" placeholder="List all ingredients..." />
-                <Field label="Nutritional Information" field="nutritionalInfo" type="textarea" placeholder="Calories, protein, etc..." />
-                <Field label="Packaging Details" field="packaging" type="textarea" placeholder="Packaging material, recyclable, etc..." />
+                <InputField label="Ingredients" value={form.ingredients} onChange={(e: any) => updateField('ingredients', e.target.value)} type="textarea" placeholder="List all ingredients..." />
+                <InputField label="Nutritional Information" value={form.nutritionalInfo} onChange={(e: any) => updateField('nutritionalInfo', e.target.value)} type="textarea" placeholder="Calories, protein, etc..." />
+                <InputField label="Packaging Details" value={form.packaging} onChange={(e: any) => updateField('packaging', e.target.value)} type="textarea" placeholder="Packaging material, recyclable, etc..." />
               </div>
             )}
 
             {activeTab === 'seo' && (
               <div className="space-y-4">
-                <Field label="SEO Title" field="seoTitle" placeholder="Product page meta title" />
-                <Field label="SEO Description" field="seoDescription" type="textarea" placeholder="Product page meta description" />
+                <InputField label="SEO Title" value={form.seoTitle} onChange={(e: any) => updateField('seoTitle', e.target.value)} placeholder="Product page meta title" />
+                <InputField label="SEO Description" value={form.seoDescription} onChange={(e: any) => updateField('seoDescription', e.target.value)} type="textarea" placeholder="Product page meta description" />
               </div>
             )}
           </div>
         </div>
+
 
         {/* Sidebar */}
         <div className="space-y-4">
