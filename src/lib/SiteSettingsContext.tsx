@@ -27,7 +27,7 @@ export function SiteSettingsProvider({ children }: { children: ReactNode }) {
 
   const fetchSettings = async () => {
     try {
-      const res = await fetch("/api/content");
+      const res = await fetch("/api/settings");
       
       if (!res.ok) {
         console.warn(`Failed to fetch site settings: ${res.status}`);
@@ -35,25 +35,18 @@ export function SiteSettingsProvider({ children }: { children: ReactNode }) {
         return;
       }
 
-      const contentType = res.headers.get("content-type");
-      if (!contentType || !contentType.includes("application/json")) {
-        console.warn("Received non-JSON response from /api/content");
-        setLoading(false);
-        return;
-      }
-
       const data = await res.json();
       
-      if (Array.isArray(data)) {
-        const settingsMap: any = {};
-        data.forEach((item: any) => {
-          settingsMap[item.key] = item.value;
-        });
-        if (Object.keys(settingsMap).length > 0) {
+      if (data && typeof data === 'object' && !data.error) {
+        if (Array.isArray(data)) {
+          const settingsMap: any = {};
+          data.forEach((item: any) => {
+            settingsMap[item.key] = item.value;
+          });
           setSettings(prev => ({ ...prev, ...settingsMap }));
+        } else {
+          setSettings(prev => ({ ...prev, ...data }));
         }
-      } else {
-        console.error("Data received from /api/content (global) is not an array:", data);
       }
     } catch (err) {
       console.error("Failed to load global settings", err);
@@ -61,6 +54,7 @@ export function SiteSettingsProvider({ children }: { children: ReactNode }) {
       setLoading(false);
     }
   };
+
 
   useEffect(() => {
     fetchSettings();

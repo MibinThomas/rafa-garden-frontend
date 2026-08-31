@@ -99,8 +99,13 @@ export default function CheckoutPage() {
           `Please confirm my order. Thank you!`;
 
         const encodedMessage = encodeURIComponent(message);
-        const whatsappNumber = settings["global.whatsapp_order_number"] || "918550088485";
-        window.location.href = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`; 
+        const rawNumber = settings["global.whatsapp_order_number"] || "918550088485";
+        let whatsappNumber = rawNumber.toString().replace(/\D/g, "");
+        if (whatsappNumber.length === 10) {
+          whatsappNumber = `91${whatsappNumber}`;
+        }
+        window.location.href = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+ 
       } else {
         throw new Error(result.error || "Failed to place order");
       }
