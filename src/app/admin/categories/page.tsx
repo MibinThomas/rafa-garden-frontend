@@ -76,15 +76,17 @@ export default function CategoriesPage() {
   const handleUpload = async (field: string, file: File) => {
     setUploading(field);
     try {
-      // Vercel Blob upload: send raw file body with ?filename= query param
+      const arrayBuffer = await file.arrayBuffer();
       const filename = `categories/${Date.now()}-${file.name.replace(/\s+/g, '-')}`;
       const res = await fetch(`/api/upload?filename=${encodeURIComponent(filename)}`, {
         method: 'POST',
-        body: file,
+        headers: { 'Content-Type': file.type },
+        body: arrayBuffer,
       });
       if (res.ok) {
         const data = await res.json();
-        setForm((f: any) => ({ ...f, [field]: data.url }));
+        const url = data.url || data;
+        setForm((f: any) => ({ ...f, [field]: url }));
         showToast('Image uploaded!', 'success');
       } else {
         const err = await res.json().catch(() => ({}));
@@ -93,6 +95,7 @@ export default function CategoriesPage() {
     } catch { showToast('Upload error', 'error'); }
     setUploading(null);
   };
+
 
   const handleSave = async () => {
     if (!form.title || !form.id || !form.image) {

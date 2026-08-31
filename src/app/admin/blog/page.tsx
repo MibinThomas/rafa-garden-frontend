@@ -49,19 +49,24 @@ export default function BlogPage() {
 
   const handleUpload = async (file: File) => {
     setUploading(true);
-    const fd = new FormData();
-    fd.append('file', file);
-    fd.append('folder', 'uploads/blog');
     try {
-      const res = await fetch('/api/upload', { method: 'POST', body: fd });
+      const arrayBuffer = await file.arrayBuffer();
+      const filename = `blog/${Date.now()}-${file.name.replace(/\s+/g, '-')}`;
+      const res = await fetch(`/api/upload?filename=${encodeURIComponent(filename)}`, {
+        method: 'POST',
+        headers: { 'Content-Type': file.type },
+        body: arrayBuffer
+      });
       if (res.ok) {
         const data = await res.json();
-        setForm((f: any) => ({ ...f, image: data.url }));
+        const url = data.url || data;
+        setForm((f: any) => ({ ...f, image: url }));
         showToast('Uploaded!', 'success');
       }
     } catch {}
     setUploading(false);
   };
+
 
   const handleSave = async () => {
     if (!form.title || !form.excerpt || !form.content) {

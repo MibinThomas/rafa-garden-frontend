@@ -47,23 +47,27 @@ export default function ProductFormPage({ params }: { params: Promise<{ id: stri
 
   const handleUpload = async (field: string, file: File) => {
     setUploading(field);
-    const fd = new FormData();
-    fd.append('file', file);
-    fd.append('folder', 'uploads/products');
     try {
-      const res = await fetch('/api/upload', { method: 'POST', body: fd });
+      const arrayBuffer = await file.arrayBuffer();
+      const res = await fetch(`/api/upload?filename=${encodeURIComponent(file.name)}`, {
+        method: 'POST',
+        headers: { 'Content-Type': file.type },
+        body: arrayBuffer
+      });
       if (res.ok) {
         const data = await res.json();
+        const url = data.url || data;
         if (field === 'gallery') {
-          setForm((f: any) => ({ ...f, gallery: [...(f.gallery || []), data.url] }));
+          setForm((f: any) => ({ ...f, gallery: [...(f.gallery || []), url] }));
         } else {
-          setForm((f: any) => ({ ...f, [field]: data.url }));
+          setForm((f: any) => ({ ...f, [field]: url }));
         }
         showToast('Uploaded!', 'success');
       } else showToast('Upload failed', 'error');
     } catch { showToast('Upload error', 'error'); }
     setUploading(null);
   };
+
 
   const handleSave = async () => {
     if (!form.name || !form.category || !form.image) {
