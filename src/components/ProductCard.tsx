@@ -6,20 +6,35 @@ import { motion } from "framer-motion";
 import { useCart } from "@/lib/CartContext";
 import { useWishlist } from "@/lib/WishlistContext";
 import { Product } from "@/lib/data";
-import { Heart, Plus, Minus } from "lucide-react";
+import { Heart, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { product: Product, accentColor?: string, onSelect?: (product: Product) => void }) {
+export function ProductCard({ 
+  product, 
+  accentColor = "#c81c6a", 
+  onSelect 
+}: { 
+  product: Product, 
+  accentColor?: string, 
+  onSelect?: (product: Product) => void 
+}) {
   const { addToCart } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
   const router = useRouter();
   const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
-  const [quantity, setQuantity] = useState(1);
 
   const selectedVariant = product.variants[selectedVariantIdx] || { size: "Standard", unit: "", price: 599 };
   const currentPrice = selectedVariant.price || 599.00;
   const isFavorited = isInWishlist(product.id);
+
+  const handleCardClick = (e: React.MouseEvent) => {
+    if (onSelect) {
+      onSelect(product);
+    } else {
+      router.push(`/product/${product.id}`);
+    }
+  };
 
   const handleBuyNow = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -29,7 +44,7 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
       name: `${product.name} (${selectedVariant.size} ${selectedVariant.unit})`.trim(),
       price: currentPrice,
       image: product.image
-    }, quantity);
+    }, 1);
     router.push("/checkout");
   };
 
@@ -39,73 +54,73 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
     toggleWishlist(product.id);
   };
 
+  const shortDescription = product.subtitle || product.description || "Pure botanical refreshment and natural quality.";
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-30px" }}
       transition={{ duration: 0.3 }}
-      className="group relative flex flex-col justify-between bg-[#f1f1f2] rounded-[18px] p-3 sm:p-4 border border-[#a8a8aa] transition-all duration-300 h-full w-full font-sans"
-      style={{ fontFamily: "'AvantGarde', sans-serif" }}
+      onClick={handleCardClick}
+      className="group relative flex flex-col justify-between bg-white rounded-[20px] p-5 border-0 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-300 h-full w-full font-sans cursor-pointer overflow-hidden select-none"
     >
       {/* Wishlist Favorite Button (Top Right) */}
       <button
         onClick={handleWishlist}
         aria-label="Add to wishlist"
-        className="absolute top-3 right-3 z-30 w-7 h-7 flex items-center justify-center transition-transform active:scale-90"
+        className="absolute top-4 right-4 z-30 w-8 h-8 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 shadow-xs"
       >
         <Heart
-          size={20}
-          fill={isFavorited ? "#c81c6a" : "none"}
-          className={isFavorited ? "text-[#c81c6a]" : "text-[#b0b0b2] hover:text-[#555]"}
-          strokeWidth={1.8}
+          size={18}
+          fill={isFavorited ? accentColor : "none"}
+          className={isFavorited ? "" : "text-gray-400 hover:text-gray-600"}
+          style={{ color: isFavorited ? accentColor : undefined }}
+          strokeWidth={2}
         />
       </button>
 
-      {/* Product Image Link */}
-      <Link
-        href={`/product/${product.id}`}
-        className="relative w-full aspect-[4/5] flex items-center justify-center p-2 mb-2 cursor-pointer"
-      >
-        <motion.div
-          className="relative w-[85%] h-[85%]"
-          whileHover={{ scale: 1.05, y: -3 }}
-          transition={{ type: "spring", stiffness: 260, damping: 20 }}
-        >
+      {/* Product Image Section (Occupies 60-70% height) */}
+      <div className="relative w-full aspect-[4/3.8] sm:aspect-[4/3.5] flex items-center justify-center p-3 mb-3 bg-[#fafafa]/60 rounded-[14px] overflow-hidden">
+        <div className="relative w-[80%] h-[82%] group-hover:scale-105 transition-transform duration-300 ease-out">
           <Image
             src={product.image}
             alt={product.name}
             fill
-            className="object-contain drop-shadow-[0_8px_18px_rgba(0,0,0,0.12)]"
+            className="object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.1)]"
             priority
           />
-        </motion.div>
-      </Link>
+        </div>
+      </div>
 
-      {/* Product Details Section */}
-      <div className="flex flex-col mt-auto w-full space-y-2 font-sans" style={{ fontFamily: "'AvantGarde', sans-serif" }}>
-        {/* Product Name */}
-        <Link href={`/product/${product.id}`} className="block">
-          <h3 className="text-sm sm:text-base font-bold text-[#3d3d3f] leading-snug line-clamp-2" style={{ fontFamily: "'AvantGarde', sans-serif" }}>
+      {/* Content Area (Lower ~30-40%) */}
+      <div className="flex flex-col flex-1 justify-between w-full space-y-2 pt-1">
+        <div>
+          {/* Collection / Product Title */}
+          <h3 className="text-base sm:text-lg font-bold text-[#1d1d1f] leading-snug line-clamp-1 tracking-tight group-hover:text-[#c81c6a] transition-colors duration-200" style={{ color: undefined }}>
             {product.name}
           </h3>
-        </Link>
 
-        {/* Optional Variant Pills if multiple variants exist */}
+          {/* Short Description */}
+          <p className="text-xs text-[#6e6e73] font-normal leading-relaxed line-clamp-2 mt-1 min-h-[34px]">
+            {shortDescription}
+          </p>
+        </div>
+
+        {/* Optional Variant Pills if multiple exist */}
         {product.variants.length > 1 && (
-          <div className="flex items-center gap-1 overflow-x-auto no-scrollbar pt-0.5">
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5" onClick={(e) => e.stopPropagation()}>
             {product.variants.map((v, idx) => {
               const isActive = selectedVariantIdx === idx;
               return (
                 <button
                   key={idx}
                   onClick={(e) => { e.stopPropagation(); setSelectedVariantIdx(idx); }}
-                  className={`px-2 py-0.5 rounded-md text-[10px] font-bold transition-all ${
+                  className={`px-2 py-0.5 rounded-full text-[10px] font-semibold transition-all ${
                     isActive 
-                      ? "bg-[#c81c6a] text-white" 
-                      : "bg-white/70 text-gray-600 hover:bg-white"
+                      ? "bg-[#1d1d1f] text-white" 
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                   }`}
-                  style={{ fontFamily: "'AvantGarde', sans-serif" }}
                 >
                   {v.size}{v.unit}
                 </button>
@@ -114,52 +129,25 @@ export function ProductCard({ product, accentColor = "#c81c6a", onSelect }: { pr
           </div>
         )}
 
-        {/* Price & Quantity Controls Row */}
-        <div className="flex items-center justify-between pt-1 font-sans" style={{ fontFamily: "'AvantGarde', sans-serif" }}>
-          {/* Price */}
-          <span className="text-xl sm:text-2xl font-black text-[#252527] tracking-tight" style={{ fontFamily: "'AvantGarde', sans-serif" }}>
-            ₹{currentPrice.toFixed(0)}
-          </span>
-
-          {/* Quantity Selector: - 1 + */}
-          <div className="flex items-center gap-2 font-sans" style={{ fontFamily: "'AvantGarde', sans-serif" }}>
-            <button
-              onClick={(e) => { e.stopPropagation(); if (quantity > 1) setQuantity(prev => prev - 1); }}
-              className="w-5 h-5 flex items-center justify-center text-[#222] hover:text-[#c81c6a] active:scale-90 transition-all cursor-pointer"
-            >
-              <Minus size={16} strokeWidth={3.5} />
-            </button>
-            <span className="text-sm font-bold text-[#222] min-w-[12px] text-center" style={{ fontFamily: "'AvantGarde', sans-serif" }}>
-              {quantity}
-            </span>
-            <button
-              onClick={(e) => { e.stopPropagation(); setQuantity(prev => prev + 1); }}
-              className="w-5 h-5 flex items-center justify-center text-[#222] hover:text-[#c81c6a] active:scale-90 transition-all cursor-pointer"
-            >
-              <Plus size={16} strokeWidth={3.5} />
-            </button>
-          </div>
-        </div>
-
-        {/* Action Buttons Row: [ Buy Now ] [ View Details ] */}
-        <div className="grid grid-cols-2 gap-2 pt-1 font-sans" style={{ fontFamily: "'AvantGarde', sans-serif" }}>
+        {/* Bottom CTA & Price Bar */}
+        <div className="flex items-center justify-between pt-2 border-t border-gray-100/80 mt-2">
+          {/* CTA Link: "Buy now →" */}
           <button
             onClick={handleBuyNow}
-            className="w-full py-2.5 px-1.5 rounded-xl sm:rounded-full bg-transparent border border-[#525254] text-[#3d3d3f] hover:bg-[#525254] hover:text-white font-bold text-xs sm:text-sm transition-all active:scale-95 text-center cursor-pointer"
-            style={{ fontFamily: "'AvantGarde', sans-serif" }}
+            className="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold transition-all duration-200 group/cta cursor-pointer"
+            style={{ color: accentColor }}
           >
-            Buy Now
+            <span>Buy now</span>
+            <ChevronRight size={14} className="group-hover/cta:translate-x-0.5 transition-transform duration-200 stroke-[2.5]" />
           </button>
 
-          <Link
-            href={`/product/${product.id}`}
-            className="w-full py-2.5 px-1.5 rounded-xl sm:rounded-full bg-[#c81c6a] hover:bg-[#b0185c] text-white font-bold text-xs sm:text-sm transition-all active:scale-95 text-center shadow-xs block"
-            style={{ fontFamily: "'AvantGarde', sans-serif" }}
-          >
-            View Details
-          </Link>
+          {/* Price Badge */}
+          <span className="text-xs sm:text-sm font-bold text-[#1d1d1f] bg-gray-100/80 px-2.5 py-1 rounded-full">
+            ₹{currentPrice.toFixed(0)}
+          </span>
         </div>
       </div>
     </motion.div>
   );
 }
+
