@@ -24,35 +24,31 @@ export function ProductCard({
   const router = useRouter();
   const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
 
-  const selectedVariant = product.variants[selectedVariantIdx] || { size: "Standard", unit: "", price: 599 };
-  const currentPrice = selectedVariant.price || 599.00;
-  const isFavorited = isInWishlist(product.id);
+  const selectedVariant = product.variants?.[selectedVariantIdx] || product.variants?.[0];
+  const currentPrice = selectedVariant?.price || (product as any).offerPrice || (product as any).price || 599.00;
+  const productId = product.id || (product as any)._id || "";
+  const isFavorited = isInWishlist(productId);
 
   const handleCardClick = (e: React.MouseEvent) => {
     if (onSelect) {
       onSelect(product);
     } else {
-      router.push(`/product/${product.id}`);
+      router.push(`/product/${productId}`);
     }
   };
 
   const handleBuyNow = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    addToCart({
-      id: `${product.id}-${selectedVariantIdx}`,
-      name: `${product.name} (${selectedVariant.size} ${selectedVariant.unit})`.trim(),
-      price: currentPrice,
-      image: product.image
-    }, 1);
-    router.push("/checkout");
+    router.push(`/product/${productId}`);
   };
 
   const handleWishlist = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    toggleWishlist(product.id);
+    toggleWishlist(productId);
   };
+
 
   const shortDescription = product.subtitle || product.description || "Pure botanical refreshment and natural quality.";
 

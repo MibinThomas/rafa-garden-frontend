@@ -3,6 +3,15 @@ import dbConnect from '@/lib/mongodb';
 import Product from '@/models/Product';
 import Category from '@/models/Category';
 
+async function findProductByIdOrSlug(id: string) {
+  const isObjectId = /^[0-9a-fA-F]{24}$/.test(id);
+  if (isObjectId) {
+    const product = await Product.findById(id);
+    if (product) return product;
+  }
+  return await Product.findOne({ $or: [{ id: id }, { slug: id }] });
+}
+
 // GET: Fetch a single product
 export async function GET(
   request: Request,
@@ -11,7 +20,7 @@ export async function GET(
   try {
     const { id } = await params;
     await dbConnect();
-    const product = await Product.findById(id);
+    const product = await findProductByIdOrSlug(id);
     if (!product) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
@@ -32,13 +41,13 @@ export async function PUT(
     const body = await request.json();
     
     // Find original product to check if category changed
-    const originalProduct = await Product.findById(id);
+    const originalProduct = await findProductByIdOrSlug(id);
     if (!originalProduct) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
     
     const updatedProduct = await Product.findByIdAndUpdate(
-      id,
+      originalProduct._id,
       body,
       { new: true, runValidators: true }
     );
@@ -48,12 +57,12 @@ export async function PUT(
       // Remove from old category
       await Category.findOneAndUpdate(
         { title: originalProduct.category },
-        { $pull: { products: id } }
+        { $pull: { products: originalProduct._id } }
       );
       // Add to new category
       await Category.findOneAndUpdate(
         { title: body.category },
-        { $addToSet: { products: id } }
+        { $addToSet: { products: originalProduct._id } }
       );
     }
     
@@ -73,7 +82,7 @@ export async function DELETE(
     await dbConnect();
     
     // Find the product to get its category before deleting
-    const product = await Product.findById(id);
+    const product = await findProductByIdOrSlug(id);
     if (!product) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
@@ -81,14 +90,15 @@ export async function DELETE(
     // Remove reference from Category
     await Category.findOneAndUpdate(
       { title: product.category },
-      { $pull: { products: id } }
+      { $pull: { products: product._id } }
     );
     
     // Delete the product
-    await Product.findByIdAndDelete(id);
+    await Product.findByIdAndDelete(product._id);
     
     return NextResponse.json({ message: 'Product deleted successfully' });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+

@@ -3,10 +3,11 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { User, ShoppingBasket, Search, Menu, X, ArrowRight, Sparkles } from "lucide-react";
+import { User, ShoppingBasket, Search, Menu, X, ArrowRight, Sparkles, Heart } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useCart } from "@/lib/CartContext";
+import { useWishlist } from "@/lib/WishlistContext";
 import { useHeaderColor } from "@/lib/HeaderColorContext";
 import { useSiteSettings } from "@/lib/SiteSettingsContext";
 import { CATEGORIES } from "@/lib/data";
@@ -21,9 +22,12 @@ export function FloatingHeader() {
   const pathname = usePathname();
   const router = useRouter();
   const { openCart, items } = useCart();
+  const { wishlistIds } = useWishlist();
   const { headerColor, isImmersive } = useHeaderColor();
   const { settings } = useSiteSettings();
   const itemCount = items.reduce((total: number, item: any) => total + item.quantity, 0);
+  const wishlistCount = wishlistIds.length;
+
 
   useEffect(() => {
     fetch("/api/categories")
@@ -226,13 +230,22 @@ export function FloatingHeader() {
 
             {/* Utility Icons */}
             <div className="flex items-center gap-4 border-l border-black/5 pl-6">
+              <Link href="/wishlist" className="text-[#333333]/50 hover:text-[#c81c6a] hover:scale-110 transition-all relative block" title="Wishlist">
+                <Heart size={22} strokeWidth={1.5} />
+                {wishlistCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-[#c81c6a] text-white text-[0.6rem] font-bold w-4 h-4 flex items-center justify-center rounded-full shadow-lg">
+                    {wishlistCount}
+                  </span>
+                )}
+              </Link>
+
               <Link href="/auth" className="text-[#333333]/50 hover:text-[#333333] hover:scale-110 transition-all block">
                 <User size={22} strokeWidth={1.5} />
               </Link>
               
               <button 
                 onClick={openCart}
-                className="text-[#333333]/50 hover:text-[#333333] relative hover:scale-110 transition-all"
+                className="text-[#333333]/50 hover:text-[#333333] relative hover:scale-110 transition-all cursor-pointer"
               >
                 <ShoppingBasket size={24} strokeWidth={1.5} />
                 {itemCount > 0 && (
@@ -336,6 +349,14 @@ export function FloatingHeader() {
 
         {/* Right: Action Icons */}
         <div className="flex-none flex items-center gap-4 md:gap-6">
+          <Link href="/wishlist" className="text-[#333333]/50 hover:text-[#c81c6a] relative" title="Wishlist">
+            <Heart size={20} strokeWidth={1.5} className="md:w-6 md:h-6" />
+            {wishlistCount > 0 && (
+              <span className="absolute -top-1 -right-1 md:-top-1.5 md:-right-1.5 bg-[#c81c6a] text-white text-[0.5rem] md:text-[0.6rem] font-bold w-3.5 h-3.5 md:w-4.5 md:h-4.5 flex items-center justify-center rounded-full">
+                {wishlistCount}
+              </span>
+            )}
+          </Link>
           <Link href="/auth" className="text-[#333333]/50">
             <User size={20} strokeWidth={1.5} className="md:w-6 md:h-6" />
           </Link>
@@ -357,6 +378,7 @@ export function FloatingHeader() {
             <Menu size={22} strokeWidth={1.5} className="md:w-[26px] md:h-[26px]" />
           </button>
         </div>
+
       </div>
 
       {/* Right-Side Mobile Drawer Navigation */}
