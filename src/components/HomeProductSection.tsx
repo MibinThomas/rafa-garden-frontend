@@ -105,7 +105,7 @@ export function HomeProductSection({
 
   return (
     <section 
-      className={cn("bg-[#f4f4f6] pt-8 pb-14 px-4 sm:px-8 md:px-14 lg:px-24 relative overflow-hidden select-none", className)}
+      className={cn("bg-[#f4f4f6] pt-5 pb-10 sm:pt-8 sm:pb-14 px-3 sm:px-8 md:px-14 lg:px-24 relative overflow-hidden select-none", className)}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -115,19 +115,20 @@ export function HomeProductSection({
         <div className="flex flex-col w-full">
           
           {/* Showcase Section Header matching Reference Image */}
-          <div className="flex items-center justify-between mb-6 md:mb-8">
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-[#1d1d1f] tracking-tight font-sans">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 mb-4 sm:mb-6 md:mb-8">
+            <h2 className="text-xl sm:text-3xl md:text-5xl font-extrabold text-[#1d1d1f] tracking-tight font-sans">
               {displayTitle}
             </h2>
 
             <Link 
               href={`/shop?cat=${category.title?.toLowerCase() || ''}`}
-              className="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-[#c81c6a] hover:text-[#9a0c52] hover:underline transition-all"
+              className="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-[#c81c6a] hover:text-[#9a0c52] hover:underline transition-all flex-shrink-0 whitespace-nowrap"
             >
               <span>View all {category.title?.toLowerCase() || 'collection'}</span>
               <ChevronRight size={14} className="stroke-[2.5]" />
             </Link>
           </div>
+
 
           {/* Carousel Slide Track with generous spacing */}
           <div 
