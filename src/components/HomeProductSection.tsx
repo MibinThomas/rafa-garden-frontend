@@ -122,7 +122,7 @@ export function HomeProductSection({
 
             <Link 
               href={`/shop?cat=${category.title?.toLowerCase() || ''}`}
-              className="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-[#0066cc] hover:text-[#004499] hover:underline transition-all"
+              className="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-[#c81c6a] hover:text-[#9a0c52] hover:underline transition-all"
             >
               <span>View all {category.title?.toLowerCase() || 'collection'}</span>
               <ChevronRight size={14} className="stroke-[2.5]" />
