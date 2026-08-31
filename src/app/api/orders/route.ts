@@ -84,10 +84,31 @@ export async function DELETE(request: Request) {
 export async function PATCH(request: Request) {
   try {
     await dbConnect();
-    const { id, status, paymentStatus } = await request.json();
-    const order = await Order.findByIdAndUpdate(id, { status, paymentStatus }, { new: true });
+    const body = await request.json();
+    const { id, status, paymentStatus, customer, trackingNumber, notes } = body;
+
+    if (!id) {
+      return NextResponse.json({ error: "Order ID is required" }, { status: 400 });
+    }
+
+    const updateFields: any = {};
+    if (status !== undefined) updateFields.status = status;
+    if (paymentStatus !== undefined) updateFields.paymentStatus = paymentStatus;
+    if (customer !== undefined) updateFields.customer = customer;
+    if (trackingNumber !== undefined) updateFields.trackingNumber = trackingNumber;
+    if (notes !== undefined) updateFields.notes = notes;
+
+    const order = await Order.findByIdAndUpdate(id, { $set: updateFields }, { new: true });
+    if (!order) {
+      return NextResponse.json({ error: "Order not found" }, { status: 404 });
+    }
     return NextResponse.json(order);
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+
+export async function PUT(request: Request) {
+  return PATCH(request);
+}
+
