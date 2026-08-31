@@ -3,27 +3,81 @@ import dbConnect from '@/lib/mongodb';
 import Category from '@/models/Category';
 import Product from '@/models/Product'; // Ensure Product model is registered for population
 
-// GET: Fetch all categories with populated products
+// GET: Fetch all categories with populated and dynamically matched products
 export async function GET() {
   try {
     await dbConnect();
     
-    // Explicitly reference the Product model to ensure it's registered
-    // even if it was just imported above. Some Next.js builds/runtimes
-    // can be aggressive with tree-shaking or optimization.
     const _ignore = Product.modelName; 
 
-    // Use .populate('products') to fetch full product details for the frontend
-    const categories = await Category.find({})
+    // 1. Fetch all category documents
+    const rawCategories = await Category.find({})
       .sort({ id: 1 })
-      .populate('products');
+      .populate('products')
+      .lean();
+
+    // 2. Fetch all product documents sorted by creation date
+    const allProducts = await Product.find({}).sort({ createdAt: -1 }).lean();
+
+    // 3. Dynamically merge products for each category
+    const categoriesWithProducts = rawCategories.map((catDoc: any) => {
+      const catTitleLower = (catDoc.title || "").toLowerCase().trim();
+      const catIdLower = (catDoc.id || "").toLowerCase().trim();
+      const catSlugLower = (catDoc.slug || "").toLowerCase().trim();
+
+      const populatedProds = Array.isArray(catDoc.products) ? catDoc.products : [];
+
+      // Find products in DB whose `category` field matches cat title, id, or slug
+      const matchedDbProds = allProducts.filter((p: any) => {
+        if (!p.category) return false;
+        const pCatLower = p.category.toLowerCase().trim();
+        return (
+          pCatLower === catTitleLower ||
+          pCatLower === catIdLower ||
+          pCatLower === catSlugLower ||
+          (catTitleLower && pCatLower.includes(catTitleLower)) ||
+          (catTitleLower && catTitleLower.includes(pCatLower))
+        );
+      });
+
+      // Deduplicate using a Map
+      const productMap = new Map();
+
+      // Add populated products first
+      populatedProds.forEach((p: any) => {
+        if (p && (p._id || p.id)) {
+          const key = (p._id || p.id).toString();
+          productMap.set(key, JSON.parse(JSON.stringify({
+            ...p,
+            id: p.id || p._id?.toString()
+          })));
+        }
+      });
+
+      // Add matching DB products (ensures newly added admin products are present)
+      matchedDbProds.forEach((p: any) => {
+        if (p && (p._id || p.id)) {
+          const key = (p._id || p.id).toString();
+          productMap.set(key, JSON.parse(JSON.stringify({
+            ...p,
+            id: p.id || p._id?.toString()
+          })));
+        }
+      });
+
+      return {
+        ...JSON.parse(JSON.stringify(catDoc)),
+        products: Array.from(productMap.values())
+      };
+    });
       
-    return NextResponse.json(categories);
+    return NextResponse.json(categoriesWithProducts);
   } catch (error: any) {
     console.error("Categories fetch error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+
 
 // POST: Create or Update a category
 export async function POST(request: Request) {

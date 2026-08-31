@@ -38,13 +38,15 @@ export async function POST(request: Request) {
     // Create the product
     const product = await Product.create(body);
     
-    // Update the corresponding category to include this product
+    // Update the corresponding category to include this product (case-insensitive lookup by title, id, or slug)
     if (body.category) {
+      const catRegex = new RegExp(`^${body.category.trim()}$`, 'i');
       await Category.findOneAndUpdate(
-        { title: body.category },
+        { $or: [{ title: catRegex }, { id: body.category }, { slug: body.category }] },
         { $addToSet: { products: product._id } }
       );
     }
+
     
     return NextResponse.json(product);
   } catch (error: any) {

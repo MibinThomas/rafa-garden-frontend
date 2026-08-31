@@ -54,17 +54,21 @@ export async function PUT(
     
     // If category changed, update references in Category documents
     if (body.category && body.category !== originalProduct.category) {
+      const oldCatRegex = new RegExp(`^${originalProduct.category.trim()}$`, 'i');
+      const newCatRegex = new RegExp(`^${body.category.trim()}$`, 'i');
+
       // Remove from old category
       await Category.findOneAndUpdate(
-        { title: originalProduct.category },
+        { $or: [{ title: oldCatRegex }, { id: originalProduct.category }, { slug: originalProduct.category }] },
         { $pull: { products: originalProduct._id } }
       );
       // Add to new category
       await Category.findOneAndUpdate(
-        { title: body.category },
+        { $or: [{ title: newCatRegex }, { id: body.category }, { slug: body.category }] },
         { $addToSet: { products: originalProduct._id } }
       );
     }
+
     
     return NextResponse.json(updatedProduct);
   } catch (error: any) {

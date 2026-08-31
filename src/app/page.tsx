@@ -153,19 +153,23 @@ export default function Home() {
 
                 if (!cat) return null;
 
-                // Filter products based on CMS selected product IDs
-                let filteredProducts: any[] = [];
+                // Resolve products so newly added admin products automatically display
+                let displayProducts = cat.products || [];
                 if (Array.isArray(ser.productIds) && ser.productIds.length > 0) {
-                  filteredProducts = cat.products?.filter((p: any) => 
+                  const cmsProducts = displayProducts.filter((p: any) => 
                     ser.productIds.includes(p.id) || ser.productIds.includes(p._id?.toString())
-                  ) || [];
+                  );
+                  const newProducts = displayProducts.filter((p: any) => 
+                    !ser.productIds.includes(p.id) && !ser.productIds.includes(p._id?.toString())
+                  );
+                  displayProducts = [...cmsProducts, ...newProducts];
                 }
 
-                // If filtered products is empty or not matching, fallback to all category products
                 const customCat = {
                   ...cat,
-                  products: (filteredProducts && filteredProducts.length > 0) ? filteredProducts : (cat.products || [])
+                  products: displayProducts.length > 0 ? displayProducts : (cat.products || [])
                 };
+
 
                 return (
                   <div key={ser.categoryId || idx} className="mb-0 last:mb-0">
