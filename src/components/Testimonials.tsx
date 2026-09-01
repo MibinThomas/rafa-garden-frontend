@@ -3,10 +3,13 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import Image from "next/image";
+
 
 interface TestimonialsProps {
   content?: Record<string, string>;
 }
+
 
 export function Testimonials({ content = {} }: TestimonialsProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -118,7 +121,26 @@ export function Testimonials({ content = {} }: TestimonialsProps) {
                 <p className="text-xl md:text-3xl font-playfair text-[#5d5f61] leading-relaxed italic mb-10">
                   "{testimonials[currentIndex].quote}"
                 </p>
-                <div className="flex flex-col items-center justify-center gap-1">
+                <div className="flex flex-col items-center justify-center gap-2">
+                  {/* Customer Profile Photo */}
+                  <div className="mb-1">
+                    {testimonials[currentIndex].image ? (
+                      <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-[#c81c6a]/30 shadow-sm">
+                        <Image
+                          src={testimonials[currentIndex].image}
+                          alt={testimonials[currentIndex].author || "Customer"}
+                          fill
+                          className="object-cover"
+                          sizes="64px"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#c81c6a] to-[#9a0c52] text-white flex items-center justify-center font-bold text-xl shadow-sm">
+                        {testimonials[currentIndex].author ? testimonials[currentIndex].author.charAt(0) : "R"}
+                      </div>
+                    )}
+                  </div>
+
                   <span className="font-bold text-[#5d5f61] tracking-wide text-lg">
                     {testimonials[currentIndex].author}
                   </span>
@@ -128,6 +150,7 @@ export function Testimonials({ content = {} }: TestimonialsProps) {
                     </span>
                   )}
                 </div>
+
               </motion.div>
             </AnimatePresence>
           </div>
