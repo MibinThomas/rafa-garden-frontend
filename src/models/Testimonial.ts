@@ -5,7 +5,9 @@ const TestimonialSchema = new mongoose.Schema({
   role: { type: String },
   quote: { type: String, required: true },
   rating: { type: Number, default: 5 },
-  image: { type: String }, // Recommended: 150x150px square avatar
+  image: { type: String }, // Customer Profile Photo URL
+  location: { type: String }, // e.g. Mumbai, UAE, etc.
+  productName: { type: String }, // Associated product e.g. Dragon Fruit Jam 500g
   order: { type: Number, default: 0 },
   isPublished: { type: Boolean, default: true },
 }, { timestamps: true });
